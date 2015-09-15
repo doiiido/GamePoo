@@ -1,0 +1,5 @@
+Informações sobre as versões do SDK utilizadas na criação do projeto.
+
+Versão mínima: Android 4.0.3 (API 15).
+Versão alvo: Android 5.0.1 (API 21).
+Versão do Compilador: Android 4.0.3 (API 15).
