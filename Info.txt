@@ -1,0 +1,26 @@
+Aprendam como funciona para contribuirem com o projeto:
+https://guides.github.com/activities/contributing-to-open-source/
+
+·Gerente do GitHub:
+  Bruno;
+·Gerente do projeto:
+  Lincoln;
+·Equipe responsável pela integração da Engine:
+  Bruno;
+  Fabio;
+  Leandro;
+  Fernando;
+  Christian;
+·Equipe responsável pela sonoplastia:
+  Gross;
+  Italo;
+·Equipe responsável pela storyline:
+  João;
+  Bruno;
+  Renne;
+·Equipe responsável pela Interface gráfica:
+  João;
+  Marcos;
+  Rennê;
+  Edgar;
+  Lincoln
