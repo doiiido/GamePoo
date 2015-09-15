@@ -23,4 +23,4 @@ https://guides.github.com/activities/contributing-to-open-source/
   Marcos;
   Rennê;
   Edgar;
-  Lincoln
+  Lincoln.
