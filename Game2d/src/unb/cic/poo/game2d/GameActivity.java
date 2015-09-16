@@ -35,7 +35,7 @@ public class GameActivity extends BaseGameActivity {
 			throws Exception {
 		// Create the Scene
 		Scene mScene = new Scene();
-		mScene.setBackground(new Background(0.3f, 0.3f, 0.3f));
+		mScene.setBackground(new Background(0.3f, 0.9f, 0.3f));
 		// and then provide the callback
 		//this callback requires a Scene parameter
 		pOnCreateSceneCallback.onCreateSceneFinished(mScene);
