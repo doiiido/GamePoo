@@ -1,5 +1,7 @@
 package unb.cic.poo.game2d;
 
+import org.andengine.engine.Engine;
+import org.andengine.engine.FixedStepEngine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
@@ -8,17 +10,23 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.ui.activity.BaseGameActivity;
 
+
 public class GameActivity extends BaseGameActivity {
 	
-	static final int CAMERA_WIDTH = 800;
-    static final int CAMERA_HEIGHT = 480;
-
+	static final int CAMERA_WIDTH = 850;
+    static final int CAMERA_HEIGHT = 500;
+    
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		Camera mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+		
         return new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR,
             new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), mCamera);
-    
+	}
+	
+	public Engine onCreateEngine(EngineOptions pEngineOptions) {
+		//Cria uma engine com um step de simulação de 60 steps por segundo.
+		return new FixedStepEngine(pEngineOptions, 60);
 	}
 
 	@Override
@@ -35,7 +43,18 @@ public class GameActivity extends BaseGameActivity {
 			throws Exception {
 		// Create the Scene
 		Scene mScene = new Scene();
-		mScene.setBackground(new Background(0.3f, 0.9f, 0.3f));
+		//Scene com o Background preto ainda...
+		mScene.setBackground(new Background(0, 0, 0));
+		
+		//Fazer com que a classe GameManager seja um listener da Scene do jogo.
+		mScene.setOnSceneTouchListener(GameManager.getInstance());
+		
+		//Configurando atributos de GameManager
+		GameManager.getInstance().setGameEngine(this.mEngine);
+		GameManager.getInstance().setGameCamera(this.mEngine.getCamera());
+		GameManager.getInstance().setPlayer(new Player());
+		GameManager.getInstance().setGameScene(mScene);
+		
 		// and then provide the callback
 		//this callback requires a Scene parameter
 		pOnCreateSceneCallback.onCreateSceneFinished(mScene);
@@ -44,6 +63,8 @@ public class GameActivity extends BaseGameActivity {
 	@Override
 	public void onPopulateScene(Scene pScene,
 			OnPopulateSceneCallback pOnPopulateSceneCallback) throws Exception {
+		//Insere o Player na Scene.
+		pScene.attachChild(GameManager.getInstance().getPlayer());
 		// Populate the Scene here
 		// and then provide the callback
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
