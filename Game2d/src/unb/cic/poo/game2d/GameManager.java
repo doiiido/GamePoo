@@ -1,5 +1,7 @@
 package unb.cic.poo.game2d;
 
+import java.util.ArrayList;
+
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.modifier.MoveByModifier;
@@ -17,6 +19,7 @@ public class GameManager implements IOnSceneTouchListener{
 	private Player player;
 	private Camera gameCamera;
 	private Scene gameScene;
+	private ArrayList<Enemy> WaveEnemies; //Armazena os inimigos da Wave.
 	
 	//Esse método será usado para obter o único objeto que será instanciado da classe GameManager.
 	public static GameManager getInstance(){
@@ -33,16 +36,13 @@ public class GameManager implements IOnSceneTouchListener{
 		return gameEngine;
 	}
 
-
 	public void setGameEngine(Engine gameEngine) {
 		this.gameEngine = gameEngine;
 	}
 
-
 	public Player getPlayer() {
 		return player;
 	}
-
 
 	public void setPlayer(Player player) {
 		this.player = player;
@@ -67,6 +67,14 @@ public class GameManager implements IOnSceneTouchListener{
 	public void setGameScene(Scene gameScene) {
 		this.gameScene = gameScene;
 	}
+	
+	public ArrayList<Enemy> getEnemies() {
+		return WaveEnemies;
+	}
+
+	public void setEnemies(ArrayList<Enemy> enemies) {
+		this.WaveEnemies = enemies;
+	}
 
 	//Esse método gerenciará o comportamento dos objetos ao se tocar na tela. 
 
@@ -74,7 +82,6 @@ public class GameManager implements IOnSceneTouchListener{
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if(pScene == this.gameScene){
 			if(pSceneTouchEvent.getX() <= this.gameCamera.getWidth()/2){
-					
 					//Update dos atributos do objeto Player.
 				
 					if(this.player.getLastMoveByModifier() != null){
@@ -105,9 +112,10 @@ public class GameManager implements IOnSceneTouchListener{
 					this.player.setLastMoveByModifier(moveByModifier);
 					this.player.registerEntityModifier(moveByModifier);
 			}
+			else if(pSceneTouchEvent.isActionUp()){
+				this.player.shoot();
+			}
 		}
 		return false;
 	}
-	
-	
 }
