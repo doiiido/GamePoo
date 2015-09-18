@@ -38,28 +38,26 @@ public class CommonBullet extends Bullet {
 		this.registerEntityModifier(moveByModifier);
 	}
 	
-	public Enemy enemyHit(){
+	public boolean checkEnemyHit(){
+		Enemy shotEnemy = null;
+		
 		for(Enemy enemy : GameManager.getInstance().getEnemies()){
 			if(this.collidesWith(enemy)){
-				GameManager.getInstance().getGameScene().detachChild(this);
 				enemy.decrementLife(this.damage);
-				return enemy;
+				shotEnemy = enemy;
+				break;
 			}
 		}
-		
-		return null;
+		if(shotEnemy != null){
+			GameManager.getInstance().getEnemies().remove(shotEnemy);
+			GameManager.getInstance().getGameScene().detachChild(this);
+			return true;
+		}
+		else
+			return false;
 	}
-	
-	//Se a bala colidiu com algum inimigo, precisamos decrementar a sua vida.
-	protected void onManagedUpdate(float pSecondsElapsed){
-		Enemy collideEnemy = null;
-		if(!enemyBullet){
-			collideEnemy = enemyHit();
-		}
-		if(collideEnemy != null){
-			GameManager.getInstance().getEnemies().remove(collideEnemy);
-		}
-		
-		super.onManagedUpdate(pSecondsElapsed);
+
+	@Override
+	public void OnEnemyHit() {
 	}
 }

@@ -7,6 +7,7 @@ import org.andengine.engine.FixedStepEngine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
+import org.andengine.engine.options.WakeLockOptions;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
@@ -26,6 +27,7 @@ public class GameActivity extends BaseGameActivity {
             new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), mCamera);
         
         options.getTouchOptions().setNeedsMultiTouch(true);
+        options.setWakeLockOptions(WakeLockOptions.SCREEN_ON);
         
         return options;
 	}
@@ -80,6 +82,7 @@ public class GameActivity extends BaseGameActivity {
 		for(Enemy enemy: GameManager.getInstance().getEnemies()){
 			pScene.attachChild(enemy);
 		}
+		
 		// Populate the Scene here
 		// and then provide the callback
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
