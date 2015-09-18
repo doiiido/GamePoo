@@ -1,0 +1,3 @@
+include ':Game2d'
+include ':AndEngine:AndEnginePhysicsBox2DExtension-GLES2:AndEnginePhysicsBox2DExtension-GLES2'
+include ':AndEngine:AndEngine-GLES2:AndEngine-GLES2'
