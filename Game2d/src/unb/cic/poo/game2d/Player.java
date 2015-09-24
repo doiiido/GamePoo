@@ -1,8 +1,10 @@
 package unb.cic.poo.game2d;
 
 //Classe que vai armazenar as propriedades do player: Vida, Pontuação...
+
 //Atualmente ela herda da classe Rectangle, mas assim que tivermos os 
 //sprites podemos mudar. 
+
 
 import org.andengine.entity.modifier.MoveByModifier;
 
@@ -18,12 +20,12 @@ public class Player extends Spaceship{
 	private BulletType bulletType;
 	
 	//Método construtor, por enquanto esta apenas chamando o construtor da superclasse e configurando a variável de velocidade.
+	// Para instanciar a sprite no construtor basta colocar ResourceManager.playerTextureRegion ou o nome da sprite desejada
 	public Player(){
-		super(0, (GameActivity.CAMERA_HEIGHT/2) - (PLAYER_HEIGHT/2), 
-				PLAYER_WIDTH, PLAYER_WIDTH, GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
+		super(0f, (float) (GameActivity.CAMERA_HEIGHT/2) - (PLAYER_HEIGHT/2), ResourceManager.playerTextureRegion 
+				,GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.speed = DEFAULT_PLAYER_SPEED;
 		this.bulletType = new CommonBulletType();
-		
 	}
 	
 	//Método para atirar

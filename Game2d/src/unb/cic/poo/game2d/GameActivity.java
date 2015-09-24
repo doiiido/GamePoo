@@ -41,7 +41,7 @@ public class GameActivity extends BaseGameActivity {
 	public void onCreateResources(
 			OnCreateResourcesCallback pOnCreateResourcesCallback)
 			throws Exception {
-		// Load Resources here
+		ResourceManager.getInstance().loadGameTextures(mEngine, this);
 		// and then provide the callback
 		pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}

@@ -8,8 +8,7 @@ public abstract class Enemy extends Spaceship{
 	
 	public Enemy(float pX, float pY, float pWidth, float pHeight,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
-		
-		super(pX, pY, pWidth, pHeight, pVertexBufferObjectManager);
+		super(pX, pY, ResourceManager.enemyTextureRegion, pVertexBufferObjectManager);
 	}
 	
 	public void decrementLife(int decrement){

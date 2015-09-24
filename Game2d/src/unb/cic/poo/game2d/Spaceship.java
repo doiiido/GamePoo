@@ -2,16 +2,18 @@ package unb.cic.poo.game2d;
 
 //Essa clase servirá como base para o player e para os inimigos.
 
-import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.sprite.Sprite;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
-public abstract class Spaceship extends Rectangle{
+
+public abstract class Spaceship extends Sprite{
 	protected int life;
 	protected int speed;
 	
-	public Spaceship(float pX, float pY, float pWidth, float pHeight,
+	public Spaceship(float pX, float pY,  ITextureRegion pTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
-		super(pX, pY, pWidth, pHeight, pVertexBufferObjectManager);
+		super(pX, pY, pTextureRegion, pVertexBufferObjectManager);
 	}
 	
 	//Getters e Setters
