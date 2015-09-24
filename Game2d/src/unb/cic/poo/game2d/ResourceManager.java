@@ -45,5 +45,5 @@ public class ResourceManager {
 			enemyTexture.load();
 	 
 	 }
-	 }
+}
 
