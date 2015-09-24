@@ -18,6 +18,7 @@ https://guides.github.com/activities/contributing-to-open-source/
   João;
   Bruno;
   Renne;
+  Gross;
 ·Equipe responsável pela Interface gráfica:
   João;
   Marcos;
