@@ -1,0 +1,56 @@
+                                  Game Concept:
+/*Para facilitar a localizacao dos arquivos, TODOS os arquivos de imagem, sons, etc deverao ser gravados
+com referencia ao objeto e aonde sera usado. EX: som de explosao da cena 2 sera gravado como :
+"cena2explosao1.wav". EX2: som de tiro da nave durante o jogo: "ingametiro.wav"*/
+
+
+
+
+  Interface:
+    Game Menu:
+      
+      New Game:
+        Inicia um novo jogo.
+         Sai da inferface do menu /*fade-out de tela*/ e inicia a primeira animacao:
+        
+        Animacao:
+         /*fade-in do quadro*/
+        
+        Cena1:
+         A palavra "Warning" aparece em vermelho piscando na tela, com uma sirene no fundo.
+         //  SOM: BUSCAR SOM SIRENE
+         // ANIMACAO: FAZER BITMAP DA PALAVRA WARNING,FAZER ANIMACAO DE GIF
+      
+        Cena2:
+        Pan-out do gif warning para revelar um braco e um relogio na qual se encontra a mensagem do warning
+        // ANIMACAO: braco do bixo e relogio colorido, fundo negro
+        
+        /*fade-out */
+        
+        
+        Cena3:
+        /*fade-in do cenario*/
+        Oguh esta correndo em direcao a nave 
+        // ANIMACAO: CENARIO--> DENTRO DE UM HANGAR, O HANGAR VAI TER A PORTA ABERTA NO CANTO DIREITO PARA REVELAR UMA 
+//PISTA DE DECOLAGEM E UMAS EXPLOSOES NO CEU
+        //ANIMACAO: NAVE--> JOAO JA DESENHOU A NAVE. ELA TERA UM EMBLEMA "NASA BR" NA LATERAL
+        //ANIMACAO: EXPLOSAO--> GIF DE 2/3 IMAGENS PICANDO NO FUNDO
+        //ANIMACAO:OGUH--> OGUH CAMINHA DA ESQUERDA PARA A DIREITA. ELE CAMINHA PARA O LADO EM ROUPA DE ASTRONAUTA, 
+//BRACO PISCA NA PARTE DO PULSO (RELEMBRANDO O WARNING QUE ESTAVA NA CENA ANTERIOR) 
+        // SOM: CENARIO--> POR ESTAR DENTRO DE UM HANGAR, TODOS OS SONS DEVERAO TER UM REVERB DE AMBIENTACAO FECHADA, 
+//COM EQUALIZACAO DE INTENSIFICACAO DE GRAVE E ECHO DE 20-40% UMIDADE
+        // SOM: NAVE--> BARULHO DE MOTOR LIGADO EM "STAND BY"
+        // SOM: EXPLOSAO--> BARULHO DE EXPLOSAO SIMPLES, QUASE LEMBRANDO FOGOS DE ARTIFICIO. SOM PICOTADO, INTENSIDADE 
+//BAIXA
+        // SOM: OGUH--> BARULHO DE CORRIDA. BARULHO DO WARNING LEVEMENTE AUDIVEL NO FUNDO
+        
+        Oguh entra na nave e esta decola:
+        // ANIMACAO: OGUH AO SE APROXIMAR DA NAVE DESAPARECE. APENAS A NAVE FICA NA TELA, ACONTECENDO UM FADE-OUT DO 
+// RESTO DA TELA E FOGO NA NAVE COMECA A SER ANIMADA.
+
+
+        Tutorial:
+         A nave se encontra no espaco
+        
+                  
+              
