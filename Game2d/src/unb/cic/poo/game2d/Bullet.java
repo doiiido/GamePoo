@@ -1,19 +1,20 @@
 package unb.cic.poo.game2d;
 
 import org.andengine.engine.handler.IUpdateHandler;
-import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.sprite.Sprite;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 //Essa classe é responsável pela configuração dos tiros
 
-public abstract class Bullet extends Rectangle{
+public abstract class Bullet extends Sprite{
 	protected int damage;
 	protected int speed;
 	protected boolean enemyBullet;
 
-	public Bullet(float pX, float pY, float pWidth, float pHeight,
+	public Bullet(float pX, float pY, ITextureRegion pTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
-		super(pX, pY, pWidth, pHeight, pVertexBufferObjectManager);
+		super(pX, pY, ResourceManager.bulletTextureRegion, pVertexBufferObjectManager);
 		//Verifica se atingiu inimigos a cada ciclo do game.
 		this.registerUpdateHandler(new IUpdateHandler() {
 			

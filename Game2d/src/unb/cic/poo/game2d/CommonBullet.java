@@ -14,7 +14,7 @@ public class CommonBullet extends Bullet {
 	//nesse construtor, adicionamos uma pequena correcao na posicao inicial da bala(para ela ser criada no meio do atirador).
 	public CommonBullet(float pX, float pY, boolean isEnemyBullet) {
 		
-		super(pX, pY-BULLET_HEIGHT, BULLET_WIDTH, BULLET_HEIGHT, 
+		super(pX, pY-BULLET_HEIGHT, ResourceManager.bulletTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		
 		this.speed = BULLET_SPEED;

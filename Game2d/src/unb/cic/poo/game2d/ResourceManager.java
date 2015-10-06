@@ -16,6 +16,8 @@ public class ResourceManager {
 	public static ITextureRegion playerTextureRegion;
 	BitmapTextureAtlas enemyTexture;
 	public static ITextureRegion enemyTextureRegion;
+	BitmapTextureAtlas bulletTexture;
+	public static ITextureRegion bulletTextureRegion;
 	  //common objects
 	  public GameActivity activity;
 	  public Engine engine;
@@ -44,6 +46,9 @@ public class ResourceManager {
 					.createFromAsset(enemyTexture, pContext,"enemy.png",0,0);
 			enemyTexture.load();
 	 
+			bulletTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 64, 64);
+			bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createFromAsset(bulletTexture, pContext,"fire.png",0,0);
+			bulletTexture.load();
 	 }
 }
-
