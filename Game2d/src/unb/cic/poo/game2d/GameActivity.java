@@ -10,20 +10,19 @@ import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.WakeLockOptions;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.ui.activity.BaseGameActivity;
-import org.andengine.util.color.Color;
 
 
 public class GameActivity extends BaseGameActivity {
 	
 	static final int CAMERA_WIDTH = 850;
     static final int CAMERA_HEIGHT = 500;
+    Camera mCamera;
     
 	@Override
 	public EngineOptions onCreateEngineOptions() {
-		Camera mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+		mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		
         EngineOptions options = new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR,
             new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), mCamera);
@@ -54,10 +53,18 @@ public class GameActivity extends BaseGameActivity {
 		// Create the Scene
 		Scene mScene = new Scene();
 
-		mScene.setBackground(new Background(Color.BLACK));
+		// Fundo estático
+		//mScene.setBackground(new Background(0,0,0));
+		//Sprite sprImage = new Sprite(0, 0, ResourceManager.backgroundTextureRegion, this.getVertexBufferObjectManager());
+		//mScene.attachChild(sprImage);
 		
-		Sprite sprImage = new Sprite(0, 0, ResourceManager.backgroundTextureRegion, this.getVertexBufferObjectManager());
-		mScene.attachChild(sprImage);
+		final ParallaxApplication parallaxLayer = new ParallaxApplication(mCamera, true);
+		parallaxLayer.setParallaxChangePerSecond(3);
+		parallaxLayer.setParallaxScrollFactor(1);
+		final Sprite backSprite = new Sprite(0, 0, ResourceManager.backgroundTextureRegion, this.getVertexBufferObjectManager());
+		parallaxLayer.attachParallaxEntity(new ParallaxApplication.ParallaxEntity(-15, backSprite, false));
+		
+		mScene.attachChild(parallaxLayer);
 		
 		//Fazer com que a classe GameManager seja um listener da Scene do jogo.
 		mScene.setOnSceneTouchListener(GameManager.getInstance());

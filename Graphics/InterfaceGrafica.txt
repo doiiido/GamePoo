@@ -10,7 +10,7 @@ Questões a serem resolvidas:
 	- Implementar sprites no Game Resources
 		-- Movimentação do inimigo, alguns sites afirmam que o uso de GIFs pode comprometer um bom
 		funcionamento
-		-- Adicionar background Parallax
+		-- Adicionar outras sprites no background Parallax
 		-- Explosão do inimigo
 	- Criar imagens e animações em pixel-arte
 	- Aprender a fazer transições entre cenas, a exemplo de fade out
