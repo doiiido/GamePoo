@@ -5,9 +5,9 @@ import org.andengine.entity.modifier.MoveByModifier;
 //Tiro Básico
 
 public class CommonBullet extends Bullet {
-	public static final int BULLET_HEIGHT = 2;
-	public static final int BULLET_WIDTH = 4;
-	public static final int BULLET_SPEED = 1800;
+	public static final int BULLET_HEIGHT = GameActivity.CAMERA_HEIGHT/360; // 2
+	public static final int BULLET_WIDTH = GameActivity.CAMERA_WIDTH/320; // 4
+	public static final int BULLET_SPEED = 1000;
 	public static final int BULLET_DAMAGE = 1;
 
 	

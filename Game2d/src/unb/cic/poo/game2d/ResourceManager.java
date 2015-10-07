@@ -2,6 +2,7 @@ package unb.cic.poo.game2d;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
+import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.ITextureRegion;
@@ -38,7 +39,10 @@ public class ResourceManager {
 			  // Set our game assets folder in "assets/gfx/game/"
 		 	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		 	
-			playerTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 64, 64);
+		 	// Ao carregar imagens, colocar potências de 2 maiores do que a resolução da mesma
+		 	// Evitar colocar imagens maiores que 1024
+		 	
+			playerTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 128, 128);
 			playerTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createFromAsset(playerTexture, pContext,"player.png",0,0);
 			playerTexture.load();
@@ -48,12 +52,12 @@ public class ResourceManager {
 					.createFromAsset(enemyTexture, pContext,"enemy.png",0,0);
 			enemyTexture.load();
 	 
-			bulletTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 64, 64);
+			bulletTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 32, 32);
 			bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createFromAsset(bulletTexture, pContext,"fire.png",0,0);
 			bulletTexture.load();
 			
-			backgroundTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 1024, 1024);
+			backgroundTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
 	        backgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory
 	                .createFromAsset(backgroundTexture, pContext, "background.png",0,0);
 	        backgroundTexture.load();

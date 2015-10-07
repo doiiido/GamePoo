@@ -8,7 +8,7 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.WakeLockOptions;
-import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
+import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.ui.activity.BaseGameActivity;
@@ -16,16 +16,20 @@ import org.andengine.ui.activity.BaseGameActivity;
 
 public class GameActivity extends BaseGameActivity {
 	
-	static final int CAMERA_WIDTH = 850;
-    static final int CAMERA_HEIGHT = 500;
+	static final int CAMERA_WIDTH = 1280;
+    static final int CAMERA_HEIGHT = 720;
     Camera mCamera;
+    
+    // Caso queiram fazer padding nas bordas, ao invés de ajustar a tela: RatioResolutionPolicy
+    FillResolutionPolicy crp;
     
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		
-        EngineOptions options = new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR,
-            new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), mCamera);
+		crp = new FillResolutionPolicy();
+		EngineOptions options = new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,
+				crp, mCamera);
         
         options.getTouchOptions().setNeedsMultiTouch(true);
         options.setWakeLockOptions(WakeLockOptions.SCREEN_ON);
@@ -76,9 +80,13 @@ public class GameActivity extends BaseGameActivity {
 		GameManager.getInstance().setGameScene(mScene);
 		GameManager.getInstance().setEnemies(new ArrayList<Enemy>());
 		//Cria os inimigos para teste
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(), 300));
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(), 150));
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(), 450));
+		//Valores alinhados: dividir por 5, 2 e 1.25
+		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+				(float) (CAMERA_HEIGHT/3.33)));
+		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+				(float) (CAMERA_HEIGHT/1.67)));
+		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+				(float) (CAMERA_HEIGHT/1.11)));
 		
 		// and then provide the callback
 		//this callback requires a Scene parameter
