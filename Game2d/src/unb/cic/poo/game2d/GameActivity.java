@@ -11,7 +11,9 @@ import org.andengine.engine.options.WakeLockOptions;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.ui.activity.BaseGameActivity;
+import org.andengine.util.color.Color;
 
 
 public class GameActivity extends BaseGameActivity {
@@ -51,8 +53,11 @@ public class GameActivity extends BaseGameActivity {
 			throws Exception {
 		// Create the Scene
 		Scene mScene = new Scene();
-		//Scene com o Background preto ainda...
-		mScene.setBackground(new Background(0, 0, 0));
+
+		mScene.setBackground(new Background(Color.BLACK));
+		
+		Sprite sprImage = new Sprite(0, 0, ResourceManager.backgroundTextureRegion, this.getVertexBufferObjectManager());
+		mScene.attachChild(sprImage);
 		
 		//Fazer com que a classe GameManager seja um listener da Scene do jogo.
 		mScene.setOnSceneTouchListener(GameManager.getInstance());
