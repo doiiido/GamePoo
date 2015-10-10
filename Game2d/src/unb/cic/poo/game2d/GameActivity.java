@@ -69,18 +69,19 @@ public class GameActivity extends BaseGameActivity {
 		parallaxLayer.attachParallaxEntity(new ParallaxApplication.ParallaxEntity(-15, backSprite, false));
 		
 		mScene.attachChild(parallaxLayer);
-		
-		//Fazer com que a classe GameManager seja um listener da Scene do jogo.
+			
+		// Fazer com que a classe GameManager seja um listener da Scene do jogo.
 		mScene.setOnSceneTouchListener(GameManager.getInstance());
 		
-		//Configurando atributos de GameManager
+		// Configurando atributos de GameManager
 		GameManager.getInstance().setGameEngine(this.mEngine);
 		GameManager.getInstance().setGameCamera(this.mEngine.getCamera());
 		GameManager.getInstance().setPlayer(new Player());
 		GameManager.getInstance().setGameScene(mScene);
 		GameManager.getInstance().setEnemies(new ArrayList<Enemy>());
-		//Cria os inimigos para teste
-		//Valores alinhados: dividir por 5, 2 e 1.25
+		
+		// Cria os inimigos para teste
+		// Valores alinhados: dividir por 5, 2 e 1.25
 		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
 				(float) (CAMERA_HEIGHT/3.33)));
 		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),

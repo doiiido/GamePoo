@@ -1,18 +1,22 @@
 package unb.cic.poo.game2d;
 
+import org.andengine.entity.sprite.AnimatedSprite;
+
 //Essa clase servir√° como base para o player e para os inimigos.
 
-import org.andengine.entity.sprite.Sprite;
-import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
-public abstract class Spaceship extends Sprite{
+// Futuramente todas as naves ser„o animadas. Mantive a classe Spaceship igual, pois ainda estamos usando algumas est·ticas.
+public abstract class SpaceshipAnimated extends AnimatedSprite{
 	protected int life;
 	protected int speed;
 	
-	public Spaceship(float pX, float pY,  ITextureRegion pTextureRegion,
+	public SpaceshipAnimated(float pX, float pY,  ITiledTextureRegion pTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, pTextureRegion, pVertexBufferObjectManager);
+		//animEnemy = new AnimatedSprite(pX, pY, ResourceManager.enemyTextureRegion, this.getVertexBufferObjectManager());
+		this.animate(100);
 	}
 	
 	//Getters e Setters

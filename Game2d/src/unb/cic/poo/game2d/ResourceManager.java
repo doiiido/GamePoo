@@ -6,6 +6,7 @@ import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import android.content.Context;
 
@@ -13,10 +14,12 @@ import android.content.Context;
 public class ResourceManager {
 	private static final ResourceManager INSTANCE = new ResourceManager();
 	  
+	// Todas as imagens animadas devem ser declaradas com Tiled, especificando quantas versões do sprite tem
+	// na textura especificada. Também tomar cuidado para elas estarem bem alinhadas.
 	BitmapTextureAtlas playerTexture;
 	public static ITextureRegion playerTextureRegion;
 	BitmapTextureAtlas enemyTexture;
-	public static ITextureRegion enemyTextureRegion;
+	public static ITiledTextureRegion enemyTextureRegion;
 	BitmapTextureAtlas bulletTexture;
 	public static ITextureRegion bulletTextureRegion;
 	BitmapTextureAtlas backgroundTexture;
@@ -26,6 +29,9 @@ public class ResourceManager {
 	  public Engine engine;
 	  public Camera camera;
 	  public VertexBufferObjectManager vbom;
+	  
+	  private static int ENEMY_COLUMN = 8;
+	  private static int ENEMY_ROW = 1;
 	  
 	  private ResourceManager() {}
 	  
@@ -47,9 +53,9 @@ public class ResourceManager {
 					.createFromAsset(playerTexture, pContext,"player.png",0,0);
 			playerTexture.load();
 			
-			enemyTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 64, 64);
+			enemyTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 512, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 			enemyTextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createFromAsset(enemyTexture, pContext,"enemy.png",0,0);
+					.createTiledFromAsset(enemyTexture, pContext,"enemy_animation.png", 0, 0, ENEMY_COLUMN, ENEMY_ROW);
 			enemyTexture.load();
 	 
 			bulletTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 32, 32);

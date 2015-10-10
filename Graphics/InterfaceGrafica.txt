@@ -8,17 +8,15 @@ Questões a serem resolvidas:
 		----- Rever animações da história
 		----- Créditos
 	- Implementar sprites no Game Resources
-		-- Movimentação do inimigo, alguns sites afirmam que o uso de GIFs pode comprometer um bom
-		funcionamento
 		-- Adicionar outras sprites no background Parallax
 		-- Explosão do inimigo
 	- Criar imagens e animações em pixel-arte
+		-- Sprites das movimentações da nave
 	- Aprender a fazer transições entre cenas, a exemplo de fade out
 	- Descobrir como adicionar animações/vídeos
 	- Colocar a nave no início do jogo chegando pelo canto da tela
 	- Adicionar barra de vida e opções de power up (no mínimo ver como vai ser o design)
 	- Definir fonte a ser utilizada
-	- Ver se formatos diferentes de tela podem causar problemas
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 

@@ -1,13 +1,13 @@
 package unb.cic.poo.game2d;
 
-import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 //Superclasse dos inimigos.
 
-public abstract class Enemy extends Spaceship{
+public abstract class Enemy extends SpaceshipAnimated{
 	
-	public Enemy(float pX, float pY, ITextureRegion texture,
+	public Enemy(float pX, float pY, ITiledTextureRegion texture,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, texture, pVertexBufferObjectManager);
 	}

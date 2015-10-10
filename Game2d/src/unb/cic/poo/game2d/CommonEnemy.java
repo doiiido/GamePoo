@@ -1,23 +1,21 @@
 package unb.cic.poo.game2d;
 
 import org.andengine.entity.modifier.MoveByModifier;
-import org.andengine.util.color.Color;
 
 //Inimigo Básico
 
 public class CommonEnemy extends Enemy{
 	private static final int DEFAULT_COMMON_ENEMY_SPEED = 150;
-	private static final int COMMON_ENEMY_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
+	//private static final int COMMON_ENEMY_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
 	private static final int COMMON_ENEMY_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
 	private static final int COMMON_ENEMY_LIFE = 1;
 	
 	public CommonEnemy(float pX, float pY) {
-		super(pX, pY,ResourceManager.enemyTextureRegion, 
+		super(pX, pY, ResourceManager.enemyTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.speed = DEFAULT_COMMON_ENEMY_SPEED;
 		this.life = COMMON_ENEMY_LIFE;
 		this.setMovement();
-		
 	}
 	
 	private void setMovement(){
