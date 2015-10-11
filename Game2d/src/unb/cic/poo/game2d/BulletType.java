@@ -4,5 +4,5 @@ package unb.cic.poo.game2d;
 
 public interface BulletType {
 	
-	public abstract Bullet getBullet(float pX, float pY, boolean isEnemy);
+	public Bullet getBullet(float pX, float pY, boolean isEnemy);
 }

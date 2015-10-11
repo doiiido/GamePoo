@@ -1,10 +1,12 @@
 package unb.cic.poo.game2d;
 
+import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.MoveByModifier;
+import org.andengine.util.modifier.IModifier;
 
 //Tiro Básico
 
-public class CommonBullet extends Bullet {
+public class CommonBullet extends Bullet{
 	public static final int BULLET_HEIGHT = GameActivity.CAMERA_HEIGHT/360; // 2
 	public static final int BULLET_WIDTH = GameActivity.CAMERA_WIDTH/320; // 4
 	public static final int BULLET_SPEED = 1000;
@@ -34,30 +36,38 @@ public class CommonBullet extends Bullet {
 		float timeDuration = Math.abs(distance/BULLET_SPEED);
 		
 		MoveByModifier moveByModifier = new MoveByModifier(timeDuration, distance, 0);
+		moveByModifier.addModifierListener(this);
 		moveByModifier.setAutoUnregisterWhenFinished(true);
 		this.registerEntityModifier(moveByModifier);
 	}
 	
 	public boolean checkEnemyHit(){
-		Enemy shotEnemy = null;
 		
 		for(Enemy enemy : GameManager.getInstance().getEnemies()){
 			if(this.collidesWith(enemy)){
 				enemy.decrementLife(this.damage);
-				shotEnemy = enemy;
-				break;
+				return true;
 			}
 		}
-		if(shotEnemy != null){
-			GameManager.getInstance().getEnemies().remove(shotEnemy);
-			GameManager.getInstance().getGameScene().detachChild(this);
-			return true;
-		}
-		else
-			return false;
+		return false;
 	}
 
 	@Override
 	public void OnEnemyHit() {
+		GameManager.getInstance().getGameScene().detachChild(this);
+	}
+
+	@Override
+	public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
+	}
+
+	@Override
+	public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
+		movementFinished = true;
+	}
+
+	@Override
+	public void removeBullet() {
+		GameManager.getInstance().getGameScene().detachChild(this);
 	}
 }

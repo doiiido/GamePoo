@@ -1,20 +1,23 @@
 package unb.cic.poo.game2d;
 
 import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.entity.modifier.IEntityModifier.IEntityModifierListener;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 //Essa classe é responsável pela configuração dos tiros
 
-public abstract class Bullet extends Sprite{
+public abstract class Bullet extends Sprite implements IEntityModifierListener{
 	protected int damage;
 	protected int speed;
 	protected boolean enemyBullet;
+	protected boolean movementFinished;
 
 	public Bullet(float pX, float pY, ITextureRegion pTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, ResourceManager.bulletTextureRegion, pVertexBufferObjectManager);
+		this.movementFinished = false;
 		//Verifica se atingiu inimigos a cada ciclo do game.
 		this.registerUpdateHandler(new IUpdateHandler() {
 			
@@ -29,7 +32,10 @@ public abstract class Bullet extends Sprite{
 					public void run() {
 						if(checkEnemyHit()){
 							OnEnemyHit(); //Sobrescrevendo esse método poderemos adicionar o comportamento da bala quando ela atingir um inimigo.
-										  //(Explodir, aumentar score do player, etc).
+											//(Explodir, aumentar score do player, etc).
+						}
+						else if(movementFinished){
+							removeBullet();
 						}
 					}
 				});
@@ -62,6 +68,8 @@ public abstract class Bullet extends Sprite{
 	public void setEnemyBullet(boolean enemyBullet) {
 		this.enemyBullet = enemyBullet;
 	}
+	
+	public abstract void removeBullet();
 	
 	public abstract void setMovement(float pX, float pY, boolean isEnemyBullet);
 	

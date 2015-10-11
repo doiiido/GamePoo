@@ -1,8 +1,10 @@
 package unb.cic.poo.game2d;
 
+import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.MoveByModifier;
+import org.andengine.util.modifier.IModifier;
 
-//Inimigo B�sico
+//Inimigo B�sico
 
 public class CommonEnemy extends Enemy{
 	private static final int DEFAULT_COMMON_ENEMY_SPEED = 150;
@@ -23,6 +25,7 @@ public class CommonEnemy extends Enemy{
 		float durationTime = distance/this.speed;
 		
 		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -distance-COMMON_ENEMY_WIDTH, 0);
+		moveByModifier.addModifierListener(this);
 		
 		moveByModifier.setAutoUnregisterWhenFinished(true);
 		this.registerEntityModifier(moveByModifier);
@@ -38,5 +41,21 @@ public class CommonEnemy extends Enemy{
 
 	@Override
 	public void shoot() {
+	}
+	
+	//método responsável por remover o inimigo da tela.
+	@Override
+	public void removeEnemy() {
+		GameManager.getInstance().getEnemies().remove(this);
+		GameManager.getInstance().getGameScene().detachChild(this);
+	}
+
+	@Override
+	public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
+	}
+	
+	@Override
+	public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
+		this.movementFinished = true;
 	}
 }

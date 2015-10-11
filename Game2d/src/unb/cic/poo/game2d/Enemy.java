@@ -1,15 +1,38 @@
 package unb.cic.poo.game2d;
 
+import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.entity.modifier.IEntityModifier.IEntityModifierListener;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 //Superclasse dos inimigos.
 
-public abstract class Enemy extends SpaceshipAnimated{
+public abstract class Enemy extends SpaceshipAnimated implements IEntityModifierListener{
+	protected boolean movementFinished;
 	
 	public Enemy(float pX, float pY, ITiledTextureRegion texture,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, texture, pVertexBufferObjectManager);
+		movementFinished = false;
+		
+		this.registerUpdateHandler(new IUpdateHandler() {
+			
+			@Override
+			public void reset() {
+			}
+			
+			@Override
+			public void onUpdate(float pSecondsElapsed) {
+				GameManager.getInstance().getGameEngine().runOnUpdateThread(new Runnable() {			
+					@Override
+					public void run() {
+						if(movementFinished){
+							removeEnemy();
+						}
+					}
+				});
+			}
+		});
 	}
 	
 	public void decrementLife(int decrement){
@@ -20,10 +43,12 @@ public abstract class Enemy extends SpaceshipAnimated{
 	}
 	
 	public void kill(){
-		GameManager.getInstance().getGameScene().detachChild(this);
+		this.removeEnemy();
 		this.clearEntityModifiers();
 	}
 
 	@Override
 	public abstract void shoot();
+	
+	public abstract void removeEnemy();
 }
