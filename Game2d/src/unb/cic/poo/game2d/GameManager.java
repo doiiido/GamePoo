@@ -63,7 +63,6 @@ public class GameManager implements IOnSceneTouchListener{
 		return gameScene;
 	}
 
-
 	public void setGameScene(Scene gameScene) {
 		this.gameScene = gameScene;
 	}

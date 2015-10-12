@@ -1,24 +1,31 @@
 package unb.cic.poo.game2d;
 
-import java.util.ArrayList;
+
+import java.io.IOException;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.FixedStepEngine;
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.WakeLockOptions;
 import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.sprite.Sprite;
 import org.andengine.ui.activity.BaseGameActivity;
+
+import unb.cic.poo.game2d.scenes.SceneManager;
 
 
 public class GameActivity extends BaseGameActivity {
 	
-	static final int CAMERA_WIDTH = 1280;
-    static final int CAMERA_HEIGHT = 720;
-    Camera mCamera;
+	public static final int CAMERA_WIDTH = 1280;
+    public static final int CAMERA_HEIGHT = 720;
+    public static Camera mCamera;
+    
+    private ResourceManager mResourceManager;
+    private SceneManager mSceneManager;
     
     // Caso queiram fazer padding nas bordas, ao invés de ajustar a tela: RatioResolutionPolicy
     FillResolutionPolicy crp;
@@ -46,68 +53,35 @@ public class GameActivity extends BaseGameActivity {
 	public void onCreateResources(
 			OnCreateResourcesCallback pOnCreateResourcesCallback)
 			throws Exception {
-		ResourceManager.getInstance().loadGameTextures(mEngine, this);
-		// and then provide the callback
-		pOnCreateResourcesCallback.onCreateResourcesFinished();
+		mResourceManager = ResourceManager.getInstance(); mResourceManager.prepare(this);
+        mSceneManager = SceneManager.getInstance(); mSceneManager.prepare(this);
+        
+        mResourceManager.loadIntro();
+        pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
 
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback)
 			throws Exception {
-		// Create the Scene
-		Scene mScene = new Scene();
-
-		// Fundo estático
-		//mScene.setBackground(new Background(0,0,0));
-		//Sprite sprImage = new Sprite(0, 0, ResourceManager.backgroundTextureRegion, this.getVertexBufferObjectManager());
-		//mScene.attachChild(sprImage);
-		
-		final ParallaxApplication parallaxLayer = new ParallaxApplication(mCamera, true);
-		parallaxLayer.setParallaxChangePerSecond(3);
-		parallaxLayer.setParallaxScrollFactor(1);
-		final Sprite backSprite = new Sprite(0, 0, ResourceManager.backgroundTextureRegion, this.getVertexBufferObjectManager());
-		parallaxLayer.attachParallaxEntity(new ParallaxApplication.ParallaxEntity(-15, backSprite, false));
-		
-		mScene.attachChild(parallaxLayer);
-			
-		// Fazer com que a classe GameManager seja um listener da Scene do jogo.
-		mScene.setOnSceneTouchListener(GameManager.getInstance());
-		
-		// Configurando atributos de GameManager
+		mSceneManager = new SceneManager(this, mEngine, mCamera);
 		GameManager.getInstance().setGameEngine(this.mEngine);
 		GameManager.getInstance().setGameCamera(this.mEngine.getCamera());
-		GameManager.getInstance().setPlayer(new Player());
-		GameManager.getInstance().setGameScene(mScene);
-		GameManager.getInstance().setEnemies(new ArrayList<Enemy>());
 		
-		// Cria os inimigos para teste
-		// Valores alinhados: dividir por 5, 2 e 1.25
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (CAMERA_HEIGHT/3.33)));
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (CAMERA_HEIGHT/1.67)));
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (CAMERA_HEIGHT/1.11)));
-		
-		// and then provide the callback
-		//this callback requires a Scene parameter
-		pOnCreateSceneCallback.onCreateSceneFinished(mScene);
+		mSceneManager.createIntroScene(pOnCreateSceneCallback);
 	}
 
 	@Override
 	public void onPopulateScene(Scene pScene,
-			OnPopulateSceneCallback pOnPopulateSceneCallback) throws Exception {
-		//Insere o Player na Scene.
-		pScene.attachChild(GameManager.getInstance().getPlayer());
-		//Insere inimigos na Scene
-		for(Enemy enemy: GameManager.getInstance().getEnemies()){
-			pScene.attachChild(enemy);
-		}
+			OnPopulateSceneCallback pOnPopulateSceneCallback) throws IOException {
+			    mEngine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback() {
+			            public void onTimePassed(final TimerHandler pTimerHandler) {
+			                mEngine.unregisterUpdateHandler(pTimerHandler);
+			                mSceneManager.createMenuScene();
+			            }
+			    }));
 		
 		// Populate the Scene here
 		// and then provide the callback
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
-		
 	}
-
 }
