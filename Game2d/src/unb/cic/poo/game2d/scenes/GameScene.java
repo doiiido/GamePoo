@@ -43,14 +43,12 @@ public class GameScene extends BaseScene {
 		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
 				(float) (GameActivity.CAMERA_HEIGHT/1.11)));
 		
-		//pOnCreateSceneCallback.onCreateSceneFinished(mScene);
-		
 		//Insere o Player na Scene.
 		this.attachChild(GameManager.getInstance().getPlayer());
 		//Insere inimigos na Scene
 		for(Enemy enemy: GameManager.getInstance().getEnemies()){
 			this.attachChild(enemy);
-		}		
+		}
     }
 
     @Override

@@ -65,7 +65,7 @@ public class ResourceManager {
 	  public synchronized void loadIntro() {
 		  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		  	introTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
-		  	introTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(introTexture, activity, "logo2.png", 0, 0);
+		  	introTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(introTexture, activity, "logo.png", 0, 0);
 		  	introTexture.load();
 	  }
 	  

@@ -33,7 +33,7 @@ public class CommonEnemy extends Enemy{
 	
 	//Verifica se o inimigo colide com o player, caso verdadeiro, o jogo para (Game Over).
 	protected void onManagedUpdate(float pSecondsElapsed) {
-		if(this.collidesWith(GameManager.getInstance().getPlayer())){
+		if(GameManager.getInstance().getEnemies().contains(this) && this.collidesWith(GameManager.getInstance().getPlayer())){
 			GameManager.getInstance().getGameEngine().stop();
 		}
 		super.onManagedUpdate(pSecondsElapsed);
