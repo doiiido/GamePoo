@@ -24,7 +24,7 @@ public class IntroScene extends BaseScene {
     	};
     	        
     	//intro.setScale(1.5f);
-    	intro.setPosition(camera.getWidth() / 2, camera.getHeight() / 2);
+    	intro.setPosition((camera.getWidth()- intro.getWidth())/2, (camera.getHeight() - intro.getHeight())/2);
     	attachChild(intro);
     }
 

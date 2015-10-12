@@ -94,7 +94,7 @@ public class ResourceManager {
 		 	FontFactory.setAssetBasePath("font/");
 		     final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 
-		     font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font.ttf", 50, true, Color.WHITE, 2, Color.BLACK);
+		     font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font2.ttf", 70, true, Color.WHITE, 2, Color.BLACK);
 		     font.load();
 	  }
 	  
