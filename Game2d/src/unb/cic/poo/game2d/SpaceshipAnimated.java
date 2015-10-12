@@ -16,7 +16,7 @@ public abstract class SpaceshipAnimated extends AnimatedSprite{
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, pTextureRegion, pVertexBufferObjectManager);
 		//animEnemy = new AnimatedSprite(pX, pY, ResourceManager.enemyTextureRegion, this.getVertexBufferObjectManager());
-		this.animate(100);
+		this.animate(150);
 	}
 	
 	//Getters e Setters

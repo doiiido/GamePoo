@@ -33,7 +33,7 @@ public class ResourceManager {
 	BuildableBitmapTextureAtlas menuTexture;
 	
 	BitmapTextureAtlas playerTexture;
-	public static ITextureRegion playerTextureRegion;
+	public static ITiledTextureRegion playerTextureRegion;
 	BitmapTextureAtlas enemyTexture;
 	public static ITiledTextureRegion enemyTextureRegion;
 	BitmapTextureAtlas bulletTexture;
@@ -48,6 +48,8 @@ public class ResourceManager {
 	  
 	  private static int ENEMY_COLUMN = 8;
 	  private static int ENEMY_ROW = 1;
+	  private static int PLAYER_COLUMN = 8;
+	  private static int PLAYER_ROW = 1;
 	  
 	  public Font font;
 	  
@@ -114,9 +116,9 @@ public class ResourceManager {
 		 	// Ao carregar imagens, colocar potências de 2 maiores do que a resolução da mesma
 		 	// Evitar colocar imagens maiores que 1024
 		 		 	
-			playerTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 128, 128);
+		 	playerTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 1536, 124, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 			playerTextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createFromAsset(playerTexture, activity,"player.png",0,0);
+					.createTiledFromAsset(playerTexture, activity,"player_animated.png", 0, 0, PLAYER_COLUMN, PLAYER_ROW);
 			playerTexture.load();
 			
 			enemyTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 512, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
