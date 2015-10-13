@@ -32,15 +32,21 @@ public class ResourceManager {
 	public ITextureRegion optionsTextureRegion;
 	BuildableBitmapTextureAtlas menuTexture;
 	
+	/*Player*/
 	BitmapTextureAtlas playerTexture;
 	public static ITiledTextureRegion playerTextureRegion;
 	
-	BitmapTextureAtlas enemy1Texture;
-	public static ITiledTextureRegion enemy1TextureRegion;
+	/*Enemys*/
+	BitmapTextureAtlas walkerTexture;
+	public static ITiledTextureRegion walkerTextureRegion;
+	BitmapTextureAtlas shooterTexture;
+	public static ITiledTextureRegion shooterTextureRegion;
 	
+	/*Bullets*/
 	BitmapTextureAtlas bulletTexture;
 	public static ITextureRegion bulletTextureRegion;
 	
+	/*Backgrounds*/
 	BitmapTextureAtlas backgroundTexture;
 	public static ITextureRegion backgroundTextureRegion;
 	  //common objects
@@ -49,8 +55,12 @@ public class ResourceManager {
 	  public Camera camera = GameActivity.mCamera;
 	  public VertexBufferObjectManager vbom;
 	  
-	  private static int ENEMY_COLUMN = 9;
-	  private static int ENEMY_ROW = 1;
+	  private static int WALKER_COLUMN = 6;
+	  private static int WALKER_ROW = 1;
+	  
+	  
+	  
+	  
 	  private static int PLAYER_COLUMN = 8;
 	  private static int PLAYER_ROW = 1;
 	  
@@ -131,10 +141,16 @@ public class ResourceManager {
 			/* PASTA INIMIGOS*/
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/enemys/");
 			
-			enemy1Texture = new BitmapTextureAtlas(pEngine.getTextureManager(), 512, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-			enemy1TextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createTiledFromAsset(enemy1Texture, activity,"enemy1_animation.png", 0, 0, ENEMY_COLUMN, ENEMY_ROW);
-			enemy1Texture.load();
+			walkerTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 512, 124, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+			walkerTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createTiledFromAsset(walkerTexture, activity,"walker_animation.png", 0, 0, WALKER_COLUMN, WALKER_ROW);
+			walkerTexture.load();
+			
+			shooterTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 512, 124, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+			shooterTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createTiledFromAsset(shooterTexture, activity,"shooter_animation.png", 0, 0, WALKER_COLUMN, WALKER_ROW);
+			shooterTexture.load();
+			
 			
 			/* PASTA BALAS*/
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/bullets/");
@@ -153,9 +169,13 @@ public class ResourceManager {
 
 	 }
 	 
+	 public synchronized void unloadEnemys(){
+		 walkerTexture.unload();
+		 shooterTexture.unload();
+	 }
 	 public synchronized void unloadGameTextures() {
 		  playerTexture.unload();
-		  enemy1Texture.unload();
+		  unloadEnemys();
 		  bulletTexture.unload();
 		  backgroundTexture.unload();
 	  }
