@@ -8,7 +8,7 @@ package unb.cic.poo.game2d;
 
 import org.andengine.entity.modifier.MoveByModifier;
 
-public class Player extends Spaceship{
+public class Player extends SpaceshipAnimated{
 	public final static int PLAYER_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
 	public final static int PLAYER_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
 	public final static int DEFAULT_PLAYER_SPEED = 1500;
