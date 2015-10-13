@@ -13,7 +13,7 @@ public class CommonEnemy extends Enemy{
 	private static final int COMMON_ENEMY_LIFE = 1;
 	
 	public CommonEnemy(float pX, float pY) {
-		super(pX, pY, ResourceManager.enemyTextureRegion, 
+		super(pX, pY, ResourceManager.enemy1TextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.speed = DEFAULT_COMMON_ENEMY_SPEED;
 		this.life = COMMON_ENEMY_LIFE;

@@ -34,10 +34,13 @@ public class ResourceManager {
 	
 	BitmapTextureAtlas playerTexture;
 	public static ITiledTextureRegion playerTextureRegion;
-	BitmapTextureAtlas enemyTexture;
-	public static ITiledTextureRegion enemyTextureRegion;
+	
+	BitmapTextureAtlas enemy1Texture;
+	public static ITiledTextureRegion enemy1TextureRegion;
+	
 	BitmapTextureAtlas bulletTexture;
 	public static ITextureRegion bulletTextureRegion;
+	
 	BitmapTextureAtlas backgroundTexture;
 	public static ITextureRegion backgroundTextureRegion;
 	  //common objects
@@ -65,7 +68,7 @@ public class ResourceManager {
 	  }
 
 	  public synchronized void loadIntro() {
-		  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
 		  	introTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
 		  	introTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(introTexture, activity, "logo.png", 0, 0);
 		  	introTexture.load();
@@ -77,7 +80,7 @@ public class ResourceManager {
 	  }
 	  	  
 	  public synchronized void loadMenu() {
-		  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
 		  	menuTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
 		 	menuBackgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTexture, activity, "background.bmp");
 		 	playTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTexture, activity, "play.png");
@@ -111,26 +114,38 @@ public class ResourceManager {
 	 // Classe para carregar as texturas da pasta asset
 	 public synchronized void loadGameTextures(Engine pEngine){
 			  // Set our game assets folder in "assets/gfx/game/"
-		 	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		 
+		 	/* Ao declarar novas sprites, acoplar juntamente aos antigos aqui, devido ao caminho da pasta assets*/
+		 	/* PASTA JOGADOR*/
+		 	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/player/");
 		 	
 		 	// Ao carregar imagens, colocar potências de 2 maiores do que a resolução da mesma
 		 	// Evitar colocar imagens maiores que 1024
 		 		 	
+		 	
 		 	playerTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 1536, 124, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 			playerTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createTiledFromAsset(playerTexture, activity,"player_animated.png", 0, 0, PLAYER_COLUMN, PLAYER_ROW);
 			playerTexture.load();
 			
-			enemyTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 512, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-			enemyTextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createTiledFromAsset(enemyTexture, activity,"enemy_animation.png", 0, 0, ENEMY_COLUMN, ENEMY_ROW);
-			enemyTexture.load();
+			/* PASTA INIMIGOS*/
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/enemys/");
+			
+			enemy1Texture = new BitmapTextureAtlas(pEngine.getTextureManager(), 512, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+			enemy1TextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createTiledFromAsset(enemy1Texture, activity,"enemy1_animation.png", 0, 0, ENEMY_COLUMN, ENEMY_ROW);
+			enemy1Texture.load();
+			
+			/* PASTA BALAS*/
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/bullets/");
 	 
 			bulletTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 32, 32);
 			bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createFromAsset(bulletTexture, activity,"fire.png",0,0);
 			bulletTexture.load();
 			
+			/* PASTA BACKGROUNDS*/
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/backgrounds/");
 			backgroundTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
 	        backgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory
 	                .createFromAsset(backgroundTexture, activity, "background.png",0,0);
@@ -140,7 +155,7 @@ public class ResourceManager {
 	 
 	 public synchronized void unloadGameTextures() {
 		  playerTexture.unload();
-		  enemyTexture.unload();
+		  enemy1Texture.unload();
 		  bulletTexture.unload();
 		  backgroundTexture.unload();
 	  }
