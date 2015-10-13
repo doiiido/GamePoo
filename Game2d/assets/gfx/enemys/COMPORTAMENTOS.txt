@@ -1,0 +1,2 @@
+Walker: Inimigo simples que anda até chegar ao final.
+Shooter: Inimigo simples que fica parada e atira, também pode ser o inimigo que atira e anda
