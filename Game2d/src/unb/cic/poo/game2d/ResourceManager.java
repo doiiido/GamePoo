@@ -46,7 +46,7 @@ public class ResourceManager {
 	  public Camera camera = GameActivity.mCamera;
 	  public VertexBufferObjectManager vbom;
 	  
-	  private static int ENEMY_COLUMN = 8;
+	  private static int ENEMY_COLUMN = 9;
 	  private static int ENEMY_ROW = 1;
 	  private static int PLAYER_COLUMN = 8;
 	  private static int PLAYER_ROW = 1;
