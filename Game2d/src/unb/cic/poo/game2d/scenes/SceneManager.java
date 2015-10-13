@@ -17,6 +17,7 @@ public class SceneManager {
     
     private BaseScene introScene;
     private BaseScene menuScene;
+    //private BaseScene optionsScene;
     private BaseScene gameScene;
     private BaseScene loadScene;
     

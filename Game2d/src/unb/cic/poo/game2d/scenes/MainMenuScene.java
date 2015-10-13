@@ -7,6 +7,7 @@ import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
 import org.andengine.opengl.util.GLState;
 
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
@@ -14,7 +15,7 @@ import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener {
 	private MenuScene menuChildScene;
 	private final int MENU_PLAY = 0;
-	//private final int MENU_OPTIONS = 1;
+	private final int MENU_OPTIONS = 1;
 	
 	public MainMenuScene() {
 		createScene();		
@@ -28,7 +29,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	@Override
 	public void createScene() {
 		createBackground();
-		createMenuChildScene();
+		createMenuChildScene();		
 	}
 
 	@Override
@@ -53,24 +54,29 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	}
 	
 	private void createMenuChildScene() {
-	    menuChildScene = new MenuScene(camera);
+		menuChildScene = new MenuScene(camera);
 	    menuChildScene.setPosition(camera.getWidth()/(float)3, -(camera.getHeight()/(float)4));
 	    
 	    final IMenuItem playMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_PLAY, resourceManager.playTextureRegion, vbom), 1.2f, 1);
-	    //final IMenuItem optionsMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_OPTIONS, resourceManager.optionsTextureRegion, vbom), 1.2f, 1);
+	    final IMenuItem optionsMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_OPTIONS, resourceManager.optionsTextureRegion, vbom), 1.2f, 1);
 	    
 	    menuChildScene.addMenuItem(playMenuItem);
-	    //menuChildScene.addMenuItem(optionsMenuItem);
+	    menuChildScene.addMenuItem(optionsMenuItem);
 	    
 	    menuChildScene.buildAnimations();
 	    menuChildScene.setBackgroundEnabled(false);
 	    
-	    playMenuItem.setPosition(playMenuItem.getX(), playMenuItem.getY() + 10);
-	    //optionsMenuItem.setPosition(optionsMenuItem.getX(), optionsMenuItem.getY() - 110);
+	    playMenuItem.setPosition(camera.getWidth()/2 - playMenuItem.getWidth() -480, 
+	    						 camera.getWidth()/2 - playMenuItem.getHeight() + 60);
+	    
+	    optionsMenuItem.setPosition(camera.getWidth()/2 - optionsMenuItem.getWidth() -280, 
+	    							camera.getWidth()/2 - optionsMenuItem.getHeight() + 60);
 	    
 	    menuChildScene.setOnMenuItemClickListener(this);
 	    
 	    setChildScene(menuChildScene);
+	    
+	    attachChild(new Text(camera.getWidth()*3/4 - 500, camera.getHeight() *3/4 - 420, resourceManager.font, "A lenda\n de \nOGUH", vbom));
 	}
 
 	@Override
@@ -80,8 +86,8 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	        case MENU_PLAY:
 	        	SceneManager.getInstance().loadGameScene(engine);
 	            return true;
-	        //case MENU_OPTIONS:
-	        //    return true;
+	        case MENU_OPTIONS:
+	            return true;
 	        default:
 	            return false;
 		}

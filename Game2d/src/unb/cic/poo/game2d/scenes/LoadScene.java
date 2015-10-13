@@ -15,7 +15,7 @@ public class LoadScene extends BaseScene{
     @Override
     public void createScene() {    	
     	setBackground(new Background(Color.BLACK));		
-		attachChild(new Text(camera.getWidth()*3/4, camera.getHeight() *3/4, resourceManager.font, "Loading...", vbom));
+		attachChild(new Text(camera.getWidth()*3/4-200, camera.getHeight() *3/4, resourceManager.font, "Loading...", vbom));
     }
 
     @Override

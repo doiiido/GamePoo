@@ -29,7 +29,7 @@ public class ResourceManager {
 	
 	public ITextureRegion menuBackgroundTextureRegion;
 	public ITextureRegion playTextureRegion;
-	//public ITextureRegion optionsTextureRegion;
+	public ITextureRegion optionsTextureRegion;
 	BuildableBitmapTextureAtlas menuTexture;
 	
 	BitmapTextureAtlas playerTexture;
@@ -73,13 +73,13 @@ public class ResourceManager {
 		  introTexture.unload();
 		  introTextureRegion = null;
 	  }
-	  
+	  	  
 	  public synchronized void loadMenu() {
 		  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		  	menuTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
-		 	menuBackgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTexture, activity, "background.png");
+		 	menuBackgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTexture, activity, "background.bmp");
 		 	playTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTexture, activity, "play.png");
-		 	//optionsTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTextureAtlas, activity, "options.png");
+		 	optionsTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTexture, activity, "options.png");
 		 	       
 		 	try 
 		 	{
@@ -94,7 +94,7 @@ public class ResourceManager {
 		 	FontFactory.setAssetBasePath("font/");
 		     final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 
-		     font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font2.ttf", 70, true, Color.WHITE, 2, Color.BLACK);
+		     font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "04B30.ttf", 70, true, Color.WHITE, 2, Color.BLACK);
 		     font.load();
 	  }
 	  
