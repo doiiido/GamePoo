@@ -15,6 +15,7 @@ import org.andengine.input.touch.TouchEvent;
 
 public class GameManager implements IOnSceneTouchListener{
 	private static GameManager gameManager;
+	private static final int DX = 100; //deslocamento da nave em relacao ao toque
 	private Engine gameEngine;
 	private Player player;
 	private Camera gameCamera;
@@ -80,7 +81,7 @@ public class GameManager implements IOnSceneTouchListener{
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if(pScene == this.gameScene){
-			if(pSceneTouchEvent.getX() <= this.gameCamera.getWidth()/2){
+			if(pSceneTouchEvent.getX() <= (this.gameCamera.getWidth()/2) - DX){
 					//Update dos atributos do objeto Player.
 				
 					if(this.player.getLastMoveByModifier() != null){
@@ -96,7 +97,7 @@ public class GameManager implements IOnSceneTouchListener{
 					//	fixa para quando as distâncias são muito curtas.
 					
 					float durationTime;
-					float deltaX = pSceneTouchEvent.getX()-this.player.getX()+100;
+					float deltaX = pSceneTouchEvent.getX()-this.player.getX() + DX;
 					float deltaY = pSceneTouchEvent.getY()-this.player.getY();
 					float absDistance = Math.abs(deltaX) + Math.abs(deltaY);
 					if(absDistance <= 0.5){
