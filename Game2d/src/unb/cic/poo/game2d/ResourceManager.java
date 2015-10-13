@@ -41,6 +41,8 @@ public class ResourceManager {
 	public static ITiledTextureRegion walkerTextureRegion;
 	BitmapTextureAtlas shooterTexture;
 	public static ITiledTextureRegion shooterTextureRegion;
+	BitmapTextureAtlas laserTexture;
+	public static ITiledTextureRegion laserTextureRegion;
 	
 	/*Bullets*/
 	BitmapTextureAtlas bulletTexture;
@@ -55,9 +57,11 @@ public class ResourceManager {
 	  public Camera camera = GameActivity.mCamera;
 	  public VertexBufferObjectManager vbom;
 	  
-	  private static int WALKER_COLUMN = 6;
-	  private static int WALKER_ROW = 1;
-	  
+	  /*Enemys dimensões de animação*/
+	  private static int WALKER_COLUMN = 6, WALKER_ROW = 1;
+	  private static int SHOOTER_COLUMN = 9, SHOOTER_ROW = 1;
+	  private static int LASER_COLUMN = 5, LASER_ROW = 1;
+	  /**/
 	  
 	  
 	  
@@ -148,8 +152,13 @@ public class ResourceManager {
 			
 			shooterTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 512, 124, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 			shooterTextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createTiledFromAsset(shooterTexture, activity,"shooter_animation.png", 0, 0, WALKER_COLUMN, WALKER_ROW);
+					.createTiledFromAsset(shooterTexture, activity,"shooter_animation.png", 0, 0, SHOOTER_COLUMN, SHOOTER_ROW);
 			shooterTexture.load();
+			
+			laserTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 512, 124, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+			laserTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createTiledFromAsset(laserTexture, activity,"laser_animation.png", 0, 0, LASER_COLUMN, LASER_ROW);
+			laserTexture.load();
 			
 			
 			/* PASTA BALAS*/
@@ -172,6 +181,7 @@ public class ResourceManager {
 	 public synchronized void unloadEnemys(){
 		 walkerTexture.unload();
 		 shooterTexture.unload();
+		 laserTexture.unload();
 	 }
 	 public synchronized void unloadGameTextures() {
 		  playerTexture.unload();

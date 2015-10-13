@@ -96,7 +96,7 @@ public class GameManager implements IOnSceneTouchListener{
 					//	fixa para quando as distâncias são muito curtas.
 					
 					float durationTime;
-					float deltaX = pSceneTouchEvent.getX()-this.player.getX()+100;
+					float deltaX = pSceneTouchEvent.getX()-this.player.getX()+65;
 					float deltaY = pSceneTouchEvent.getY()-this.player.getY();
 					float absDistance = Math.abs(deltaX) + Math.abs(deltaY);
 					if(absDistance <= 0.5){

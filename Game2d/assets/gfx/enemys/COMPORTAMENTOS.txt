@@ -1,2 +1,3 @@
-Walker: Inimigo simples que anda até chegar ao final.
-Shooter: Inimigo simples que fica parada e atira, também pode ser o inimigo que atira e anda
+Walker: Inimigo simples que anda até chegar ao final. (1-2 de vida)
+Shooter: Inimigo simples que fica parada e atira, também pode ser o inimigo que atira e anda (2-3 de vida)
+Laser: Intuitivo, parados que solta um laser retangular que ocupa todo uma posição x,e um pouco y (1 de vida) COM UMA PRÉVIA LINHA DE AVISO, sprite do laser a providenciar
