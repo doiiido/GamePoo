@@ -47,6 +47,8 @@ public class ResourceManager {
 	/*Bullets*/
 	BitmapTextureAtlas bulletTexture;
 	public static ITextureRegion bulletTextureRegion;
+	BitmapTextureAtlas laserBulletTexture;
+	public static ITextureRegion laserBulletTextureRegion;
 	
 	/*Backgrounds*/
 	BitmapTextureAtlas backgroundTexture;
@@ -169,6 +171,11 @@ public class ResourceManager {
 					.createFromAsset(bulletTexture, activity,"fire.png",0,0);
 			bulletTexture.load();
 			
+			laserBulletTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 1280, 32);
+			laserBulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createFromAsset(laserBulletTexture, activity,"laserbullet.png",0,0);
+			laserBulletTexture.load();
+			
 			/* PASTA BACKGROUNDS*/
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/backgrounds/");
 			backgroundTexture = new BitmapTextureAtlas(pEngine.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
@@ -187,6 +194,7 @@ public class ResourceManager {
 		  playerTexture.unload();
 		  unloadEnemys();
 		  bulletTexture.unload();
+		  laserBulletTexture.unload();
 		  backgroundTexture.unload();
 	  }
 }

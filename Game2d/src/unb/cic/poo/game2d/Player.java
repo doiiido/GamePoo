@@ -25,7 +25,7 @@ public class Player extends SpaceshipAnimated{
 		super(0f, (float) (GameActivity.CAMERA_HEIGHT/2) - (PLAYER_HEIGHT/2), ResourceManager.playerTextureRegion 
 				,GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.speed = DEFAULT_PLAYER_SPEED;
-		this.bulletType = new CommonBulletType();
+		this.bulletType = new LaserBulletType();
 	}
 	
 	//Método para atirar
