@@ -6,11 +6,13 @@ import org.andengine.entity.sprite.Sprite;
 
 import unb.cic.poo.game2d.CommonEnemy;
 import unb.cic.poo.game2d.Enemy;
+import unb.cic.poo.game2d.FreezedShootingEnemy;
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ParallaxApplication;
 import unb.cic.poo.game2d.Player;
 import unb.cic.poo.game2d.ResourceManager;
+import unb.cic.poo.game2d.VerticalMovementEnemy;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
 public class GameScene extends BaseScene {
@@ -36,10 +38,10 @@ public class GameScene extends BaseScene {
 		
 		// Cria os inimigos para teste
 		// Valores alinhados: dividir por 5, 2 e 1.25
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/3.33)));
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/1.67)));
+		GameManager.getInstance().getEnemies().add(new FreezedShootingEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+				(float) (GameActivity.CAMERA_HEIGHT/3.33), (GameManager.getInstance().getGameCamera().getWidth()-400f)));
+		GameManager.getInstance().getEnemies().add(new VerticalMovementEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+				(float) (GameActivity.CAMERA_HEIGHT/1.67), (GameManager.getInstance().getGameCamera().getWidth()-250f)));
 		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
 				(float) (GameActivity.CAMERA_HEIGHT/1.11)));
 		
