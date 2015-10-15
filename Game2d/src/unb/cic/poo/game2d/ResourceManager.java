@@ -57,6 +57,8 @@ public class ResourceManager {
 	/*Icons*/
 	BitmapTextureAtlas gameoverTexture;
 	public ITextureRegion gameoverTextureRegion;
+	BitmapTextureAtlas winnerTexture;
+	public ITextureRegion winnerTextureRegion;
 	
 	  //common objects
 	  public GameActivity activity;
@@ -189,6 +191,12 @@ public class ResourceManager {
 	        gameoverTextureRegion = BitmapTextureAtlasTextureRegionFactory
 	                .createFromAsset(gameoverTexture, activity, "gameover.png",0,0);
 	        gameoverTexture.load();
+	        
+	        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/icons/");
+	        winnerTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512, TextureOptions.BILINEAR);
+	        winnerTextureRegion = BitmapTextureAtlasTextureRegionFactory
+	                .createFromAsset(winnerTexture, activity, "winner.png",0,0);
+	        winnerTexture.load();
 	 }
 	 
 	 public synchronized void unloadEnemys(){
@@ -204,5 +212,6 @@ public class ResourceManager {
 		  laserBulletTexture.unload(); laserTextureRegion = null;
 		  backgroundTexture.unload(); backgroundTextureRegion = null;
 		  gameoverTexture.unload(); gameoverTextureRegion = null;
+		  winnerTexture.unload(); winnerTextureRegion = null;
 	  }
 }
