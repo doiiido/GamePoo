@@ -4,8 +4,10 @@ import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.MoveByModifier;
+import org.andengine.entity.modifier.ParallelEntityModifier;
 import org.andengine.entity.modifier.PathModifier;
 import org.andengine.entity.modifier.PathModifier.Path;
+import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.modifier.IModifier;
@@ -24,11 +26,10 @@ public class VerticalMovementEnemy extends Enemy{
 	
 	private static final int COMMON_ENEMY_LIFE = 1;
 	private BulletType bulletType = new CommonBulletType();
-	private float pontosY[] = new float[4];
-	private float pontosX[] = new float[4];;
 	private float timer;
 	private float posXfinal;
 	private float posXinicial;
+	private float yInicial;
 	private IUpdateHandler shootHandler;
 	
 	public VerticalMovementEnemy(float pX, float pY, float posXfinal) {
@@ -37,17 +38,8 @@ public class VerticalMovementEnemy extends Enemy{
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
 		this.posXinicial = pX;
-		this.posXfinal = posXfinal;
-		
-		this.pontosY[0] = pY;
-		this.pontosY[1] = 0f;
-		this.pontosY[2] = (float)(22*COMMON_ENEMY_HEIGHT-COMMON_ENEMY_HEIGHT);
-		this.pontosY[3] = (pY);
-		this.pontosX[0] = this.posXfinal;
-		this.pontosX[1] = this.posXfinal;
-		this.pontosX[2] = this.posXfinal;
-		this.pontosX[3] = this.posXfinal;
-		
+		this.yInicial = pY;
+		this.posXfinal = posXfinal;		
 		
 		this.setMovement();
 		
@@ -73,33 +65,25 @@ public class VerticalMovementEnemy extends Enemy{
 	}
 	
 	/* Método que posiciona a nave inimiga na posição X final. */
-	private void setMovement(){
+	public void setMovement(){
 		float distance = GameManager.getInstance().getGameCamera().getWidth();
 		float durationTime = distance/this.speed;
 		
-		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -(this.posXinicial-this.posXfinal), 0);
-		moveByModifier.addModifierListener(this);
+		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -(GameActivity.CAMERA_WIDTH-this.posXfinal), 0);
 		
-		moveByModifier.setAutoUnregisterWhenFinished(true);
-		this.registerEntityModifier(moveByModifier);
-	}
-
-	/* Método que define o movimento vertical da nave inimiga. */
-	private void setMovementV() {
-		float distance = GameManager.getInstance().getGameCamera().getHeight();
-		float durationTime = distance/this.speed;
+		MoveByModifier firstUp = new MoveByModifier(durationTime, 0, -this.yInicial);
 		
-		Path path = new Path(4);
-		for(int i = 0; i < 4; ++i){
-			float posX = this.pontosX[i];
-			float poxY = this.pontosY[i];
-			
-			path.to(posX, poxY);
-		}
+		MoveByModifier down = new MoveByModifier(durationTime, 0, GameActivity.CAMERA_HEIGHT - COMMON_ENEMY_HEIGHT);
+		MoveByModifier up = new MoveByModifier(durationTime, 0, -(GameActivity.CAMERA_HEIGHT - COMMON_ENEMY_HEIGHT));
+		SequenceEntityModifier sequenceVertical = new SequenceEntityModifier(down, up);
+		LoopEntityModifier loopVertical = new LoopEntityModifier(sequenceVertical);	
 		
-		PathModifier pathModifier = new PathModifier(durationTime, path);
-		LoopEntityModifier loopEntityModifier = new LoopEntityModifier(pathModifier);
-		this.registerEntityModifier(loopEntityModifier);
+		
+		SequenceEntityModifier posicionaLoop = new SequenceEntityModifier(firstUp, loopVertical);		
+		
+		ParallelEntityModifier parallelEntityModifier = new ParallelEntityModifier(moveByModifier, posicionaLoop);
+		
+		this.registerEntityModifier(parallelEntityModifier);
 	}
 
 	@Override
@@ -111,7 +95,6 @@ public class VerticalMovementEnemy extends Enemy{
 	@Override
 	public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
 		// TODO Auto-generated method stub
-		this.setMovementV();
 	}
 
 	@Override
