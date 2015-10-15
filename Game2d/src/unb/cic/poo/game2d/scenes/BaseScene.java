@@ -19,7 +19,7 @@ public abstract class BaseScene extends Scene {
     protected ResourceManager resourceManager;
     protected SceneManager sceneManager;
     protected VertexBufferObjectManager vbom;
-    protected Camera camera;
+    protected static Camera camera;
     
     //---------------------------------------------
     // CONSTRUCTOR
@@ -30,7 +30,7 @@ public abstract class BaseScene extends Scene {
         this.activity = resourceManager.activity;
 		this.engine = resourceManager.engine;
         this.vbom = resourceManager.vbom;
-        this.camera = GameActivity.mCamera;
+        BaseScene.camera = GameActivity.mCamera;
         this.sceneManager = SceneManager.getInstance();
         createScene();
     }

@@ -10,9 +10,7 @@ import java.util.TimerTask;
 
 
 import org.andengine.entity.modifier.MoveByModifier;
-import org.andengine.entity.sprite.Sprite;
 
-import android.text.format.Time;
 import unb.cic.poo.game2d.scenes.BaseScene;
 import unb.cic.poo.game2d.scenes.GameScene;
 import unb.cic.poo.game2d.scenes.SceneManager;
@@ -23,10 +21,8 @@ public class Player extends SpaceshipAnimated{
 	public final static int DEFAULT_PLAYER_SPEED = 1500;
 	public final static int DEFAULT_PLAYER_LIFE = 10;
 	
-	public final Sprite lifebar = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f,ResourceManager.lifeTextureRegion,GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
-	public float lifewidth = lifebar.getWidth();
+	public float lifewidth = GameScene.getLifeBar().getWidth();
 	public final float lifescale = (lifewidth/DEFAULT_PLAYER_LIFE);
-	
 	
 	private int score;
 	private MoveByModifier lastMoveByModifier; // Armazena o ultimo modificador de movimento utilizado na classe.
@@ -97,7 +93,7 @@ public class Player extends SpaceshipAnimated{
 	public void decrementLife(int decrement) {
 		super.decrementLife(decrement);
 		this.lifewidth -= this.lifescale;
-		this.lifebar.setWidth(this.lifewidth);
+		GameScene.setLifeBar(lifewidth);
 		
 		if(this.life <= 0){
 			BaseScene aux = SceneManager.gameScene;

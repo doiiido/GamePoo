@@ -19,6 +19,9 @@ import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
 public class GameScene extends BaseScene {
 	private Sprite end;
+	private static Sprite lifebar;
+	private static Sprite lifebarmold;
+	private static float cont;
     //private HUD gameHUD;
     //private Text scoreText;
 	
@@ -54,7 +57,6 @@ public class GameScene extends BaseScene {
 		
 		//Insere o Player na Scene.
 		this.attachChild(GameManager.getInstance().getPlayer());
-		this.attachChild(GameManager.getInstance().getPlayer().lifebar);
 		//Insere inimigos na Scene
 		for(Enemy enemy: GameManager.getInstance().getEnemies()){
 			this.attachChild(enemy);
@@ -99,6 +101,33 @@ public class GameScene extends BaseScene {
         gameHUD.attachChild(scoreText);
         
         camera.setHUD(gameHUD);*/
+    	
+    	lifebarmold = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.lifemoldTextureRegion,
+    			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
+    	lifebarmold.setPosition((camera.getWidth() - lifebarmold.getWidth()) - 40, 
+    			(camera.getHeight() - lifebarmold.getHeight()) - 660);
+    	
+    	lifebar = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.lifeTextureRegion,
+    			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
+    	lifebar.setPosition((camera.getWidth() - lifebar.getWidth()) - 40, 
+    			(camera.getHeight() - lifebar.getHeight()) - 660);
+    	
+    	this.attachChild(lifebarmold);
+    	this.attachChild(lifebar);
+    	
+    	cont = (float) 36.4;
+    }
+    
+    public static void setLifeBar(float lifewidth) {
+    	lifebar.setWidth(lifewidth);
+    	// ajustar melhor essa parte
+    	lifebar.setPosition((camera.getWidth()- lifebar.getWidth()) - 40 - cont, 
+    			(camera.getHeight() - lifebar.getHeight()) - 660);
+    	cont += 36.4;
+    }
+    
+    public static Sprite getLifeBar() {
+    	return lifebar;
     }
     
     public void gameOver() {

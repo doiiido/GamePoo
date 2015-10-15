@@ -58,11 +58,13 @@ public class ResourceManager {
 	
 	/*Icons*/
 	BitmapTextureAtlas gameoverTexture;
-	public static ITextureRegion gameoverTextureRegion;
+	public ITextureRegion gameoverTextureRegion;
 	BitmapTextureAtlas winnerTexture;
-	public static ITextureRegion winnerTextureRegion;
+	public ITextureRegion winnerTextureRegion;
 	BitmapTextureAtlas lifeTexture;
 	public static ITextureRegion lifeTextureRegion;
+	BitmapTextureAtlas lifemoldTexture;
+	public static ITextureRegion lifemoldTextureRegion;
 	
 	  //common objects
 	  public GameActivity activity;
@@ -210,7 +212,12 @@ public class ResourceManager {
 	        lifeTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 124);
 			lifeTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createFromAsset(lifeTexture, activity,"lifebar.png",0,0);
-			lifeTexture.load();	        
+			lifeTexture.load();
+			
+			lifemoldTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 124);
+			lifemoldTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createFromAsset(lifemoldTexture, activity,"lifebar_mold.png",0,0);
+			lifemoldTexture.load();	 
 	 }
 	 
 	 public synchronized void unloadEnemys(){
@@ -223,7 +230,9 @@ public class ResourceManager {
 		  gameoverTexture.unload(); gameoverTextureRegion = null;
 		  winnerTexture.unload(); winnerTextureRegion = null;
 		  lifeTexture.unload(); lifeTextureRegion = null;
+		  lifemoldTexture.unload(); lifemoldTextureRegion = null;
 	 }
+	 
 	 public synchronized void unloadGameTextures() {
 		  playerTexture.unload(); playerTextureRegion = null;
 		  unloadEnemys();
