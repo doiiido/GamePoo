@@ -187,7 +187,7 @@ public class ResourceManager {
 			
 			laserBulletTexture = new BitmapTextureAtlas(engine.getTextureManager(), 2048, 124);
 			laserBulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createFromAsset(laserBulletTexture, activity,"laser.png",0,0);
+					.createFromAsset(laserBulletTexture, activity,"laser.jpg",0,0);
 			laserBulletTexture.load();
 			
 			/* PASTA BACKGROUNDS*/
