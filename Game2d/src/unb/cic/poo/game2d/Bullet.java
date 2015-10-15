@@ -13,13 +13,14 @@ public abstract class Bullet extends Sprite implements IEntityModifierListener{
 	protected int speed;
 	protected boolean enemyBullet;
 	protected boolean movementFinished;
+	protected boolean alreadyHit = false;
+	protected IUpdateHandler updateHandler;
 
 	public Bullet(float pX, float pY, ITextureRegion pTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, ResourceManager.bulletTextureRegion, pVertexBufferObjectManager);
 		this.movementFinished = false;
-		//Verifica se atingiu inimigos a cada ciclo do game.
-		this.registerUpdateHandler(new IUpdateHandler() {
+		this.updateHandler = new IUpdateHandler() {
 			
 			@Override
 			public void reset() {
@@ -31,21 +32,30 @@ public abstract class Bullet extends Sprite implements IEntityModifierListener{
 					@Override
 					public void run() {
 						if(checkEnemyHit()){
-							if(!isEnemyBullet()){
-								OnEnemyHit(); //Sobrescrevendo esse método poderemos adicionar o comportamento da bala quando ela atingir um inimigo.
-												//(Explodir, aumentar score do player, etc).
-							}
-							else{
-								GameManager.getInstance().getPlayer().decrementLife(damage);
+							if(!alreadyHit){
+								alreadyHit = true;
+								if(!isEnemyBullet()){
+									OnEnemyHit(); //Sobrescrevendo esse método poderemos adicionar o comportamento da bala quando ela atingir um inimigo.
+													//(Explodir, aumentar score do player, etc).
+								}
+								else{
+									unregisterUpdateHandler(updateHandler);
+									GameManager.getInstance().getGameScene().unregisterUpdateHandler(updateHandler);
+									GameManager.getInstance().getPlayer().decrementLife(damage);
+									removeBullet();
+								}
 							}
 						}
 						else if(movementFinished){
 							removeBullet();
 						}
+						
 					}
 				});
 			}
-		});
+		};
+		//Verifica se atingiu inimigos a cada ciclo do game.
+		this.registerUpdateHandler(updateHandler);
 	}
 	
 	//Getters e Setters

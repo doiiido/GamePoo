@@ -41,16 +41,16 @@ public class GameScene extends BaseScene {
 		
 		// Cria os inimigos para teste
 		// Valores alinhados: dividir por 5, 2 e 1.25
-		/*GameManager.getInstance().getEnemies().add(new FreezedShootingEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+		GameManager.getInstance().getEnemies().add(new FreezedShootingEnemy(GameManager.getInstance().getGameCamera().getWidth(),
 				(float) (GameActivity.CAMERA_HEIGHT/3.33), (GameManager.getInstance().getGameCamera().getWidth()-400f)));
 		GameManager.getInstance().getEnemies().add(new VerticalMovementEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/1.67), (GameManager.getInstance().getGameCamera().getWidth()-250f)));*/
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+				(float) (GameActivity.CAMERA_HEIGHT/1.67), (GameManager.getInstance().getGameCamera().getWidth()-250f)));
+		/*GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
 				(float) (GameActivity.CAMERA_HEIGHT/5)));
 		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
 				(float) (GameActivity.CAMERA_HEIGHT/2)));
 		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/1.25)));
+				(float) (GameActivity.CAMERA_HEIGHT/1.25)));*/
 		
 		//Insere o Player na Scene.
 		this.attachChild(GameManager.getInstance().getPlayer());

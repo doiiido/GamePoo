@@ -7,7 +7,7 @@ import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
-// Futuramente todas as naves serão animadas. Mantive a classe Spaceship igual, pois ainda estamos usando algumas estáticas.
+// Futuramente todas as naves serï¿½o animadas. Mantive a classe Spaceship igual, pois ainda estamos usando algumas estï¿½ticas.
 public abstract class SpaceshipAnimated extends AnimatedSprite{
 	protected int life;
 	protected int speed;

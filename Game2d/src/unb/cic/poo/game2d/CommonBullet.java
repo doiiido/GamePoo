@@ -43,8 +43,12 @@ public class CommonBullet extends Bullet{
 	
 	public boolean checkEnemyHit(){
 		
-		if(isEnemyBullet())
-			return this.collidesWith(GameManager.getInstance().getPlayer());
+		if(isEnemyBullet()){
+			if(this.collidesWith(GameManager.getInstance().getPlayer())){
+				return true;
+			}
+			return false;
+		}
 		for(Enemy enemy : GameManager.getInstance().getEnemies()){
 			if(this.collidesWith(enemy)){
 				enemy.decrementLife(this.damage);

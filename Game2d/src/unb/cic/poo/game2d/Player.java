@@ -16,7 +16,7 @@ public class Player extends SpaceshipAnimated{
 	public final static int PLAYER_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
 	public final static int PLAYER_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
 	public final static int DEFAULT_PLAYER_SPEED = 1500;
-	public final static int DEFAULT_PLAYER_LIFE = 4;
+	public final static int DEFAULT_PLAYER_LIFE = 10;
 	
 	private int score;
 	private MoveByModifier lastMoveByModifier; // Armazena o ultimo modificador de movimento utilizado na classe.
