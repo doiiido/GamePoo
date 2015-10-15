@@ -114,4 +114,19 @@ public class GameScene extends BaseScene {
             }
     	}));
     }
+    
+    public void gameFinished() {
+    	this.setIgnoreUpdate(true);
+    	
+    	end = new Sprite(0, 0, resourceManager.winnerTextureRegion, vbom);
+    	end.setPosition((camera.getWidth()- end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
+    	this.attachChild(end);
+    	
+    	engine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback() {
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                engine.unregisterUpdateHandler(pTimerHandler);
+                sceneManager.loadMenuScene(engine);
+            }
+    	}));
+    }
 }
