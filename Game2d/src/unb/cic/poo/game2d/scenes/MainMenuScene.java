@@ -39,8 +39,10 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 
 	@Override
 	public void disposeScene() {
-		// TODO Auto-generated method stub
-		
+		menuChildScene.detachSelf();
+        menuChildScene.dispose();
+        this.detachSelf();
+        this.dispose();
 	}
 	
 	private void createBackground() {

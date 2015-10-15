@@ -6,6 +6,7 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import android.app.Activity;
+import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
@@ -16,6 +17,7 @@ public abstract class BaseScene extends Scene {
     protected Engine engine;
     protected Activity activity;
     protected ResourceManager resourceManager;
+    protected SceneManager sceneManager;
     protected VertexBufferObjectManager vbom;
     protected Camera camera;
     
@@ -28,10 +30,11 @@ public abstract class BaseScene extends Scene {
         this.activity = resourceManager.activity;
 		this.engine = resourceManager.engine;
         this.vbom = resourceManager.vbom;
-        this.camera = resourceManager.camera;
+        this.camera = GameActivity.mCamera;
+        this.sceneManager = SceneManager.getInstance();
         createScene();
     }
-    
+
     //---------------------------------------------
     // ABSTRACTION
     //---------------------------------------------

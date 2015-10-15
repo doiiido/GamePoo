@@ -32,7 +32,7 @@ public class VerticalMovementEnemy extends Enemy{
 	private IUpdateHandler shootHandler;
 	
 	public VerticalMovementEnemy(float pX, float pY, float posXfinal) {
-		super(pX, pY, ResourceManager.shooterTextureRegion, 
+		super(pX, pY, ResourceManager.walkerTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
@@ -58,7 +58,7 @@ public class VerticalMovementEnemy extends Enemy{
 				timer -= pSecondsElapsed;
 				if(timer <= 0){
 					shoot();
-					timer = 1f;
+					timer = 0.5f;
 				}
 			}
 

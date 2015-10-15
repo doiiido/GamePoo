@@ -11,26 +11,30 @@ Questões a serem resolvidas:
 		-- Adicionar outras sprites no background Parallax
 		-- Explosão do inimigo
 	- Criar imagens e animações em pixel-arte
-		-- Sprites das movimentações da nave
 	- Aprender a fazer transições entre cenas, a exemplo de fade out
 	- Descobrir como adicionar animações/vídeos
 	- Colocar a nave no início do jogo chegando pelo canto da tela
 	- Adicionar barra de vida e opções de power up (no mínimo ver como vai ser o design)
-	- Definir fonte a ser utilizada
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 
 	- A cada mudança de dimensão o estilo da arte muda - ideia para quando o jogo já estiver bem
 	implementado
-	- Opção de survival (focar no modo história primeiro)
+	- Modo survival (focar no modo história primeiro) - ondas eternas e semi-aleatórias de inimigos
+	- Modo suicida e/ou outro nível da história: a vida vai diminuindo com o tempo e quando se mata
+	o inimigo ou sua vida aumenta direto ou cai um "boost" dele que vc tem que pegar para aumenta-la
 	- Inimigo: destruir (explosão) X desintegrar X despixelizar (para o pixel-arte, no caso,
 	dividir o inimigo em pequenos blocos) X outros efeitos
+	- Sugestões de inimigo:
+		-- Boomerang: se não mata-lo, vai voltar e te atacar pro trás
 	- Sugestões de chefões:
 		-- Um que surge em diferentes pedaços da tela, imitando o movimento de uma cobra
 		(uns 5 movimentos possíveis - surgir nos cantos, atacar a nave por baixo)
 		-- Pro início, um vilão mais fácil, com um escudo que gira em volta dele e
 		momentaneamente libera espaço para acertá-lo (ou também um escudo de mini-inimigos,
 		que são arremessados na nave de tempo em tempo)
+		-- Inimigo que é uma nave gigante(estilo a death star), mas que funciona como um 
+		porta-naves, saindo várias ondas de inimigo dela
 
 Questões que já foram definidas (postado pelo Fábio no grupo de Whatsapp após reunião do grupo):
 

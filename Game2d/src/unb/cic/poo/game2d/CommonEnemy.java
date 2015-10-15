@@ -4,6 +4,10 @@ import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.MoveByModifier;
 import org.andengine.util.modifier.IModifier;
 
+import unb.cic.poo.game2d.scenes.BaseScene;
+import unb.cic.poo.game2d.scenes.GameScene;
+import unb.cic.poo.game2d.scenes.SceneManager;
+
 //Inimigo B�sico
 
 public class CommonEnemy extends Enemy{
@@ -34,7 +38,8 @@ public class CommonEnemy extends Enemy{
 	//Verifica se o inimigo colide com o player, caso verdadeiro, o jogo para (Game Over).
 	protected void onManagedUpdate(float pSecondsElapsed) {
 		if(GameManager.getInstance().getEnemies().contains(this) && this.collidesWith(GameManager.getInstance().getPlayer())){
-			GameManager.getInstance().getGameEngine().stop();
+			BaseScene aux = SceneManager.getInstance().gameScene;
+			((GameScene) aux).gameOver();
 		}
 		super.onManagedUpdate(pSecondsElapsed);
 	}

@@ -2,6 +2,8 @@ package unb.cic.poo.game2d.scenes;
 
 import java.util.ArrayList;
 
+import org.andengine.engine.handler.timer.ITimerCallback;
+import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.sprite.Sprite;
 
 import unb.cic.poo.game2d.CommonEnemy;
@@ -16,6 +18,7 @@ import unb.cic.poo.game2d.VerticalMovementEnemy;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
 public class GameScene extends BaseScene {
+	private Sprite end;
     //private HUD gameHUD;
     //private Text scoreText;
 	
@@ -38,10 +41,14 @@ public class GameScene extends BaseScene {
 		
 		// Cria os inimigos para teste
 		// Valores alinhados: dividir por 5, 2 e 1.25
-		GameManager.getInstance().getEnemies().add(new FreezedShootingEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+		/*GameManager.getInstance().getEnemies().add(new FreezedShootingEnemy(GameManager.getInstance().getGameCamera().getWidth(),
 				(float) (GameActivity.CAMERA_HEIGHT/3.33), (GameManager.getInstance().getGameCamera().getWidth()-400f)));
 		GameManager.getInstance().getEnemies().add(new VerticalMovementEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/1.67), (GameManager.getInstance().getGameCamera().getWidth()-250f)));
+				(float) (GameActivity.CAMERA_HEIGHT/1.67), (GameManager.getInstance().getGameCamera().getWidth()-250f)));*/
+		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+				(float) (GameActivity.CAMERA_HEIGHT/3.33)));
+		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+				(float) (GameActivity.CAMERA_HEIGHT/1.67)));
 		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
 				(float) (GameActivity.CAMERA_HEIGHT/1.11)));
 		
@@ -65,11 +72,9 @@ public class GameScene extends BaseScene {
 
     @Override
     public void disposeScene() {
-    	camera.setHUD(null);
-        camera.setCenter(400, 240);
-
-        // TODO code responsible for disposing scene
-        // removing all game scene objects.
+    	//camera.setHUD(null);
+        this.detachSelf();
+        this.dispose();
     }
     
     private void createBackground() {
@@ -87,11 +92,26 @@ public class GameScene extends BaseScene {
         gameHUD = new HUD();
         
         // CREATE SCORE TEXT
-        scoreText = new Text(20, 420, resourceManager.font, "Score: 0123456789", new TextOptions(HorizontalAlign.LEFT), vbom);
+        scoreText = new Text(20, 420, resourceManager.font, "Score: 0", new TextOptions(HorizontalAlign.LEFT), vbom);
         scoreText.setSkewCenter(0, 0);    
         scoreText.setText("Score: " + score);
         gameHUD.attachChild(scoreText);
         
         camera.setHUD(gameHUD);*/
+    }
+    
+    public void gameOver() {
+    	this.setIgnoreUpdate(true);
+    	
+    	end = new Sprite(0, 0, resourceManager.gameoverTextureRegion, vbom);
+    	end.setPosition((camera.getWidth()- end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
+    	this.attachChild(end);
+    	
+    	engine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback() {
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                engine.unregisterUpdateHandler(pTimerHandler);
+                sceneManager.loadMenuScene(engine);
+            }
+    	}));
     }
 }

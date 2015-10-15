@@ -8,10 +8,15 @@ package unb.cic.poo.game2d;
 
 import org.andengine.entity.modifier.MoveByModifier;
 
+import unb.cic.poo.game2d.scenes.BaseScene;
+import unb.cic.poo.game2d.scenes.GameScene;
+import unb.cic.poo.game2d.scenes.SceneManager;
+
 public class Player extends SpaceshipAnimated{
 	public final static int PLAYER_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
 	public final static int PLAYER_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
 	public final static int DEFAULT_PLAYER_SPEED = 1500;
+	public final static int DEFAULT_PLAYER_LIFE = 4;
 	
 	private int score;
 	private MoveByModifier lastMoveByModifier; // Armazena o ultimo modificador de movimento utilizado na classe.
@@ -25,7 +30,10 @@ public class Player extends SpaceshipAnimated{
 		super(0f, (float) (GameActivity.CAMERA_HEIGHT/2) - (PLAYER_HEIGHT/2), ResourceManager.playerTextureRegion 
 				,GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.speed = DEFAULT_PLAYER_SPEED;
-		this.bulletType = new LaserBulletType();
+		this.life = DEFAULT_PLAYER_LIFE;
+		//this.bulletType = new LaserBulletType();
+		this.bulletType = new CommonBulletType();
+		
 	}
 	
 	//Método para atirar
@@ -76,5 +84,15 @@ public class Player extends SpaceshipAnimated{
 
 	public void setLastMoveByModifier(MoveByModifier lastMoveByModifier) {
 		this.lastMoveByModifier = lastMoveByModifier;
+	}
+	
+	public void decrementLife(int decrement) {
+		super.decrementLife(decrement);
+		
+		if(this.life <= 0){
+			BaseScene aux = SceneManager.gameScene;
+			((GameScene) aux).gameOver();
+		}
+		
 	}
 }

@@ -19,20 +19,18 @@ public class LoadScene extends BaseScene{
     }
 
     @Override
-    public void onBackKeyPressed()
-    {
+    public void onBackKeyPressed() {
         return;
     }
 
     @Override
-    public SceneType getSceneType()
-    {
+    public SceneType getSceneType() {
         return SceneType.SCENE_LOADING;
     }
 
     @Override
-    public void disposeScene()
-    {
-
+    public void disposeScene() {
+        this.detachSelf();
+        this.dispose();
     }
 }

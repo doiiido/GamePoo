@@ -15,7 +15,7 @@ import org.andengine.input.touch.TouchEvent;
 
 public class GameManager implements IOnSceneTouchListener{
 	private static GameManager gameManager;
-	private static final int DX = 100; //deslocamento da nave em relacao ao toque
+	private static final int DX = -30; //deslocamento da nave em relacao ao toque
 	private Engine gameEngine;
 	private Player player;
 	private Camera gameCamera;

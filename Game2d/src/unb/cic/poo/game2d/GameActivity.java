@@ -54,7 +54,7 @@ public class GameActivity extends BaseGameActivity {
 			OnCreateResourcesCallback pOnCreateResourcesCallback)
 			throws Exception {
 		mResourceManager = ResourceManager.getInstance(); mResourceManager.prepare(this);
-        mSceneManager = SceneManager.getInstance(); mSceneManager.prepare(this);
+        mSceneManager = SceneManager.getInstance(); mSceneManager.prepare(this, mEngine, mCamera);
         
         mResourceManager.loadIntro();
         pOnCreateResourcesCallback.onCreateResourcesFinished();
@@ -63,7 +63,6 @@ public class GameActivity extends BaseGameActivity {
 	@Override
 	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback)
 			throws Exception {
-		mSceneManager = new SceneManager(this, mEngine, mCamera);
 		GameManager.getInstance().setGameEngine(this.mEngine);
 		GameManager.getInstance().setGameCamera(this.mEngine.getCamera());
 		
