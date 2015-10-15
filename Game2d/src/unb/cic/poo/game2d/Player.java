@@ -12,6 +12,7 @@ public class Player extends SpaceshipAnimated{
 	public final static int PLAYER_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
 	public final static int PLAYER_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
 	public final static int DEFAULT_PLAYER_SPEED = 1500;
+	public final static int DEFAULT_PLAYER_LIFE = 4;
 	
 	private int score;
 	private MoveByModifier lastMoveByModifier; // Armazena o ultimo modificador de movimento utilizado na classe.
@@ -26,6 +27,7 @@ public class Player extends SpaceshipAnimated{
 				,GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.speed = DEFAULT_PLAYER_SPEED;
 		this.bulletType = new CommonBulletType();
+		this.life = DEFAULT_PLAYER_LIFE;
 	}
 	
 	//Método para atirar
@@ -76,5 +78,14 @@ public class Player extends SpaceshipAnimated{
 
 	public void setLastMoveByModifier(MoveByModifier lastMoveByModifier) {
 		this.lastMoveByModifier = lastMoveByModifier;
+	}
+	
+	public void decrementLife(int decrement) {
+		super.decrementLife(decrement);
+		
+		if(this.life <= 0){
+			GameManager.getInstance().gameOver();
+		}
+		
 	}
 }

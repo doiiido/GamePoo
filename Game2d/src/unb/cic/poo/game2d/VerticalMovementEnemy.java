@@ -58,7 +58,7 @@ public class VerticalMovementEnemy extends Enemy{
 				timer -= pSecondsElapsed;
 				if(timer <= 0){
 					shoot();
-					timer = 1f;
+					timer = 0.5f;
 				}
 			}
 

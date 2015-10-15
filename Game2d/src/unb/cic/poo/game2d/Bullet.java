@@ -31,8 +31,13 @@ public abstract class Bullet extends Sprite implements IEntityModifierListener{
 					@Override
 					public void run() {
 						if(checkEnemyHit()){
-							OnEnemyHit(); //Sobrescrevendo esse método poderemos adicionar o comportamento da bala quando ela atingir um inimigo.
-											//(Explodir, aumentar score do player, etc).
+							if(!isEnemyBullet()){
+								OnEnemyHit(); //Sobrescrevendo esse método poderemos adicionar o comportamento da bala quando ela atingir um inimigo.
+												//(Explodir, aumentar score do player, etc).
+							}
+							else{
+								GameManager.getInstance().getPlayer().decrementLife(damage);
+							}
 						}
 						else if(movementFinished){
 							removeBullet();

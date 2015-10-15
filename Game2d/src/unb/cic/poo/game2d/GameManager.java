@@ -75,6 +75,10 @@ public class GameManager implements IOnSceneTouchListener{
 	public void setEnemies(ArrayList<Enemy> enemies) {
 		this.WaveEnemies = enemies;
 	}
+	
+	public void gameOver(){
+		this.gameEngine.stop();
+	}
 
 	//Esse método gerenciará o comportamento dos objetos ao se tocar na tela. 
 
