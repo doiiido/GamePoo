@@ -96,7 +96,7 @@ public class ResourceManager {
 	  public synchronized void loadFonts(){
 		  	FontFactory.setAssetBasePath("font/");
 		  	final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		    font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "04B30.ttf", 70, true, Color.WHITE, 2, Color.BLACK);
+		    font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font_loading.ttf", 70, true, Color.WHITE, 2, Color.BLACK);
 		    font.load();
 	  }
 	  

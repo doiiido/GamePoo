@@ -46,11 +46,11 @@ public class GameScene extends BaseScene {
 		GameManager.getInstance().getEnemies().add(new VerticalMovementEnemy(GameManager.getInstance().getGameCamera().getWidth(),
 				(float) (GameActivity.CAMERA_HEIGHT/1.67), (GameManager.getInstance().getGameCamera().getWidth()-250f)));*/
 		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/3.33)));
+				(float) (GameActivity.CAMERA_HEIGHT/5)));
 		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/1.67)));
+				(float) (GameActivity.CAMERA_HEIGHT/2)));
 		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/1.11)));
+				(float) (GameActivity.CAMERA_HEIGHT/1.25)));
 		
 		//Insere o Player na Scene.
 		this.attachChild(GameManager.getInstance().getPlayer());

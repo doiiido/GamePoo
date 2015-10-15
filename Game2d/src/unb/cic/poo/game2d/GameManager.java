@@ -15,7 +15,8 @@ import org.andengine.input.touch.TouchEvent;
 
 public class GameManager implements IOnSceneTouchListener{
 	private static GameManager gameManager;
-	private static final int DX = -30; //deslocamento da nave em relacao ao toque
+	private static final int DX = -30; // deslocamento da nave em relacao ao toque
+	private static final int DY = -30; // ver valores melhores
 	private Engine gameEngine;
 	private Player player;
 	private Camera gameCamera;
@@ -76,10 +77,6 @@ public class GameManager implements IOnSceneTouchListener{
 		this.WaveEnemies = enemies;
 	}
 	
-	public void gameOver(){
-		this.gameEngine.stop();
-	}
-
 	//Esse método gerenciará o comportamento dos objetos ao se tocar na tela. 
 
 	@Override
@@ -102,7 +99,7 @@ public class GameManager implements IOnSceneTouchListener{
 					
 					float durationTime;
 					float deltaX = pSceneTouchEvent.getX()-this.player.getX() + DX;
-					float deltaY = pSceneTouchEvent.getY()-this.player.getY();
+					float deltaY = pSceneTouchEvent.getY()-this.player.getY() + DY;
 					float absDistance = Math.abs(deltaX) + Math.abs(deltaY);
 					if(absDistance <= 0.5){
 						durationTime = 0.0001f;
