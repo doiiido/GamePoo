@@ -1,5 +1,8 @@
 package unb.cic.poo.game2d;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 //Classe que vai armazenar as propriedades do player: Vida, Pontuação...
 
 //Atualmente ela herda da classe Rectangle, mas assim que tivermos os 
@@ -7,7 +10,9 @@ package unb.cic.poo.game2d;
 
 
 import org.andengine.entity.modifier.MoveByModifier;
+import org.andengine.entity.sprite.Sprite;
 
+import android.text.format.Time;
 import unb.cic.poo.game2d.scenes.BaseScene;
 import unb.cic.poo.game2d.scenes.GameScene;
 import unb.cic.poo.game2d.scenes.SceneManager;
@@ -17,6 +22,11 @@ public class Player extends SpaceshipAnimated{
 	public final static int PLAYER_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
 	public final static int DEFAULT_PLAYER_SPEED = 1500;
 	public final static int DEFAULT_PLAYER_LIFE = 10;
+	
+	public final Sprite lifebar = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f,ResourceManager.lifeTextureRegion,GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
+	public float lifewidth = lifebar.getWidth();
+	public final float lifescale = (lifewidth/DEFAULT_PLAYER_LIFE);
+	
 	
 	private int score;
 	private MoveByModifier lastMoveByModifier; // Armazena o ultimo modificador de movimento utilizado na classe.
@@ -37,7 +47,6 @@ public class Player extends SpaceshipAnimated{
 	
 	//Método para atirar
 	
-	@Override
 	public void shoot() {
 		Bullet bullet = this.bulletType.getBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
 		GameManager.getInstance().getGameScene().attachChild(bullet);
@@ -87,6 +96,8 @@ public class Player extends SpaceshipAnimated{
 	
 	public void decrementLife(int decrement) {
 		super.decrementLife(decrement);
+		this.lifewidth -= this.lifescale;
+		this.lifebar.setWidth(this.lifewidth);
 		
 		if(this.life <= 0){
 			BaseScene aux = SceneManager.gameScene;

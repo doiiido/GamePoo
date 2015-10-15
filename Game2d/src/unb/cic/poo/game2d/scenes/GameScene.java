@@ -54,6 +54,7 @@ public class GameScene extends BaseScene {
 		
 		//Insere o Player na Scene.
 		this.attachChild(GameManager.getInstance().getPlayer());
+		this.attachChild(GameManager.getInstance().getPlayer().lifebar);
 		//Insere inimigos na Scene
 		for(Enemy enemy: GameManager.getInstance().getEnemies()){
 			this.attachChild(enemy);

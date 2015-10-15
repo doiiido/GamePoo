@@ -58,9 +58,11 @@ public class ResourceManager {
 	
 	/*Icons*/
 	BitmapTextureAtlas gameoverTexture;
-	public ITextureRegion gameoverTextureRegion;
+	public static ITextureRegion gameoverTextureRegion;
 	BitmapTextureAtlas winnerTexture;
-	public ITextureRegion winnerTextureRegion;
+	public static ITextureRegion winnerTextureRegion;
+	BitmapTextureAtlas lifeTexture;
+	public static ITextureRegion lifeTextureRegion;
 	
 	  //common objects
 	  public GameActivity activity;
@@ -200,11 +202,15 @@ public class ResourceManager {
 	                .createFromAsset(gameoverTexture, activity, "gameover.png",0,0);
 	        gameoverTexture.load();
 	        
-	        BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/icons/");
 	        winnerTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512, TextureOptions.BILINEAR);
 	        winnerTextureRegion = BitmapTextureAtlasTextureRegionFactory
 	                .createFromAsset(winnerTexture, activity, "winner.png",0,0);
 	        winnerTexture.load();
+	        
+	        lifeTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 124);
+			lifeTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createFromAsset(lifeTexture, activity,"lifebar.png",0,0);
+			lifeTexture.load();	        
 	 }
 	 
 	 public synchronized void unloadEnemys(){
@@ -213,13 +219,17 @@ public class ResourceManager {
 		 laserTexture.unload(); laserTextureRegion = null;
 	 }
 	 
+	 public synchronized void unloadIcons(){
+		  gameoverTexture.unload(); gameoverTextureRegion = null;
+		  winnerTexture.unload(); winnerTextureRegion = null;
+		  lifeTexture.unload(); lifeTextureRegion = null;
+	 }
 	 public synchronized void unloadGameTextures() {
 		  playerTexture.unload(); playerTextureRegion = null;
 		  unloadEnemys();
 		  bulletTexture.unload(); bulletTextureRegion = null;
 		  laserBulletTexture.unload(); laserTextureRegion = null;
 		  backgroundTexture.unload(); backgroundTextureRegion = null;
-		  gameoverTexture.unload(); gameoverTextureRegion = null;
-		  winnerTexture.unload(); winnerTextureRegion = null;
+		  unloadIcons();
 	  }
 }
