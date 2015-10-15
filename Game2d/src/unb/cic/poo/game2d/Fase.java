@@ -4,12 +4,14 @@ import java.util.LinkedList;
 
 import org.andengine.engine.handler.IUpdateHandler;
 
+import unb.cic.poo.game2d.scenes.SceneManager;
+
 public abstract class Fase {
-	private LinkedList<Wave> waves;
+	protected LinkedList<Wave> waves;
 	
 	public Fase(){
 		waves = new LinkedList<Wave>();
-		GameManager.getInstance().getGameEngine().registerUpdateHandler(new IUpdateHandler() {
+		SceneManager.getInstance().getCurrentScene().registerUpdateHandler(new IUpdateHandler() {
 			
 			@Override
 			public void reset() {
@@ -17,8 +19,10 @@ public abstract class Fase {
 			
 			@Override
 			public void onUpdate(float pSecondsElapsed) {
-				if(getCurrentWave().waveFinished()){
-					nextWave();
+				if(!waves.isEmpty()){
+					if(getCurrentWave().waveFinished()){
+						nextWave();
+					}
 				}
 			}
 		});
@@ -43,5 +47,9 @@ public abstract class Fase {
 		nextWave = waves.get(0);
 		nextWave.setWave();
 		return nextWave;
+	}
+
+	public void setFase() {
+		this.waves.get(0).setWave();
 	}
 }

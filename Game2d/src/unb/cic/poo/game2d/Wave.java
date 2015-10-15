@@ -3,7 +3,7 @@ package unb.cic.poo.game2d;
 import java.util.ArrayList;
 
 public abstract class Wave {
-	private ArrayList<Enemy> enemies;
+	protected ArrayList<Enemy> enemies;
 	
 	public ArrayList<Enemy> getEnemies() {
 		return enemies;

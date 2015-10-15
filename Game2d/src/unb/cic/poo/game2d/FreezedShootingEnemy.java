@@ -1,9 +1,10 @@
 package unb.cic.poo.game2d;
 
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.MoveByModifier;
 import org.andengine.util.modifier.IModifier;
+
+import unb.cic.poo.game2d.scenes.SceneManager;
 
 
 
@@ -13,7 +14,6 @@ import org.andengine.util.modifier.IModifier;
 
 public class FreezedShootingEnemy extends Enemy{
 	//private static final int COMMON_ENEMY_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
-	private static final int COMMON_ENEMY_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
 	
 	private static final int DEFAULT_COMMON_ENEMY_SPEED = 1000; /* Velocidade vertical alterada. */
 	
@@ -21,8 +21,7 @@ public class FreezedShootingEnemy extends Enemy{
 	private BulletType bulletType;
 	private float posicaoFinalX;
 	private float posicaoInicialX;
-	private float timer = 2f;
-	private IUpdateHandler shootHandler;
+	private ShootHandler shootHandler;
 	
 	//É necessário passar a posição X final
 	public FreezedShootingEnemy(float pX, float pY, float pFinalX) {
@@ -34,24 +33,7 @@ public class FreezedShootingEnemy extends Enemy{
 		this.posicaoInicialX = pX;
 		this.bulletType = new CommonBulletType();
 		this.setMovement();
-		
-		this.shootHandler = new IUpdateHandler(){
-			
-			/* O inimigo irá atirar de 1 em 1 segundo. */
-			public void onUpdate(float pSecondsElapsed){
-				timer -= pSecondsElapsed;
-				if(timer <= 0){
-					shoot();
-					timer = 1f;
-				}
-			}
-
-			@Override
-			public void reset() {
-				// TODO Auto-generated method stub
-				
-			}
-		};
+		this.shootHandler = new ShootHandler(this);
 		this.registerUpdateHandler(this.shootHandler);
 	}
 	
@@ -74,10 +56,19 @@ public class FreezedShootingEnemy extends Enemy{
 		GameManager.getInstance().getGameScene().attachChild(bullet);
 	}
 	
+	public ShootHandler getShootHandler() {
+		return shootHandler;
+	}
+
+	public void setShootHandler(ShootHandler shootHandler) {
+		this.shootHandler = shootHandler;
+	}
+
+	@Override
 	public void removeEnemy(){
-		this.unregisterUpdateHandler(shootHandler);
 		GameManager.getInstance().getEnemies().remove(this);
-		GameManager.getInstance().getGameScene().detachChild(this);
+		this.unregisterUpdateHandler(this);
+		SceneManager.gameScene.detachChild(this);
 	}
 
 

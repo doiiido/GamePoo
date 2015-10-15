@@ -6,7 +6,10 @@ import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 
+import unb.cic.poo.game2d.Enemy;
+import unb.cic.poo.game2d.FreezedShootingEnemy;
 import unb.cic.poo.game2d.GameActivity;
+import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ResourceManager;
 
 public class SceneManager {
@@ -137,6 +140,7 @@ public class SceneManager {
     	ResourceManager.getInstance().loadGameTextures();
         gameScene = new GameScene();
         SceneManager.getInstance().setScene(gameScene);
+        ((GameScene) gameScene).setGameScene();
         disposeMenuScene();
     }
     

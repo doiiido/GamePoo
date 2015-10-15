@@ -37,7 +37,7 @@ public class Player extends SpaceshipAnimated{
 				,GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.speed = DEFAULT_PLAYER_SPEED;
 		this.life = DEFAULT_PLAYER_LIFE;
-		this.bulletType = new LaserBulletType();
+		this.bulletType = new CommonBulletType();
 		//this.bulletType = new CommonBulletType();
 	}
 	
