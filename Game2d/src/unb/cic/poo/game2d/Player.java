@@ -29,6 +29,8 @@ public class Player extends SpaceshipAnimated{
 	private float targetX; // targetX e targetY armazenam as coordenadas para as quais a nave esta se movendo.
 	private float targetY;
 	private BulletType bulletType;
+	private BulletType common; private BulletType laser;
+	private int bullet = 0;
 	
 	//Método construtor, por enquanto esta apenas chamando o construtor da superclasse e configurando a variável de velocidade.
 	// Para instanciar a sprite no construtor basta colocar ResourceManager.playerTextureRegion ou o nome da sprite desejada
@@ -37,8 +39,10 @@ public class Player extends SpaceshipAnimated{
 				,GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.speed = DEFAULT_PLAYER_SPEED;
 		this.life = DEFAULT_PLAYER_LIFE;
-		this.bulletType = new CommonBulletType();
-		//this.bulletType = new CommonBulletType();
+		
+		this.common = new CommonBulletType();
+		this.laser = new LaserBulletType();
+		this.bulletType = this.common;
 	}
 	
 	//Método para atirar
@@ -100,5 +104,15 @@ public class Player extends SpaceshipAnimated{
 			((GameScene) aux).gameOver();
 		}
 		
+	}
+	
+	public void changeBullet(){
+		if(bullet == 0) {
+			this.bulletType = this.laser;
+			bullet = 1;
+		} else {
+			this.bulletType = this.common;
+			bullet = 0;
+		}
 	}
 }

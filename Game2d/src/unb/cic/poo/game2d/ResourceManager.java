@@ -65,6 +65,10 @@ public class ResourceManager {
 	public static ITextureRegion lifeTextureRegion;
 	BitmapTextureAtlas lifemoldTexture;
 	public static ITextureRegion lifemoldTextureRegion;
+	BitmapTextureAtlas switchTexture;
+	public static ITextureRegion switchTextureRegion;
+	BitmapTextureAtlas backTexture;
+	public static ITextureRegion backTextureRegion;
 	
 	  //common objects
 	  public GameActivity activity;
@@ -217,7 +221,17 @@ public class ResourceManager {
 			lifemoldTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 124);
 			lifemoldTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createFromAsset(lifemoldTexture, activity,"lifebar_mold.png",0,0);
-			lifemoldTexture.load();	 
+			lifemoldTexture.load();
+			
+			switchTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256);
+			switchTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createFromAsset(switchTexture, activity,"switch.png",0,0);
+			switchTexture.load();
+			
+			backTexture = new BitmapTextureAtlas(engine.getTextureManager(), 128, 128);
+			backTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createFromAsset(backTexture, activity,"back.png",0,0);
+			backTexture.load();	
 	 }
 	 
 	 public synchronized void unloadEnemys(){
@@ -231,6 +245,8 @@ public class ResourceManager {
 		  winnerTexture.unload(); winnerTextureRegion = null;
 		  lifeTexture.unload(); lifeTextureRegion = null;
 		  lifemoldTexture.unload(); lifemoldTextureRegion = null;
+		  switchTexture.unload(); switchTextureRegion = null;
+		  backTexture.unload(); backTextureRegion = null;
 	 }
 	 
 	 public synchronized void unloadGameTextures() {
