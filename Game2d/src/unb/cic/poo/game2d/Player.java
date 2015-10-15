@@ -33,7 +33,6 @@ public class Player extends SpaceshipAnimated{
 		this.life = DEFAULT_PLAYER_LIFE;
 		//this.bulletType = new LaserBulletType();
 		this.bulletType = new CommonBulletType();
-		
 	}
 	
 	//Método para atirar
