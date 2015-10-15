@@ -18,7 +18,7 @@ public abstract class Bullet extends Sprite implements IEntityModifierListener{
 
 	public Bullet(float pX, float pY, ITextureRegion pTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
-		super(pX, pY, ResourceManager.bulletTextureRegion, pVertexBufferObjectManager);
+		super(pX, pY, pTextureRegion, pVertexBufferObjectManager);
 		this.movementFinished = false;
 		this.updateHandler = new IUpdateHandler() {
 			
