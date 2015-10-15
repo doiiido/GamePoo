@@ -78,7 +78,12 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	    
 	    setChildScene(menuChildScene);
 	    
-	    attachChild(new Text(camera.getWidth()*3/4 - 500, camera.getHeight() *3/4 - 420, resourceManager.font, "a lenda\n de \noguh", vbom));
+	    playMenuItem.setPosition(camera.getWidth()/2 - playMenuItem.getWidth() - 435,
+	    						 camera.getWidth()/2 - playMenuItem.getHeight() + 85);
+	    
+	    optionsMenuItem.setPosition(camera.getWidth()/2 - optionsMenuItem.getWidth() - 245,
+	    							camera.getWidth()/2 - optionsMenuItem.getHeight() + 85);
+	    
 	}
 
 	@Override
