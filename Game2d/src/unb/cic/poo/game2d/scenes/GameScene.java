@@ -198,5 +198,8 @@ public class GameScene extends BaseScene {
    	 	for(Enemy enemy: GameManager.getInstance().getEnemies()){
 			this.attachChild(enemy);
 		}
+   	 	
+   	 	ResourceManager.mMusic.play();
+		ResourceManager.mMusic.setVolume(1);
 	}
 }

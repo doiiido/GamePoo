@@ -27,7 +27,7 @@ public class GameActivity extends BaseGameActivity {
     private ResourceManager mResourceManager;
     private SceneManager mSceneManager;
     
-    // Caso queiram fazer padding nas bordas, ao invés de ajustar a tela: RatioResolutionPolicy
+    // Caso queiram fazer padding nas bordas, ao invï¿½s de ajustar a tela: RatioResolutionPolicy
     FillResolutionPolicy crp;
     
 	@Override
@@ -40,7 +40,8 @@ public class GameActivity extends BaseGameActivity {
         
         options.getTouchOptions().setNeedsMultiTouch(true);
         options.setWakeLockOptions(WakeLockOptions.SCREEN_ON);
-        
+        options.getAudioOptions().setNeedsMusic(true);
+        options.getAudioOptions().setNeedsSound(true);
         return options;
 	}
 	
@@ -57,6 +58,9 @@ public class GameActivity extends BaseGameActivity {
         mSceneManager = SceneManager.getInstance(); mSceneManager.prepare(this, mEngine, mCamera);
         
         mResourceManager.loadIntro();
+        pOnCreateResourcesCallback.onCreateResourcesFinished();
+        
+        ResourceManager.getInstance().loadGameResource(mEngine, this);
         pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
 

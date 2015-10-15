@@ -33,7 +33,7 @@ public class VerticalMovementEnemy extends Enemy{
 	private IUpdateHandler shootHandler;
 	
 	public VerticalMovementEnemy(float pX, float pY, float posXfinal) {
-		super(pX, pY, ResourceManager.walkerTextureRegion, 
+		super(pX, pY, ResourceManager.shooterTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
@@ -99,7 +99,7 @@ public class VerticalMovementEnemy extends Enemy{
 
 	@Override
 	public void shoot() {
-		Bullet bullet = this.bulletType.getBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), true);
+		Bullet bullet = this.bulletType.getBullet(this.getX(), this.getY()+(this.getHeight()/2), true);
 		GameManager.getInstance().getGameScene().attachChild(bullet);
 	}
 

@@ -41,6 +41,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 		super.decrementLife(decrement);
 		if(this.life <= 0){
 			this.kill();
+			ResourceManager.mXplosion.play();
 		}
 	}
 	

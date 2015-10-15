@@ -1,5 +1,11 @@
 package unb.cic.poo.game2d;
 
+import java.io.IOException;
+
+import org.andengine.audio.music.Music;
+import org.andengine.audio.music.MusicFactory;
+import org.andengine.audio.sound.Sound;
+import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.opengl.font.Font;
@@ -15,6 +21,8 @@ import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+
+import android.content.Context;
 import android.graphics.Color;
 import org.andengine.util.debug.Debug;
 
@@ -22,8 +30,8 @@ import org.andengine.util.debug.Debug;
 public class ResourceManager {
 	private static final ResourceManager INSTANCE = new ResourceManager();
 	  
-	// Todas as imagens animadas devem ser declaradas com Tiled, especificando quantas versões do sprite tem
-	// na textura especificada. Também tomar cuidado para elas estarem bem alinhadas.
+	// Todas as imagens animadas devem ser declaradas com Tiled, especificando quantas versï¿½es do sprite tem
+	// na textura especificada. Tambï¿½m tomar cuidado para elas estarem bem alinhadas.
 	public ITextureRegion introTextureRegion;
 	BitmapTextureAtlas introTexture;
 	
@@ -52,6 +60,12 @@ public class ResourceManager {
 	BitmapTextureAtlas laserBulletTexture;
 	public static ITextureRegion laserBulletTextureRegion;
 	
+	/*Musica e sons*/
+	public static Sound mSound;
+	public static Sound mBullet;
+	public static Sound mXplosion;
+	public static Music mMusic;
+	
 	/*Backgrounds*/
 	BitmapTextureAtlas backgroundTexture;
 	public static ITextureRegion backgroundTextureRegion;
@@ -76,7 +90,7 @@ public class ResourceManager {
 	  public Camera camera = GameActivity.mCamera;
 	  public VertexBufferObjectManager vbom;
 	  
-	  /*Enemys dimensões de animação*/
+	  /*Enemys dimensï¿½es de animaï¿½ï¿½o*/
 	  private static int WALKER_COLUMN = 6, WALKER_ROW = 1;
 	  private static int SHOOTER_COLUMN = 9, SHOOTER_ROW = 1;
 	  private static int LASER_COLUMN = 5, LASER_ROW = 1;
@@ -115,7 +129,26 @@ public class ResourceManager {
 	  public synchronized void unloadFonts() {
 		  	font.unload();
 	  }
-	  	  
+	  
+	  public void loadGameResource(Engine mEngine,Context mContext){
+		  
+		  SoundFactory.setAssetBasePath("sfx/");
+		  try{
+			  mBullet = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(),mContext,"battleplane_lazer.ogg");
+		  }catch(final IOException e){}
+		  
+		  MusicFactory.setAssetBasePath("sfx/");
+		  try{
+			  mMusic = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext,"twisted.mp3");
+			  mMusic.setLooping(true);
+		  }catch(final IOException e){}
+		  
+		  try{
+			  mXplosion = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(),mContext,"Explosion1.ogg");
+
+		  }catch(final IOException e){}
+	  }
+	  
 	  public synchronized void loadMenu() {
 		  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
 		  	menuTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
@@ -130,6 +163,16 @@ public class ResourceManager {
 		 	catch (final TextureAtlasBuilderException e) {
 		 	        Debug.e(e);
 		 	}
+	  }
+	  
+	  public void unloadGameResources(){
+		 
+		  mSound.release();
+		  mSound = null;
+		  
+		  mMusic.stop();
+		  mMusic.release();
+		  mMusic = null;
 	  }
 	  
 	  public synchronized void unloadMenu() {
@@ -147,7 +190,7 @@ public class ResourceManager {
 		 	/* PASTA JOGADOR*/
 		 	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/player/");
 		 	
-		 	// Ao carregar imagens, colocar potências de 2 maiores do que a resolução da mesma
+		 	// Ao carregar imagens, colocar potï¿½ncias de 2 maiores do que a resoluï¿½ï¿½o da mesma
 		 	// Evitar colocar imagens maiores que 1024
 		 		 	
 		 	

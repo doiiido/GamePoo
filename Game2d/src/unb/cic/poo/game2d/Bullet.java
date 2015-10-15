@@ -15,12 +15,16 @@ public abstract class Bullet extends Sprite implements IEntityModifierListener{
 	protected boolean movementFinished;
 	protected boolean alreadyHit = false;
 	protected IUpdateHandler updateHandler;
+	protected ResourceManager rs;
 
 	public Bullet(float pX, float pY, ITextureRegion pTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, pTextureRegion, pVertexBufferObjectManager);
 		this.movementFinished = false;
+		ResourceManager.mBullet.play();
 		this.updateHandler = new IUpdateHandler() {
+			
+
 			
 			@Override
 			public void reset() {
@@ -45,6 +49,7 @@ public abstract class Bullet extends Sprite implements IEntityModifierListener{
 									removeBullet();
 								}
 							}
+							
 						}
 						else if(movementFinished){
 							removeBullet();
