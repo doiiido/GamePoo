@@ -3,6 +3,8 @@ package unb.cic.poo.game2d;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.andengine.engine.handler.IUpdateHandler;
+
 //Classe que vai armazenar as propriedades do player: Vida, Pontuação...
 
 //Atualmente ela herda da classe Rectangle, mas assim que tivermos os 
@@ -31,6 +33,7 @@ public class Player extends SpaceshipAnimated{
 	private BulletType bulletType;
 	private BulletType common; private BulletType laser;
 	private int bullet = 0;
+	private IUpdateHandler cooldownManager;
 	
 	//Método construtor, por enquanto esta apenas chamando o construtor da superclasse e configurando a variável de velocidade.
 	// Para instanciar a sprite no construtor basta colocar ResourceManager.playerTextureRegion ou o nome da sprite desejada
@@ -41,15 +44,38 @@ public class Player extends SpaceshipAnimated{
 		this.life = DEFAULT_PLAYER_LIFE;
 		
 		this.common = new CommonBulletType();
+		this.common.setTimeAfterLastShot(0.2f);
 		this.laser = new LaserBulletType();
+		this.laser.setTimeAfterLastShot(2f);
 		this.bulletType = this.common;
+		
+		this.cooldownManager = new IUpdateHandler(){
+			
+			@Override
+			public void onUpdate(float pSecondsElapsed){
+				if(common.getTimeAfterLastShot() < common.getTimeLimit()){
+					common.incrementTimeAfterLastShot(pSecondsElapsed);
+				}
+				if(laser.getTimeAfterLastShot() < laser.getTimeLimit()){
+					laser.incrementTimeAfterLastShot(pSecondsElapsed);
+				}
+			}
+
+			@Override
+			public void reset() {
+			}
+		};
+		this.registerUpdateHandler(cooldownManager);
 	}
 	
 	//Método para atirar
 	
 	public void shoot() {
-		Bullet bullet = this.bulletType.getBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
-		GameManager.getInstance().getGameScene().attachChild(bullet);
+		if(this.bulletType.getTimeAfterLastShot() >= this.bulletType.getCooldownTime()){
+			Bullet bullet = this.bulletType.getBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
+			GameManager.getInstance().getGameScene().attachChild(bullet);
+			this.bulletType.setTimeAfterLastShot(0f);
+		}
 	}
 
 	// getters e setters.
