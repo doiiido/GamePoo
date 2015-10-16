@@ -14,12 +14,17 @@ Questões a serem resolvidas:
 	- Aprender a fazer transições entre cenas, a exemplo de fade out
 	- Descobrir como adicionar animações/vídeos
 	- Colocar a nave no início do jogo chegando pelo canto da tela
-	- Adicionar barra de vida e opções de power up (no mínimo ver como vai ser o design)
+	- Aplicar Stop, Restart e Menu em um botão interativo durante o jogo
+	- Continuar o HUD, adicionando pontuação e outros power ups
+	- Conferir o dispose das cenas
+	- Entender como funciona melhor o posicionamento mutável da barra de vida
+	- Bug de quando clica no botão de retorno após o game over (continua sendo reconhecido)
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 
 	- A cada mudança de dimensão o estilo da arte muda - ideia para quando o jogo já estiver bem
 	implementado
+	- O fundo pode mudar de volocidade dependendo do momento da história, por exemplo
 	- Modo survival (focar no modo história primeiro) - ondas eternas e semi-aleatórias de inimigos
 	- Modo suicida e/ou outro nível da história: a vida vai diminuindo com o tempo e quando se mata
 	o inimigo ou sua vida aumenta direto ou cai um "boost" dele que vc tem que pegar para aumenta-la
@@ -27,6 +32,7 @@ Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatid
 	dividir o inimigo em pequenos blocos) X outros efeitos
 	- Sugestões de inimigo:
 		-- Boomerang: se não mata-lo, vai voltar e te atacar pro trás
+		-- Carrega e joga um laser por um tempo determinado
 	- Sugestões de chefões:
 		-- Um que surge em diferentes pedaços da tela, imitando o movimento de uma cobra
 		(uns 5 movimentos possíveis - surgir nos cantos, atacar a nave por baixo)

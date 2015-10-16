@@ -106,7 +106,7 @@ public class Player extends SpaceshipAnimated{
 		
 	}
 	
-	public void changeBullet(){
+	public int changeBullet(){
 		if(bullet == 0) {
 			this.bulletType = this.laser;
 			bullet = 1;
@@ -114,5 +114,6 @@ public class Player extends SpaceshipAnimated{
 			this.bulletType = this.common;
 			bullet = 0;
 		}
+		return bullet;
 	}
 }

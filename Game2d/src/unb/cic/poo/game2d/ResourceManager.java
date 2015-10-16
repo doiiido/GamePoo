@@ -80,7 +80,8 @@ public class ResourceManager {
 	BitmapTextureAtlas lifemoldTexture;
 	public static ITextureRegion lifemoldTextureRegion;
 	BitmapTextureAtlas switchTexture;
-	public static ITextureRegion switchTextureRegion;
+	public static ITiledTextureRegion switchTextureRegion;
+
 	BitmapTextureAtlas backTexture;
 	public static ITextureRegion backTextureRegion;
 	
@@ -95,6 +96,7 @@ public class ResourceManager {
 	  private static int SHOOTER_COLUMN = 9, SHOOTER_ROW = 1;
 	  private static int LASER_COLUMN = 5, LASER_ROW = 1;
 	  private static int PLAYER_COLUMN = 8, PLAYER_ROW = 1;
+	  private static int SWITCH_COLUMN = 2, SWITCH_ROW = 1;
 	  
 	  public Font font;
 	  
@@ -225,7 +227,6 @@ public class ResourceManager {
 			bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createFromAsset(bulletTexture, activity,"fire.png",0,0);
 			bulletTexture.load();
-			
 
 			enemybulletTexture = new BitmapTextureAtlas(engine.getTextureManager(), 32, 32);
 			enemybulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
@@ -266,9 +267,9 @@ public class ResourceManager {
 					.createFromAsset(lifemoldTexture, activity,"lifebar_mold.png",0,0);
 			lifemoldTexture.load();
 			
-			switchTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256);
+			switchTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512);
 			switchTextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createFromAsset(switchTexture, activity,"switch.png",0,0);
+					.createTiledFromAsset(switchTexture, activity,"switcher.png", 0, 0, SWITCH_COLUMN, SWITCH_ROW);
 			switchTexture.load();
 			
 			backTexture = new BitmapTextureAtlas(engine.getTextureManager(), 128, 128);

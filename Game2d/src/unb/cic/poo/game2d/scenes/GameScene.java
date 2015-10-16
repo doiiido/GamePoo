@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 
 import unb.cic.poo.game2d.CommonEnemy;
@@ -22,12 +23,13 @@ public class GameScene extends BaseScene {
 	private Sprite end;
 	private static Sprite lifebar;
 	private static Sprite lifebarmold;
-	private static Sprite switcher;
+	private static TiledSprite switcher;
 	private static Sprite back;
 	private static float cont;
-	private static int posX = 30;
-	private static int deltaX = 15;
-	private static int posY = 660;
+	private static int change;
+	private static int posX = 30; private static int deltaX = 15;
+	private static int posY = 650;
+	private static float lifebarHeight; private static float varHeight = 5/3;
     //private HUD gameHUD;
     //private Text scoreText;
 	
@@ -99,47 +101,54 @@ public class GameScene extends BaseScene {
     	
     	lifebarmold = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.lifemoldTextureRegion,
     			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
-    	lifebarmold.setPosition((camera.getWidth() - lifebarmold.getWidth()) - posX - 2*(lifebarmold.getHeight() + deltaX), 
+    	lifebarmold.setPosition((camera.getWidth() - lifebarmold.getWidth()) - posX - 2*(varHeight*lifebarmold.getHeight() + deltaX), 
     			(camera.getHeight() - lifebarmold.getHeight()) - posY);
+    	
+    	lifebarHeight = lifebarmold.getHeight();
     	
     	lifebar = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.lifeTextureRegion,
     			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
-    	lifebar.setPosition((camera.getWidth() - lifebar.getWidth()) - posX - 2*(lifebarmold.getHeight() + deltaX), 
+    	lifebar.setPosition((camera.getWidth() - lifebar.getWidth()) - posX - 2*(varHeight*lifebarmold.getHeight() + deltaX), 
     			(camera.getHeight() - lifebar.getHeight()) - posY);
     	
     	this.attachChild(lifebarmold);
     	this.attachChild(lifebar);
     	
-    	cont = (float) 36.4;
+    	cont = (float) 36.3;
     	
-    	switcher = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.switchTextureRegion,
+    	switcher = new TiledSprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.switchTextureRegion,
     			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager()) {
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionUp()) {
-					GameManager.getInstance().getPlayer().changeBullet();
+				if (pSceneTouchEvent.isActionDown()) {
+					change = GameManager.getInstance().getPlayer().changeBullet();
+					if(change == 0){
+						switcher.setCurrentTileIndex(0);
+					} else {
+						switcher.setCurrentTileIndex(1);
+					}
 				}
 				return true;
 			}
 		};
-		switcher.setWidth(lifebarmold.getHeight());
-		switcher.setHeight(lifebarmold.getHeight());
-		switcher.setPosition((camera.getWidth()- switcher.getWidth()) - posX - lifebarmold.getHeight() - deltaX, 
+		switcher.setWidth(varHeight*lifebarHeight); switcher.setHeight(varHeight*lifebarHeight);
+		switcher.setPosition((camera.getWidth()- switcher.getWidth()) - posX - varHeight*lifebarHeight - deltaX, 
     			(camera.getHeight() - switcher.getHeight()) - posY);
 		
 		back = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.backTextureRegion,
     			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager()) {
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				this.setIgnoreUpdate(true);
-		    	sceneManager.loadMenuScene(engine);
+				if (pSceneTouchEvent.isActionDown()) {
+					this.setIgnoreUpdate(true);
+			    	sceneManager.loadMenuScene(engine);
+				}
 				return true;
 			}
 		};
-		back.setWidth(lifebarmold.getHeight());
-		back.setHeight(lifebarmold.getHeight());
+		back.setWidth(varHeight*lifebarHeight); back.setHeight(varHeight*lifebarHeight);
 		back.setPosition((camera.getWidth()- back.getWidth()) - posX, 
-    			(camera.getHeight() - switcher.getHeight()) - posY);
+    			(camera.getHeight() - back.getHeight()) - posY);
 		
 		this.registerTouchArea(switcher); this.registerTouchArea(back);
 		this.setTouchAreaBindingOnActionDownEnabled(true);
@@ -149,9 +158,9 @@ public class GameScene extends BaseScene {
     public static void setLifeBar(float lifewidth) {
     	lifebar.setWidth(lifewidth);
     	// ajustar melhor essa parte
-    	lifebar.setPosition((camera.getWidth()- lifebar.getWidth()) - posX - 2*(lifebarmold.getHeight() + deltaX) - cont, 
+    	lifebar.setPosition((camera.getWidth()- lifebar.getWidth()) - posX - 2*(varHeight*lifebarmold.getHeight() + deltaX) - cont, 
     			(camera.getHeight() - lifebar.getHeight()) - posY);
-    	cont += 36.4;
+    	cont += 36.3;
     }
     
     public static Sprite getLifeBar() {
@@ -160,6 +169,8 @@ public class GameScene extends BaseScene {
     
     public void gameOver() {
     	this.setIgnoreUpdate(true);
+    	this.setTouchAreaBindingOnActionDownEnabled(false);
+    	this.unregisterTouchArea(switcher); this.unregisterTouchArea(back);
     	
     	end = new Sprite(0, 0, resourceManager.gameoverTextureRegion, vbom);
     	end.setPosition((camera.getWidth()- end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
@@ -175,6 +186,8 @@ public class GameScene extends BaseScene {
     
     public void gameFinished() {
     	this.setIgnoreUpdate(true);
+    	this.setTouchAreaBindingOnActionDownEnabled(false);
+    	this.unregisterTouchArea(switcher); this.unregisterTouchArea(back);
     	
     	end = new Sprite(0, 0, resourceManager.winnerTextureRegion, vbom);
     	end.setPosition((camera.getWidth()- end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
