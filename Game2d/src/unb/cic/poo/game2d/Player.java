@@ -31,7 +31,8 @@ public class Player extends SpaceshipAnimated{
 	private float targetX; // targetX e targetY armazenam as coordenadas para as quais a nave esta se movendo.
 	private float targetY;
 	private BulletType bulletType;
-	private BulletType common; private BulletType laser;
+	private BulletType common; 
+	private BulletType secondaryBulletType;
 	private int bullet = 0;
 	private IUpdateHandler cooldownManager;
 	
@@ -44,37 +45,17 @@ public class Player extends SpaceshipAnimated{
 		this.life = DEFAULT_PLAYER_LIFE;
 		
 		this.common = new CommonBulletType();
-		this.common.setTimeAfterLastShot(0.2f);
-		this.laser = new LaserBulletType();
-		this.laser.setTimeAfterLastShot(2f);
+		this.secondaryBulletType = new LaserBulletType();
 		this.bulletType = this.common;
-		
-		this.cooldownManager = new IUpdateHandler(){
-			
-			@Override
-			public void onUpdate(float pSecondsElapsed){
-				if(common.getTimeAfterLastShot() < common.getTimeLimit()){
-					common.incrementTimeAfterLastShot(pSecondsElapsed);
-				}
-				if(laser.getTimeAfterLastShot() < laser.getTimeLimit()){
-					laser.incrementTimeAfterLastShot(pSecondsElapsed);
-				}
-			}
 
-			@Override
-			public void reset() {
-			}
-		};
-		this.registerUpdateHandler(cooldownManager);
 	}
 	
 	//Método para atirar
 	
 	public void shoot() {
-		if(this.bulletType.getTimeAfterLastShot() >= this.bulletType.getCooldownTime()){
+		if(!this.bulletType.isOnCooldown()){
 			Bullet bullet = this.bulletType.getBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
 			GameManager.getInstance().getGameScene().attachChild(bullet);
-			this.bulletType.setTimeAfterLastShot(0f);
 		}
 	}
 
@@ -102,6 +83,14 @@ public class Player extends SpaceshipAnimated{
 
 	public void setTargetY(float targetY) {
 		this.targetY = targetY;
+	}
+
+	public BulletType getSecondaryBulletType() {
+		return secondaryBulletType;
+	}
+
+	public void setSecondaryBulletType(BulletType secondaryBulletType) {
+		this.secondaryBulletType = secondaryBulletType;
 	}
 
 	public float getTargetX() {
@@ -134,7 +123,7 @@ public class Player extends SpaceshipAnimated{
 	
 	public int changeBullet(){
 		if(bullet == 0) {
-			this.bulletType = this.laser;
+			this.bulletType = this.secondaryBulletType;
 			bullet = 1;
 		} else {
 			this.bulletType = this.common;

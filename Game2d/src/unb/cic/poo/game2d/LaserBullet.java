@@ -38,7 +38,7 @@ public class LaserBullet extends Bullet{
 				GameManager.getInstance().getGameEngine().runOnUpdateThread(new Runnable() {			
 					@Override
 					public void run() {
-						if(totalElapsedSeconds > 0.7f){
+						if(totalElapsedSeconds > 0.3f){
 							removeBullet();
 						}
 					}

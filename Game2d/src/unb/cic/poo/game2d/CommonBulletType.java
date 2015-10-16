@@ -1,42 +1,20 @@
 package unb.cic.poo.game2d;
 
+import unb.cic.poo.game2d.scenes.SceneManager;
+
 //Classe responsável por instanciar uma bala.
 
-public class CommonBulletType implements BulletType{
-	public final static float COOLDOWN_TIME = 0.1f;
-	public final static float TIME_LIMIT = 0.2f;
-	private float timeAfterLastShot;
+public class CommonBulletType extends BulletType{
+	private static final float COOLDOWN_TIME = 0.1f;
+	
+	public CommonBulletType() {
+		this.cooldown = COOLDOWN_TIME;
+		this.onCooldown = false;
+	}
 	
 	@Override
 	public Bullet getBullet(float pX, float pY, boolean isEnemy) {
+		SceneManager.getInstance().getCurrentScene().registerUpdateHandler(new CooldownHandler(this));
 		return new CommonBullet(pX, pY, isEnemy);
 	}
-
-	@Override
-	public float getTimeAfterLastShot() {
-		return this.timeAfterLastShot;
-	}
-	
-	@Override
-	public void setTimeAfterLastShot(float pSeconds) {
-		this.timeAfterLastShot = pSeconds;
-	}
-
-	@Override
-	public void incrementTimeAfterLastShot(float pSeconds) {
-		this.timeAfterLastShot += pSeconds;
-	}
-
-	@Override
-	public float getTimeLimit() {
-		return TIME_LIMIT;
-	}
-
-	@Override
-	public float getCooldownTime() {
-		return COOLDOWN_TIME;
-	}
-	
-	//Getters e Setters
-	
 }
