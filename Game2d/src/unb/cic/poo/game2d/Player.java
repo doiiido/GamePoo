@@ -47,24 +47,7 @@ public class Player extends SpaceshipAnimated{
 		this.common = new CommonBulletType();
 		this.secondaryBulletType = new LaserBulletType();
 		this.bulletType = this.common;
-//		
-//		this.cooldownManager = new IUpdateHandler(){
-//			
-//			@Override
-//			public void onUpdate(float pSecondsElapsed){
-////				if(common.getTimeAfterLastShot() < common.getTimeLimit()){
-////					common.incrementTimeAfterLastShot(pSecondsElapsed);
-////				}
-////				if(laser.getTimeAfterLastShot() < laser.getTimeLimit()){
-////					laser.incrementTimeAfterLastShot(pSecondsElapsed);
-////				}
-//			}
-//
-//			@Override
-//			public void reset() {
-//			}
-//		};
-//		this.registerUpdateHandler(cooldownManager);
+
 	}
 	
 	//Método para atirar
