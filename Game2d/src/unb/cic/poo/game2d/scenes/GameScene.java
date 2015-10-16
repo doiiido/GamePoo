@@ -27,8 +27,8 @@ public class GameScene extends BaseScene {
 	private static Sprite back;
 	private static float cont;
 	private static int change;
-	private static int posX = 30; private static int deltaX = 15;
-	private static int posY = 650;
+	private static int posX = 50; private static int deltaX = 15;
+	private static int posY = 620;
 	private static float lifebarHeight; private static float varHeight = 5/3;
     //private HUD gameHUD;
     //private Text scoreText;
@@ -131,8 +131,8 @@ public class GameScene extends BaseScene {
 				return true;
 			}
 		};
-		switcher.setWidth(varHeight*lifebarHeight); switcher.setHeight(varHeight*lifebarHeight);
-		switcher.setPosition((camera.getWidth()- switcher.getWidth()) - posX - varHeight*lifebarHeight - deltaX, 
+		switcher.setWidth(varHeight*lifebarHeight+30); switcher.setHeight(varHeight*lifebarHeight+30);
+		switcher.setPosition((camera.getWidth()- switcher.getWidth()) - posX - varHeight*lifebarHeight - deltaX + 10, 
     			(camera.getHeight() - switcher.getHeight()) - posY);
 		
 		back = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.backTextureRegion,
@@ -146,8 +146,8 @@ public class GameScene extends BaseScene {
 				return true;
 			}
 		};
-		back.setWidth(varHeight*lifebarHeight); back.setHeight(varHeight*lifebarHeight);
-		back.setPosition((camera.getWidth()- back.getWidth()) - posX, 
+		back.setWidth(varHeight*lifebarHeight+30); back.setHeight(varHeight*lifebarHeight+30);
+		back.setPosition((camera.getWidth()- back.getWidth()) - posX + 30, 
     			(camera.getHeight() - back.getHeight()) - posY);
 		
 		this.registerTouchArea(switcher); this.registerTouchArea(back);

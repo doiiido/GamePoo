@@ -20,10 +20,12 @@ import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtla
 import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
+import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import android.content.Context;
 import android.graphics.Color;
+
 import org.andengine.util.debug.Debug;
 
 
@@ -35,10 +37,16 @@ public class ResourceManager {
 	public ITextureRegion introTextureRegion;
 	BitmapTextureAtlas introTexture;
 	
+	/*Menu Principal*/
 	public ITextureRegion menuBackgroundTextureRegion;
 	public ITextureRegion playTextureRegion;
 	public ITextureRegion optionsTextureRegion;
 	BuildableBitmapTextureAtlas menuTexture;
+	
+	/*Menu Configurações*/
+	BuildableBitmapTextureAtlas settingsTexture;
+	public TextureRegion settingsBackgroundTextureRegion;
+	public TextureRegion backMenuTextureRegion;
 	
 	/*Player*/
 	BitmapTextureAtlas playerTexture;
@@ -184,6 +192,27 @@ public class ResourceManager {
 		  optionsTextureRegion = null;
 	  }
 	  
+	  public synchronized void loadSettings() {
+		  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
+		  	settingsTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
+		 	settingsBackgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(settingsTexture, activity, "Fundo.bmp");
+		 	backMenuTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(settingsTexture, activity, "Back.png");
+		 			 	       
+		 	try {
+		 	    this.settingsTexture.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 0, 0));
+		 	    this.settingsTexture.load();
+		 	} 
+		 	catch (final TextureAtlasBuilderException e) {
+		 	        Debug.e(e);
+		 	}
+	  }
+	  
+	  public synchronized void unloadSettings() {
+		  settingsTexture.unload();
+		  settingsBackgroundTextureRegion = null;
+		  backMenuTextureRegion = null;
+	  }
+	  
 	 // Classe para carregar as texturas da pasta asset
 	 public synchronized void loadGameTextures(){
 			  // Set our game assets folder in "assets/gfx/game/"
@@ -294,7 +323,7 @@ public class ResourceManager {
 	 }
 	 
 	 public synchronized void unloadGameTextures() {
-		  playerTexture.unload(); playerTextureRegion = null;
+		  playerTexture.unload();  playerTextureRegion = null;
 		  unloadEnemys();
 		  bulletTexture.unload(); bulletTextureRegion = null;
 		  laserBulletTexture.unload(); laserTextureRegion = null;

@@ -19,7 +19,7 @@ public class SceneManager {
     
     private BaseScene introScene;
     private BaseScene menuScene;
-    //private BaseScene optionsScene;
+    private BaseScene settingsScene;
     public static BaseScene gameScene;
     private BaseScene loadScene;
     
@@ -48,6 +48,7 @@ public class SceneManager {
         SCENE_MENU,
         SCENE_GAME,
         SCENE_LOADING,
+        SCENE_SETTINGS,
     }
     
     //---------------------------------------------
@@ -74,6 +75,9 @@ public class SceneManager {
                 break;
             case SCENE_LOADING:
                 setScene(loadScene);
+                break;
+            case SCENE_SETTINGS:
+                setScene(settingsScene);
                 break;
             default:
                 break;
@@ -152,7 +156,7 @@ public class SceneManager {
     
     public void loadGameScene(final Engine mEngine) {
     	createLoadScene();
-        disposeMenuScene();
+    	disposeMenuScene();
         mEngine.registerUpdateHandler(new TimerHandler(0.3f, true, new ITimerCallback() {
             public void onTimePassed(final TimerHandler pTimerHandler) {
                 mEngine.unregisterUpdateHandler(pTimerHandler);
@@ -171,7 +175,30 @@ public class SceneManager {
                 ResourceManager.getInstance().loadMenu();
                 createMenuScene();
                 disposeLoadScene();
+                //TODO: disposeSettingsScene();
+
             }
         }));
     }
+    
+    public void loadMenufromSettings(){
+    	disposeSettingsScene();
+    	ResourceManager.getInstance().loadMenu();
+        createMenuScene();
+    	
+    }
+    
+    public void createSettingsScene() {
+    	disposeMenuScene();
+    	ResourceManager.getInstance().loadSettings();
+    	settingsScene = new SettingsScene();
+        SceneManager.getInstance().setScene(settingsScene);
+    }
+    
+    private void disposeSettingsScene() {
+        ResourceManager.getInstance().unloadSettings();
+        settingsScene.disposeScene();
+        settingsScene = null;
+    }
+    
 }
