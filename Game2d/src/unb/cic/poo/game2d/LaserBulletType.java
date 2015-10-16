@@ -3,40 +3,20 @@ package unb.cic.poo.game2d;
 
 
 import unb.cic.poo.game2d.BulletType;
+import unb.cic.poo.game2d.scenes.SceneManager;
 
-public class LaserBulletType implements BulletType{
-	private final static float COOLDOWN_TIME = 1.5f;
-	private final static float TIME_LIMIT = 2f;
-	private float timeAfterLastShot;
-
-	@Override
-	public Bullet getBullet(float pX, float pY, boolean isEnemy) {
-		return new LaserBullet(pX, pY, isEnemy);
-	}
-
-	@Override
-	public float getTimeAfterLastShot() {
-		return this.timeAfterLastShot;
+public class LaserBulletType extends BulletType{
+	private static final float COOLDOWN_TIME = 0.5f;
+	
+	public LaserBulletType() {
+		this.cooldown = COOLDOWN_TIME;
+		this.onCooldown = false;
 	}
 	
 	@Override
-	public void setTimeAfterLastShot(float pSeconds) {
-		this.timeAfterLastShot = pSeconds;
-	}
-
-	@Override
-	public void incrementTimeAfterLastShot(float pSeconds) {
-		this.timeAfterLastShot += pSeconds;
-	}
-
-	@Override
-	public float getTimeLimit() {
-		return TIME_LIMIT;
-	}
-
-	@Override
-	public float getCooldownTime() {
-		return COOLDOWN_TIME;
+	public Bullet getBullet(float pX, float pY, boolean isEnemy) {
+		SceneManager.getInstance().getCurrentScene().registerUpdateHandler(new CooldownHandler(this));
+		return new LaserBullet(pX, pY, isEnemy);
 	}
 
 }
