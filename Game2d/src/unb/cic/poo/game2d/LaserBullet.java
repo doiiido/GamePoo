@@ -30,6 +30,7 @@ public class LaserBullet extends Bullet{
 		super(pX, pY-5*BULLET_HEIGHT, ResourceManager.laserBulletTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		
+		this.animate(120);
 		this.damage = BULLET_DAMAGE;
 		
 		this.laserHandler = new IUpdateHandler(){
@@ -50,14 +51,6 @@ public class LaserBullet extends Bullet{
 			}
 		};
 		this.registerUpdateHandler(laserHandler);
-	}
-
-	@Override
-	public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
-	}
-
-	@Override
-	public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
 	}
 
 	@Override
@@ -83,5 +76,17 @@ public class LaserBullet extends Bullet{
 
 	@Override
 	public void OnEnemyHit() {
+	}
+
+	@Override
+	public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
+		// TODO Auto-generated method stub
+		
 	}
 }

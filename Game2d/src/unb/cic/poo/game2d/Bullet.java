@@ -2,13 +2,13 @@ package unb.cic.poo.game2d;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.modifier.IEntityModifier.IEntityModifierListener;
-import org.andengine.entity.sprite.Sprite;
-import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 //Essa classe é responsável pela configuração dos tiros
 
-public abstract class Bullet extends Sprite implements IEntityModifierListener{
+public abstract class Bullet extends AnimatedSprite implements IEntityModifierListener{
 	protected int damage;
 	protected int speed;
 	protected boolean enemyBullet;
@@ -17,13 +17,15 @@ public abstract class Bullet extends Sprite implements IEntityModifierListener{
 	protected IUpdateHandler updateHandler;
 	protected ResourceManager rs;
 
-	public Bullet(float pX, float pY, ITextureRegion pTextureRegion,
+	public Bullet(float pX, float pY, ITiledTextureRegion pTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, pTextureRegion, pVertexBufferObjectManager);
 		this.movementFinished = false;
 		ResourceManager.mBullet.play();
+		
 		this.updateHandler = new IUpdateHandler() {
 			
+		
 
 			
 			@Override

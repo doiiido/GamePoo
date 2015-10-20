@@ -62,11 +62,14 @@ public class ResourceManager {
 	
 	/*Bullets*/
 	BitmapTextureAtlas bulletTexture;
-	public static ITextureRegion bulletTextureRegion;
+	public static ITiledTextureRegion bulletTextureRegion;
+	private static int BULLET_COLUMN = 2, BULLET_ROW = 1;
 	BitmapTextureAtlas enemybulletTexture;
-	public static ITextureRegion enemybulletTextureRegion;
+	public static ITiledTextureRegion enemybulletTextureRegion;
+	private static int ENEMY_BULLET_COLUMN = 2, ENEMY_BULLET_ROW = 1;
 	BitmapTextureAtlas laserBulletTexture;
-	public static ITextureRegion laserBulletTextureRegion;
+	public static ITiledTextureRegion laserBulletTextureRegion;
+	private static int LASER_BULLET_COLUMN = 1, LASER_BULLET_ROW = 4;
 	
 	/*Musica e sons*/
 	public static Sound mSound;
@@ -252,19 +255,19 @@ public class ResourceManager {
 			/* PASTA BALAS*/
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/bullets/");
 	 
-			bulletTexture = new BitmapTextureAtlas(engine.getTextureManager(), 32, 32);
+			bulletTexture = new BitmapTextureAtlas(engine.getTextureManager(), 64, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 			bulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createFromAsset(bulletTexture, activity,"fire.png",0,0);
+					.createTiledFromAsset(bulletTexture, activity,"fire.png",0,0,BULLET_COLUMN,BULLET_ROW);
 			bulletTexture.load();
 
-			enemybulletTexture = new BitmapTextureAtlas(engine.getTextureManager(), 32, 32);
+			enemybulletTexture = new BitmapTextureAtlas(engine.getTextureManager(), 64, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 			enemybulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createFromAsset(enemybulletTexture, activity,"enemyfire.png",0,0);
+					.createTiledFromAsset(enemybulletTexture, activity,"enemyfire.png",0,0,ENEMY_BULLET_COLUMN,ENEMY_BULLET_ROW);
 			enemybulletTexture.load();
 			
-			laserBulletTexture = new BitmapTextureAtlas(engine.getTextureManager(), 2048, 124);
+			laserBulletTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1280, 200, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 			laserBulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createFromAsset(laserBulletTexture, activity,"laser.jpg",0,0);
+					.createTiledFromAsset(laserBulletTexture, activity,"laser.png", 0, 0, LASER_BULLET_COLUMN, LASER_BULLET_ROW);
 			laserBulletTexture.load();
 			
 			/* PASTA BACKGROUNDS*/
@@ -326,7 +329,7 @@ public class ResourceManager {
 		  playerTexture.unload();  playerTextureRegion = null;
 		  unloadEnemys();
 		  bulletTexture.unload(); bulletTextureRegion = null;
-		  laserBulletTexture.unload(); laserTextureRegion = null;
+		  laserBulletTexture.unload(); laserBulletTextureRegion = null;
 		  backgroundTexture.unload(); backgroundTextureRegion = null;
 		  unloadIcons();
 	  }
