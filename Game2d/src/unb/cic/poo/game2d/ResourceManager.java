@@ -92,6 +92,8 @@ public class ResourceManager {
 	public static ITextureRegion lifemoldTextureRegion;
 	BitmapTextureAtlas switchTexture;
 	public static ITiledTextureRegion switchTextureRegion;
+	BitmapTextureAtlas pauseTexture;
+	public static ITiledTextureRegion pauseTextureRegion;
 
 	BitmapTextureAtlas backTexture;
 	public static ITextureRegion backTextureRegion;
@@ -108,6 +110,7 @@ public class ResourceManager {
 	  private static int LASER_COLUMN = 5, LASER_ROW = 1;
 	  private static int PLAYER_COLUMN = 8, PLAYER_ROW = 1;
 	  private static int SWITCH_COLUMN = 2, SWITCH_ROW = 1;
+	  private static int PAUSE_COLUMN = 2, PAUSE_ROW = 1;
 	  
 	  public Font font;
 	  
@@ -308,6 +311,11 @@ public class ResourceManager {
 			backTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createFromAsset(backTexture, activity,"back.png",0,0);
 			backTexture.load();	
+			
+			pauseTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512);
+			pauseTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createTiledFromAsset(pauseTexture, activity,"play_pause.png", 0, 0, PAUSE_COLUMN, PAUSE_ROW);
+			pauseTexture.load();
 	 }
 	 
 	 public synchronized void unloadEnemys(){
@@ -323,6 +331,7 @@ public class ResourceManager {
 		  lifemoldTexture.unload(); lifemoldTextureRegion = null;
 		  switchTexture.unload(); switchTextureRegion = null;
 		  backTexture.unload(); backTextureRegion = null;
+		  pauseTexture.unload(); pauseTextureRegion = null;
 	 }
 	 
 	 public synchronized void unloadGameTextures() {
