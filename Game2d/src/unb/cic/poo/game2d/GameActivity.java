@@ -15,6 +15,7 @@ import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
+import android.view.KeyEvent;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 
@@ -87,4 +88,19 @@ public class GameActivity extends BaseGameActivity {
 		// and then provide the callback
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
 	}
+	
+	@Override
+    public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
+            if(pKeyCode == KeyEvent.KEYCODE_MENU && pEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    if(!this.mEngine.isRunning()) {
+                        this.mEngine.start();
+                    	
+                        //this.mMainScene.setChildScene(this.mPauseScene, false, true, true);
+                        //this.mEngine.stop();
+                    } 
+                    return true;
+            } else {
+                    return super.onKeyDown(pKeyCode, pEvent);
+            }
+    }
 }

@@ -6,7 +6,10 @@ import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
+import org.andengine.entity.sprite.vbo.ITiledSpriteVertexBufferObject;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
+import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import unb.cic.poo.game2d.CommonEnemy;
 import unb.cic.poo.game2d.Enemy;
@@ -32,8 +35,7 @@ public class GameScene extends BaseScene {
 	private static int posX = 120; private static int deltaX = 15;
 	private static int posY = 620;
 	private static float lifebarHeight; private static float varHeight = 5/3;
-    //private HUD gameHUD;
-    //private Text scoreText;
+		
 	
     public GameScene() {
 		createScene();		
@@ -152,7 +154,10 @@ public class GameScene extends BaseScene {
 		back.setPosition((camera.getWidth()- back.getWidth()) - posX + posX, 
     			(camera.getHeight() - back.getHeight()) - posY);
 		
-		pause = new TiledSprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.pauseTextureRegion,
+		pause = new PauseButton((float)(GameActivity.CAMERA_WIDTH/3), 0f, ResourceManager.pauseTextureRegion, 
+				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), this);
+		
+				/*new TiledSprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.pauseTextureRegion,
     			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager()) {
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
@@ -161,7 +166,8 @@ public class GameScene extends BaseScene {
 						pause.setCurrentTileIndex(1);
 						pause.setWidth(300); pause.setHeight(300);
 						pause.setPosition((camera.getWidth()/2)-(pause.getWidth()/2), (camera.getHeight()/2)-(pause.getHeight()/2));
-												
+										
+						setIgnoreUpdate(true);
 						//mChildScene.setIgnoreUpdate(true);
 						//mChildScene.setChildScene(mPauseScene , false, true, true);
 						
@@ -174,6 +180,9 @@ public class GameScene extends BaseScene {
 						pause.setPosition((camera.getWidth() - pause.getWidth()) - posX - varHeight*lifebarHeight - deltaX + 100, 
 				    			(camera.getHeight() - pause.getHeight()) - posY);				
 						
+						setIgnoreUpdate(false);
+						//this.setChildrenIgnoreUpdate(false);
+						
 						//mChildScene.setIgnoreUpdate(false);
 						
 						//engine.start();
@@ -183,7 +192,7 @@ public class GameScene extends BaseScene {
 				}
 				return true;
 			}
-		};
+		};*/
 		pause.setWidth(varHeight*lifebarHeight+30); pause.setHeight(varHeight*lifebarHeight+30);
 		pause.setPosition((camera.getWidth() - pause.getWidth()) - posX - varHeight*lifebarHeight - deltaX + 100, 
     			(camera.getHeight() - pause.getHeight()) - posY);
@@ -253,4 +262,41 @@ public class GameScene extends BaseScene {
    	 	ResourceManager.mMusic.play();
 		ResourceManager.mMusic.setVolume(1);
 	}
+    
+    public class PauseButton extends TiledSprite{
+    	private GameScene scene;
+
+    	public GameScene getScene() {
+    		return scene;
+    	}
+
+    	public void setScene(GameScene scene) {
+    		this.scene = scene;
+    	}
+
+    	public PauseButton(float pX, float pY,
+    			ITiledTextureRegion pTiledTextureRegion,
+    			VertexBufferObjectManager pTiledSpriteVertexBufferObject, GameScene scene) {
+    		super(pX, pY, pTiledTextureRegion, pTiledSpriteVertexBufferObject);
+    		this.scene = scene;
+    	}
+    	
+    	@Override
+    	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+    		if (pSceneTouchEvent.isActionDown()) {
+    			/*O que acontece qundo clica no botão de pause durante o jogo*/
+    			if(stop == false){
+    				stop = true;				
+    				scene.setIgnoreUpdate(true);  				
+    			} 
+    			/*O que acontece qundo clica no botão de pause com o jogo pausado*/
+    			else {	
+    				stop = false;
+    				scene.setIgnoreUpdate(false); 				
+    			}
+    		}
+    		return true;
+    	}
+    }
+
 }
