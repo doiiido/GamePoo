@@ -292,12 +292,12 @@ public class ResourceManager {
 	                .createFromAsset(winnerTexture, activity, "winner.png",0,0);
 	        winnerTexture.load();
 	        
-	        lifeTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 124);
+	        lifeTexture = new BitmapTextureAtlas(engine.getTextureManager(), 512, 64);
 			lifeTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createFromAsset(lifeTexture, activity,"lifebar.png",0,0);
 			lifeTexture.load();
 			
-			lifemoldTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 124);
+			lifemoldTexture = new BitmapTextureAtlas(engine.getTextureManager(), 512, 64);
 			lifemoldTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createFromAsset(lifemoldTexture, activity,"lifebar_mold.png",0,0);
 			lifemoldTexture.load();

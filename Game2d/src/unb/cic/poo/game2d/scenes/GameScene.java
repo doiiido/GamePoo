@@ -6,7 +6,6 @@ import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
-import org.andengine.entity.sprite.vbo.ITiledSpriteVertexBufferObject;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
@@ -29,11 +28,11 @@ public class GameScene extends BaseScene {
 	private static TiledSprite switcher;
 	private static TiledSprite pause;
 	private static Sprite back;
-	private static float cont;
+	private static float tamOrigLB; private static float adjLB;
 	private static int change;
-	private boolean stop = false;
-	private static int posX = 120; private static int deltaX = 15;
-	private static int posY = 620;
+	private static boolean stop; private static boolean endGame;
+	private static final int posX = 120; private static final int deltaX = 20;
+	private static final int posY = 620;
 	private static float lifebarHeight; private static float varHeight = 5/3;
 		
 	
@@ -54,24 +53,8 @@ public class GameScene extends BaseScene {
 		GameManager.getInstance().setGameScene(this);
 		GameManager.getInstance().setEnemies(new ArrayList<Enemy>());
 		
-		// Cria os inimigos para teste
-		// Valores alinhados: dividir por 5, 2 e 1.25
-		
-//		GameManager.getInstance().getEnemies().add(new VerticalMovementEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-//				(float) (GameActivity.CAMERA_HEIGHT/1.67), (GameManager.getInstance().getGameCamera().getWidth()-250f)));
-//		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-//				(float) (GameActivity.CAMERA_HEIGHT/1.25)));
-		/*GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/2)));
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/1.25)));*/
-		
 		//Insere o Player na Scene.
 		this.attachChild(GameManager.getInstance().getPlayer());
-		//Insere inimigos na Scene
-//		for(Enemy enemy: GameManager.getInstance().getEnemies()){
-//			this.attachChild(enemy);
-//		}
     }
 
     @Override
@@ -86,7 +69,6 @@ public class GameScene extends BaseScene {
 
     @Override
     public void disposeScene() {
-    	//camera.setHUD(null);
         this.detachSelf();
         this.dispose();
     }
@@ -103,6 +85,8 @@ public class GameScene extends BaseScene {
 
     private void createHUD() {
     	
+		endGame = false; stop = false;
+    	
     	lifebarmold = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.lifemoldTextureRegion,
     			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
     	lifebarmold.setPosition((camera.getWidth() - lifebarmold.getWidth()) - posX - 2*(varHeight*lifebarmold.getHeight() + deltaX), 
@@ -112,19 +96,19 @@ public class GameScene extends BaseScene {
     	
     	lifebar = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.lifeTextureRegion,
     			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
-    	lifebar.setPosition((camera.getWidth() - lifebar.getWidth()) - posX - 2*(varHeight*lifebarmold.getHeight() + deltaX), 
+    	lifebar.setPosition((camera.getWidth() - lifebar.getWidth()) - posX - 2*(varHeight*lifebarHeight + deltaX), 
     			(camera.getHeight() - lifebar.getHeight()) - posY);
     	
-    	this.attachChild(lifebarmold);
-    	this.attachChild(lifebar);
+    	this.attachChild(lifebarmold); this.attachChild(lifebar);
     	
-    	cont = (float) 36.3;
+    	tamOrigLB = (float) lifebar.getWidth();
+    	adjLB = (float) ((tamOrigLB/24)/Player.DEFAULT_PLAYER_LIFE);
     	
     	switcher = new TiledSprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.switchTextureRegion,
     			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager()) {
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
+				if (pSceneTouchEvent.isActionDown()  && endGame == false) {
 					change = GameManager.getInstance().getPlayer().changeBullet();
 					if(change == 0){
 						switcher.setCurrentTileIndex(0);
@@ -138,12 +122,12 @@ public class GameScene extends BaseScene {
 		switcher.setWidth(varHeight*lifebarHeight+30); switcher.setHeight(varHeight*lifebarHeight+30);
 		switcher.setPosition((camera.getWidth()- switcher.getWidth()) - posX - varHeight*lifebarHeight - deltaX + 10, 
     			(camera.getHeight() - switcher.getHeight()) - posY);
-		
+	
 		back = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.backTextureRegion,
     			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager()) {
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
+				if (pSceneTouchEvent.isActionDown() && endGame == false) {
 					this.setIgnoreUpdate(true);
 			    	sceneManager.loadMenuScene(engine);
 				}
@@ -199,15 +183,21 @@ public class GameScene extends BaseScene {
 		
 		this.registerTouchArea(switcher); this.registerTouchArea(back); this.registerTouchArea(pause);
 		this.setTouchAreaBindingOnActionDownEnabled(true);
-		this.attachChild(switcher); this.attachChild(back);this.attachChild(pause);
+		this.attachChild(switcher); this.attachChild(back); this.attachChild(pause);
+    }
+    
+    private void disposeHUD(){
+    	this.setTouchAreaBindingOnActionDownEnabled(false);
+    	this.unregisterTouchArea(switcher); this.unregisterTouchArea(back); this.unregisterTouchArea(pause);
+    	this.detachChild(lifebarmold); this.detachChild(lifebar);
+    	this.detachChild(switcher); this.detachChild(back); this.detachChild(pause);
     }
     
     public static void setLifeBar(float lifewidth) {
     	lifebar.setWidth(lifewidth);
-    	// ajustar melhor essa parte
-    	lifebar.setPosition((camera.getWidth()- lifebar.getWidth()) - posX - 2*(varHeight*lifebarmold.getHeight() + deltaX) - cont, 
+    	lifebar.setPosition((camera.getWidth() - tamOrigLB) - posX - 2*(varHeight*lifebarHeight + deltaX) + adjLB, 
     			(camera.getHeight() - lifebar.getHeight()) - posY);
-    	cont += 36.3;
+    	adjLB += (float) ((tamOrigLB/24)/Player.DEFAULT_PLAYER_LIFE);
     }
     
     public static Sprite getLifeBar() {
@@ -216,8 +206,8 @@ public class GameScene extends BaseScene {
     
     public void gameOver() {
     	this.setIgnoreUpdate(true);
-    	this.setTouchAreaBindingOnActionDownEnabled(false);
-    	this.unregisterTouchArea(switcher); this.unregisterTouchArea(back);
+    	disposeHUD();
+    	endGame = true; stop = true;
     	
     	end = new Sprite(0, 0, resourceManager.gameoverTextureRegion, vbom);
     	end.setPosition((camera.getWidth()- end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
@@ -233,8 +223,8 @@ public class GameScene extends BaseScene {
     
     public void gameFinished() {
     	this.setIgnoreUpdate(true);
-    	this.setTouchAreaBindingOnActionDownEnabled(false);
-    	this.unregisterTouchArea(switcher); this.unregisterTouchArea(back);
+    	disposeHUD();
+    	endGame = true; stop = true;
     	
     	end = new Sprite(0, 0, resourceManager.winnerTextureRegion, vbom);
     	end.setPosition((camera.getWidth()- end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
@@ -249,6 +239,8 @@ public class GameScene extends BaseScene {
     }
     
     public void setGameScene(){
+		// Cria os inimigos para teste
+		// Valores alinhados: dividir por 5, 2 e 1.25 // 2, 1.67 e 1.25 
     	GameManager.getInstance().getEnemies().add(new FreezedShootingEnemy(GameManager.getInstance().getGameCamera().getWidth(),
 				(float) (GameActivity.CAMERA_HEIGHT/3.33), (GameManager.getInstance().getGameCamera().getWidth()-400f)));
     	GameManager.getInstance().getEnemies().add(new VerticalMovementEnemy(GameManager.getInstance().getGameCamera().getWidth(),
@@ -283,13 +275,13 @@ public class GameScene extends BaseScene {
     	
     	@Override
     	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-    		if (pSceneTouchEvent.isActionDown()) {
-    			/*O que acontece qundo clica no botão de pause durante o jogo*/
+    		if (pSceneTouchEvent.isActionDown() && endGame == false) {
+    			/*O que acontece quando clica no botão de pause durante o jogo*/
     			if(stop == false){
     				stop = true;				
     				scene.setIgnoreUpdate(true);  				
     			} 
-    			/*O que acontece qundo clica no botão de pause com o jogo pausado*/
+    			/*O que acontece quando clica no botão de pause com o jogo pausado*/
     			else {	
     				stop = false;
     				scene.setIgnoreUpdate(false); 				
@@ -297,6 +289,10 @@ public class GameScene extends BaseScene {
     		}
     		return true;
     	}
+    }
+    
+    public static boolean getStop(){
+    	return stop;
     }
 
 }

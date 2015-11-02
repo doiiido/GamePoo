@@ -17,8 +17,6 @@ Questões a serem resolvidas:
 	- Aplicar Stop, Restart e Menu em um botão interativo durante o jogo
 	- Continuar o HUD, adicionando pontuação e outros power ups
 	- Conferir o dispose das cenas
-	- Entender como funciona melhor o posicionamento mutável da barra de vida
-	- Bug de quando clica no botão de retorno após o game over (continua sendo reconhecido)
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 

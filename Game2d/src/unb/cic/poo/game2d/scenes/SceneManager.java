@@ -175,8 +175,6 @@ public class SceneManager {
                 ResourceManager.getInstance().loadMenu();
                 createMenuScene();
                 disposeLoadScene();
-                //TODO: disposeSettingsScene();
-
             }
         }));
     }
@@ -185,7 +183,6 @@ public class SceneManager {
     	disposeSettingsScene();
     	ResourceManager.getInstance().loadMenu();
         createMenuScene();
-    	
     }
     
     public void createSettingsScene() {
