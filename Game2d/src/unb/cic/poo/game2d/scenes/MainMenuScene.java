@@ -96,7 +96,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 			float pMenuItemLocalY) {
 		switch(pMenuItem.getID()) {
 	        case MENU_PLAY:
-	        	SceneManager.getInstance().loadGameScene(engine);
+	        	SceneManager.getInstance().loadGameScene();
 	            return true;
 	        case MENU_OPTIONS:
 	        	SceneManager.getInstance().createSettingsScene();

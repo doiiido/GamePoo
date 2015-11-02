@@ -5,6 +5,7 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
+import android.os.AsyncTask;
 
 import unb.cic.poo.game2d.Enemy;
 import unb.cic.poo.game2d.FreezedShootingEnemy;
@@ -32,9 +33,8 @@ public class SceneManager {
     private SceneType currentSceneType = SceneType.SCENE_INTRO;
     private BaseScene currentScene;
     private Engine engine;
-    //private static BaseGameActivity activity;
-    //private static Camera camera;
     private boolean introClosed = false;
+    private int op = -1;
 
     public void prepare(GameActivity activity, Engine eng, Camera cam) {
 		this.mActivity = activity;
@@ -104,7 +104,6 @@ public class SceneManager {
     public void createIntroScene(OnCreateSceneCallback pOnCreateSceneCallback) {
         //ResourceManager.getInstance().loadIntro();
         introScene = new IntroScene();
-        //curretScene = introScene;
         SceneManager.getInstance().setScene(introScene);
         pOnCreateSceneCallback.onCreateSceneFinished(introScene);
     }
@@ -156,41 +155,60 @@ public class SceneManager {
         gameScene = null;
     }
     
-    public void loadGameScene(final Engine mEngine) {
-    	createLoadScene();
-    	disposeMenuScene();
-        mEngine.registerUpdateHandler(new TimerHandler(0.3f, true, new ITimerCallback() {
-            public void onTimePassed(final TimerHandler pTimerHandler) {
-                mEngine.unregisterUpdateHandler(pTimerHandler);
-                createGameScene();
-                disposeLoadScene();
-            }
-        }));
+    public void loadGameScene(){
+    	op = 1;
+    	new ExecuteChange().execute();
     }
     
-    public void restartGameScene(final Engine mEngine) {
-    	createLoadScene();
-    	disposeGameScene();
-        mEngine.registerUpdateHandler(new TimerHandler(0.3f, true, new ITimerCallback() {
-            public void onTimePassed(final TimerHandler pTimerHandler) {
-                mEngine.unregisterUpdateHandler(pTimerHandler);
-                createGameScene();
-                disposeLoadScene();
-            }
-        }));
+    public void restartGameScene() {
+    	op = 2;
+    	new ExecuteChange().execute();
     }
     
-    public void loadMenuScene(final Engine mEngine) {
-    	createLoadScene();
-        disposeGameScene();
-        mEngine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
-            public void onTimePassed(final TimerHandler pTimerHandler) {
-                mEngine.unregisterUpdateHandler(pTimerHandler);
-                ResourceManager.getInstance().loadMenu();
-                createMenuScene();
-                disposeLoadScene();
+    public void loadMenuScene() {
+    	op = 3;
+    	new ExecuteChange().execute();
+    }
+    
+    private class ExecuteChange extends AsyncTask<Void, Void, Void> {
+
+    		@Override
+			protected Void doInBackground(Void... params) {
+				// Conferir essa parte
+    			engine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
+    	            public void onTimePassed(final TimerHandler pTimerHandler) {
+    	                engine.unregisterUpdateHandler(pTimerHandler);
+		    			switch(op){
+		    			case 1:
+		    				disposeMenuScene();
+		    				createGameScene();
+		    				break;
+		    			case 2:
+		    				disposeGameScene();
+		    				createGameScene();
+		    	            break;
+		    			case 3:
+		    				disposeGameScene();
+		                    createMenuScene();
+		                    break;
+		    			default:
+		    				break;
+		    			}
+    	            }
+    	        }));
+    			return null;
+			}
+    		
+            @Override
+            protected void onPostExecute(Void result) {
+            	disposeLoadScene();
             }
-        }));
+			
+			@Override
+	        protected void onPreExecute() {
+				createLoadScene();
+	        }
+            
     }
     
     public void loadMenufromSettings(){

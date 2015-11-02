@@ -116,7 +116,7 @@ public class Player extends SpaceshipAnimated{
 		
 		if(this.life <= 0){
 			BaseScene aux = SceneManager.gameScene;
-			((GameScene) aux).gameOver();
+			((GameScene) aux).gameOver(false);
 		}
 		
 	}

@@ -38,8 +38,9 @@ public class CommonEnemy extends Enemy{
 	//Verifica se o inimigo colide com o player, caso verdadeiro, o jogo para (Game Over).
 	protected void onManagedUpdate(float pSecondsElapsed) {
 		if(GameManager.getInstance().getEnemies().contains(this) && this.collidesWith(GameManager.getInstance().getPlayer())){
-			BaseScene aux = SceneManager.getInstance().gameScene;
-			((GameScene) aux).gameOver();
+			BaseScene aux = SceneManager.gameScene;
+			((GameScene) aux).gameOver(false);
+			// Erro aqui! Aparentemente por estar adicionando e retirando em threads diferentes.
 		}
 		super.onManagedUpdate(pSecondsElapsed);
 	}

@@ -72,7 +72,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 
     @Override
     public void onBackKeyPressed() {
-    	SceneManager.getInstance().loadMenuScene(engine);
+    	SceneManager.getInstance().loadMenuScene();
     }
 
     @Override
@@ -176,36 +176,24 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     	return lifebar;
     }
     
-    public void gameOver() {
+    public void gameOver(boolean winner) {
     	this.setIgnoreUpdate(true);
     	disposeHUD();
     	endGame = true; stop = true;
     	
-    	end = new Sprite(0, 0, resourceManager.gameoverTextureRegion, vbom);
-    	end.setPosition((camera.getWidth()- end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
+    	if(!winner){
+    		end = new Sprite(0, 0, resourceManager.gameoverTextureRegion, vbom);
+    	}
+    	else {
+    		end = new Sprite(0, 0, resourceManager.winnerTextureRegion, vbom);
+    	}
+    	end.setPosition((camera.getWidth() - end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
     	this.attachChild(end);
     	
     	engine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback() {
             public void onTimePassed(final TimerHandler pTimerHandler) {
                 engine.unregisterUpdateHandler(pTimerHandler);
-                sceneManager.loadMenuScene(engine);
-            }
-    	}));
-    }
-    
-    public void gameFinished() {
-    	this.setIgnoreUpdate(true);
-    	disposeHUD();
-    	endGame = true; stop = true;
-    	
-    	end = new Sprite(0, 0, resourceManager.winnerTextureRegion, vbom);
-    	end.setPosition((camera.getWidth()- end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
-    	this.attachChild(end);
-    	
-    	engine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback() {
-            public void onTimePassed(final TimerHandler pTimerHandler) {
-                engine.unregisterUpdateHandler(pTimerHandler);
-                sceneManager.loadMenuScene(engine);
+                sceneManager.loadMenuScene();
             }
     	}));
     }
@@ -309,10 +297,10 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 				clearChildScene();
 	            return true;
 	        case PAUSE_RESTART:
-	        	sceneManager.restartGameScene(engine);
+	        	sceneManager.restartGameScene();
 	            return true;
 	        case PAUSE_MENU:
-	        	sceneManager.loadMenuScene(engine);
+	        	sceneManager.loadMenuScene();
 	            return true;
 	        default:
 	            return false;
