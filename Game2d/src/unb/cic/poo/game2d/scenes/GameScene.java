@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.scene.menu.MenuScene;
+import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
+import org.andengine.entity.scene.menu.item.IMenuItem;
+import org.andengine.entity.scene.menu.item.SpriteMenuItem;
+import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
@@ -21,20 +26,27 @@ import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.VerticalMovementEnemy;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
-public class GameScene extends BaseScene {
+public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 	private Sprite end;
+	MenuScene mPauseScene;
+	
 	private static Sprite lifebar;
 	private static Sprite lifebarmold;
 	private static TiledSprite switcher;
 	private static TiledSprite pause;
-	private static Sprite back;
+	private static Sprite backgroundPause;
+	
 	private static float tamOrigLB; private static float adjLB;
 	private static int change;
 	private static boolean stop; private static boolean endGame;
-	private static final int posX = 120; private static final int deltaX = 20;
-	private static final int posY = 620;
-	private static float lifebarHeight; private static float varHeight = 5/3;
-		
+	private static final int posX = 10; private static final int deltaX = 15;
+	private static final int posY = 600;
+	private static float lifebarHeight; private static float varHeight = 2;
+	
+	private final int PAUSE_BACK = 0; private final int PAUSE_RESTART = 1;
+	private final int PAUSE_MENU = 2;
+	private static final int pausePosY = 30; private static final int butPosY = 100;
+	
 	
     public GameScene() {
 		createScene();		
@@ -44,6 +56,7 @@ public class GameScene extends BaseScene {
     public void createScene() {
 		createBackground();
         createHUD();
+        createPauseScene();
 				
 		// Fazer com que a classe GameManager seja um listener da Scene do jogo.
 		this.setOnSceneTouchListener(GameManager.getInstance());
@@ -69,6 +82,8 @@ public class GameScene extends BaseScene {
 
     @Override
     public void disposeScene() {
+    	mPauseScene.detachSelf();
+    	mPauseScene.dispose();
         this.detachSelf();
         this.dispose();
     }
@@ -86,6 +101,15 @@ public class GameScene extends BaseScene {
     private void createHUD() {
     	
 		endGame = false; stop = false;
+		
+		/* Para determinar a posição, sendo N_ELEM o número de elementos que estão posicionados a direita deste: 
+		SPRITE.setPosition((camera.getWidth()- SPRITE.getWidth()) - posX - N_ELEM*(varHeight*lifebarHeight + deltaX), 
+    			(camera.getHeight() - SPRITE.getHeight()) - posY);
+    	- Se desejar levar o HUD à esquerda, aumentar o valor de posX
+    	- Se desejar levar o HUD para baixo, aumentar o valor de posY
+    	- Se desejar aumentar a distância entre os elementos do HUD, aumentar o valor de deltaX
+    	- Se desejar aumentar o tamanho dos botões do HUD, aumentar o valor de varHeight (segue como padrão o tamanho
+    	da altura da barra de vida - 50)*/
     	
     	lifebarmold = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.lifemoldTextureRegion,
     			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
@@ -119,78 +143,26 @@ public class GameScene extends BaseScene {
 				return true;
 			}
 		};
-		switcher.setWidth(varHeight*lifebarHeight+30); switcher.setHeight(varHeight*lifebarHeight+30);
-		switcher.setPosition((camera.getWidth()- switcher.getWidth()) - posX - varHeight*lifebarHeight - deltaX + 10, 
+		switcher.setWidth(varHeight*lifebarHeight); switcher.setHeight(varHeight*lifebarHeight);
+		switcher.setPosition((camera.getWidth()- switcher.getWidth()) - posX - (varHeight*lifebarHeight + deltaX), 
     			(camera.getHeight() - switcher.getHeight()) - posY);
-	
-		back = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.backTextureRegion,
-    			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager()) {
-			@Override
-			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown() && endGame == false) {
-					this.setIgnoreUpdate(true);
-			    	sceneManager.loadMenuScene(engine);
-				}
-				return true;
-			}
-		};
-		back.setWidth(varHeight*lifebarHeight+30); back.setHeight(varHeight*lifebarHeight+30);
-		back.setPosition((camera.getWidth()- back.getWidth()) - posX + posX, 
-    			(camera.getHeight() - back.getHeight()) - posY);
 		
 		pause = new PauseButton((float)(GameActivity.CAMERA_WIDTH/3), 0f, ResourceManager.pauseTextureRegion, 
-				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), this);
-		
-				/*new TiledSprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.pauseTextureRegion,
-    			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager()) {
-			@Override
-			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-				if (pSceneTouchEvent.isActionDown()) {
-					if(stop == false){
-						pause.setCurrentTileIndex(1);
-						pause.setWidth(300); pause.setHeight(300);
-						pause.setPosition((camera.getWidth()/2)-(pause.getWidth()/2), (camera.getHeight()/2)-(pause.getHeight()/2));
-										
-						setIgnoreUpdate(true);
-						//mChildScene.setIgnoreUpdate(true);
-						//mChildScene.setChildScene(mPauseScene , false, true, true);
-						
-						//engine.stop();
-						stop = true;
-						
-					} else {
-						pause.setCurrentTileIndex(0);
-						pause.setWidth(varHeight*lifebarHeight+30); pause.setHeight(varHeight*lifebarHeight+30);
-						pause.setPosition((camera.getWidth() - pause.getWidth()) - posX - varHeight*lifebarHeight - deltaX + 100, 
-				    			(camera.getHeight() - pause.getHeight()) - posY);				
-						
-						setIgnoreUpdate(false);
-						//this.setChildrenIgnoreUpdate(false);
-						
-						//mChildScene.setIgnoreUpdate(false);
-						
-						//engine.start();
-						stop = false;
-						
-					}
-				}
-				return true;
-			}
-		};*/
-		pause.setWidth(varHeight*lifebarHeight+30); pause.setHeight(varHeight*lifebarHeight+30);
-		pause.setPosition((camera.getWidth() - pause.getWidth()) - posX - varHeight*lifebarHeight - deltaX + 100, 
+				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), this);		
+		pause.setWidth(varHeight*lifebarHeight); pause.setHeight(varHeight*lifebarHeight);
+		pause.setPosition((camera.getWidth() - pause.getWidth()) - posX, 
     			(camera.getHeight() - pause.getHeight()) - posY);
 		
-		this.registerTouchArea(switcher); this.registerTouchArea(back); this.registerTouchArea(pause);
+		this.registerTouchArea(switcher); this.registerTouchArea(pause);
 		this.setTouchAreaBindingOnActionDownEnabled(true);
-		this.attachChild(switcher); this.attachChild(back); this.attachChild(pause);
+		this.attachChild(switcher); this.attachChild(pause);
     }
     
     private void disposeHUD(){
     	this.setTouchAreaBindingOnActionDownEnabled(false);
-    	this.unregisterTouchArea(switcher); this.unregisterTouchArea(back); this.unregisterTouchArea(pause);
+    	this.unregisterTouchArea(switcher); this.unregisterTouchArea(pause);
     	this.detachChild(lifebarmold); this.detachChild(lifebar);
-    	this.detachChild(switcher); this.detachChild(back); this.detachChild(pause);
+    	this.detachChild(switcher); this.detachChild(pause);
     }
     
     public static void setLifeBar(float lifewidth) {
@@ -279,12 +251,14 @@ public class GameScene extends BaseScene {
     			/*O que acontece quando clica no botão de pause durante o jogo*/
     			if(stop == false){
     				stop = true;				
-    				scene.setIgnoreUpdate(true);  				
+    				scene.setIgnoreUpdate(true); 			
+    				setChildScene(mPauseScene);
     			} 
     			/*O que acontece quando clica no botão de pause com o jogo pausado*/
     			else {	
     				stop = false;
-    				scene.setIgnoreUpdate(false); 				
+    				scene.setIgnoreUpdate(false);
+    				clearChildScene();
     			}
     		}
     		return true;
@@ -294,5 +268,55 @@ public class GameScene extends BaseScene {
     public static boolean getStop(){
     	return stop;
     }
+    
+    public void createPauseScene() {
+    	mPauseScene = new MenuScene(camera);
+    	
+    	backgroundPause = new Sprite(0, 0, resourceManager.stopBackgroundTextureRegion, vbom);
+    	mPauseScene.setPosition((camera.getWidth() - backgroundPause.getWidth())/2,
+    			(camera.getHeight() - backgroundPause.getHeight())/2 + pausePosY);
+    	mPauseScene.attachChild(backgroundPause);
+	    
+	    final IMenuItem backMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem
+	    		(PAUSE_BACK, resourceManager.backTextureRegion, vbom), 1.2f, 1);
+	    final IMenuItem restartMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem
+	    		(PAUSE_RESTART, resourceManager.restartTextureRegion, vbom), 1.2f, 1);
+	    final IMenuItem menuMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem
+	    		(PAUSE_MENU, resourceManager.menuTextureRegion, vbom), 1.2f, 1);
+	    
+	    mPauseScene.addMenuItem(backMenuItem); mPauseScene.addMenuItem(restartMenuItem);
+	    mPauseScene.addMenuItem(menuMenuItem);
+	    mPauseScene.setBackgroundEnabled(false);
+	    mPauseScene.setOnMenuItemClickListener(this);
+	    
+	    // Garantir que todos os botões tenham o mesmo tamanho
+	    
+	    backMenuItem.setPosition((float) ((backgroundPause.getWidth() - backMenuItem.getWidth())/2 + 1.5*backMenuItem.getWidth()),
+	    		backMenuItem.getHeight() + butPosY);
+	    restartMenuItem.setPosition((backgroundPause.getWidth() - backMenuItem.getWidth())/2,
+	    		backMenuItem.getHeight() + butPosY);
+	    menuMenuItem.setPosition((float) ((backgroundPause.getWidth() - backMenuItem.getWidth())/2 - 1.5*backMenuItem.getWidth()),
+	    		backMenuItem.getHeight() + butPosY);
+	}
+
+	@Override
+	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
+			float pMenuItemLocalX, float pMenuItemLocalY) {
+		switch(pMenuItem.getID()) {
+	        case PAUSE_BACK:
+	        	stop = false;
+				this.setIgnoreUpdate(false);
+				clearChildScene();
+	            return true;
+	        case PAUSE_RESTART:
+	        	sceneManager.restartGameScene(engine);
+	            return true;
+	        case PAUSE_MENU:
+	        	sceneManager.loadMenuScene(engine);
+	            return true;
+	        default:
+	            return false;
+		}
+	}
 
 }

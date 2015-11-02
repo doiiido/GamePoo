@@ -51,7 +51,7 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 	
 	private void createSettingsChildScene() {
 		settingsChildScene = new MenuScene(camera);
-	    settingsChildScene.setPosition(camera.getWidth()/(float)3, -(camera.getHeight()/(float)4));
+	    settingsChildScene.setPosition((float) (camera.getWidth()/3.0), (float) -(camera.getHeight()/4.0));
 	    
 	    final IMenuItem backMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_BACK, resourceManager.backMenuTextureRegion, vbom), 1.2f, 1);
 	    

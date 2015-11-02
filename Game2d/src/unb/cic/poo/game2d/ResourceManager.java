@@ -94,9 +94,13 @@ public class ResourceManager {
 	public static ITiledTextureRegion switchTextureRegion;
 	BitmapTextureAtlas pauseTexture;
 	public static ITiledTextureRegion pauseTextureRegion;
-
-	BitmapTextureAtlas backTexture;
-	public static ITextureRegion backTextureRegion;
+	
+	/*Menu de Pausa*/
+	BuildableBitmapTextureAtlas stopTexture;
+	public TextureRegion stopBackgroundTextureRegion;
+	public TextureRegion backTextureRegion;
+	public ITextureRegion restartTextureRegion;
+	public ITextureRegion menuTextureRegion;
 	
 	  //common objects
 	  public GameActivity activity;
@@ -307,16 +311,36 @@ public class ResourceManager {
 					.createTiledFromAsset(switchTexture, activity,"switcher.png", 0, 0, SWITCH_COLUMN, SWITCH_ROW);
 			switchTexture.load();
 			
-			backTexture = new BitmapTextureAtlas(engine.getTextureManager(), 128, 128);
-			backTextureRegion = BitmapTextureAtlasTextureRegionFactory
-					.createFromAsset(backTexture, activity,"back.png",0,0);
-			backTexture.load();	
-			
 			pauseTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512);
 			pauseTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createTiledFromAsset(pauseTexture, activity,"play_pause.png", 0, 0, PAUSE_COLUMN, PAUSE_ROW);
 			pauseTexture.load();
 	 }
+	 
+	 public synchronized void loadGamePause() {
+		  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
+		  	stopTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
+		 	stopBackgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(stopTexture, activity, "Pause.png");
+		 	backTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(stopTexture, activity, "Back.png");
+			restartTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(stopTexture, activity, "restart.png");
+			menuTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(stopTexture, activity, "menu.png");
+		 			 	       
+		 	try {
+		 	    this.stopTexture.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 0, 0));
+		 	    this.stopTexture.load();
+		 	} 
+		 	catch (final TextureAtlasBuilderException e) {
+		 	        Debug.e(e);
+		 	}
+	 }
+	 
+	 public synchronized void unloadGamePause() {
+		  stopTexture.unload();
+		  stopBackgroundTextureRegion = null;
+		  backTextureRegion = null;
+		  restartTextureRegion = null;
+		  menuTextureRegion = null;
+	  }
 	 
 	 public synchronized void unloadEnemys(){
 		 walkerTexture.unload(); walkerTextureRegion = null;
@@ -330,7 +354,6 @@ public class ResourceManager {
 		  lifeTexture.unload(); lifeTextureRegion = null;
 		  lifemoldTexture.unload(); lifemoldTextureRegion = null;
 		  switchTexture.unload(); switchTextureRegion = null;
-		  backTexture.unload(); backTextureRegion = null;
 		  pauseTexture.unload(); pauseTextureRegion = null;
 	 }
 	 

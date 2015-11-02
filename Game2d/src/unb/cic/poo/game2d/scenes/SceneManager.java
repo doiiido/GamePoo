@@ -142,6 +142,7 @@ public class SceneManager {
     
     private void createGameScene() {
     	ResourceManager.getInstance().loadGameTextures();
+    	ResourceManager.getInstance().loadGamePause();
         gameScene = new GameScene();
         SceneManager.getInstance().setScene(gameScene);
         ((GameScene) gameScene).setGameScene();
@@ -150,6 +151,7 @@ public class SceneManager {
     
     private void disposeGameScene() {
     	ResourceManager.getInstance().unloadGameTextures();
+    	ResourceManager.getInstance().unloadGamePause();
         gameScene.disposeScene();
         gameScene = null;
     }
@@ -157,6 +159,18 @@ public class SceneManager {
     public void loadGameScene(final Engine mEngine) {
     	createLoadScene();
     	disposeMenuScene();
+        mEngine.registerUpdateHandler(new TimerHandler(0.3f, true, new ITimerCallback() {
+            public void onTimePassed(final TimerHandler pTimerHandler) {
+                mEngine.unregisterUpdateHandler(pTimerHandler);
+                createGameScene();
+                disposeLoadScene();
+            }
+        }));
+    }
+    
+    public void restartGameScene(final Engine mEngine) {
+    	createLoadScene();
+    	disposeGameScene();
         mEngine.registerUpdateHandler(new TimerHandler(0.3f, true, new ITimerCallback() {
             public void onTimePassed(final TimerHandler pTimerHandler) {
                 mEngine.unregisterUpdateHandler(pTimerHandler);
