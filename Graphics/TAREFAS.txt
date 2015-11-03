@@ -1,4 +1,4 @@
-Questões a serem resolvidas:
+Questões a serem resolvidas (principalmente da parte da interface, mas com algumas coisas da engine):
 
 	- Focar na elaboração do menu (usar símbolos ao invés de palavras, para facilitar o entendimento)
 		-- Iniciar/continuar
@@ -7,27 +7,45 @@ Questões a serem resolvidas:
 		----- Volume (sons e música)
 		----- Rever animações da história
 		----- Créditos
+	- Desenvolver o tutorial
 	- Implementar sprites no Game Resources
 		-- Adicionar outras sprites no background Parallax
-		-- Explosão do inimigo
+		-- Ajustes da explosão do inimigo
+		----- destruir (explosão) X desintegrar X despixelizar (para o pixel-arte, no caso,
+		dividir o inimigo em pequenos blocos) X outros efeitos
 	- Criar imagens e animações em pixel-arte
 	- Aprender a fazer transições entre cenas, a exemplo de fade out
 	- Descobrir como adicionar animações/vídeos
+		-- Desenvolver as animações referentes à história
+		----- Mensagens de aviso
+		----- Interações com o usuário
+		----- Vídeos com o início do ataque, seguir storyline
 	- Colocar a nave no início do jogo chegando pelo canto da tela
 	- Continuar o HUD, adicionando pontuação e outros power ups
 	- Conferir o dispose das cenas
 	- Ajustar a cena de loading
+	- Implementar sistema de High-Score
+		-- Banco de dados para scores provindos de combos* no modo história, ou modo arcade
+		dependendo do foco da engine (Heroku, Parsen Mobile)
+	- Tornar o código mais flexível, utilizar injeção de dependência
+	- Criação do Player
+		-- Tipo RPG, opções para criação do personagem e da nave
+		-- Escolher o nome da personagem e modificar o título do jogo de acordo
+	- Organizar as classes em packages!!!
+	- Verificar se o Padrão State pode auxiliar na mudança de estado/características da nave
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 
 	- A cada mudança de dimensão o estilo da arte muda - ideia para quando o jogo já estiver bem
 	implementado
 	- O fundo pode mudar de volocidade dependendo do momento da história, por exemplo
-	- Modo survival (focar no modo história primeiro) - ondas eternas e semi-aleatórias de inimigos
-	- Modo suicida e/ou outro nível da história: a vida vai diminuindo com o tempo e quando se mata
+	- Modo Survival: ondas eternas e semi-aleatórias de inimigos
+	- Modo Suicida e/ou outro nível da história: a vida vai diminuindo com o tempo e quando se mata
 	o inimigo ou sua vida aumenta direto ou cai um "boost" dele que vc tem que pegar para aumenta-la
-	- Inimigo: destruir (explosão) X desintegrar X despixelizar (para o pixel-arte, no caso,
-	dividir o inimigo em pequenos blocos) X outros efeitos
+	- Modo Multiplayer: um jogador controla a nave e o outro as ondas de inimigos ou uma nave
+	combatendo outra (muitas ideias possíveis)
+	- Modo Desenvolvedor: o usuário determina quantas ondas terão e quantos e quais inimigos haverá
+	em cada uma
 	- Sugestões de inimigo:
 		-- Boomerang: se não mata-lo, vai voltar e te atacar pro trás
 		-- Carrega e joga um laser por um tempo determinado

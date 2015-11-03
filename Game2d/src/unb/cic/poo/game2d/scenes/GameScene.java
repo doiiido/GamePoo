@@ -4,16 +4,28 @@ import java.util.ArrayList;
 
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.IEntity;
+import org.andengine.entity.IEntityFactory;
+import org.andengine.entity.particle.ParticleSystem;
+import org.andengine.entity.particle.emitter.PointParticleEmitter;
+import org.andengine.entity.particle.initializer.VelocityParticleInitializer;
+import org.andengine.entity.particle.modifier.AlphaParticleModifier;
+import org.andengine.entity.particle.modifier.RotationParticleModifier;
+import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
+import org.andengine.entity.shape.IShape;
+import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.ui.activity.BaseGameActivity;
+import org.andengine.util.color.Color;
 
 import unb.cic.poo.game2d.CommonEnemy;
 import unb.cic.poo.game2d.Enemy;
@@ -215,16 +227,8 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 		ResourceManager.mMusic.setVolume(1);
 	}
     
-    public class PauseButton extends TiledSprite{
+    private class PauseButton extends TiledSprite{
     	private GameScene scene;
-
-    	public GameScene getScene() {
-    		return scene;
-    	}
-
-    	public void setScene(GameScene scene) {
-    		this.scene = scene;
-    	}
 
     	public PauseButton(float pX, float pY,
     			ITiledTextureRegion pTiledTextureRegion,
@@ -305,6 +309,60 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 	        default:
 	            return false;
 		}
+	}
+	
+	public static void createExplosion(final float posX, final float posY,
+			final IEntity target) {
+
+		// Podemos tentar aplicar a ideia de despixelização, porém não consegui divider o sprite em pequenos pedaços
+		int mNumPart = 10; // número de partículas/sprites que serão repetidos
+		float mTimePart = (float) 1.6; // tempo que as partículas permanecerão na tela
+									   // 1.6 corresponde ao tempo da animação aplicada
+
+		PointParticleEmitter particleEmitter = new PointParticleEmitter(posX,
+				posY);
+		
+		IEntityFactory<AnimatedSprite> recFact = new IEntityFactory<AnimatedSprite>() {
+
+			@Override
+			public AnimatedSprite create(float pX, float pY) {
+				AnimatedSprite rect = new AnimatedSprite(posX, posY, ResourceManager.explosionTextureRegion, engine.getVertexBufferObjectManager());
+				rect.animate(100);
+				return rect;
+			}
+
+		};
+		
+		// Rate mínimo e máximo da emissão de partículas
+		final ParticleSystem<AnimatedSprite> particleSystem = new ParticleSystem<AnimatedSprite>(
+				recFact, particleEmitter, 100, 500, mNumPart);
+
+		// Velocidade das partículas, mínima e máxima, em X e Y
+		particleSystem
+				.addParticleInitializer(new VelocityParticleInitializer<AnimatedSprite>(
+						-50, 50, -50, 50));
+
+		// Não modificar direto aqui, mas na variável mTimePart. Aplica o Fade Out 
+		particleSystem
+				.addParticleModifier(new AlphaParticleModifier<AnimatedSprite>(0,
+						0.6f * mTimePart, 1, 0));
+		
+		// Qual o ângulo de rotação das partículas
+		particleSystem
+				.addParticleModifier(new RotationParticleModifier<AnimatedSprite>(0,
+						mTimePart, 0, 360));
+
+		target.attachChild(particleSystem);
+		target.registerUpdateHandler(new TimerHandler(mTimePart,
+				new ITimerCallback() {
+					@Override
+					public void onTimePassed(final TimerHandler pTimerHandler) {
+						particleSystem.detachSelf();
+						target.sortChildren();
+						target.unregisterUpdateHandler(pTimerHandler);
+					}
+				}));
+
 	}
 
 }

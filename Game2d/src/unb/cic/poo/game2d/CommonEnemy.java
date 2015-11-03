@@ -41,6 +41,8 @@ public class CommonEnemy extends Enemy{
 			BaseScene aux = SceneManager.gameScene;
 			((GameScene) aux).gameOver(false);
 			// Erro aqui! Aparentemente por estar adicionando e retirando em threads diferentes.
+			// Uma opção é colocar para decrementar a vida ao invés de dar gameOver direto, pois está
+			// funcionando por meio do Player
 		}
 		super.onManagedUpdate(pSecondsElapsed);
 	}

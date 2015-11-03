@@ -14,8 +14,8 @@ public abstract class BaseScene extends Scene {
     //---------------------------------------------
     // VARIABLES
     //---------------------------------------------	
-    protected Engine engine;
-    protected Activity activity;
+    protected static Engine engine;
+    protected static Activity activity;
     protected ResourceManager resourceManager;
     protected SceneManager sceneManager;
     protected VertexBufferObjectManager vbom;

@@ -60,16 +60,18 @@ public class ResourceManager {
 	BitmapTextureAtlas laserTexture;
 	public static ITiledTextureRegion laserTextureRegion;
 	
+	/*Explosion*/
+	BitmapTextureAtlas explosionTexture;
+	public static ITiledTextureRegion explosionTextureRegion;
+	
 	/*Bullets*/
 	BitmapTextureAtlas bulletTexture;
 	public static ITiledTextureRegion bulletTextureRegion;
-	private static int BULLET_COLUMN = 2, BULLET_ROW = 1;
+	
 	BitmapTextureAtlas enemybulletTexture;
 	public static ITiledTextureRegion enemybulletTextureRegion;
-	private static int ENEMY_BULLET_COLUMN = 2, ENEMY_BULLET_ROW = 1;
 	BitmapTextureAtlas laserBulletTexture;
 	public static ITiledTextureRegion laserBulletTextureRegion;
-	private static int LASER_BULLET_COLUMN = 1, LASER_BULLET_ROW = 4;
 	
 	/*Musica e sons*/
 	public static Sound mSound;
@@ -115,6 +117,10 @@ public class ResourceManager {
 	  private static int PLAYER_COLUMN = 8, PLAYER_ROW = 1;
 	  private static int SWITCH_COLUMN = 2, SWITCH_ROW = 1;
 	  private static int PAUSE_COLUMN = 2, PAUSE_ROW = 1;
+	  private static int BULLET_COLUMN = 2, BULLET_ROW = 1;
+	  private static int ENEMY_BULLET_COLUMN = 2, ENEMY_BULLET_ROW = 1;
+	  private static int LASER_BULLET_COLUMN = 1, LASER_BULLET_ROW = 4;
+	  private static int EXPLOSION_COLUMN = 6, EXPLOSION_ROW = 3;
 	  
 	  public Font font;
 	  
@@ -258,6 +264,11 @@ public class ResourceManager {
 					.createTiledFromAsset(laserTexture, activity,"laser_animation.png", 0, 0, LASER_COLUMN, LASER_ROW);
 			laserTexture.load();
 			
+			explosionTexture = new BitmapTextureAtlas(engine.getTextureManager(), 512, 124, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+			explosionTextureRegion = BitmapTextureAtlasTextureRegionFactory
+					.createTiledFromAsset(explosionTexture, activity,"explosion.png", 0, 0, EXPLOSION_COLUMN, EXPLOSION_ROW);
+			explosionTexture.load();
+			
 			
 			/* PASTA BALAS*/
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/bullets/");
@@ -346,6 +357,7 @@ public class ResourceManager {
 		 walkerTexture.unload(); walkerTextureRegion = null;
 		 shooterTexture.unload(); shooterTextureRegion = null;
 		 laserTexture.unload(); laserTextureRegion = null;
+		 explosionTexture.unload(); explosionTextureRegion = null;
 	 }
 	 
 	 public synchronized void unloadIcons(){

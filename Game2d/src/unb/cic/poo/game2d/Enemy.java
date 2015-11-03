@@ -5,6 +5,7 @@ import org.andengine.entity.modifier.IEntityModifier.IEntityModifierListener;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
+import unb.cic.poo.game2d.scenes.GameScene;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 //Superclasse dos inimigos.
@@ -46,6 +47,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 	}
 	
 	public void kill(){
+		GameScene.createExplosion(this.getX(), this.getY(), this.getParent());
 		this.removeEnemy();
 		this.clearEntityModifiers();
 	}
