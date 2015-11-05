@@ -224,12 +224,13 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 		}
    	 	
    	 	ResourceManager.mMusic.play();
-		ResourceManager.mMusic.setVolume(1);
+		ResourceManager.mMusic.setVolume(0,5);
 	}
     
     private class PauseButton extends TiledSprite{
     	private GameScene scene;
-
+    	
+    	
     	public PauseButton(float pX, float pY,
     			ITiledTextureRegion pTiledTextureRegion,
     			VertexBufferObjectManager pTiledSpriteVertexBufferObject, GameScene scene) {
@@ -245,6 +246,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     				stop = true;				
     				scene.setIgnoreUpdate(true); 			
     				setChildScene(mPauseScene);
+    				ResourceManager.mMusic.pause();
     			} 
     			/*O que acontece quando clica no botão de pause com o jogo pausado*/
     			else {	
@@ -299,9 +301,11 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 	        	stop = false;
 				this.setIgnoreUpdate(false);
 				clearChildScene();
+				resourceManager.mMusic.resume();
 	            return true;
 	        case PAUSE_RESTART:
 	        	sceneManager.restartGameScene();
+	        	resourceManager.mMusic.play();
 	            return true;
 	        case PAUSE_MENU:
 	        	sceneManager.loadMenuScene();

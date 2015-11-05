@@ -4,6 +4,7 @@ import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.opengl.texture.atlas.bitmap.source.ResourceBitmapTextureAtlasSource;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 import android.os.AsyncTask;
 

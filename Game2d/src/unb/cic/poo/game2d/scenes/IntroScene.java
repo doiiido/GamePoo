@@ -4,13 +4,15 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
 
+import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
 public class IntroScene extends BaseScene {
 	private Sprite intro;
 	
 	public IntroScene() {
-		createScene();		
+		createScene();	
+		
 	}
 	
     @Override
@@ -22,10 +24,11 @@ public class IntroScene extends BaseScene {
     	       pGLState.enableDither();
     	    }
     	};
-    	        
+         
     	//intro.setScale(1.5f);
     	intro.setPosition((camera.getWidth()- intro.getWidth())/2, (camera.getHeight() - intro.getHeight())/2);
     	attachChild(intro);
+    	
     }
 
     @Override

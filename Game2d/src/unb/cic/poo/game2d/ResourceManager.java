@@ -75,6 +75,7 @@ public class ResourceManager {
 	
 	/*Musica e sons*/
 	public static Sound mSound;
+	public static Sound mIntro;
 	public static Sound mBullet;
 	public static Sound mXplosion;
 	public static Music mMusic;
@@ -138,6 +139,7 @@ public class ResourceManager {
 		  	introTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
 		  	introTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(introTexture, activity, "logo.png", 0, 0);
 		  	introTexture.load();
+		  	
 	  }
 	  
 	  public synchronized void unloadIntro() {
@@ -165,8 +167,12 @@ public class ResourceManager {
 		  
 		  MusicFactory.setAssetBasePath("sfx/");
 		  try{
-			  mMusic = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext,"twisted.mp3");
+			  mMusic = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext,"megaman.mp3");
 			  mMusic.setLooping(true);
+		  }catch(final IOException e){}
+		  
+		  try{
+			  mIntro = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(), mContext, "oneup.wav");
 		  }catch(final IOException e){}
 		  
 		  try{

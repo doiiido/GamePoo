@@ -57,12 +57,13 @@ public class GameActivity extends BaseGameActivity {
 			throws Exception {
 		mResourceManager = ResourceManager.getInstance(); mResourceManager.prepare(this);
         mSceneManager = SceneManager.getInstance(); mSceneManager.prepare(this, mEngine, mCamera);
+          
+        mResourceManager.loadGameResource(mEngine, this);
+        pOnCreateResourcesCallback.onCreateResourcesFinished();
         
         mResourceManager.loadIntro();
-        pOnCreateResourcesCallback.onCreateResourcesFinished();
-        
-        ResourceManager.getInstance().loadGameResource(mEngine, this);
-        pOnCreateResourcesCallback.onCreateResourcesFinished();
+        pOnCreateResourcesCallback.onCreateResourcesFinished(); 
+       
 	}
 
 	@Override

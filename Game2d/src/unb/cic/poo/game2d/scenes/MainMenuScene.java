@@ -14,6 +14,7 @@ import unb.cic.poo.game2d.Enemy;
 import unb.cic.poo.game2d.FreezedShootingEnemy;
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.VerticalMovementEnemy;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
@@ -88,6 +89,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	    
 	    optionsMenuItem.setPosition(camera.getWidth()/2 - optionsMenuItem.getWidth() - 245,
 	    							camera.getWidth()/2 - optionsMenuItem.getHeight() + 85);
+	    
 	    
 	}
 
