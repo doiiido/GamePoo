@@ -305,10 +305,11 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 	            return true;
 	        case PAUSE_RESTART:
 	        	sceneManager.restartGameScene();
-	        	resourceManager.mMusic.play();
+	        	resourceManager.mMusic.seekTo(0);
 	            return true;
 	        case PAUSE_MENU:
 	        	sceneManager.loadMenuScene();
+	        	resourceManager.mMusic.seekTo(0);
 	            return true;
 	        default:
 	            return false;
