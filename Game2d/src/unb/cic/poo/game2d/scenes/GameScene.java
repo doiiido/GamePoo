@@ -319,8 +319,8 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 			final IEntity target) {
 
 		// Podemos tentar aplicar a ideia de despixelização, porém não consegui divider o sprite em pequenos pedaços
-		int mNumPart = 10; // número de partículas/sprites que serão repetidos
-		float mTimePart = (float) 1.6; // tempo que as partículas permanecerão na tela
+		int mNumPart = 1; // número de partículas/sprites que serão repetidos
+		float mTimePart = (float) 0.5; // tempo que as partículas permanecerão na tela
 									   // 1.6 corresponde ao tempo da animação aplicada
 
 		PointParticleEmitter particleEmitter = new PointParticleEmitter(posX,
@@ -331,7 +331,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 			@Override
 			public AnimatedSprite create(float pX, float pY) {
 				AnimatedSprite rect = new AnimatedSprite(posX, posY, ResourceManager.explosionTextureRegion, engine.getVertexBufferObjectManager());
-				rect.animate(100);
+				rect.animate(40);
 				return rect;
 			}
 
@@ -342,9 +342,9 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 				recFact, particleEmitter, 100, 500, mNumPart);
 
 		// Velocidade das partículas, mínima e máxima, em X e Y
-		particleSystem
-				.addParticleInitializer(new VelocityParticleInitializer<AnimatedSprite>(
-						-50, 50, -50, 50));
+		//particleSystem
+				//.addParticleInitializer(new VelocityParticleInitializer<AnimatedSprite>(
+				//		-50, 50, -50, 50));
 
 		// Não modificar direto aqui, mas na variável mTimePart. Aplica o Fade Out 
 		particleSystem
@@ -352,9 +352,9 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 						0.6f * mTimePart, 1, 0));
 		
 		// Qual o ângulo de rotação das partículas
-		particleSystem
-				.addParticleModifier(new RotationParticleModifier<AnimatedSprite>(0,
-						mTimePart, 0, 360));
+		//particleSystem
+		//		.addParticleModifier(new RotationParticleModifier<AnimatedSprite>(0,
+			//			mTimePart, 0, 360));
 
 		target.attachChild(particleSystem);
 		target.registerUpdateHandler(new TimerHandler(mTimePart,

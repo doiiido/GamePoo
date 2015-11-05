@@ -121,7 +121,7 @@ public class ResourceManager {
 	  private static int BULLET_COLUMN = 2, BULLET_ROW = 1;
 	  private static int ENEMY_BULLET_COLUMN = 2, ENEMY_BULLET_ROW = 1;
 	  private static int LASER_BULLET_COLUMN = 1, LASER_BULLET_ROW = 4;
-	  private static int EXPLOSION_COLUMN = 6, EXPLOSION_ROW = 3;
+	  private static int EXPLOSION_COLUMN = 4, EXPLOSION_ROW = 4;
 	  
 	  public Font font;
 	  
@@ -270,7 +270,7 @@ public class ResourceManager {
 					.createTiledFromAsset(laserTexture, activity,"laser_animation.png", 0, 0, LASER_COLUMN, LASER_ROW);
 			laserTexture.load();
 			
-			explosionTexture = new BitmapTextureAtlas(engine.getTextureManager(), 512, 124, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+			explosionTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 			explosionTextureRegion = BitmapTextureAtlasTextureRegionFactory
 					.createTiledFromAsset(explosionTexture, activity,"explosion.png", 0, 0, EXPLOSION_COLUMN, EXPLOSION_ROW);
 			explosionTexture.load();
