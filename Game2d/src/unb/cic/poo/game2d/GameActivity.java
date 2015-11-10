@@ -44,7 +44,7 @@ public class GameActivity extends BaseGameActivity {
         options.getAudioOptions().setNeedsMusic(true);
         options.getAudioOptions().setNeedsSound(true);
         return options;
-	}
+    }
 	
 	public Engine onCreateEngine(EngineOptions pEngineOptions) {
 		//Cria uma engine com um step de simulação de 60 steps por segundo.
@@ -61,7 +61,7 @@ public class GameActivity extends BaseGameActivity {
         mResourceManager.loadGameResource(mEngine, this);
         pOnCreateResourcesCallback.onCreateResourcesFinished();
         
-        mResourceManager.loadIntro();
+        mResourceManager.loadIntro();	
         pOnCreateResourcesCallback.onCreateResourcesFinished(); 
        
 	}

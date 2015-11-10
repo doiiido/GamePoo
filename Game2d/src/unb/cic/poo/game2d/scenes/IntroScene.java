@@ -29,6 +29,7 @@ public class IntroScene extends BaseScene {
     	intro.setPosition((camera.getWidth()- intro.getWidth())/2, (camera.getHeight() - intro.getHeight())/2);
     	attachChild(intro);
     	
+    	
     }
 
     @Override

@@ -75,7 +75,7 @@ public class ResourceManager {
 	
 	/*Musica e sons*/
 	public static Sound mSound;
-	public static Sound mIntro;
+	public static Music mIntro;
 	public static Sound mBullet;
 	public static Sound mXplosion;
 	public static Music mMusic;
@@ -139,7 +139,8 @@ public class ResourceManager {
 		  	introTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
 		  	introTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(introTexture, activity, "logo.png", 0, 0);
 		  	introTexture.load();
-		  	
+		  	ResourceManager.mIntro.play();
+			
 	  }
 	  
 	  public synchronized void unloadIntro() {
@@ -172,7 +173,7 @@ public class ResourceManager {
 		  }catch(final IOException e){}
 		  
 		  try{
-			  mIntro = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(), mContext, "oneup.wav");
+			  mIntro = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext, "oneup.wav");
 		  }catch(final IOException e){}
 		  
 		  try{
