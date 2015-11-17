@@ -1,8 +1,6 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.bullets;
 
-
-
-import unb.cic.poo.game2d.BulletType;
+import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 public class LaserBulletType extends BulletType{
@@ -14,9 +12,10 @@ public class LaserBulletType extends BulletType{
 	}
 	
 	@Override
-	public Bullet getBullet(float pX, float pY, boolean isEnemy) {
+	public void setBullet(float pX, float pY, boolean isEnemy) {
 		SceneManager.getInstance().getCurrentScene().registerUpdateHandler(new CooldownHandler(this));
-		return new LaserBullet(pX, pY, isEnemy);
+		LaserBullet bullet = new LaserBullet(pX, pY, isEnemy);
+		GameManager.getInstance().getGameScene().attachChild(bullet);
 	}
 
 }

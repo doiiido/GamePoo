@@ -1,10 +1,13 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.bullets;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.modifier.IEntityModifier.IEntityModifierListener;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+
+import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.ResourceManager;
 
 //Essa classe é responsável pela configuração dos tiros
 
@@ -24,10 +27,6 @@ public abstract class Bullet extends AnimatedSprite implements IEntityModifierLi
 		ResourceManager.mBullet.play();
 		
 		this.updateHandler = new IUpdateHandler() {
-			
-		
-
-			
 			@Override
 			public void reset() {
 			}

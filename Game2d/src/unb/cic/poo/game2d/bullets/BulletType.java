@@ -1,4 +1,4 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.bullets;
 
 //Interface dos tipos de criadores de bala.
 
@@ -7,7 +7,7 @@ public abstract class BulletType {
 	protected boolean onCooldown = false;
 	
 	
-	public abstract Bullet getBullet(float pX, float pY, boolean isEnemy);
+	public abstract void setBullet(float pX, float pY, boolean isEnemy);
 	
 	public float getCooldownTime() {
 		return cooldown;

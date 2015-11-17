@@ -1,5 +1,7 @@
 package unb.cic.poo.game2d;
 
+import java.util.ArrayList;
+
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.modifier.IEntityModifier.IEntityModifierListener;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;

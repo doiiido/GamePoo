@@ -4,6 +4,9 @@ import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.MoveByModifier;
 import org.andengine.util.modifier.IModifier;
 
+import unb.cic.poo.game2d.bullets.Bullet;
+import unb.cic.poo.game2d.bullets.BulletType;
+import unb.cic.poo.game2d.bullets.CommonBulletType;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 
@@ -52,8 +55,7 @@ public class FreezedShootingEnemy extends Enemy{
 
 
 	public void shoot(){
-		Bullet bullet = this.bulletType.getBullet(this.getX(), this.getY()+(this.getHeight()/2), true);
-		GameManager.getInstance().getGameScene().attachChild(bullet);
+		this.bulletType.setBullet(this.getX(), this.getY()+(this.getHeight()/2), true);
 	}
 	
 	public ShootHandler getShootHandler() {

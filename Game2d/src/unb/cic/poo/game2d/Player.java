@@ -13,6 +13,10 @@ import org.andengine.engine.handler.IUpdateHandler;
 
 import org.andengine.entity.modifier.MoveByModifier;
 
+import unb.cic.poo.game2d.bullets.Bullet;
+import unb.cic.poo.game2d.bullets.BulletType;
+import unb.cic.poo.game2d.bullets.CommonBulletType;
+import unb.cic.poo.game2d.bullets.LaserBulletType;
 import unb.cic.poo.game2d.scenes.BaseScene;
 import unb.cic.poo.game2d.scenes.GameScene;
 import unb.cic.poo.game2d.scenes.SceneManager;
@@ -54,8 +58,8 @@ public class Player extends SpaceshipAnimated{
 	
 	public void shoot() {
 		if(!this.bulletType.isOnCooldown() && GameScene.getStop() == false){
-			Bullet bullet = this.bulletType.getBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
-			GameManager.getInstance().getGameScene().attachChild(bullet);
+			this.bulletType.setBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
+			
 		}
 	}
 

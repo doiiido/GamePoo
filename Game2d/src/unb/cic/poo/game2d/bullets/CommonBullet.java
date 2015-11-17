@@ -1,8 +1,13 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.bullets;
 
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.MoveByModifier;
 import org.andengine.util.modifier.IModifier;
+
+import unb.cic.poo.game2d.Enemy;
+import unb.cic.poo.game2d.GameActivity;
+import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.ResourceManager;
 
 //Tiro Básico
 
