@@ -1,4 +1,4 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.bullets;
 
 
 
@@ -12,7 +12,6 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.modifier.IModifier;
 
-import unb.cic.poo.game2d.Bullet;
 import unb.cic.poo.game2d.Enemy;
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;

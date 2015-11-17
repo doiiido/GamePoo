@@ -12,6 +12,10 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.modifier.IModifier;
 
+import unb.cic.poo.game2d.bullets.Bullet;
+import unb.cic.poo.game2d.bullets.BulletType;
+import unb.cic.poo.game2d.bullets.CommonBulletType;
+
 
 
 /* Ainda existe o problema que as naves continuam a atirar depois de removidas. */
@@ -99,8 +103,7 @@ public class VerticalMovementEnemy extends Enemy{
 
 	@Override
 	public void shoot() {
-		Bullet bullet = this.bulletType.getBullet(this.getX(), this.getY()+(this.getHeight()/2), true);
-		GameManager.getInstance().getGameScene().attachChild(bullet);
+		this.bulletType.setBullet(this.getX(), this.getY()+(this.getHeight()/2), true);
 	}
 
 	@Override

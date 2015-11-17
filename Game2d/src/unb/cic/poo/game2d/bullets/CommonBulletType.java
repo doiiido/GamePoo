@@ -1,5 +1,5 @@
-package unb.cic.poo.game2d;
-
+package unb.cic.poo.game2d.bullets;
+import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 //Classe responsável por instanciar uma bala.
@@ -13,8 +13,9 @@ public class CommonBulletType extends BulletType{
 	}
 	
 	@Override
-	public Bullet getBullet(float pX, float pY, boolean isEnemy) {
+	public void setBullet(float pX, float pY, boolean isEnemy) {
 		SceneManager.getInstance().getCurrentScene().registerUpdateHandler(new CooldownHandler(this));
-		return new CommonBullet(pX, pY, isEnemy);
+		CommonBullet bullet = new CommonBullet(pX, pY, isEnemy);
+		GameManager.getInstance().getGameScene().attachChild(bullet);
 	}
 }
