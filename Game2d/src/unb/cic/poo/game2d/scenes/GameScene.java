@@ -224,7 +224,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 		}
    	 	
    	 	ResourceManager.mMusic.play();
-		ResourceManager.mMusic.setVolume(0,5);
+		ResourceManager.mMusic.setVolume(1);
 	}
     
     private class PauseButton extends TiledSprite{

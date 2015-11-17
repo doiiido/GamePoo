@@ -76,6 +76,7 @@ public class ResourceManager {
 	/*Musica e sons*/
 	public static Sound mSound;
 	public static Music mIntro;
+	public static Music Mmenu;
 	public static Sound mBullet;
 	public static Sound mXplosion;
 	public static Music mMusic;
@@ -168,9 +169,15 @@ public class ResourceManager {
 		  
 		  MusicFactory.setAssetBasePath("sfx/");
 		  try{
-			  mMusic = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext,"megaman.mp3");
+			  mMusic = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext,"M-jogo.mp3");
 			  mMusic.setLooping(true);
 		  }catch(final IOException e){}
+		  
+		  try{
+			  Mmenu = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext, "M-menu.mp3");
+		  }catch(final IOException e){
+			  
+		  }
 		  
 		  try{
 			  mIntro = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext, "oneup.wav");

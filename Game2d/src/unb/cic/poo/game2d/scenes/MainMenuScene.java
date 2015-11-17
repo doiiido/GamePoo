@@ -90,7 +90,8 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	    optionsMenuItem.setPosition(camera.getWidth()/2 - optionsMenuItem.getWidth() - 245,
 	    							camera.getWidth()/2 - optionsMenuItem.getHeight() + 85);
 	    
-	    
+	    ResourceManager.Mmenu.play();
+	    ResourceManager.Mmenu.setVolume(1);
 	}
 
 	@Override
@@ -99,6 +100,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 		switch(pMenuItem.getID()) {
 	        case MENU_PLAY:
 	        	SceneManager.getInstance().loadGameScene();
+	        	ResourceManager.Mmenu.stop();
 	            return true;
 	        case MENU_OPTIONS:
 	        	SceneManager.getInstance().createSettingsScene();
