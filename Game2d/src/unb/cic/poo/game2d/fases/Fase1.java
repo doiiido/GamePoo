@@ -10,5 +10,6 @@ public class Fase1 extends Fase{
 	public Fase1(){
 		this.waves = new LinkedList<Wave>();
 		this.waves.add(new Wave1());
+		this.waves.add(new Wave1());
 	}	
 }

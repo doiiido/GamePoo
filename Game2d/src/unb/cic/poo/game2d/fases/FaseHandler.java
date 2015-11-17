@@ -2,6 +2,9 @@ package unb.cic.poo.game2d.fases;
 
 import org.andengine.engine.handler.IUpdateHandler;
 
+import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.waves.Wave;
+
 public class FaseHandler implements IUpdateHandler {
 	private Fase fase;
 	
@@ -9,20 +12,24 @@ public class FaseHandler implements IUpdateHandler {
 		this.fase = fase;
 	}
 	
-	@Override
-	public void onUpdate(float pSecondsElapsed) {
-		if(!fase.waves.isEmpty()){
-			if(fase.getCurrentWave().waveFinished()){
-				fase.nextWave();
-			}
-		}
-		
-	}
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-		
+	}
+	
+	@Override
+	public void onUpdate(float pSecondsElapsed) {
+		if(fase.waves.isEmpty()){
+			GameManager.getInstance().getGameScene().unregisterUpdateHandler(this);
+			fase.setFaseFinished(true);
+		}
+		else if(fase.getCurrentWave().waveFinished()){
+			Wave wave = fase.nextWave();
+			
+			if(wave != null){
+				wave.setWave();
+			}
+		}
 	}
 
 }

@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.Entity;
 
+import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.scenes.BaseScene;
 import unb.cic.poo.game2d.scenes.GameScene;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
@@ -25,14 +27,22 @@ public class FaseManager implements IUpdateHandler{
 
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
-		if(getCurrentFase().isFaseFinished()){
-			
+		if(fases.isEmpty()){
+			BaseScene aux = SceneManager.gameScene;
+			((GameScene) aux).gameOver(false);
+		}
+		else if(getCurrentFase().isFaseFinished()){
+			Fase fase = nextFase();
+			if(fase != null){
+				fase.start();
+			}
 		}
 		
 	}
 
-	private Fase getCurrentFase() {
-		return fases.getFirst();
+	private Fase nextFase() {
+		fases.removeFirst();
+		return fases.isEmpty() ? null : fases.getFirst();
 	}
 
 	@Override
@@ -41,4 +51,12 @@ public class FaseManager implements IUpdateHandler{
 		
 	}
 
+	private Fase getCurrentFase() {
+		return fases.isEmpty() ? null : fases.getFirst();
+	}
+	
+	public void start(){
+		fases.getFirst().start();
+		GameManager.getInstance().getGameScene().registerUpdateHandler(this);
+	}
 }

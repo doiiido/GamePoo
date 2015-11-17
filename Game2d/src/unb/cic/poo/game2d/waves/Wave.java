@@ -3,9 +3,15 @@ package unb.cic.poo.game2d.waves;
 import java.util.ArrayList;
 
 import unb.cic.poo.game2d.Enemy;
+import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.scenes.SceneManager;
 
 public abstract class Wave {
 	protected ArrayList<Enemy> enemies;
+	
+	public Wave(){
+		enemies = new ArrayList<Enemy>();
+	}
 	
 	public ArrayList<Enemy> getEnemies() {
 		return enemies;
@@ -19,5 +25,10 @@ public abstract class Wave {
 		return enemies.isEmpty();
 	}
 	
-	public abstract void setWave();
+	public void setWave(){
+		GameManager.getInstance().setEnemies(enemies);
+		for(Enemy enemy: this.enemies){
+			GameManager.getInstance().getGameScene().attachChild(enemy);
+		}
+	}
 }
