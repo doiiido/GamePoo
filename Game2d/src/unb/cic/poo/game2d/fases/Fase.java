@@ -1,16 +1,19 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.fases;
 
 import java.util.LinkedList;
 
 import org.andengine.engine.handler.IUpdateHandler;
 
 import unb.cic.poo.game2d.scenes.SceneManager;
+import unb.cic.poo.game2d.waves.Wave;
 
 public abstract class Fase {
 	protected LinkedList<Wave> waves;
+	protected boolean faseFinished;
 	
 	public Fase(){
 		waves = new LinkedList<Wave>();
+		faseFinished = false;
 		SceneManager.getInstance().getCurrentScene().registerUpdateHandler(new IUpdateHandler() {
 			
 			@Override
@@ -23,6 +26,9 @@ public abstract class Fase {
 					if(getCurrentWave().waveFinished()){
 						nextWave();
 					}
+				}
+				else{
+					faseFinished = true;
 				}
 			}
 		});
@@ -51,5 +57,13 @@ public abstract class Fase {
 
 	public void setFase() {
 		this.waves.get(0).setWave();
+	}
+
+	public boolean isFaseFinished() {
+		return faseFinished;
+	}
+
+	public void setFaseFinished(boolean faseFinished) {
+		this.faseFinished = faseFinished;
 	}
 }

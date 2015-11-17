@@ -1,4 +1,4 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.fases;
 
 import org.andengine.engine.handler.IUpdateHandler;
 

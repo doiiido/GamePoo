@@ -1,6 +1,8 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.waves;
 
 import java.util.ArrayList;
+
+import unb.cic.poo.game2d.Enemy;
 
 public abstract class Wave {
 	protected ArrayList<Enemy> enemies;
