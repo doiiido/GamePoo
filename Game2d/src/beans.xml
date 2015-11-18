@@ -7,6 +7,25 @@
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/util
            http://www.springframework.org/schema/util/spring-util.xsd">
-	
+           
+	<bean id="fase1" class="unb.cic.poo.game2d.fases.FaseManager">
+    	<property name="waves">
+    	    <util:list id="linkedList1" list-class="java.util.LinkedList">
+    	        <ref bean="fase1">
+    	    </util:list>
+    	</property>
+    </bean>
+    
+    <util:list id="linkedList2" list-class="java.util.LinkedList">
+    	<ref bean="fase1">
+   	</util:list>
+    	
+    <bean id="fasemanager" class="unb.cic.poo.game2d.fases.FaseManager">
+    	<property name="fases">
+    	  
+    	</property>
+    </bean>
+    <!-- define your beans here, use 'androidContext' to get a reference to your app's application context -->        
+    
     
 </beans>

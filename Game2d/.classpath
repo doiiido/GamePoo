@@ -5,7 +5,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry exported="true" kind="lib" path="/home/fernando/workspace/GamePoo/commons-logging-1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="/home/fernando/workspace/GamePoo/robospring-1.0.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/fernando/workspace/GamePoo/Deps/commons-logging-1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/fernando/workspace/GamePoo/Deps/robospring-1.0.7.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
