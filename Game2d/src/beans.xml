@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
+	
+    <bean id="fase1" class="unb.cic.poo.game2d.fases.FaseManager">
+    	<property name="waves">
+    	    <util:list id="linkedList1" list-class="java.util.LinkedList">
+    	        <ref bean="fase1">
+    	    </util:list>
+    	</property>
+    </bean>
+    
+    <util:list id="linkedList2" list-class="java.util.LinkedList">
+    	<ref bean="fase1">
+   	</util:list>
+    	
+    <bean id="fasemanager" class="unb.cic.poo.game2d.fases.FaseManager">
+    	<property name="fases">
+    	  
+    	</property>
+    </bean>
+    <!-- define your beans here, use 'androidContext' to get a reference to your app's application context -->        
+
+</beans>

@@ -10,8 +10,8 @@ public class Fase{
 	protected boolean faseFinished;
 	protected FaseHandler handler;
 	
-	public Fase(LinkedList<Wave> waves){
-		this.waves = waves;
+	public Fase(){
+		this.waves = new LinkedList<Wave>();
 		faseFinished = false;
 	}
 

@@ -34,18 +34,6 @@ public class CommonEnemy extends Enemy{
 		moveByModifier.setAutoUnregisterWhenFinished(true);
 		this.registerEntityModifier(moveByModifier);
 	}
-	
-	//Verifica se o inimigo colide com o player, caso verdadeiro, o jogo para (Game Over).
-	protected void onManagedUpdate(float pSecondsElapsed) {
-		if(GameManager.getInstance().getEnemies().contains(this) && this.collidesWith(GameManager.getInstance().getPlayer())){
-			BaseScene aux = SceneManager.gameScene;
-			((GameScene) aux).gameOver(false);
-			// Erro aqui! Aparentemente por estar adicionando e retirando em threads diferentes.
-			// Uma op��o � colocar para decrementar a vida ao inv�s de dar gameOver direto, pois est�
-			// funcionando por meio do Player
-		}
-		super.onManagedUpdate(pSecondsElapsed);
-	}
 
 	@Override
 	public void shoot() {

@@ -15,29 +15,14 @@ import unb.cic.poo.game2d.scenes.SceneManager;
 public abstract class Enemy extends SpaceshipAnimated implements IEntityModifierListener{
 	protected boolean movementFinished;
 	
+	public static final int INFINITY = 2000000;
+	
 	public Enemy(float pX, float pY, ITiledTextureRegion texture,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, texture, pVertexBufferObjectManager);
 		movementFinished = false;
 		
-		this.registerUpdateHandler(new IUpdateHandler() {
-			
-			@Override
-			public void reset() {
-			}
-			
-			@Override
-			public void onUpdate(float pSecondsElapsed) {
-				GameManager.getInstance().getGameEngine().runOnUpdateThread(new Runnable() {			
-					@Override
-					public void run() {
-						if(movementFinished){
-							removeEnemy();
-						}
-					}
-				});
-			}
-		});
+		this.registerUpdateHandler(new EnemyHandler(this));
 	}
 	
 	public void decrementLife(int decrement){
@@ -53,6 +38,18 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 		this.removeEnemy();
 		this.clearEntityModifiers();
 	}
+	
+	/*protected void onManagedUpdate(float pSecondsElapsed) {
+		if(GameManager.getInstance().getEnemies().contains(this) && this.collidesWith(GameManager.getInstance().getPlayer())){
+			BaseScene aux = SceneManager.gameScene;
+			((GameScene) aux).gameOver(false);
+			GameManager.getInstance().getPlayer().decrementLife(INFINITY);
+			// Erro aqui! Aparentemente por estar adicionando e retirando em threads diferentes.
+			// Uma op��o � colocar para decrementar a vida ao inv�s de dar gameOver direto, pois est�
+			// funcionando por meio do Player
+		}
+		super.onManagedUpdate(pSecondsElapsed);
+	}*/
 
 	@Override
 	public abstract void shoot();
