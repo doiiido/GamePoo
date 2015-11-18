@@ -21,11 +21,11 @@ public class CommonEnemy extends Enemy{
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.speed = DEFAULT_COMMON_ENEMY_SPEED;
 		this.life = COMMON_ENEMY_LIFE;
-		this.setMovement();
+		this.setMovement(pX);
 	}
 	
-	private void setMovement(){
-		float distance = GameManager.getInstance().getGameCamera().getWidth();
+	private void setMovement(float pX){
+		float distance = pX+this.getWidth();
 		float durationTime = distance/this.speed;
 		
 		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -distance-COMMON_ENEMY_WIDTH, 0);
@@ -41,7 +41,7 @@ public class CommonEnemy extends Enemy{
 			BaseScene aux = SceneManager.gameScene;
 			((GameScene) aux).gameOver(false);
 			// Erro aqui! Aparentemente por estar adicionando e retirando em threads diferentes.
-			// Uma opção é colocar para decrementar a vida ao invés de dar gameOver direto, pois está
+			// Uma opï¿½ï¿½o ï¿½ colocar para decrementar a vida ao invï¿½s de dar gameOver direto, pois estï¿½
 			// funcionando por meio do Player
 		}
 		super.onManagedUpdate(pSecondsElapsed);

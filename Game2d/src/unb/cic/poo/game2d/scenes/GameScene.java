@@ -1,6 +1,7 @@
 package unb.cic.poo.game2d.scenes;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
@@ -36,11 +37,16 @@ import unb.cic.poo.game2d.ParallaxApplication;
 import unb.cic.poo.game2d.Player;
 import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.VerticalMovementEnemy;
+import unb.cic.poo.game2d.fases.Fase;
+import unb.cic.poo.game2d.fases.Fase1;
+import unb.cic.poo.game2d.fases.FaseManager;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
+import unb.cic.poo.game2d.waves.Wave;
 
 public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 	private Sprite end;
 	MenuScene mPauseScene;
+	private FaseManager faseManager;
 	
 	private static Sprite lifebar;
 	private static Sprite lifebarmold;
@@ -75,8 +81,8 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 		
 		// Configurando atributos de GameManager
 		GameManager.getInstance().setPlayer(new Player());
-		GameManager.getInstance().setGameScene(this);
 		GameManager.getInstance().setEnemies(new ArrayList<Enemy>());
+		GameManager.getInstance().setGameScene(this);
 		
 		//Insere o Player na Scene.
 		this.attachChild(GameManager.getInstance().getPlayer());
@@ -114,13 +120,13 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     	
 		endGame = false; stop = false;
 		
-		/* Para determinar a posição, sendo N_ELEM o número de elementos que estão posicionados a direita deste: 
+		/* Para determinar a posiï¿½ï¿½o, sendo N_ELEM o nï¿½mero de elementos que estï¿½o posicionados a direita deste: 
 		SPRITE.setPosition((camera.getWidth()- SPRITE.getWidth()) - posX - N_ELEM*(varHeight*lifebarHeight + deltaX), 
     			(camera.getHeight() - SPRITE.getHeight()) - posY);
-    	- Se desejar levar o HUD à esquerda, aumentar o valor de posX
+    	- Se desejar levar o HUD ï¿½ esquerda, aumentar o valor de posX
     	- Se desejar levar o HUD para baixo, aumentar o valor de posY
-    	- Se desejar aumentar a distância entre os elementos do HUD, aumentar o valor de deltaX
-    	- Se desejar aumentar o tamanho dos botões do HUD, aumentar o valor de varHeight (segue como padrão o tamanho
+    	- Se desejar aumentar a distï¿½ncia entre os elementos do HUD, aumentar o valor de deltaX
+    	- Se desejar aumentar o tamanho dos botï¿½es do HUD, aumentar o valor de varHeight (segue como padrï¿½o o tamanho
     	da altura da barra de vida - 50)*/
     	
     	lifebarmold = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.lifemoldTextureRegion,
@@ -213,16 +219,21 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     public void setGameScene(){
 		// Cria os inimigos para teste
 		// Valores alinhados: dividir por 5, 2 e 1.25 // 2, 1.67 e 1.25 
-    	GameManager.getInstance().getEnemies().add(new FreezedShootingEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/3.33), (GameManager.getInstance().getGameCamera().getWidth()-400f)));
-    	GameManager.getInstance().getEnemies().add(new VerticalMovementEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-   			 (float) (GameActivity.CAMERA_HEIGHT/1.67), (GameManager.getInstance().getGameCamera().getWidth()-250f)));
-		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
-				(float) (GameActivity.CAMERA_HEIGHT/1.25)));
-   	 	for(Enemy enemy: GameManager.getInstance().getEnemies()){
-			this.attachChild(enemy);
-		}
-   	 	
+//    	GameManager.getInstance().getEnemies().add(new FreezedShootingEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+//				(float) (GameActivity.CAMERA_HEIGHT/3.33), (GameManager.getInstance().getGameCamera().getWidth()-400f)));
+//    	GameManager.getInstance().getEnemies().add(new VerticalMovementEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+//   			 (float) (GameActivity.CAMERA_HEIGHT/1.67), (GameManager.getInstance().getGameCamera().getWidth()-250f)));
+//		GameManager.getInstance().getEnemies().add(new CommonEnemy(GameManager.getInstance().getGameCamera().getWidth(),
+//				(float) (GameActivity.CAMERA_HEIGHT/1.25)));
+//   	 	for(Enemy enemy: GameManager.getInstance().getEnemies()){
+//			this.attachChild(enemy);
+//		}
+   	 	LinkedList<Fase> fases = new LinkedList<Fase>();
+   	 	fases.add(new Fase1(new LinkedList<Wave>()));
+   	 	fases.add(new Fase1(new LinkedList<Wave>()));
+    	faseManager = new FaseManager(fases);
+    	faseManager.start();
+    	
    	 	ResourceManager.mMusic.play();
 		ResourceManager.mMusic.setVolume(1);
 	}
@@ -241,14 +252,14 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     	@Override
     	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
     		if (pSceneTouchEvent.isActionDown() && endGame == false) {
-    			/*O que acontece quando clica no botão de pause durante o jogo*/
+    			/*O que acontece quando clica no botï¿½o de pause durante o jogo*/
     			if(stop == false){
     				stop = true;				
     				scene.setIgnoreUpdate(true); 			
     				setChildScene(mPauseScene);
     				ResourceManager.mMusic.pause();
     			} 
-    			/*O que acontece quando clica no botão de pause com o jogo pausado*/
+    			/*O que acontece quando clica no botï¿½o de pause com o jogo pausado*/
     			else {	
     				stop = false;
     				scene.setIgnoreUpdate(false);
@@ -283,7 +294,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 	    mPauseScene.setBackgroundEnabled(false);
 	    mPauseScene.setOnMenuItemClickListener(this);
 	    
-	    // Garantir que todos os botões tenham o mesmo tamanho
+	    // Garantir que todos os botï¿½es tenham o mesmo tamanho
 	    
 	    backMenuItem.setPosition((float) ((backgroundPause.getWidth() - backMenuItem.getWidth())/2 + 1.5*backMenuItem.getWidth()),
 	    		backMenuItem.getHeight() + butPosY);
@@ -319,10 +330,10 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 	public static void createExplosion(final float posX, final float posY,
 			final IEntity target) {
 
-		// Podemos tentar aplicar a ideia de despixelização, porém não consegui divider o sprite em pequenos pedaços
-		int mNumPart = 1; // número de partículas/sprites que serão repetidos
-		float mTimePart = (float) 0.5; // tempo que as partículas permanecerão na tela
-									   // 1.6 corresponde ao tempo da animação aplicada
+		// Podemos tentar aplicar a ideia de despixelizaï¿½ï¿½o, porï¿½m nï¿½o consegui divider o sprite em pequenos pedaï¿½os
+		int mNumPart = 1; // nï¿½mero de partï¿½culas/sprites que serï¿½o repetidos
+		float mTimePart = (float) 0.5; // tempo que as partï¿½culas permanecerï¿½o na tela
+									   // 1.6 corresponde ao tempo da animaï¿½ï¿½o aplicada
 
 		PointParticleEmitter particleEmitter = new PointParticleEmitter(posX,
 				posY);
@@ -338,21 +349,21 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 
 		};
 		
-		// Rate mínimo e máximo da emissão de partículas
+		// Rate mï¿½nimo e mï¿½ximo da emissï¿½o de partï¿½culas
 		final ParticleSystem<AnimatedSprite> particleSystem = new ParticleSystem<AnimatedSprite>(
 				recFact, particleEmitter, 100, 500, mNumPart);
 
-		// Velocidade das partículas, mínima e máxima, em X e Y
+		// Velocidade das partï¿½culas, mï¿½nima e mï¿½xima, em X e Y
 		//particleSystem
 				//.addParticleInitializer(new VelocityParticleInitializer<AnimatedSprite>(
 				//		-50, 50, -50, 50));
 
-		// Não modificar direto aqui, mas na variável mTimePart. Aplica o Fade Out 
+		// Nï¿½o modificar direto aqui, mas na variï¿½vel mTimePart. Aplica o Fade Out 
 		particleSystem
 				.addParticleModifier(new AlphaParticleModifier<AnimatedSprite>(0,
 						0.6f * mTimePart, 1, 0));
 		
-		// Qual o ângulo de rotação das partículas
+		// Qual o ï¿½ngulo de rotaï¿½ï¿½o das partï¿½culas
 		//particleSystem
 		//		.addParticleModifier(new RotationParticleModifier<AnimatedSprite>(0,
 			//			mTimePart, 0, 360));

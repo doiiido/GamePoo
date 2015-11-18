@@ -2,36 +2,17 @@ package unb.cic.poo.game2d.fases;
 
 import java.util.LinkedList;
 
-import org.andengine.engine.handler.IUpdateHandler;
-
-import unb.cic.poo.game2d.scenes.SceneManager;
+import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.waves.Wave;
 
-public abstract class Fase {
+public class Fase{
 	protected LinkedList<Wave> waves;
 	protected boolean faseFinished;
+	protected FaseHandler handler;
 	
-	public Fase(){
-		waves = new LinkedList<Wave>();
+	public Fase(LinkedList<Wave> waves){
+		this.waves = waves;
 		faseFinished = false;
-		SceneManager.getInstance().getCurrentScene().registerUpdateHandler(new IUpdateHandler() {
-			
-			@Override
-			public void reset() {
-			}
-			
-			@Override
-			public void onUpdate(float pSecondsElapsed) {
-				if(!waves.isEmpty()){
-					if(getCurrentWave().waveFinished()){
-						nextWave();
-					}
-				}
-				else{
-					faseFinished = true;
-				}
-			}
-		});
 	}
 
 	public LinkedList<Wave> getWaves() {
@@ -43,16 +24,12 @@ public abstract class Fase {
 	}
 	
 	public Wave getCurrentWave(){
-		return waves.get(0);
+		return waves.isEmpty() ? null : waves.getFirst();
 	}
 	
 	public Wave nextWave(){
-		Wave nextWave;
-		
-		waves.remove(0);
-		nextWave = waves.get(0);
-		nextWave.setWave();
-		return nextWave;
+		waves.removeFirst();
+		return waves.isEmpty() ? null : waves.getFirst();
 	}
 
 	public void setFase() {
@@ -65,5 +42,11 @@ public abstract class Fase {
 
 	public void setFaseFinished(boolean faseFinished) {
 		this.faseFinished = faseFinished;
+	}
+	
+	public void start(){
+		waves.getFirst().setWave();
+		handler = new FaseHandler(this);
+		GameManager.getInstance().getGameScene().registerUpdateHandler(handler);
 	}
 }
