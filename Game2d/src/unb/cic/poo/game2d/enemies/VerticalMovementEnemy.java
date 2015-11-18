@@ -1,21 +1,16 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.enemies;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.MoveByModifier;
 import org.andengine.entity.modifier.ParallelEntityModifier;
-import org.andengine.entity.modifier.PathModifier;
-import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.modifier.SequenceEntityModifier;
-import org.andengine.opengl.texture.region.ITiledTextureRegion;
-import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.modifier.IModifier;
 
-import unb.cic.poo.game2d.bullets.Bullet;
 import unb.cic.poo.game2d.bullets.BulletType;
 import unb.cic.poo.game2d.bullets.CommonBulletType;
-
+import unb.cic.poo.game2d.*;
 
 
 /* Ainda existe o problema que as naves continuam a atirar depois de removidas. */
@@ -32,7 +27,6 @@ public class VerticalMovementEnemy extends Enemy{
 	private BulletType bulletType = new CommonBulletType();
 	private float timer;
 	private float posXfinal;
-	private float posXinicial;
 	private float yInicial;
 	private IUpdateHandler shootHandler;
 	
@@ -41,7 +35,6 @@ public class VerticalMovementEnemy extends Enemy{
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
-		this.posXinicial = pX;
 		this.yInicial = pY;
 		this.posXfinal = posXfinal;		
 		

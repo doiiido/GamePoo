@@ -1,8 +1,7 @@
 package unb.cic.poo.game2d;
 
 import org.andengine.engine.handler.IUpdateHandler;
-
-import unb.cic.poo.game2d.FreezedShootingEnemy;
+import unb.cic.poo.game2d.enemies.*;
 
 public class ShootHandler implements IUpdateHandler {
 	FreezedShootingEnemy enemy;

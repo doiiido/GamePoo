@@ -2,11 +2,9 @@ package unb.cic.poo.game2d.waves;
 
 import java.util.ArrayList;
 
-import unb.cic.poo.game2d.CommonEnemy;
-import unb.cic.poo.game2d.Enemy;
-import unb.cic.poo.game2d.FreezedShootingEnemy;
+import unb.cic.poo.game2d.enemies.*;
 import unb.cic.poo.game2d.GameActivity;
-import unb.cic.poo.game2d.Wave;
+import unb.cic.poo.game2d.waves.Wave;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 public class Wave1 extends Wave {

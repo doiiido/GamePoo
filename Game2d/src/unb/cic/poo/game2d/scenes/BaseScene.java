@@ -27,8 +27,8 @@ public abstract class BaseScene extends Scene {
     
     public BaseScene() {
         this.resourceManager = ResourceManager.getInstance();
-        this.activity = resourceManager.activity;
-		this.engine = resourceManager.engine;
+        BaseScene.activity = resourceManager.activity;
+		BaseScene.engine = resourceManager.engine;
         this.vbom = resourceManager.vbom;
         BaseScene.camera = GameActivity.mCamera;
         this.sceneManager = SceneManager.getInstance();

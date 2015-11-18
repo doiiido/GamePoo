@@ -1,10 +1,10 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.enemies;
 
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.MoveByModifier;
 import org.andengine.util.modifier.IModifier;
 
-import unb.cic.poo.game2d.bullets.Bullet;
+import unb.cic.poo.game2d.*;
 import unb.cic.poo.game2d.bullets.BulletType;
 import unb.cic.poo.game2d.bullets.CommonBulletType;
 import unb.cic.poo.game2d.scenes.SceneManager;

@@ -15,19 +15,7 @@ import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
-import com.parse.ParseAnonymousUtils;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.KeyEvent;
-import unb.cic.poo.game2d.parse.HighScore;
-import unb.cic.poo.game2d.parse.LoginSignupActivity;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 

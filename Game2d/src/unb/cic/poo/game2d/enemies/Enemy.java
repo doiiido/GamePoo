@@ -1,19 +1,18 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.enemies;
 
-import java.util.ArrayList;
-
-import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.modifier.IEntityModifier.IEntityModifierListener;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
+import unb.cic.poo.game2d.EnemyHandler;
+import unb.cic.poo.game2d.ResourceManager;
+import unb.cic.poo.game2d.SpaceshipAnimated;
 import unb.cic.poo.game2d.scenes.GameScene;
-import unb.cic.poo.game2d.scenes.SceneManager;
 
 //Superclasse dos inimigos.
 
 public abstract class Enemy extends SpaceshipAnimated implements IEntityModifierListener{
-	protected boolean movementFinished;
+	public boolean movementFinished;
 	
 	public static final int INFINITY = 2000000;
 	

@@ -3,7 +3,6 @@ package unb.cic.poo.game2d.fases;
 import java.util.LinkedList;
 
 import org.andengine.engine.handler.IUpdateHandler;
-import org.andengine.entity.Entity;
 
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.scenes.BaseScene;

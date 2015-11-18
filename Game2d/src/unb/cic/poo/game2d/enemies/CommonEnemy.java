@@ -1,12 +1,12 @@
-package unb.cic.poo.game2d;
+package unb.cic.poo.game2d.enemies;
 
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.MoveByModifier;
 import org.andengine.util.modifier.IModifier;
 
-import unb.cic.poo.game2d.scenes.BaseScene;
-import unb.cic.poo.game2d.scenes.GameScene;
-import unb.cic.poo.game2d.scenes.SceneManager;
+import unb.cic.poo.game2d.GameActivity;
+import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.ResourceManager;
 
 //Inimigo B�sico
 

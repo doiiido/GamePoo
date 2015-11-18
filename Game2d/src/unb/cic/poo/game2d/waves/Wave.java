@@ -2,7 +2,7 @@ package unb.cic.poo.game2d.waves;
 
 import java.util.ArrayList;
 
-import unb.cic.poo.game2d.Enemy;
+import unb.cic.poo.game2d.enemies.Enemy;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.scenes.SceneManager;
 

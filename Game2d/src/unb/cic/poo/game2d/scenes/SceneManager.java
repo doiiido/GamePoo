@@ -8,8 +8,7 @@ import org.andengine.opengl.texture.atlas.bitmap.source.ResourceBitmapTextureAtl
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 import android.os.AsyncTask;
 
-import unb.cic.poo.game2d.Enemy;
-import unb.cic.poo.game2d.FreezedShootingEnemy;
+import unb.cic.poo.game2d.enemies.*;
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ResourceManager;

@@ -9,6 +9,8 @@ import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.input.touch.TouchEvent;
 
+import unb.cic.poo.game2d.enemies.Enemy;
+
 //Essa classe será responsável por gerenciar os objetos do jogo. Usando o padrão de projeto Singleton, dessa forma,
 //poderemos acessar os componentes do gerenciador em qualquer classe sem a necessidade de passarmos os objetos como 
 //referência
