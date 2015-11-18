@@ -1,6 +1,3 @@
-# GamePoo
-Jogo 2D
-
 A Lenda de Oguh
 =========
 
