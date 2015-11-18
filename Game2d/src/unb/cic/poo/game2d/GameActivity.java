@@ -15,7 +15,19 @@ import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseAnonymousUtils;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.KeyEvent;
+import unb.cic.poo.game2d.parse.HighScore;
+import unb.cic.poo.game2d.parse.LoginSignupActivity;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 
@@ -25,11 +37,21 @@ public class GameActivity extends BaseGameActivity {
     public static final int CAMERA_HEIGHT = 720;
     public static Camera mCamera;
     
-    private ResourceManager mResourceManager;
+    private static boolean iniciado;
+
+	private ResourceManager mResourceManager;
     private SceneManager mSceneManager;
     
     // Caso queiram fazer padding nas bordas, ao inv�s de ajustar a tela: RatioResolutionPolicy
     FillResolutionPolicy crp;
+    
+    public static boolean isIniciado() {
+		return iniciado;
+	}
+
+	public static void setIniciado(boolean iniciado) {
+		GameActivity.iniciado = iniciado;
+	}
     
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -46,7 +68,7 @@ public class GameActivity extends BaseGameActivity {
         return options;
     }
 	
-	public Engine onCreateEngine(EngineOptions pEngineOptions) {
+	public Engine onCreateEngine(EngineOptions pEngineOptions) {	
 		//Cria uma engine com um step de simulação de 60 steps por segundo.
 		return new FixedStepEngine(pEngineOptions, 60);
 	}
@@ -58,10 +80,9 @@ public class GameActivity extends BaseGameActivity {
 		mResourceManager = ResourceManager.getInstance(); mResourceManager.prepare(this);
         mSceneManager = SceneManager.getInstance(); mSceneManager.prepare(this, mEngine, mCamera);
           
-        mResourceManager.loadGameResource(mEngine, this);
-        pOnCreateResourcesCallback.onCreateResourcesFinished();
+        mResourceManager.loadGameResource(mEngine, this);        
+        mResourceManager.loadIntro();
         
-        mResourceManager.loadIntro();	
         pOnCreateResourcesCallback.onCreateResourcesFinished(); 
        
 	}
@@ -72,18 +93,26 @@ public class GameActivity extends BaseGameActivity {
 		GameManager.getInstance().setGameEngine(this.mEngine);
 		GameManager.getInstance().setGameCamera(this.mEngine.getCamera());
 		
-		mSceneManager.createIntroScene(pOnCreateSceneCallback);
+		if(iniciado != true){
+			mSceneManager.createIntroScene(pOnCreateSceneCallback);
+			GameActivity.setIniciado(true);
+		}
+		else{
+			mSceneManager.returnSettingsScene(pOnCreateSceneCallback);
+		}
 	}
 
 	@Override
 	public void onPopulateScene(Scene pScene,
 			OnPopulateSceneCallback pOnPopulateSceneCallback) throws IOException {
-			    mEngine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback() {
-			            public void onTimePassed(final TimerHandler pTimerHandler) {
-			                mEngine.unregisterUpdateHandler(pTimerHandler);
-			                mSceneManager.createMenuScene();
-			            }
-			    }));
+				if(iniciado != true){
+				    mEngine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback() {
+				            public void onTimePassed(final TimerHandler pTimerHandler) {
+				                mEngine.unregisterUpdateHandler(pTimerHandler);
+				                mSceneManager.createMenuScene();
+				            }
+				    }));
+				}
 		
 		// Populate the Scene here
 		// and then provide the callback

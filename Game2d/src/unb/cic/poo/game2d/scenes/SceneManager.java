@@ -225,6 +225,13 @@ public class SceneManager {
         SceneManager.getInstance().setScene(settingsScene);
     }
     
+    public void returnSettingsScene(OnCreateSceneCallback pOnCreateSceneCallback) {
+    	ResourceManager.getInstance().loadSettings();
+    	settingsScene = new SettingsScene();
+        SceneManager.getInstance().setScene(settingsScene);
+        pOnCreateSceneCallback.onCreateSceneFinished(settingsScene);
+    }
+    
     private void disposeSettingsScene() {
         ResourceManager.getInstance().unloadSettings();
         settingsScene.disposeScene();
