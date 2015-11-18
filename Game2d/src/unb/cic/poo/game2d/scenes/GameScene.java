@@ -41,6 +41,7 @@ import unb.cic.poo.game2d.fases.Fase;
 import unb.cic.poo.game2d.fases.Fase1;
 import unb.cic.poo.game2d.fases.FaseManager;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
+import unb.cic.poo.game2d.waves.Wave;
 
 public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 	private Sprite end;
@@ -228,8 +229,8 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 //			this.attachChild(enemy);
 //		}
    	 	LinkedList<Fase> fases = new LinkedList<Fase>();
-   	 	fases.add(new Fase1());
-   	 	fases.add(new Fase1());
+   	 	fases.add(new Fase1(new LinkedList<Wave>()));
+   	 	fases.add(new Fase1(new LinkedList<Wave>()));
     	faseManager = new FaseManager(fases);
     	faseManager.start();
     	

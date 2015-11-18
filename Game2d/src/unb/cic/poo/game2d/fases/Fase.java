@@ -2,19 +2,16 @@ package unb.cic.poo.game2d.fases;
 
 import java.util.LinkedList;
 
-import org.andengine.engine.handler.IUpdateHandler;
-
 import unb.cic.poo.game2d.GameManager;
-import unb.cic.poo.game2d.scenes.SceneManager;
 import unb.cic.poo.game2d.waves.Wave;
 
-public abstract class Fase{
+public class Fase{
 	protected LinkedList<Wave> waves;
 	protected boolean faseFinished;
 	protected FaseHandler handler;
 	
-	public Fase(){
-		waves = new LinkedList<Wave>();
+	public Fase(LinkedList<Wave> waves){
+		this.waves = waves;
 		faseFinished = false;
 	}
 
