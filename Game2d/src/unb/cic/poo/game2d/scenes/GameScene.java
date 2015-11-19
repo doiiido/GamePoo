@@ -216,6 +216,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
    	 	fases.add(new Fase1());
    	 	fases.add(new Fase1());
     	faseManager = new FaseManager(fases);
+    	GameManager.getInstance().setFaseManager(faseManager);
     	faseManager.start();
     	
    	 	ResourceManager.mMusic.play();

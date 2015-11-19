@@ -10,6 +10,7 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.input.touch.TouchEvent;
 
 import unb.cic.poo.game2d.enemies.Enemy;
+import unb.cic.poo.game2d.fases.FaseManager;
 
 //Essa classe será responsável por gerenciar os objetos do jogo. Usando o padrão de projeto Singleton, dessa forma,
 //poderemos acessar os componentes do gerenciador em qualquer classe sem a necessidade de passarmos os objetos como 
@@ -24,7 +25,16 @@ public class GameManager implements IOnSceneTouchListener{
 	private Camera gameCamera;
 	private Scene gameScene;
 	private ArrayList<Enemy> WaveEnemies; //Armazena os inimigos da Wave.
+	private FaseManager faseManager;
 	
+	public FaseManager getFaseManager() {
+		return faseManager;
+	}
+
+	public void setFaseManager(FaseManager faseManager) {
+		this.faseManager = faseManager;
+	}
+
 	//Esse método será usado para obter o único objeto que será instanciado da classe GameManager.
 	public static GameManager getInstance(){
 		if(gameManager == null){
