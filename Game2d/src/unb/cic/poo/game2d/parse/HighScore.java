@@ -5,12 +5,22 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 @ParseClassName("HighScore")
-public class HighScore extends ParseObject{
-	private String tableTitle = "Best Defenders";
+public class HighScore extends ParseObject {
+	private static HighScore highScore;
+	// Essas strings servem para referenciar o objeto específico
+	private String tableTitle = "Title";
 	private String tableUser = "User";
 	private String tableScore = "Score";
-	private String tablePosition = "Rank";
+	private String tablePosition = "Position";
 	private String tableStage = "Stage";
+	
+	public static HighScore getInstance() {
+		if(highScore == null){
+			highScore = new HighScore();
+			return highScore;
+		}
+		return highScore;
+	}
 
 	public String getTitle() {
         return getString(tableTitle);
@@ -26,6 +36,7 @@ public class HighScore extends ParseObject{
  
     public void setUser(ParseUser user) {
         put(tableUser, user);
+        highScore.saveEventually();
     }
  
     public int getScore() {
@@ -34,6 +45,13 @@ public class HighScore extends ParseObject{
  
     public void setScore(int score) {
         put(tableScore, score);
+        highScore.saveEventually();
+    }
+    
+    public void incrementScore(int increm){
+    	highScore.increment(tableScore,increm);
+    	// highScore.saveInBackground(); // Conexão obrigatória
+    	highScore.saveEventually(); // Quando houver conexão salva, mas não há callback
     }
     
     public int getPosition() {
@@ -50,5 +68,6 @@ public class HighScore extends ParseObject{
  
     public void setStage(int stage) {
         put(tableStage, stage);
+        highScore.saveEventually();
     }
 }
