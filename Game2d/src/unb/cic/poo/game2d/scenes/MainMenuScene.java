@@ -9,9 +9,6 @@ import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
 
-import unb.cic.poo.game2d.enemies.*;
-import unb.cic.poo.game2d.GameActivity;
-import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
