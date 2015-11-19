@@ -28,7 +28,7 @@ public class Fase{
 	}
 	
 	public Wave nextWave(){
-		waves.removeFirst();
+		waves.pop().onWaveFinish();
 		return waves.isEmpty() ? null : waves.getFirst();
 	}
 
@@ -48,5 +48,16 @@ public class Fase{
 		waves.getFirst().setWave();
 		handler = new FaseHandler(this);
 		GameManager.getInstance().getGameScene().registerUpdateHandler(handler);
+	}
+
+	/*Esse método é chamado toda vez que a fase é finalizada.*/
+	public void onFaseFinished() {
+		
+		
+	}
+
+	/*Esse método é chamado antes de uma fase iniciar.*/
+	public void onFaseStart() {
+		
 	}
 }

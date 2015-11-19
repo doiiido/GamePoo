@@ -31,4 +31,14 @@ public abstract class Wave {
 			GameManager.getInstance().getGameScene().attachChild(enemy);
 		}
 	}
+
+	/*Esse método é chamado antes de iniciar essa wave*/
+	public void onWaveStart() {
+		
+	}
+
+	/*Esse método é chamado toda vez que uma wave é finalizada*/
+	public void onWaveFinish() {
+		
+	}
 }

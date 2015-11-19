@@ -27,6 +27,7 @@ public class FaseHandler implements IUpdateHandler {
 			Wave wave = fase.nextWave();
 			
 			if(wave != null){
+				wave.onWaveStart();
 				wave.setWave();
 			}
 		}

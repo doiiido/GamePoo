@@ -27,8 +27,6 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.BaseGameActivity;
 import org.andengine.util.color.Color;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import unb.cic.poo.game2d.enemies.CommonEnemy;
 import unb.cic.poo.game2d.enemies.Enemy;
@@ -235,9 +233,6 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
    	 	fases.add(new Fase1());
     	faseManager = new FaseManager(fases);
     	faseManager.start();
-    	
-    	//ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-    	
     	
    	 	ResourceManager.mMusic.play();
 		ResourceManager.mMusic.setVolume(1);

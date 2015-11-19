@@ -7,23 +7,33 @@
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/util
            http://www.springframework.org/schema/util/spring-util.xsd">
-           
-	<bean id="fase1" class="unb.cic.poo.game2d.fases.FaseManager">
-    	<property name="waves">
-    	    <util:list id="linkedList1" list-class="java.util.LinkedList">
-    	        <ref bean="fase1">
-    	    </util:list>
-    	</property>
+     
+    
+    <util:list id="listwaves1" list-class="java.util.LinkedList">
+    	<ref bean="fs1wv1" />
+   	</util:list>
+    
+	<bean id="fase1" class="unb.cic.poo.game2d.fases.Fase">
+    	<property name="waves" ref="listwaves1"/>
     </bean>
     
-    <util:list id="linkedList2" list-class="java.util.LinkedList">
-    	<ref bean="fase1">
+    <util:list id="listFases" list-class="java.util.LinkedList">
+    	<ref bean="fase1" />
    	</util:list>
     	
     <bean id="fasemanager" class="unb.cic.poo.game2d.fases.FaseManager">
-    	<property name="fases">
-    	  
-    	</property>
+    	<property name="fases" ref="listFases" />
+    </bean>
+    
+    <util:list id="wave1Enemies" list-class="java.util.ArrayList">
+    		<bean id="enemy1" class="unb.cic.poo.game2d.enemies.CommonEnemy">
+    		    <constructor-arg type="float" value="1280" />
+    		    <constructor-arg type="float" value="360" />
+    		</bean>
+   	</util:list>
+    
+    <bean id="fs1wv1" class="unb.cic.poo.game2d.waves.Wave">
+  		<property name="enemies" ref="wave1Enemies" />
     </bean>
     <!-- define your beans here, use 'androidContext' to get a reference to your app's application context -->        
     

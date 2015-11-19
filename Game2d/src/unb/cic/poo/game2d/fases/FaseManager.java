@@ -15,24 +15,16 @@ public class FaseManager implements IUpdateHandler{
 	public FaseManager(LinkedList<Fase> fases){
 		this.fases = fases;
 	}
-
-	public LinkedList<Fase> getFases() {
-		return fases;
-	}
-
-	public void setFases(LinkedList<Fase> fases) {
-		this.fases = fases;
-	}
-
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
 		if(fases.isEmpty()){
 			BaseScene aux = SceneManager.gameScene;
-			((GameScene) aux).gameOver(false);
+			((GameScene) aux).gameOver(true);
 		}
 		else if(getCurrentFase().isFaseFinished()){
 			Fase fase = nextFase();
 			if(fase != null){
+				fase.onFaseStart();
 				fase.start();
 			}
 		}
@@ -40,7 +32,7 @@ public class FaseManager implements IUpdateHandler{
 	}
 
 	private Fase nextFase() {
-		fases.removeFirst();
+		fases.pop().onFaseFinished();
 		return fases.isEmpty() ? null : fases.getFirst();
 	}
 
@@ -58,4 +50,14 @@ public class FaseManager implements IUpdateHandler{
 		fases.getFirst().start();
 		GameManager.getInstance().getGameScene().registerUpdateHandler(this);
 	}
+	
+
+	public LinkedList<Fase> getFases() {
+		return fases;
+	}
+
+	public void setFases(LinkedList<Fase> fases) {
+		this.fases = fases;
+	}
+
 }
