@@ -47,6 +47,7 @@ public class ResourceManager {
 	BuildableBitmapTextureAtlas settingsTexture;
 	public TextureRegion settingsBackgroundTextureRegion;
 	public TextureRegion backMenuTextureRegion;
+	public TextureRegion scoreMenuTextureRegion;
 	
 	/*Player*/
 	BitmapTextureAtlas playerTexture;
@@ -227,6 +228,7 @@ public class ResourceManager {
 		  	settingsTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
 		 	settingsBackgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(settingsTexture, activity, "Fundo.bmp");
 		 	backMenuTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(settingsTexture, activity, "Back.png");
+		 	scoreMenuTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(settingsTexture, activity, "highscore.png");
 		 			 	       
 		 	try {
 		 	    this.settingsTexture.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 0, 0));
@@ -241,6 +243,7 @@ public class ResourceManager {
 		  settingsTexture.unload();
 		  settingsBackgroundTextureRegion = null;
 		  backMenuTextureRegion = null;
+		  scoreMenuTextureRegion = null;
 	  }
 	  
 	 // Classe para carregar as texturas da pasta asset

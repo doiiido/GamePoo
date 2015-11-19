@@ -29,11 +29,11 @@ You can use Genymotion to test the app, or you can run on an Android (4.0.3 or h
 This creates the default executable:
 
 ```bash
-.. Game2d/bin/Game2d.apk
+.. bin/Game2d.apk
 ```
 
 Witch you can install later on your Android Smartphone.
 
 Documentation
 -------------
-//@TODO: 
+//@TODO: Generate Documentation -> [Doxygen](http://www.stack.nl/~dimitri/doxygen/)
