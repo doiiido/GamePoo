@@ -18,7 +18,6 @@ public class ParseApplication extends Application {
 	    //Adiciona o Banco de Dados para o High-Score
 	  	Parse.enableLocalDatastore(this);
 	  	Parse.initialize(this, APP_ID, CLIENT_ID);
-	  	//ParseAnalytics.trackAppOpened(getIntent());
 	  	ParseObject.registerSubclass(HighScore.class);
 	  	
 	  	ParseUser.enableAutomaticUser();

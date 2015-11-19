@@ -87,9 +87,10 @@ public class LoginSignupActivity extends Activity {
 
 				} else {
 					// Save new user data into Parse.com Data Storage
-					ParseUser user = new ParseUser();
+					final ParseUser user = new ParseUser();
 					user.setUsername(usernametxt);
 					user.setPassword(passwordtxt);
+					// Ver adição de verificação de email ou facebook
 					user.signUpInBackground(new SignUpCallback() {
 						public void done(ParseException e) {
 							if (e == null) {
@@ -97,6 +98,7 @@ public class LoginSignupActivity extends Activity {
 								Toast.makeText(getApplicationContext(),
 										"Successfully Signed up, please Log in.",
 										Toast.LENGTH_LONG).show();
+								HighScore.getInstance().setUser(user);
 							} else {
 								Toast.makeText(getApplicationContext(),
 										"Sign up Error", Toast.LENGTH_LONG)

@@ -15,6 +15,9 @@ import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
+import com.parse.ParseAnalytics;
+
+import android.os.Bundle;
 import android.view.KeyEvent;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
@@ -25,12 +28,12 @@ public class GameActivity extends BaseGameActivity {
     public static final int CAMERA_HEIGHT = 720;
     public static Camera mCamera;
     
-    private static boolean iniciado;
+    private static boolean iniciado = false;
 
 	private ResourceManager mResourceManager;
     private SceneManager mSceneManager;
     
-    // Caso queiram fazer padding nas bordas, ao invï¿½s de ajustar a tela: RatioResolutionPolicy
+    // Caso queiram fazer padding nas bordas, ao inves de ajustar a tela: RatioResolutionPolicy
     FillResolutionPolicy crp;
     
     public static boolean isIniciado() {
@@ -39,6 +42,12 @@ public class GameActivity extends BaseGameActivity {
 
 	public static void setIniciado(boolean iniciado) {
 		GameActivity.iniciado = iniciado;
+	}
+	
+	@Override
+	protected void onCreate(final Bundle pSavedInstanceState) {
+		super.onCreate(pSavedInstanceState);
+		ParseAnalytics.trackAppOpenedInBackground(getIntent());
 	}
     
 	@Override
@@ -86,6 +95,7 @@ public class GameActivity extends BaseGameActivity {
 			GameActivity.setIniciado(true);
 		}
 		else{
+			//Ver como o som está sendo chamado. Associar às cenas
 			mSceneManager.returnSettingsScene(pOnCreateSceneCallback);
 		}
 	}

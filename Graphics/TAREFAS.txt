@@ -33,8 +33,9 @@ Questões a serem resolvidas (principalmente da parte da interface, mas com algum
 	- Criação do Player
 		-- Tipo RPG, opções para criação do personagem e da nave
 		-- Escolher o nome da personagem e modificar o título do jogo de acordo
-	- Organizar as classes em packages!!!
 	- Verificar se o Padrão State pode auxiliar na mudança de estado/características da nave
+	- Planejar como as fases serão chamadas, para não haver uma classe para cada e também não
+	carregar tudo no início
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 
