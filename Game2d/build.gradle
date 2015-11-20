@@ -1,6 +1,11 @@
 apply plugin: 'com.android.application'
 
+repositories {
+	mavenCentral()
+}
+
 dependencies {
+	compile 'com.facebook.android:facebook-android-sdk:4.8.1'
     compile fileTree(dir: 'libs', include: '*.jar')
     compile project(':AndEngine:AndEngine-GLES2:AndEngine-GLES2')
     compile project(':AndEngine:AndEnginePhysicsBox2DExtension-GLES2:AndEnginePhysicsBox2DExtension-GLES2')

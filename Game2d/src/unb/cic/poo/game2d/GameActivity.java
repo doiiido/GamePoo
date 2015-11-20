@@ -1,6 +1,5 @@
 package unb.cic.poo.game2d;
 
-
 import java.io.IOException;
 
 import org.andengine.engine.Engine;
@@ -16,6 +15,7 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
 
 import com.parse.ParseAnalytics;
+import com.facebook.FacebookSdk;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -36,7 +36,7 @@ public class GameActivity extends BaseGameActivity {
     // Caso queiram fazer padding nas bordas, ao inves de ajustar a tela: RatioResolutionPolicy
     FillResolutionPolicy crp;
     
-    public static boolean isIniciado() {
+    public static boolean getIniciado() {
 		return iniciado;
 	}
 
@@ -48,6 +48,7 @@ public class GameActivity extends BaseGameActivity {
 	protected void onCreate(final Bundle pSavedInstanceState) {
 		super.onCreate(pSavedInstanceState);
 		ParseAnalytics.trackAppOpenedInBackground(getIntent());
+		FacebookSdk.sdkInitialize(getApplicationContext()); // O app já vai ter que estar publicado
 	}
     
 	@Override
@@ -75,13 +76,18 @@ public class GameActivity extends BaseGameActivity {
 			OnCreateResourcesCallback pOnCreateResourcesCallback)
 			throws Exception {
 		mResourceManager = ResourceManager.getInstance(); mResourceManager.prepare(this);
-        mSceneManager = SceneManager.getInstance(); mSceneManager.prepare(this, mEngine, mCamera);
+        mSceneManager = SceneManager.getInstance(); mSceneManager.prepare(this, mEngine);
           
-        mResourceManager.loadGameResource(mEngine, this);        
-        mResourceManager.loadIntro();
+        mResourceManager.loadGameResource(mEngine, this);
+        
+        if(iniciado != true){
+        	mResourceManager.loadIntro();
+        }
+        else{
+        	mResourceManager.loadSettings();
+        }
         
         pOnCreateResourcesCallback.onCreateResourcesFinished(); 
-       
 	}
 
 	@Override
@@ -92,7 +98,6 @@ public class GameActivity extends BaseGameActivity {
 		
 		if(iniciado != true){
 			mSceneManager.createIntroScene(pOnCreateSceneCallback);
-			GameActivity.setIniciado(true);
 		}
 		else{
 			//Ver como o som está sendo chamado. Associar às cenas
@@ -108,12 +113,12 @@ public class GameActivity extends BaseGameActivity {
 				            public void onTimePassed(final TimerHandler pTimerHandler) {
 				                mEngine.unregisterUpdateHandler(pTimerHandler);
 				                mSceneManager.createMenuScene();
+				                GameActivity.setIniciado(true);
 				            }
 				    }));
 				}
 		
-		// Populate the Scene here
-		// and then provide the callback
+		// Populate the Scene here and then provide the callback
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
 	}
 	

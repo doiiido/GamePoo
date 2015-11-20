@@ -13,12 +13,43 @@ import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
 public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener {
+	//---------------------------------------------
+    // SCENES
+    //---------------------------------------------
+	
 	private MenuScene menuChildScene;
+	
+	//---------------------------------------------
+    // ENTITIES
+    //---------------------------------------------
+	
+	private Sprite backMenu;
+	private SpriteMenuItem playMenu;
+	private SpriteMenuItem optMenu;
+	
+	//---------------------------------------------
+    // VARIABLES
+    //---------------------------------------------
+	
 	private final int MENU_PLAY = 0;
 	private final int MENU_OPTIONS = 1;
 	
+	//---------------------------------------------
+    // CONSTRUCTOR
+    //---------------------------------------------
+	
 	public MainMenuScene() {
 		createScene();		
+	}
+	
+	//---------------------------------------------
+    // ABSTRACTION
+    //---------------------------------------------
+	
+	@Override
+	public void createScene() {
+		createBackground();
+		createMenuChildScene();		
 	}
 	
 	@Override
@@ -27,43 +58,39 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	}
 
 	@Override
-	public void createScene() {
-		createBackground();
-		createMenuChildScene();		
-	}
-
-	@Override
-	public void onBackKeyPressed() {
-		System.exit(0);		
-	}
-
-	@Override
 	public void disposeScene() {
 		menuChildScene.detachSelf();
         menuChildScene.dispose();
-        this.detachSelf();
-        this.dispose();
+        super.disposeScene();
 	}
 	
+	
+	//---------------------------------------------
+    // METHODS
+    //---------------------------------------------
+	
 	private void createBackground() {
-	    attachChild(new Sprite(0, 0, resourceManager.menuBackgroundTextureRegion, vbom) {
+		backMenu = new Sprite(0, 0, resourceManager.menuBackgroundTextureRegion, vbom) {
 	        @Override
 	        protected void preDraw(GLState pGLState, Camera pCamera) {
 	            super.preDraw(pGLState, pCamera);
 	            pGLState.enableDither();
 	        }
-	    });
+	    };
+	    attachChild(backMenu); entitiesList.add(backMenu);
 	}
 	
 	private void createMenuChildScene() {
 		menuChildScene = new MenuScene(camera);
 	    menuChildScene.setPosition((float) (camera.getWidth()/3.0), (float) -(camera.getHeight()/4.0));
 	    
-	    final IMenuItem playMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_PLAY, resourceManager.playTextureRegion, vbom), 1.2f, 1);
-	    final IMenuItem optionsMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_OPTIONS, resourceManager.optionsTextureRegion, vbom), 1.2f, 1);
+	    playMenu = new SpriteMenuItem(MENU_PLAY, resourceManager.playTextureRegion, vbom);
+	    final IMenuItem playMenuItem = new ScaleMenuItemDecorator(playMenu, 1.2f, 1);
+	    optMenu = new SpriteMenuItem(MENU_OPTIONS, resourceManager.optionsTextureRegion, vbom);
+	    final IMenuItem optionsMenuItem = new ScaleMenuItemDecorator(optMenu, 1.2f, 1);
 	    
-	    menuChildScene.addMenuItem(playMenuItem);
-	    menuChildScene.addMenuItem(optionsMenuItem);
+	    menuChildScene.addMenuItem(playMenuItem); entitiesList.add(playMenu);
+	    menuChildScene.addMenuItem(optionsMenuItem); entitiesList.add(optMenu);
 	    
 	    menuChildScene.buildAnimations();
 	    menuChildScene.setBackgroundEnabled(false);

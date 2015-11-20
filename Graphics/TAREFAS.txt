@@ -23,7 +23,6 @@ Questões a serem resolvidas (principalmente da parte da interface, mas com algum
 		----- Vídeos com o início do ataque, seguir storyline
 	- Colocar a nave no início do jogo chegando pelo canto da tela
 	- Continuar o HUD, adicionando pontuação e outros power ups
-	- Conferir o dispose das cenas
 	- Implementar sistema de High-Score
 		-- Adicionar conexão ao facebook
 		----- Salvar as configurações do usuário, para não ter que fazer login todas as vezes
@@ -36,6 +35,11 @@ Questões a serem resolvidas (principalmente da parte da interface, mas com algum
 	- Verificar se o Padrão State pode auxiliar na mudança de estado/características da nave
 	- Planejar como as fases serão chamadas, para não haver uma classe para cada e também não
 	carregar tudo no início
+	- Conferir eventos não tratados do MediaPlayer
+	- Conferir disposes
+		-- Áudio
+		-- Inimigos, Player, Explosões, Tiros
+	- Rever o funcionamento da LoadScene
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 

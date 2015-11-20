@@ -19,8 +19,23 @@ import unb.cic.poo.game2d.parse.ScoreTableActivity;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
 public class SettingsScene extends BaseScene implements IOnMenuItemClickListener{
+	//---------------------------------------------
+    // SCENES
+    //---------------------------------------------
 	
 	private MenuScene settingsChildScene;
+	
+	//---------------------------------------------
+    // ENTITIES
+    //---------------------------------------------
+	
+	private Sprite backSet;
+	private SpriteMenuItem backMenu;
+	private SpriteMenuItem scoreMenu;
+	
+	//---------------------------------------------
+    // VARIABLES
+    //---------------------------------------------
 	
 	private final int MENU_BACK = 0;
 	private final int MENU_SCORE = 1;
@@ -29,25 +44,17 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 	private static final int posX = 380;
 	private static final int deltaX = 50;
 	
+	//---------------------------------------------
+    // CONSTRUCTOR
+    //---------------------------------------------
+	
 	public SettingsScene() {
 		createScene();
 	}
 	
-	@Override
-	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX,
-			float pMenuItemLocalY) {
-		switch(pMenuItem.getID()) {
-	        case MENU_BACK:
-	        	//dispose();
-	        	SceneManager.getInstance().loadMenufromSettings();
-	        	return true;
-	        case MENU_SCORE:
-	        	login();
-	            return true;
-	        default:
-	            return false;
-		}
-	}
+	//---------------------------------------------
+    // ABSTRACTION
+    //---------------------------------------------
 
 	@Override
 	public void createScene() {
@@ -55,25 +62,44 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 		createSettingsChildScene();	
 	}
 	
+	@Override
+	public SceneType getSceneType() {
+		return SceneType.SCENE_SETTINGS;
+	}
+	
+	//---------------------------------------------
+    // METHODS
+    //---------------------------------------------
+
+	@Override
+	public void disposeScene() {
+		settingsChildScene.detachSelf();
+        settingsChildScene.dispose();
+        super.disposeScene();
+	}
+	
 	private void createBackground() {
-	    attachChild(new Sprite(0, 0, resourceManager.settingsBackgroundTextureRegion, vbom) {
+		backSet = new Sprite(0, 0, resourceManager.settingsBackgroundTextureRegion, vbom) {
 	        @Override
 	        protected void preDraw(GLState pGLState, Camera pCamera) {
 	            super.preDraw(pGLState, pCamera);
 	            pGLState.enableDither();
 	        }
-	    });
+	    };
+	    attachChild(backSet); entitiesList.add(backSet);
 	}
 	
 	private void createSettingsChildScene() {
 		settingsChildScene = new MenuScene(camera);
 	    settingsChildScene.setPosition((float) (camera.getWidth()/3.0), (float) -(camera.getHeight()/4.0));
 	    
-	    final IMenuItem backMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_BACK, resourceManager.backMenuTextureRegion, vbom), 1.2f, 1);
-	    final IMenuItem scoreMenuItem = new ScaleMenuItemDecorator(new SpriteMenuItem(MENU_SCORE, resourceManager.scoreMenuTextureRegion, vbom), 1.2f, 1);
+	    backMenu = new SpriteMenuItem(MENU_BACK, resourceManager.backMenuTextureRegion, vbom);
+	    final IMenuItem backMenuItem = new ScaleMenuItemDecorator(backMenu, 1.2f, 1);
+	    scoreMenu = new SpriteMenuItem(MENU_SCORE, resourceManager.scoreMenuTextureRegion, vbom);
+	    final IMenuItem scoreMenuItem = new ScaleMenuItemDecorator(scoreMenu, 1.2f, 1);
 	    
-	    settingsChildScene.addMenuItem(backMenuItem);
-	    settingsChildScene.addMenuItem(scoreMenuItem);
+	    settingsChildScene.addMenuItem(backMenuItem); entitiesList.add(backMenu);
+	    settingsChildScene.addMenuItem(scoreMenuItem); entitiesList.add(scoreMenu);
 
 	    settingsChildScene.setBackgroundEnabled(false);   
 	    
@@ -94,44 +120,39 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 	    		camera.getWidth()/2 - backMenuItem.getHeight() + posY);
 	    
 	}
-
+	
 	@Override
-	public void onBackKeyPressed() {
-		System.exit(0);			
-	}
-
-	@Override
-	public SceneType getSceneType() {
-		return SceneType.SCENE_SETTINGS;
-	}
-
-	@Override
-	public void disposeScene() {
-		settingsChildScene.detachSelf();
-        settingsChildScene.dispose();
-        this.detachSelf();
-        this.dispose();
+	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX,
+			float pMenuItemLocalY) {
+		switch(pMenuItem.getID()) {
+	        case MENU_BACK:
+	        	SceneManager.getInstance().loadMenufromSettings();
+	        	return true;
+	        case MENU_SCORE:
+	        	SceneManager.getInstance().disposeSettingsScene();
+	        	login();
+	            return true;
+	        default:
+	            return false;
+		}
 	}
 	
 	private void login(){
 		GameActivity act = SceneManager.getInstance().mActivity;
-		// Determine whether the current user is an anonymous user
+		// Determina se o usuário é anônimo
 		if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {
 		// If user is anonymous, send the user to LoginSignupActivity.class
 			Intent intent = new Intent(act, LoginSignupActivity.class);
 			act.startActivity(intent);
 			act.finish();
 		} else {
-			// If current user is NOT anonymous user
-			// Get current user data from Parse.com
+			// Se não é anônimo, resgata suas informações de Parse.com
 			ParseUser currentUser = ParseUser.getCurrentUser();
 			if (currentUser != null) {
-				// Send logged in users to Welcome.class
 				Intent intent = new Intent(act, ScoreTableActivity.class);
 				act.startActivity(intent);
 				act.finish();
 			} else {
-				// Send user to LoginSignupActivity.class
 				Intent intent = new Intent(act, LoginSignupActivity.class);
 				act.startActivity(intent);
 				act.finish();

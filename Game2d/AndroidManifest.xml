@@ -26,6 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.facebook.FacebookActivity"
+          android:configChanges=
+                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+          android:theme="@android:style/Theme.Translucent.NoTitleBar"
+          android:label="@string/app_name" />
         <activity android:name="unb.cic.poo.game2d.parse.LoginSignupActivity" >
         </activity>
         <activity android:name="unb.cic.poo.game2d.parse.ScoreTableActivity" >

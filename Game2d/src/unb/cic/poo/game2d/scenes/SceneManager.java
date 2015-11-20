@@ -1,7 +1,6 @@
 package unb.cic.poo.game2d.scenes;
 
 import org.andengine.engine.Engine;
-import org.andengine.engine.camera.Camera;
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
@@ -30,14 +29,18 @@ public class SceneManager {
     private SceneType currentSceneType = SceneType.SCENE_INTRO;
     private BaseScene currentScene;
     private Engine engine;
-    private boolean introClosed = false;
-    private int op = -1;
+    private enum OpAsyncTask {
+    	DEFAULT,
+    	LOAD_GAME,
+    	RESTART_GAME,
+    	LOAD_MENU
+    }
+    private OpAsyncTask opTask = OpAsyncTask.DEFAULT;
 
-    public void prepare(GameActivity activity, Engine eng, Camera cam) {
+    public void prepare(GameActivity activity, Engine eng) {
 		this.mActivity = activity;
 		this.engine = activity.getEngine();
 	    this.engine = eng;
-	    //this.camera = cam;
     }
     
     public enum SceneType {
@@ -98,8 +101,11 @@ public class SceneManager {
         return currentScene;
     }
     
+    //---------------------------------------------
+    // METHODS
+    //---------------------------------------------
+    
     public void createIntroScene(OnCreateSceneCallback pOnCreateSceneCallback) {
-        //ResourceManager.getInstance().loadIntro();
         introScene = new IntroScene();
         SceneManager.getInstance().setScene(introScene);
         pOnCreateSceneCallback.onCreateSceneFinished(introScene);
@@ -109,7 +115,6 @@ public class SceneManager {
         ResourceManager.getInstance().unloadIntro();
         introScene.disposeScene();
         introScene = null;
-        introClosed = true;
     }
     
     public void createMenuScene() {
@@ -117,32 +122,30 @@ public class SceneManager {
     	ResourceManager.getInstance().loadFonts();
         menuScene = new MainMenuScene();
         SceneManager.getInstance().setScene(menuScene);
-        if(!introClosed) disposeIntroScene();
+        if(!GameActivity.getIniciado()) disposeIntroScene();
     }
     
     private void disposeMenuScene() {
         ResourceManager.getInstance().unloadMenu();
-        //menuScene.disposeScene();
+        menuScene.disposeScene();
         menuScene = null;
     }
     
-    public void createLoadScene() {
-    	loadScene = new LoadScene();
-    	SceneManager.getInstance().setScene(loadScene);
+    public void loadMenuScene() {
+    	opTask = OpAsyncTask.LOAD_MENU;
+    	new ExecuteChange().execute();
     }
     
-    private void disposeLoadScene() {
-    	loadScene.disposeScene();
-    	loadScene = null;
-    }
+    public void loadMenufromSettings(){
+        createMenuScene();
+    	disposeSettingsScene();
+    } 
     
     private void createGameScene() {
     	ResourceManager.getInstance().loadGameTextures();
     	ResourceManager.getInstance().loadGamePause();
         gameScene = new GameScene();
         SceneManager.getInstance().setScene(gameScene);
-        ((GameScene) gameScene).setGameScene();
-        disposeMenuScene();
     }
     
     private void disposeGameScene() {
@@ -153,38 +156,63 @@ public class SceneManager {
     }
     
     public void loadGameScene(){
-    	op = 1;
+    	opTask = OpAsyncTask.LOAD_GAME;
     	new ExecuteChange().execute();
     }
     
     public void restartGameScene() {
-    	op = 2;
+    	opTask = OpAsyncTask.RESTART_GAME;
     	new ExecuteChange().execute();
     }
     
-    public void loadMenuScene() {
-    	op = 3;
-    	new ExecuteChange().execute();
+    public void createLoadScene() {
+    	ResourceManager.getInstance().loadLoading();
+    	loadScene = new LoadScene();
+    	SceneManager.getInstance().setScene(loadScene);
+    }
+    
+    private void disposeLoadScene() {
+    	ResourceManager.getInstance().unloadLoading();
+    	loadScene.disposeScene();
+    	loadScene = null;
+    }
+    
+    public void createSettingsScene() {
+    	ResourceManager.getInstance().loadSettings();
+    	settingsScene = new SettingsScene();
+        SceneManager.getInstance().setScene(settingsScene);
+    	disposeMenuScene();
+    }
+    
+    public void disposeSettingsScene() {
+        ResourceManager.getInstance().unloadSettings();
+        settingsScene.disposeScene();
+        settingsScene = null;
+    }
+    
+    public void returnSettingsScene(OnCreateSceneCallback pOnCreateSceneCallback) {
+    	settingsScene = new SettingsScene();
+        SceneManager.getInstance().setScene(settingsScene);
+        pOnCreateSceneCallback.onCreateSceneFinished(settingsScene);
     }
     
     private class ExecuteChange extends AsyncTask<Void, Void, Void> {
 
     		@Override
 			protected Void doInBackground(Void... params) {
-				// Conferir essa parte
     			engine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
     	            public void onTimePassed(final TimerHandler pTimerHandler) {
     	                engine.unregisterUpdateHandler(pTimerHandler);
-		    			switch(op){
-		    			case 1:
+		    			switch(opTask){
+		    			case LOAD_GAME:
 		    				disposeMenuScene();
 		    				createGameScene();
 		    				break;
-		    			case 2:
+		    			case RESTART_GAME:
 		    				disposeGameScene();
 		    				createGameScene();
 		    	            break;
-		    			case 3:
+		    			case LOAD_MENU:
 		    				disposeGameScene();
 		                    createMenuScene();
 		                    break;
@@ -206,32 +234,6 @@ public class SceneManager {
 				createLoadScene();
 	        }
             
-    }
-    
-    public void loadMenufromSettings(){
-    	disposeSettingsScene();
-    	ResourceManager.getInstance().loadMenu();
-        createMenuScene();
-    }
-    
-    public void createSettingsScene() {
-    	disposeMenuScene();
-    	ResourceManager.getInstance().loadSettings();
-    	settingsScene = new SettingsScene();
-        SceneManager.getInstance().setScene(settingsScene);
-    }
-    
-    public void returnSettingsScene(OnCreateSceneCallback pOnCreateSceneCallback) {
-    	ResourceManager.getInstance().loadSettings();
-    	settingsScene = new SettingsScene();
-        SceneManager.getInstance().setScene(settingsScene);
-        pOnCreateSceneCallback.onCreateSceneFinished(settingsScene);
-    }
-    
-    private void disposeSettingsScene() {
-        ResourceManager.getInstance().unloadSettings();
-        settingsScene.disposeScene();
-        settingsScene = null;
     }
     
 }

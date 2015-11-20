@@ -7,12 +7,23 @@ import org.andengine.opengl.util.GLState;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
 public class IntroScene extends BaseScene {
+	//---------------------------------------------
+    // ENTITIES
+    //---------------------------------------------
+	
 	private Sprite intro;
 	
+	//---------------------------------------------
+    // CONSTRUCTOR
+    //---------------------------------------------
+	
 	public IntroScene() {
-		createScene();	
-		
+		createScene();		
 	}
+	
+	//---------------------------------------------
+    // ABSTRACTION
+    //---------------------------------------------
 	
     @Override
     public void createScene() {
@@ -26,14 +37,7 @@ public class IntroScene extends BaseScene {
          
     	//intro.setScale(1.5f);
     	intro.setPosition((camera.getWidth()- intro.getWidth())/2, (camera.getHeight() - intro.getHeight())/2);
-    	attachChild(intro);
-    	
-    	
-    }
-
-    @Override
-    public void onBackKeyPressed() {
-
+    	attachChild(intro); entitiesList.add(intro);
     }
 
     @Override
@@ -41,11 +45,4 @@ public class IntroScene extends BaseScene {
     	return SceneType.SCENE_INTRO;
     }
 
-    @Override
-    public void disposeScene() {
-    	intro.detachSelf();
-        intro.dispose();
-        this.detachSelf();
-        this.dispose();
-    }
 }
