@@ -98,7 +98,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 		setGameScene();
 		
 		//Insere o Player na Scene.
-		this.attachChild(GameManager.getInstance().getPlayer());
+		this.attachChild(GameManager.getInstance().getPlayer()); entitiesList.add(GameManager.getInstance().getPlayer());
     }
 
     @Override
@@ -108,6 +108,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 
     @Override
     public void disposeScene() {
+    	clearChildScene();
     	mPauseScene.detachSelf();
     	mPauseScene.dispose();
     	super.disposeScene();

@@ -24,7 +24,7 @@ public abstract class BaseScene extends Scene {
     protected SceneManager sceneManager;
     protected VertexBufferObjectManager vbom;
     protected static Camera camera;
-    ArrayList<Entity> entitiesList = new ArrayList<Entity>();
+    protected ArrayList<Entity> entitiesList = new ArrayList<Entity>();
     
     //---------------------------------------------
     // CONSTRUCTOR

@@ -36,10 +36,8 @@ Questões a serem resolvidas (principalmente da parte da interface, mas com algum
 	- Planejar como as fases serão chamadas, para não haver uma classe para cada e também não
 	carregar tudo no início
 	- Conferir eventos não tratados do MediaPlayer
-	- Conferir disposes
-		-- Áudio
-		-- Inimigos, Player, Explosões, Tiros
-	- Rever o funcionamento da LoadScene
+	- Conferir disposes dos áudios
+	- Tem vez que dá crash depois de várias idas e vindas do menu
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 

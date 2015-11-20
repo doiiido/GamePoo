@@ -1,8 +1,6 @@
 package unb.cic.poo.game2d.scenes;
 
 import org.andengine.engine.Engine;
-import org.andengine.engine.handler.timer.ITimerCallback;
-import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.ui.IGameInterface.OnCreateSceneCallback;
 import android.os.AsyncTask;
 
@@ -166,13 +164,13 @@ public class SceneManager {
     }
     
     public void createLoadScene() {
-    	ResourceManager.getInstance().loadLoading();
+    	ResourceManager.getInstance().loadFonts();
     	loadScene = new LoadScene();
     	SceneManager.getInstance().setScene(loadScene);
     }
     
     private void disposeLoadScene() {
-    	ResourceManager.getInstance().unloadLoading();
+    	ResourceManager.getInstance().unloadFonts();
     	loadScene.disposeScene();
     	loadScene = null;
     }
@@ -196,41 +194,38 @@ public class SceneManager {
         pOnCreateSceneCallback.onCreateSceneFinished(settingsScene);
     }
     
-    private class ExecuteChange extends AsyncTask<Void, Void, Void> {
+    private class ExecuteChange extends AsyncTask<Void, Boolean, Boolean> {
 
     		@Override
-			protected Void doInBackground(Void... params) {
-    			engine.registerUpdateHandler(new TimerHandler(0.1f, new ITimerCallback() {
-    	            public void onTimePassed(final TimerHandler pTimerHandler) {
-    	                engine.unregisterUpdateHandler(pTimerHandler);
-		    			switch(opTask){
-		    			case LOAD_GAME:
-		    				disposeMenuScene();
-		    				createGameScene();
-		    				break;
-		    			case RESTART_GAME:
-		    				disposeGameScene();
-		    				createGameScene();
-		    	            break;
-		    			case LOAD_MENU:
-		    				disposeGameScene();
-		                    createMenuScene();
-		                    break;
-		    			default:
-		    				break;
-		    			}
-    	            }
-    	        }));
-    			return null;
+			protected Boolean doInBackground(Void... params) {
+    			switch(opTask){
+    			case LOAD_GAME:
+    				disposeMenuScene();
+    				createGameScene();
+    				break;
+    			case RESTART_GAME:
+    				disposeGameScene();
+    				createGameScene();
+    	            break;
+    			case LOAD_MENU:
+    				disposeGameScene();
+                    createMenuScene();
+                    break;
+    			default:
+    				break;
+    			}
+    			return true;
 			}
     		
             @Override
-            protected void onPostExecute(Void result) {
+            protected void onPostExecute(Boolean result) {
+            	super.onPostExecute(result);
             	disposeLoadScene();
             }
 			
 			@Override
 	        protected void onPreExecute() {
+				super.onPreExecute();
 				createLoadScene();
 	        }
             

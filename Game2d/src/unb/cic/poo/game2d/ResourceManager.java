@@ -10,6 +10,7 @@ import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
+import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
@@ -23,6 +24,7 @@ import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import org.andengine.util.debug.Debug;
 
@@ -141,14 +143,14 @@ public class ResourceManager {
 	
 	public synchronized void loadFonts(){
 	  	FontFactory.setAssetBasePath("font/");
-	  	//final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-	  	//font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font_loading.ttf", 70, true, Color.WHITE, 2, Color.BLACK);
-	    //font = FontFactory.createFromAsset(activity.getFontManager(), activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR, activity.getAssets(), "font_pixel.ttf", 70, true, Color.WHITE);
-	    //font.load();
+	  	final ITexture mainFontTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+	  	font = FontFactory.createStrokeFromAsset(activity.getFontManager(), mainFontTexture, activity.getAssets(), "font_pixel.ttf", 70, true, Color.WHITE, 2, Color.BLACK);
+	    font = FontFactory.createFromAsset(activity.getFontManager(), activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR, activity.getAssets(), "font_pixel.ttf", 70, true, Color.WHITE);
+	    font.load();
 	}
 	  
 	public synchronized void unloadFonts() {
-	  	//font.unload();
+	  	font.unload();
 	}
 	
 	public synchronized void loadIntro() {
@@ -162,18 +164,6 @@ public class ResourceManager {
 	public synchronized void unloadIntro() {
 	  	introTexture.unload();
 	  	introTextureRegion = null;
-	}
-	
-	public synchronized void loadLoading() {
-	  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/icons/");
-	  	loadTexture = new BitmapTextureAtlas(activity.getTextureManager(), 512, 512, TextureOptions.BILINEAR);
-	  	loadTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(loadTexture, activity, "loading.png", 0, 0);
-	  	loadTexture.load();
-	}
-	  
-	public synchronized void unloadLoading() {
-	  	loadTexture.unload();
-	  	loadTextureRegion = null;
 	}
 	  
 	public void loadGameResource(Engine mEngine,Context mContext){
