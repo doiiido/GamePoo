@@ -95,7 +95,6 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 		GameManager.getInstance().setPlayer(new Player());
 		GameManager.getInstance().setEnemies(new ArrayList<Enemy>());
 		GameManager.getInstance().setGameScene(this);
-		setGameScene();
 		
 		//Insere o Player na Scene.
 		this.attachChild(GameManager.getInstance().getPlayer()); entitiesList.add(GameManager.getInstance().getPlayer());
@@ -283,7 +282,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     	this.unregisterTouchArea(pause); this.detachChild(pause); entitiesList.remove(pause);
     }
     
-    // Quando o botão de pausa for ativado
+    // Quando o botï¿½o de pausa for ativado
     private class PauseButton extends TiledSprite{
     	private GameScene scene;
     	

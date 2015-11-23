@@ -153,6 +153,7 @@ public class SceneManager {
     	ResourceManager.getInstance().loadGameTextures();
     	ResourceManager.getInstance().loadGamePause();
         gameScene = new GameScene();
+        ((GameScene) gameScene).setGameScene();
         SceneManager.getInstance().setScene(gameScene);
     }
     

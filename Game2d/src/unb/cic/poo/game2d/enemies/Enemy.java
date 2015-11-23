@@ -12,15 +12,21 @@ import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
+import android.content.ClipData.Item;
 import unb.cic.poo.game2d.EnemyHandler;
 import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.SpaceshipAnimated;
+import unb.cic.poo.game2d.items.ItemGen;
+import unb.cic.poo.game2d.items.LaserBulletGen;
+import unb.cic.poo.game2d.items.LaserBulletItem;
 import unb.cic.poo.game2d.scenes.GameScene;
 
 //Superclasse dos inimigos.
 
 public abstract class Enemy extends SpaceshipAnimated implements IEntityModifierListener{
 	public boolean movementFinished;
+	protected boolean dropsItem;
+	protected ItemGen ItemDropped;
 	
 	public static final int INFINITY = 2000000;
 	
@@ -28,7 +34,8 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, texture, pVertexBufferObjectManager);
 		movementFinished = false;
-		
+		dropsItem = true;
+		ItemDropped = new LaserBulletGen();
 		this.registerUpdateHandler(new EnemyHandler(this));
 	}
 	
@@ -41,22 +48,18 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 	}
 	
 	public void kill(){
+		if(this.dropsItem){
+			if(this.ItemDropped != null){
+				ItemDropped.getItem(this.getX(), this.getY()+(this.getHeight()/2)).drop();
+			}
+			else{
+				//código para selecionar item aleatório aqui.
+			}
+		}
 		createExplosion(this.getX(), this.getY(), this.getParent());
 		this.removeEnemy();
 		this.clearEntityModifiers();
 	}
-	
-	/*protected void onManagedUpdate(float pSecondsElapsed) {
-		if(GameManager.getInstance().getEnemies().contains(this) && this.collidesWith(GameManager.getInstance().getPlayer())){
-			BaseScene aux = SceneManager.gameScene;
-			((GameScene) aux).gameOver(false);
-			GameManager.getInstance().getPlayer().decrementLife(INFINITY);
-			// Erro aqui! Aparentemente por estar adicionando e retirando em threads diferentes.
-			// Uma op��o � colocar para decrementar a vida ao inv�s de dar gameOver direto, pois est�
-			// funcionando por meio do Player
-		}
-		super.onManagedUpdate(pSecondsElapsed);
-	}*/
 
 	@Override
 	public abstract void shoot();
