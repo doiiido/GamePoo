@@ -15,6 +15,7 @@ public class SceneManager {
     private BaseScene introScene;
     private BaseScene menuScene;
     private BaseScene settingsScene;
+    private BaseScene selectorScene;
     public static BaseScene gameScene;
     private BaseScene loadScene;
     
@@ -47,6 +48,7 @@ public class SceneManager {
         SCENE_GAME,
         SCENE_LOADING,
         SCENE_SETTINGS,
+        SCENE_SELECTOR,
     }
     
     //---------------------------------------------
@@ -76,6 +78,9 @@ public class SceneManager {
                 break;
             case SCENE_SETTINGS:
                 setScene(settingsScene);
+                break;
+            case SCENE_SELECTOR:
+                setScene(selectorScene);
                 break;
             default:
                 break;
@@ -137,6 +142,11 @@ public class SceneManager {
     public void loadMenufromSettings(){
         createMenuScene();
     	disposeSettingsScene();
+    }
+    
+    public void loadMenufromSelector(){
+        createMenuScene();
+    	disposeSelectorScene();
     } 
     
     private void createGameScene() {
@@ -186,6 +196,19 @@ public class SceneManager {
         ResourceManager.getInstance().unloadSettings();
         settingsScene.disposeScene();
         settingsScene = null;
+    }
+    
+    public void createSelectorScene() {
+    	ResourceManager.getInstance().loadSelector();
+    	selectorScene = new SelectorScene();
+        SceneManager.getInstance().setScene(selectorScene);
+    	disposeMenuScene();
+    }
+    
+    public void disposeSelectorScene() {
+        ResourceManager.getInstance().unloadSelector();
+        selectorScene.disposeScene();
+        selectorScene = null;
     }
     
     public void returnSettingsScene(OnCreateSceneCallback pOnCreateSceneCallback) {

@@ -41,6 +41,7 @@ public class ResourceManager {
 	public ITextureRegion menuBackgroundTextureRegion;
 	public ITextureRegion playTextureRegion;
 	public ITextureRegion optionsTextureRegion;
+	public ITextureRegion selectTextureRegion;
 	BuildableBitmapTextureAtlas menuTexture;
 	
 	/*Menu Configurações*/
@@ -48,6 +49,11 @@ public class ResourceManager {
 	public TextureRegion settingsBackgroundTextureRegion;
 	public TextureRegion backMenuTextureRegion;
 	public TextureRegion scoreMenuTextureRegion;
+	
+	/*Menu de Seleção de fases*/
+	BuildableBitmapTextureAtlas selectorTexture;
+	public TextureRegion selectorBackgroundTextureRegion;
+	public TextureRegion returnTextureRegion;
 	
 	/*Player*/
 	BitmapTextureAtlas playerTexture;
@@ -201,6 +207,7 @@ public class ResourceManager {
 	 	menuBackgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTexture, activity, "background.bmp");
 	 	playTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTexture, activity, "play.png");
 	 	optionsTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTexture, activity, "options.png");
+	 	selectTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(menuTexture, activity, "selector.png");
 	 	       
 	 	try {
 	 	    this.menuTexture.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 0, 0));
@@ -225,8 +232,10 @@ public class ResourceManager {
 		menuBackgroundTextureRegion = null;
 		playTextureRegion = null;
 		optionsTextureRegion = null;
+		selectTextureRegion = null;
 	}
-	  
+	
+	//Configurações
 	public synchronized void loadSettings() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
 		settingsTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
@@ -248,6 +257,29 @@ public class ResourceManager {
 		settingsBackgroundTextureRegion = null;
 		backMenuTextureRegion = null;
 		scoreMenuTextureRegion = null;
+	 }
+	
+	//Seletor de Fases
+	public synchronized void loadSelector() {
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/backgrounds/");
+		selectorTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 3000, 1024, TextureOptions.BILINEAR);
+		selectorBackgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(selectorTexture, activity, "Selector.png");
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
+		returnTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(selectorTexture, activity, "Back.png");
+					 	       
+		try {
+		    this.selectorTexture.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 0, 0));
+		 	this.selectorTexture.load();
+		} 
+		catch (final TextureAtlasBuilderException e) {
+			Debug.e(e);
+		}
+	}
+	  
+	public synchronized void unloadSelector() {
+		selectorTexture.unload();
+		selectorBackgroundTextureRegion = null;
+		returnTextureRegion = null;
 	 }
 	  
 	 // Classe para carregar as texturas da pasta asset

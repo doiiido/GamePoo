@@ -26,6 +26,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	private Sprite backMenu;
 	private SpriteMenuItem playMenu;
 	private SpriteMenuItem optMenu;
+	private SpriteMenuItem selectMenu;
 	
 	//---------------------------------------------
     // VARIABLES
@@ -33,6 +34,11 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	
 	private final int MENU_PLAY = 0;
 	private final int MENU_OPTIONS = 1;
+	private final int MENU_SELECTOR = 2;
+	
+	private final float dy = 85;
+	private final float dx = 190;
+	private final float Delta = 390;
 	
 	//---------------------------------------------
     // CONSTRUCTOR
@@ -88,28 +94,33 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	    final IMenuItem playMenuItem = new ScaleMenuItemDecorator(playMenu, 1.2f, 1);
 	    optMenu = new SpriteMenuItem(MENU_OPTIONS, resourceManager.optionsTextureRegion, vbom);
 	    final IMenuItem optionsMenuItem = new ScaleMenuItemDecorator(optMenu, 1.2f, 1);
+	    selectMenu = new SpriteMenuItem(MENU_SELECTOR, resourceManager.selectTextureRegion, vbom);
+	    final IMenuItem selectMenuItem = new ScaleMenuItemDecorator(selectMenu, 1.2f, 1);
 	    
 	    menuChildScene.addMenuItem(playMenuItem); entitiesList.add(playMenu);
 	    menuChildScene.addMenuItem(optionsMenuItem); entitiesList.add(optMenu);
+	    menuChildScene.addMenuItem(selectMenuItem); entitiesList.add(selectMenu);
 	    
 	    menuChildScene.buildAnimations();
 	    menuChildScene.setBackgroundEnabled(false);
-	    
-	    playMenuItem.setPosition(camera.getWidth()/2 - playMenuItem.getWidth() -480, 
-	    						 camera.getWidth()/2 - playMenuItem.getHeight() + 60);
-	    
-	    optionsMenuItem.setPosition(camera.getWidth()/2 - optionsMenuItem.getWidth() -280, 
-	    							camera.getWidth()/2 - optionsMenuItem.getHeight() + 60);
-	    
+    
 	    menuChildScene.setOnMenuItemClickListener(this);
 	    
 	    setChildScene(menuChildScene);
 	    
-	    playMenuItem.setPosition(camera.getWidth()/2 - playMenuItem.getWidth() - 435,
-	    						 camera.getWidth()/2 - playMenuItem.getHeight() + 85);
 	    
-	    optionsMenuItem.setPosition(camera.getWidth()/2 - optionsMenuItem.getWidth() - 245,
-	    							camera.getWidth()/2 - optionsMenuItem.getHeight() + 85);
+	    /*Para deslocar todo o HUD horizontalmente, varie Delta
+	     * Para aumentar o espaço entre os elementos do HUD, varie dx
+	     * Para deslocar todo o HUD verticalmente, varie dy
+	     * */
+	    playMenuItem.setPosition(camera.getWidth()/2 - playMenuItem.getWidth()/2 - dx - Delta,
+	    						 camera.getWidth()/2 - playMenuItem.getHeight() + dy);
+	    
+	    optionsMenuItem.setPosition(camera.getWidth()/2 - optionsMenuItem.getWidth()/2 - Delta,
+	    							camera.getWidth()/2 - optionsMenuItem.getHeight() + dy);
+	    
+	    selectMenuItem.setPosition(camera.getWidth()/2 - selectMenuItem.getWidth()/2 + dx - Delta,
+				camera.getWidth()/2 - selectMenuItem.getHeight() + dy);
 	    
 	    ResourceManager.Mmenu.play();
 	    ResourceManager.Mmenu.setVolume(1);
@@ -125,6 +136,9 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	            return true;
 	        case MENU_OPTIONS:
 	        	SceneManager.getInstance().createSettingsScene();
+	            return true;
+	        case MENU_SELECTOR:
+	        	SceneManager.getInstance().createSelectorScene();
 	            return true;
 	        default:
 	            return false;
