@@ -9,6 +9,7 @@ import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.input.touch.TouchEvent;
 
+import unb.cic.poo.game2d.enemies.ChasingYEnemy;
 import unb.cic.poo.game2d.enemies.Enemy;
 import unb.cic.poo.game2d.fases.FaseManager;
 
@@ -124,6 +125,12 @@ public class GameManager implements IOnSceneTouchListener{
 					MoveByModifier moveByModifier = new MoveByModifier(durationTime, deltaX, deltaY);
 					this.player.setLastMoveByModifier(moveByModifier);
 					this.player.registerEntityModifier(moveByModifier);
+					
+					for(Enemy e:GameManager.getInstance().getEnemies()){
+						if(e instanceof ChasingYEnemy){
+							((ChasingYEnemy) e).handleTouchEvent(pSceneTouchEvent);
+						}
+					}
 			}
 			else if(pSceneTouchEvent.isActionUp()){
 				this.player.shoot();
