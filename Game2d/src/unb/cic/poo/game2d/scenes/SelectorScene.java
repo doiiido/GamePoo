@@ -30,8 +30,7 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
     //---------------------------------------------
 	
 	private final int MENU_BACK = 0;
-	
-	
+
 	//---------------------------------------------
     // CONSTRUCTOR
     //---------------------------------------------
@@ -55,16 +54,20 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 		return SceneType.SCENE_SETTINGS;
 	}
 	
-	//---------------------------------------------
-    // METHODS
-    //---------------------------------------------
-
+	public void onBackKeyPressed() {
+    	sceneManager.loadMenufromSelector();
+    }
+	
 	@Override
 	public void disposeScene() {
 		selectorChildScene.detachSelf();
         selectorChildScene.dispose();
         super.disposeScene();
 	}
+	
+	//---------------------------------------------
+    // METHODS
+    //---------------------------------------------
 	
 	private void createBackground() {
 		background = new Sprite(0, 0, resourceManager.selectorBackgroundTextureRegion, vbom) {
@@ -102,7 +105,7 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 			float pMenuItemLocalY) {
 		switch(pMenuItem.getID()) {
 	        case MENU_BACK:
-	        	SceneManager.getInstance().loadMenufromSelector();
+	        	onBackKeyPressed();
 	        	return true;
 	        default:
 	            return false;

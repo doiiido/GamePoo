@@ -67,16 +67,20 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 		return SceneType.SCENE_SETTINGS;
 	}
 	
-	//---------------------------------------------
-    // METHODS
-    //---------------------------------------------
-
+	public void onBackKeyPressed() {
+    	sceneManager.loadMenufromSettings();
+    }
+	
 	@Override
 	public void disposeScene() {
 		settingsChildScene.detachSelf();
         settingsChildScene.dispose();
         super.disposeScene();
 	}
+	
+	//---------------------------------------------
+    // METHODS
+    //---------------------------------------------
 	
 	private void createBackground() {
 		backSet = new Sprite(0, 0, resourceManager.settingsBackgroundTextureRegion, vbom) {
@@ -126,7 +130,7 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 			float pMenuItemLocalY) {
 		switch(pMenuItem.getID()) {
 	        case MENU_BACK:
-	        	SceneManager.getInstance().loadMenufromSettings();
+	        	onBackKeyPressed();
 	        	return true;
 	        case MENU_SCORE:
 	        	SceneManager.getInstance().disposeSettingsScene();

@@ -62,6 +62,10 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	public SceneType getSceneType() {
 	    return SceneType.SCENE_MENU;
 	}
+	
+	public void onBackKeyPressed() {
+    	System.exit(0);
+    }
 
 	@Override
 	public void disposeScene() {
@@ -69,7 +73,6 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
         menuChildScene.dispose();
         super.disposeScene();
 	}
-	
 	
 	//---------------------------------------------
     // METHODS

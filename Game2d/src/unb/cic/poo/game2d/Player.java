@@ -57,7 +57,7 @@ public class Player extends SpaceshipAnimated{
 	//Método para atirar
 	
 	public void shoot() {
-		if(!this.bulletType.isOnCooldown() && GameScene.getStop() == false){
+		if(!this.bulletType.isOnCooldown() && GameScene.getGameStop() == false){
 			this.bulletType.setBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
 			
 		}

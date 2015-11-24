@@ -44,5 +44,9 @@ public class IntroScene extends BaseScene {
     public SceneType getSceneType() {
     	return SceneType.SCENE_INTRO;
     }
+    
+    public void onBackKeyPressed() {
+    	System.exit(0);
+    }
 
 }

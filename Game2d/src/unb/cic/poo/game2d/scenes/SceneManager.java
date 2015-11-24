@@ -28,13 +28,13 @@ public class SceneManager {
     private SceneType currentSceneType = SceneType.SCENE_INTRO;
     private BaseScene currentScene;
     private Engine engine;
-    private enum OpAsyncTask {
+    public enum OpAsyncTask {
     	DEFAULT,
     	LOAD_GAME,
     	RESTART_GAME,
     	LOAD_MENU
     }
-    private OpAsyncTask opTask = OpAsyncTask.DEFAULT;
+    private static OpAsyncTask opTask = OpAsyncTask.DEFAULT;
 
     public void prepare(GameActivity activity, Engine eng) {
 		this.mActivity = activity;
@@ -52,8 +52,12 @@ public class SceneManager {
     }
     
     //---------------------------------------------
-    // CLASS LOGIC
+    // GETTERS AND SETTERS
     //---------------------------------------------
+    
+    public static SceneManager getInstance() {
+        return INSTANCE;
+    }
     
     public void setScene(BaseScene scene) {
         engine.setScene(scene);
@@ -87,21 +91,20 @@ public class SceneManager {
         }
     }
     
-    
-    //---------------------------------------------
-    // GETTERS AND SETTERS
-    //---------------------------------------------
-    
-    public static SceneManager getInstance() {
-        return INSTANCE;
-    }
-    
     public SceneType getCurrentSceneType() {
         return currentSceneType;
     }
     
     public BaseScene getCurrentScene() {
         return currentScene;
+    }
+    
+    public void setOpTask(OpAsyncTask op){
+    	opTask = op;
+    }
+    
+    public OpAsyncTask getOpTask(){
+    	return opTask;
     }
     
     //---------------------------------------------
@@ -137,6 +140,11 @@ public class SceneManager {
     public void loadMenuScene() {
     	opTask = OpAsyncTask.LOAD_MENU;
     	new ExecuteChange().execute();
+    }
+    
+    public void loadMenufromPause(){
+        createMenuScene();
+    	disposeGameScene();
     }
     
     public void loadMenufromSettings(){
@@ -219,7 +227,6 @@ public class SceneManager {
     }
     
     private class ExecuteChange extends AsyncTask<Void, Boolean, Boolean> {
-
     		@Override
 			protected Boolean doInBackground(Void... params) {
     			switch(opTask){
@@ -238,6 +245,7 @@ public class SceneManager {
     			default:
     				break;
     			}
+    			opTask = OpAsyncTask.DEFAULT;
     			return true;
 			}
     		
