@@ -126,6 +126,12 @@ public class GameActivity extends BaseGameActivity {
 	}
 	
 	@Override
+	public synchronized void onResumeGame() {
+	    if (this.mEngine != null)
+	        super.onResumeGame();
+	}
+	
+	/*@Override
     public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
             if(pKeyCode == KeyEvent.KEYCODE_MENU && pEvent.getAction() == KeyEvent.ACTION_DOWN) {
                     if(!this.mEngine.isRunning()) {
@@ -138,9 +144,19 @@ public class GameActivity extends BaseGameActivity {
             } else {
                     return super.onKeyDown(pKeyCode, pEvent);
             }
+<<<<<<< HEAD
     }
 	
 	public Engine getEngine(){
 		return this.mEngine;
+=======
+    }*/
+	
+	@Override
+	public void onBackPressed() {
+		if (mSceneManager.getCurrentScene() != null) {
+			mSceneManager.getCurrentScene().onBackKeyPressed();
+		}
+//>>>>>>> f9b9b02b7090ba5f174df05c29c3b18047ed4dac
 	}
 }

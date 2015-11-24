@@ -38,5 +38,15 @@ public class LoadScene extends BaseScene{
     public SceneType getSceneType() {
         return SceneType.SCENE_LOADING;
     }
+    
+    public void onBackKeyPressed() {
+    	switch(sceneManager.getOpTask()){
+		case LOAD_GAME:
+			sceneManager.loadMenuScene();
+			break;
+		default:
+			break;
+		}
+    }
 
 }

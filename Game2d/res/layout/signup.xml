@@ -6,9 +6,23 @@
     android:padding="10dip" >
  
     <TextView
+        android:id="@+id/txtemail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Email" />
+ 
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtemail"
+        android:inputType="text" />
+    
+    <TextView
         android:id="@+id/txtusername"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/email"
         android:text="@string/Username" />
  
     <EditText
@@ -33,27 +47,19 @@
         android:inputType="textPassword" />
  
     <Button
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/password"
-        android:text="@string/LoginBtn" />
- 
-    <Button
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_below="@+id/login"
+        android:layout_below="@+id/password"
         android:text="@string/SignupBtn" />
-    
+
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_below="@+id/signup"
+        android:layout_centerHorizontal="true"
         android:text="@string/BackBtn" />
  
 </RelativeLayout>

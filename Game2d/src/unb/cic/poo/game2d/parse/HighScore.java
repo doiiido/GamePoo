@@ -36,7 +36,7 @@ public class HighScore extends ParseObject {
  
     public void setUser(ParseUser user) {
         put(tableUser, user);
-        highScore.saveEventually();
+        highScore.saveInBackground();
     }
  
     public int getScore() {

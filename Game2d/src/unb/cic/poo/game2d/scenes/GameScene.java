@@ -84,8 +84,9 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     
     @Override
     public void createScene() {
-		createBackground();
-        createHUD();
+    	endGame = false; stop = false;
+    	createBackground();
+		createHUD();
         createPauseScene();
 				
 		// Fazer com que a classe GameManager seja um listener da Scene do jogo.
@@ -95,7 +96,6 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 		GameManager.getInstance().setPlayer(new Player());
 		GameManager.getInstance().setEnemies(new ArrayList<Enemy>());
 		GameManager.getInstance().setGameScene(this);
-		setGameScene();
 		
 		//Insere o Player na Scene.
 		this.attachChild(GameManager.getInstance().getPlayer()); entitiesList.add(GameManager.getInstance().getPlayer());
@@ -105,12 +105,18 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     public SceneType getSceneType() {
         return SceneType.SCENE_GAME;
     }
+    
+    public void onBackKeyPressed() {
+    	pausePressed();
+    }
 
     @Override
     public void disposeScene() {
-    	clearChildScene();
-    	mPauseScene.detachSelf();
-    	mPauseScene.dispose();
+    	if (stop == true) {
+	    	clearChildScene();
+	    	mPauseScene.detachSelf();
+	    	mPauseScene.dispose();
+    	}
     	super.disposeScene();
     }
     
@@ -129,6 +135,15 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     	adjLB += (float) ((tamOrigLB/24)/Player.DEFAULT_PLAYER_LIFE);
     }
     
+    public static boolean getGameStop(){
+    	if (endGame == false && stop == false){
+    		return false;
+    	}
+    	else{
+    		return true;
+    	}
+    }
+    
     //---------------------------------------------
     // METHODS
     //---------------------------------------------
@@ -144,8 +159,6 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     }
 
     private void createHUD() {
-    	
-		endGame = false; stop = false;
 		
 		/* Para determinar a posiï¿½ï¿½o, sendo N_ELEM o nï¿½mero de elementos que estï¿½o posicionados a direita deste: 
 		SPRITE.setPosition((camera.getWidth()- SPRITE.getWidth()) - posX - N_ELEM*(varHeight*lifebarHeight + deltaX), 
@@ -194,7 +207,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     			(camera.getHeight() - switcher.getHeight()) - posY);
 		
 		pause = new PauseButton((float)(GameActivity.CAMERA_WIDTH/3), 0f, ResourceManager.pauseTextureRegion, 
-				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), this);		
+				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());		
 		pause.setWidth(varHeight*lifebarHeight); pause.setHeight(varHeight*lifebarHeight);
 		pause.setPosition((camera.getWidth() - pause.getWidth()) - posX, 
     			(camera.getHeight() - pause.getHeight()) - posY);
@@ -256,7 +269,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     public void gameOver(boolean winner) {
     	this.setIgnoreUpdate(true);
     	disposeHUD();
-    	endGame = true; stop = true;
+    	endGame = true;
     	
     	if(!winner){
     		end = new Sprite(0, 0, resourceManager.gameoverTextureRegion, vbom);
@@ -270,7 +283,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     	engine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback() {
             public void onTimePassed(final TimerHandler pTimerHandler) {
                 engine.unregisterUpdateHandler(pTimerHandler);
-                sceneManager.loadMenuScene();
+                sceneManager.loadMenufromPause();
             }
     	}));
     }
@@ -283,40 +296,40 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     	this.unregisterTouchArea(pause); this.detachChild(pause); entitiesList.remove(pause);
     }
     
-    // Quando o botão de pausa for ativado
-    private class PauseButton extends TiledSprite{
-    	private GameScene scene;
-    	
+    // Quando o botao de pausa for ativado
+    private class PauseButton extends TiledSprite{    	
     	public PauseButton(float pX, float pY,
     			ITiledTextureRegion pTiledTextureRegion,
-    			VertexBufferObjectManager pTiledSpriteVertexBufferObject, GameScene scene) {
+    			VertexBufferObjectManager pTiledSpriteVertexBufferObject) {
     		super(pX, pY, pTiledTextureRegion, pTiledSpriteVertexBufferObject);
-    		this.scene = scene;
     	}
     	
     	@Override
     	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-    		if (pSceneTouchEvent.isActionDown() && endGame == false) {
-    			/*O que acontece quando clica no botï¿½o de pause durante o jogo*/
-    			if(stop == false){
-    				stop = true;				
-    				scene.setIgnoreUpdate(true); 			
-    				setChildScene(mPauseScene);
-    				ResourceManager.mMusic.pause();
-    			} 
-    			/*O que acontece quando clica no botï¿½o de pause com o jogo pausado*/
-    			else {	
-    				stop = false;
-    				scene.setIgnoreUpdate(false);
-    				clearChildScene();
-    			}
+    		if (pSceneTouchEvent.isActionDown()) {
+    			pausePressed();
     		}
     		return true;
     	}
     }
     
-    public static boolean getStop(){
-    	return stop;
+    private void pausePressed(){
+    	if(endGame == false){
+	    	/*O que acontece quando clica no botao de pause durante o jogo*/
+			if(stop == false){
+		    	stop = true;				
+				this.setIgnoreUpdate(true); 			
+				setChildScene(mPauseScene);
+				ResourceManager.mMusic.pause();
+			}
+			/*O que acontece quando clica no botao de pause com o jogo pausado*/
+			else {	
+				stop = false;
+				this.setIgnoreUpdate(false);
+				clearChildScene();
+				ResourceManager.mMusic.resume();
+			}
+    	}
     }
 
 	@Override
