@@ -20,6 +20,7 @@ import com.facebook.FacebookSdk;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import unb.cic.poo.game2d.scenes.SceneManager;
+import unb.cic.poo.game2d.scenes.SelectorScene;
 
 
 public class GameActivity extends BaseGameActivity {
@@ -27,7 +28,7 @@ public class GameActivity extends BaseGameActivity {
 	public static final int CAMERA_WIDTH = 1280;
     public static final int CAMERA_HEIGHT = 720;
     public static Camera mCamera;
-    
+        
     private static boolean iniciado = false;
 
 	private ResourceManager mResourceManager;
@@ -98,11 +99,13 @@ public class GameActivity extends BaseGameActivity {
 		
 		if(iniciado != true){
 			mSceneManager.createIntroScene(pOnCreateSceneCallback);
+			
 		}
 		else{
 			//Ver como o som está sendo chamado. Associar às cenas
 			mSceneManager.returnSettingsScene(pOnCreateSceneCallback);
 		}
+						
 	}
 
 	@Override
@@ -136,4 +139,8 @@ public class GameActivity extends BaseGameActivity {
                     return super.onKeyDown(pKeyCode, pEvent);
             }
     }
+	
+	public Engine getEngine(){
+		return this.mEngine;
+	}
 }

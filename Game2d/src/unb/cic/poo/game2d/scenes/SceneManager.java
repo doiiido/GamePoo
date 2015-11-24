@@ -32,7 +32,8 @@ public class SceneManager {
     	DEFAULT,
     	LOAD_GAME,
     	RESTART_GAME,
-    	LOAD_MENU
+    	LOAD_MENU,
+    	LOAD_GAME_SELECTOR
     }
     private OpAsyncTask opTask = OpAsyncTask.DEFAULT;
 
@@ -49,6 +50,7 @@ public class SceneManager {
         SCENE_LOADING,
         SCENE_SETTINGS,
         SCENE_SELECTOR,
+        
     }
     
     //---------------------------------------------
@@ -147,6 +149,7 @@ public class SceneManager {
     public void loadMenufromSelector(){
         createMenuScene();
     	disposeSelectorScene();
+    	
     } 
     
     private void createGameScene() {
@@ -165,6 +168,11 @@ public class SceneManager {
     
     public void loadGameScene(){
     	opTask = OpAsyncTask.LOAD_GAME;
+    	new ExecuteChange().execute();
+    }
+    
+    public void loadGameSceneFromSelector(){
+    	opTask = OpAsyncTask.LOAD_GAME_SELECTOR;
     	new ExecuteChange().execute();
     }
     
@@ -234,6 +242,11 @@ public class SceneManager {
     				disposeGameScene();
                     createMenuScene();
                     break;
+    			case LOAD_GAME_SELECTOR:
+    				ResourceManager.getInstance().mMusic.stop();
+    				disposeSelectorScene();
+    				createGameScene();
+    				break;
     			default:
     				break;
     			}

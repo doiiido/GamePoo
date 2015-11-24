@@ -1,6 +1,10 @@
 package unb.cic.poo.game2d;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.andengine.audio.music.Music;
 import org.andengine.audio.music.MusicFactory;
@@ -8,6 +12,7 @@ import org.andengine.audio.sound.Sound;
 import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.ITexture;
@@ -27,6 +32,9 @@ import android.content.Context;
 import android.graphics.Color;
 
 import org.andengine.util.debug.Debug;
+
+import unb.cic.poo.game2d.fases.Fase;
+import unb.cic.poo.game2d.fases.FaseManager;
 
 
 public class ResourceManager {
@@ -54,6 +62,10 @@ public class ResourceManager {
 	BuildableBitmapTextureAtlas selectorTexture;
 	public TextureRegion selectorBackgroundTextureRegion;
 	public TextureRegion returnTextureRegion;
+	public LinkedList<ITextureRegion> planet = new LinkedList<ITextureRegion>();
+	private static final int STAR_COLUMN = 5, STAR_ROW = 1;
+	BitmapTextureAtlas starTexture;
+	public ITiledTextureRegion starTextureRegion;
 	
 	/*Player*/
 	BitmapTextureAtlas playerTexture;
@@ -264,9 +276,23 @@ public class ResourceManager {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/backgrounds/");
 		selectorTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 3000, 1024, TextureOptions.BILINEAR);
 		selectorBackgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(selectorTexture, activity, "Selector.png");
-		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
+		
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/"); 
 		returnTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(selectorTexture, activity, "Back.png");
-					 	       
+
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/Seletor/");
+		
+		/*Preenche a lista de ITiledTextureRegion contendo cada um dos 8 planetas com nome "planet(i).txt"*/
+		for(int i = 1; i <= 8/*GameManager.getInstance().getFaseManager().getFases().size()*/; i++){
+			planet.add(BitmapTextureAtlasTextureRegionFactory.createFromAsset(selectorTexture, activity, "planet("+i+").png"));
+		}
+		
+		starTexture = new BitmapTextureAtlas(engine.getTextureManager(), 512, 64, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		starTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(starTexture, activity,"stars.png", 0, 0, STAR_COLUMN, STAR_ROW);
+		starTexture.load();
+						
+		
 		try {
 		    this.selectorTexture.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 0, 0));
 		 	this.selectorTexture.load();
@@ -280,6 +306,11 @@ public class ResourceManager {
 		selectorTexture.unload();
 		selectorBackgroundTextureRegion = null;
 		returnTextureRegion = null;
+		planet.clear();
+		planet = null;
+		starTexture.unload();
+		starTextureRegion = null;
+		
 	 }
 	  
 	 // Classe para carregar as texturas da pasta asset
