@@ -79,6 +79,10 @@ public class ResourceManager {
 	BitmapTextureAtlas laserTexture;
 	public static ITiledTextureRegion laserTextureRegion;
 	
+	/*Itens de drop*/	
+	BitmapTextureAtlas laserDropTexture;
+	public ITextureRegion laserDropTextureRegion;
+	
 	/*Explosion*/
 	BitmapTextureAtlas explosionTexture;
 	public static ITiledTextureRegion explosionTextureRegion;
@@ -417,6 +421,12 @@ public class ResourceManager {
 		pauseTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(pauseTexture, activity,"play_pause.png", 0, 0, PAUSE_COLUMN, PAUSE_ROW);
 		pauseTexture.load();
+		
+		laserDropTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
+		laserDropTextureRegion = BitmapTextureAtlasTextureRegionFactory
+		    		.createFromAsset(laserDropTexture, activity, "laser_item.png",0,0);
+		laserDropTextureRegion.setTextureSize(90, 90);
+		laserDropTexture.load();
 	}
 	 
 	public synchronized void loadGamePause() {
@@ -458,6 +468,7 @@ public class ResourceManager {
 		lifemoldTexture.unload(); lifemoldTextureRegion = null;
 		switchTexture.unload(); switchTextureRegion = null;
 		pauseTexture.unload(); pauseTextureRegion = null;
+		laserDropTexture.unload(); laserDropTextureRegion = null;
 	}
 	 
 	public synchronized void unloadGameTextures() {

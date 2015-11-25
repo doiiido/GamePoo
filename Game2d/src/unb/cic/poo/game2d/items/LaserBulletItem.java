@@ -9,7 +9,7 @@ import unb.cic.poo.game2d.bullets.LaserBulletType;
 public class LaserBulletItem extends Item {
 
 	public LaserBulletItem(float pX, float pY) {
-		super(pX, pY, ResourceManager.playerTextureRegion);
+		super(pX, pY, ResourceManager.getInstance().laserDropTextureRegion);
 		this.setY(this.getY()-(this.getHeight()/2));
 	}
 
