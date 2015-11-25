@@ -81,10 +81,6 @@ public class LaserBullet extends Bullet{
 	}
 
 	@Override
-	public void OnEnemyHit() {
-	}
-
-	@Override
 	public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
 		// TODO Auto-generated method stub
 		
