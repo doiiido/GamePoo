@@ -26,11 +26,12 @@ public class LaserBullet extends Bullet{
 	private IUpdateHandler laserHandler;
 	
 	public LaserBullet(float pX, float pY, boolean isEnemyBullet) {
-		super(pX, pY-5*BULLET_HEIGHT, (isEnemyBullet)? ResourceManager.enemyLaserBulletTextureRegion:ResourceManager.laserBulletTextureRegion, 
+		super((isEnemyBullet)? pX-1280:pX, pY-5*BULLET_HEIGHT, (isEnemyBullet)? ResourceManager.enemyLaserBulletTextureRegion:ResourceManager.laserBulletTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		
 		this.animate(120);
 		this.damage = BULLET_DAMAGE;
+		this.enemyBullet = isEnemyBullet;
 		
 		this.laserHandler = new IUpdateHandler(){
 			public void onUpdate(float pSecondsElapsed){
