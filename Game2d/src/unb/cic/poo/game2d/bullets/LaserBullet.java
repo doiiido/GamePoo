@@ -80,9 +80,6 @@ public class LaserBullet extends Bullet{
 		return false;
 	}
 
-	@Override
-	public void OnEnemyHit() {
-	}
 
 	@Override
 	public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {

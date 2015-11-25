@@ -102,7 +102,7 @@ public class GameActivity extends BaseGameActivity {
 			
 		}
 		else{
-			//Ver como o som está sendo chamado. Associar as cenas
+			//Ver como o som esta sendo chamado. Associar as cenas
 			mSceneManager.returnSettingsScene(pOnCreateSceneCallback);
 		}
 						
@@ -144,7 +144,6 @@ public class GameActivity extends BaseGameActivity {
             } else {
                     return super.onKeyDown(pKeyCode, pEvent);
             }
-<<<<<<< HEAD
     }
 	
 	public Engine getEngine(){
@@ -157,6 +156,5 @@ public class GameActivity extends BaseGameActivity {
 		if (mSceneManager.getCurrentScene() != null) {
 			mSceneManager.getCurrentScene().onBackKeyPressed();
 		}
-//>>>>>>> f9b9b02b7090ba5f174df05c29c3b18047ed4dac
 	}
 }
