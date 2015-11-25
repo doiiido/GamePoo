@@ -40,8 +40,8 @@ import unb.cic.poo.game2d.fases.FaseManager;
 public class ResourceManager {
 	private static final ResourceManager INSTANCE = new ResourceManager();
 	  
-	// Todas as imagens animadas devem ser declaradas com Tiled, especificando quantas vers�es do sprite tem
-	// na textura especificada. Tamb�m tomar cuidado para elas estarem bem alinhadas.
+	// Todas as imagens animadas devem ser declaradas com Tiled, especificando quantas versoes do sprite tem
+	// na textura especificada. Tambem tomar cuidado para elas estarem bem alinhadas.
 	public ITextureRegion introTextureRegion;
 	BitmapTextureAtlas introTexture;
 	
@@ -86,11 +86,13 @@ public class ResourceManager {
 	/*Bullets*/
 	BitmapTextureAtlas bulletTexture;
 	public static ITiledTextureRegion bulletTextureRegion;
-	
 	BitmapTextureAtlas enemybulletTexture;
 	public static ITiledTextureRegion enemybulletTextureRegion;
 	BitmapTextureAtlas laserBulletTexture;
 	public static ITiledTextureRegion laserBulletTextureRegion;
+	BitmapTextureAtlas enemyLaserBulletTexture;
+	public static ITiledTextureRegion enemyLaserBulletTextureRegion;
+	
 	
 	/*Musica e sons*/
 	public static Sound mSound;
@@ -321,7 +323,7 @@ public class ResourceManager {
 		/* PASTA JOGADOR*/
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/player/");
 		 	
-		// Ao carregar imagens, colocar pot�ncias de 2 maiores do que a resolu��o da mesma
+		// Ao carregar imagens, colocar potencias de 2 maiores do que a resolucao da mesma
 		// Evitar colocar imagens maiores que 1024
 		 		 	
 		 	
@@ -371,6 +373,11 @@ public class ResourceManager {
 		laserBulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(laserBulletTexture, activity,"laser.png", 0, 0, LASER_BULLET_COLUMN, LASER_BULLET_ROW);
 		laserBulletTexture.load();
+		
+		enemyLaserBulletTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1280, 200, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		enemyLaserBulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(enemyLaserBulletTexture, activity,"enemy_laser.png", 0, 0, LASER_BULLET_COLUMN, LASER_BULLET_ROW);
+		enemyLaserBulletTexture.load();
 			
 		/* PASTA BACKGROUNDS*/
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/backgrounds/");

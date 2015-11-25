@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 import org.andengine.engine.handler.IUpdateHandler;
 
-//Classe que vai armazenar as propriedades do player: Vida, Pontuação...
+//Classe que vai armazenar as propriedades do player: Vida, Pontuacao...
 
 //Atualmente ela herda da classe Rectangle, mas assim que tivermos os 
 //sprites podemos mudar. 
@@ -147,8 +147,6 @@ public class Player extends SpaceshipAnimated{
 			if(this.getLastMoveByModifier() != null){
 				this.unregisterEntityModifier(this.getLastMoveByModifier());
 			}
-			/*this.setTargetX(pSceneTouchEvent.getX());
-			this.setTargetY(pSceneTouchEvent.getY());*/
 			
 			float durationTime;
 			float deltaX = pSceneTouchEvent.getX()-this.getX() + Player.DX;

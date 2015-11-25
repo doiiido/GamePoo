@@ -8,7 +8,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
-// Futuramente todas as naves serao animadas. Mantive a classe Spaceship igual, pois ainda estamos usando algumas est�ticas.
+// Futuramente todas as naves serao animadas. Mantive a classe Spaceship igual, pois ainda estamos usando algumas estaticas.
 public abstract class SpaceshipAnimated extends AnimatedSprite{
 	protected int life;
 	protected int speed;

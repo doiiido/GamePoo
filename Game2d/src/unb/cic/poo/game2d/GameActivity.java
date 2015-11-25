@@ -49,7 +49,7 @@ public class GameActivity extends BaseGameActivity {
 	protected void onCreate(final Bundle pSavedInstanceState) {
 		super.onCreate(pSavedInstanceState);
 		ParseAnalytics.trackAppOpenedInBackground(getIntent());
-		FacebookSdk.sdkInitialize(getApplicationContext()); // O app j· vai ter que estar publicado
+		FacebookSdk.sdkInitialize(getApplicationContext()); // O app ja vai ter que estar publicado
 	}
     
 	@Override
@@ -68,7 +68,7 @@ public class GameActivity extends BaseGameActivity {
     }
 	
 	public Engine onCreateEngine(EngineOptions pEngineOptions) {	
-		//Cria uma engine com um step de simula√ß√£o de 60 steps por segundo.
+		//Cria uma engine com um step de simulacao de 60 steps por segundo.
 		return new FixedStepEngine(pEngineOptions, 60);
 	}
 
@@ -102,7 +102,7 @@ public class GameActivity extends BaseGameActivity {
 			
 		}
 		else{
-			//Ver como o som est· sendo chamado. Associar ‡s cenas
+			//Ver como o som est· sendo chamado. Associar as cenas
 			mSceneManager.returnSettingsScene(pOnCreateSceneCallback);
 		}
 						
