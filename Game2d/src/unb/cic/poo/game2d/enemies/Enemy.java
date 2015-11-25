@@ -57,24 +57,24 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 				//codigo para selecionar item aleatorio aqui.
 			}
 		}
-		createExplosion(this.getX(), this.getY(), this.getParent());
-		ResourceManager.mXplosion.play();
+		
+		this.onEnemyKilled();
 		this.removeEnemy();
 		this.clearEntityModifiers();
 	}
-
-	@Override
-	public abstract void shoot();
 	
-	public abstract void removeEnemy();
+	public void onEnemyKilled(){
+		createExplosion(this.getX(), this.getY(), this.getParent());
+		ResourceManager.mXplosion.play();
+	}
 	
 	private static void createExplosion(final float posX, final float posY,
 			final IEntity target) {
 
-		// Podemos tentar aplicar a ideia de despixelizaï¿½ï¿½o, porï¿½m nï¿½o consegui divider o sprite em pequenos pedaï¿½os
-		int mNumPart = 1; // nï¿½mero de partï¿½culas/sprites que serï¿½o repetidos
-		float mTimePart = (float) 0.5; // tempo que as partï¿½culas permanecerï¿½o na tela
-									   // 1.6 corresponde ao tempo da animaï¿½ï¿½o aplicada
+		// Podemos tentar aplicar a ideia de despixelizacao, porem nao consegui dividir o sprite em pequenos pedacos
+		int mNumPart = 1; // numero de particulas/sprites que serïao repetidos
+		float mTimePart = (float) 0.5; // tempo que as particulas permanecerao na tela
+									   // 1.6 corresponde ao tempo da animacao aplicada
 
 		PointParticleEmitter particleEmitter = new PointParticleEmitter(posX,
 				posY);
@@ -91,21 +91,21 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 
 		};
 		
-		// Rate mï¿½nimo e mï¿½ximo da emissï¿½o de partï¿½culas
+		// Rate minimo e maximo da emissao de particulas
 		final ParticleSystem<AnimatedSprite> particleSystem = new ParticleSystem<AnimatedSprite>(
 				recFact, particleEmitter, 100, 500, mNumPart);
 
-		// Velocidade das partï¿½culas, mï¿½nima e mï¿½xima, em X e Y
+		// Velocidade das particulas, minima e maxima, em X e Y
 		//particleSystem
 				//.addParticleInitializer(new VelocityParticleInitializer<AnimatedSprite>(
 				//		-50, 50, -50, 50));
 
-		// Nï¿½o modificar direto aqui, mas na variï¿½vel mTimePart. Aplica o Fade Out 
+		// Nao modificar direto aqui, mas na variavel mTimePart. Aplica o Fade Out 
 		particleSystem
 				.addParticleModifier(new AlphaParticleModifier<AnimatedSprite>(0,
 						0.6f * mTimePart, 1, 0));
 		
-		// Qual o ï¿½ngulo de rotaï¿½ï¿½o das partï¿½culas
+		// Qual o angulo de rotacao das particulas
 		//particleSystem
 		//		.addParticleModifier(new RotationParticleModifier<AnimatedSprite>(0,
 			//			mTimePart, 0, 360));
@@ -122,4 +122,10 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 				}));
 
 	}
+	
+	//metodo responsavel por remover o inimigo da tela.
+	public abstract void removeEnemy();
+		
+	@Override
+	public abstract void shoot();
 }

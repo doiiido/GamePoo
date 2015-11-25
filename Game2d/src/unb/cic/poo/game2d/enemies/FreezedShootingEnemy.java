@@ -12,9 +12,6 @@ import unb.cic.poo.game2d.scenes.SceneManager;
 
 
 
-/* Ainda existe o problema que as naves continuam a atirar depois de removidas. */
-
-
 
 public class FreezedShootingEnemy extends Enemy{
 	//private static final int COMMON_ENEMY_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
@@ -27,7 +24,7 @@ public class FreezedShootingEnemy extends Enemy{
 	private float posicaoInicialX;
 	private ShootHandler shootHandler;
 	
-	//É necessário passar a posição X final
+	//E necessario passar a posicao X final
 	public FreezedShootingEnemy(float pX, float pY, float pFinalX) {
 		super(pX, pY, ResourceManager.shooterTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
@@ -41,7 +38,7 @@ public class FreezedShootingEnemy extends Enemy{
 		this.registerUpdateHandler(this.shootHandler);
 	}
 	
-	/* O inimigo se movimenta até a posição final em X definida no construtor.  */
+	/* O inimigo se movimenta ate a posicao final em X definida no construtor.  */
 	private void setMovement() {
 		float distance = GameManager.getInstance().getGameCamera().getWidth();
 		float durationTime = distance/this.speed;

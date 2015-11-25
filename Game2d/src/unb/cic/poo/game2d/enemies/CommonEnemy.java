@@ -9,7 +9,7 @@ import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ResourceManager;
 
-//Inimigo B�sico
+//Inimigo Basico
 
 public class CommonEnemy extends Enemy{
 	private static final int DEFAULT_COMMON_ENEMY_SPEED = 150;
@@ -40,7 +40,6 @@ public class CommonEnemy extends Enemy{
 	public void shoot() {
 	}
 	
-	//método responsável por remover o inimigo da tela.
 	@Override
 	public void removeEnemy() {
 		GameManager.getInstance().getEnemies().remove(this);

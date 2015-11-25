@@ -5,12 +5,9 @@ import java.util.LinkedList;
 
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
-<<<<<<< HEAD
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
-=======
 import org.andengine.entity.Entity;
->>>>>>> origin/master
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -23,7 +20,6 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.BaseGameActivity;
 
-import android.util.Log;
 import unb.cic.poo.game2d.enemies.Enemy;
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
