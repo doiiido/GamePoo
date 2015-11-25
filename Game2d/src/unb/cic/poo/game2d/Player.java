@@ -12,6 +12,7 @@ import org.andengine.engine.handler.IUpdateHandler;
 
 
 import org.andengine.entity.modifier.MoveByModifier;
+import org.andengine.input.touch.TouchEvent;
 
 import unb.cic.poo.game2d.bullets.Bullet;
 import unb.cic.poo.game2d.bullets.BulletType;
@@ -22,11 +23,20 @@ import unb.cic.poo.game2d.scenes.GameScene;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 public class Player extends SpaceshipAnimated{
+	
+	// ===========================================================
+	// Constants
+	// ===========================================================
 	public final static int PLAYER_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
 	public final static int PLAYER_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
 	public final static int DEFAULT_PLAYER_SPEED = 1500;
 	public final static int DEFAULT_PLAYER_LIFE = 10;
+	public static final int DX = 10; // deslocamento da nave em relacao ao toque
+	public static final int DY = -30; // ver valores melhores
 	
+	// ===========================================================
+	// Fields
+	// ===========================================================
 	public float lifewidth = GameScene.getLifeBar().getWidth();
 	public final float lifescale = (lifewidth/DEFAULT_PLAYER_LIFE);
 	
@@ -40,7 +50,10 @@ public class Player extends SpaceshipAnimated{
 	private int bullet = 0;
 	private IUpdateHandler cooldownManager;
 	
-	//Método construtor, por enquanto esta apenas chamando o construtor da superclasse e configurando a variável de velocidade.
+	// ===========================================================
+	// Constructors
+	// ===========================================================
+	//Metodo construtor, por enquanto esta apenas chamando o construtor da superclasse e configurando a variavel de velocidade.
 	// Para instanciar a sprite no construtor basta colocar ResourceManager.playerTextureRegion ou o nome da sprite desejada
 	public Player(){
 		super(0f, (float) (GameActivity.CAMERA_HEIGHT/2) - (PLAYER_HEIGHT/2), ResourceManager.playerTextureRegion 
@@ -63,8 +76,9 @@ public class Player extends SpaceshipAnimated{
 		}
 	}
 
-	// getters e setters.
-	
+	// ===========================================================
+	// Getter & Setter
+	// ===========================================================
 	public BulletType getBulletType() {
 		return bulletType;
 	}
@@ -112,7 +126,54 @@ public class Player extends SpaceshipAnimated{
 	public void setLastMoveByModifier(MoveByModifier lastMoveByModifier) {
 		this.lastMoveByModifier = lastMoveByModifier;
 	}
+
+	// ===========================================================
+	// Methods for/from SuperClass/Interfaces
+	// ===========================================================
 	
+	/* (non-Javadoc)
+	 * @see unb.cic.poo.game2d.SpaceshipAnimated#handleTouchEvent(org.andengine.input.touch.TouchEvent)
+	 *
+	 *Calcula o tempo de duracao de cada movimento com base na velocidade configurada no Player.
+	 *Foi feita uma simplificacao no calculo da distancia para evitar o uso de raiz quadrada.
+	 *Alem disso, para evitar calculos quando o valor float eh muito pequeno, foi utilizado uma duracao 
+	 *fixa para quando as distancias sao muito curtas.
+	 * 
+	 */
+	@Override
+	public void handleTouchEvent(TouchEvent pSceneTouchEvent) {
+		if(pSceneTouchEvent.getX() <= (GameManager.getInstance().getGameCamera().getWidth()/2) - Player.DX){
+		
+			if(this.getLastMoveByModifier() != null){
+				this.unregisterEntityModifier(this.getLastMoveByModifier());
+			}
+			/*this.setTargetX(pSceneTouchEvent.getX());
+			this.setTargetY(pSceneTouchEvent.getY());*/
+			
+			float durationTime;
+			float deltaX = pSceneTouchEvent.getX()-this.getX() + Player.DX;
+			float deltaY = pSceneTouchEvent.getY()-this.getY() + Player.DY;
+			float absDistance = Math.abs(deltaX) + Math.abs(deltaY);
+			
+			if(absDistance <= 0.5){
+				durationTime = 0.0001f;
+			}
+			else{
+				durationTime = (absDistance)/this.getSpeed();
+			}
+			
+			MoveByModifier movePlayer = new MoveByModifier(durationTime, deltaX, deltaY);
+			this.setLastMoveByModifier(movePlayer);
+			this.registerEntityModifier(movePlayer);
+		}
+		else if(pSceneTouchEvent.isActionUp()){
+			this.shoot();
+		}
+	}
+	
+	// ===========================================================
+	// Methods
+	// ===========================================================
 	public void decrementLife(int decrement) {
 		super.decrementLife(decrement);
 		this.lifewidth -= this.lifescale;

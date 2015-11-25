@@ -309,7 +309,7 @@ public class ResourceManager {
 		selectorBackgroundTextureRegion = null;
 		returnTextureRegion = null;
 		planet.clear();
-		planet = null;
+		//planet = null;
 		starTexture.unload();
 		starTextureRegion = null;
 		

@@ -3,6 +3,7 @@ package unb.cic.poo.game2d.parse;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import android.app.Application;
 
@@ -19,7 +20,7 @@ public class ParseApplication extends Application {
 	  	Parse.initialize(this, APP_ID, CLIENT_ID);
 	  	ParseObject.registerSubclass(HighScore.class);
 	  	
-	  	//ParseUser.enableAutomaticUser();
+	  	ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
  
         //Se quiser privacidade entre os usuários, remover essa linha
