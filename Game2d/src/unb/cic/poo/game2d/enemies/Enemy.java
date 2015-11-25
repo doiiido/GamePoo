@@ -68,12 +68,6 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 	
 	public abstract void removeEnemy();
 	
-	/**
-	 * @param pSceneTouchEvent
-	 * Recebe um touch event para atualizar atributos do inimigo baseado no toque da tela
-	 */
-	public abstract void handleTouchEvent(TouchEvent pSceneTouchEvent);
-	
 	private static void createExplosion(final float posX, final float posY,
 			final IEntity target) {
 

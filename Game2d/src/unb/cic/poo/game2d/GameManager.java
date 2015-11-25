@@ -9,6 +9,7 @@ import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.input.touch.TouchEvent;
 
+import android.util.Log;
 import unb.cic.poo.game2d.enemies.ChasingYEnemy;
 import unb.cic.poo.game2d.enemies.Enemy;
 import unb.cic.poo.game2d.fases.FaseManager;
@@ -17,7 +18,7 @@ import unb.cic.poo.game2d.fases.FaseManager;
 //poderemos acessar os componentes do gerenciador em qualquer classe sem a necessidade de passarmos os objetos como 
 //referência
 
-public class GameManager implements IOnSceneTouchListener{
+public class GameManager {
 	private static GameManager gameManager;
 	public static final int DX = -30; // deslocamento da nave em relacao ao toque
 	public static final int DY = -30; // ver valores melhores
@@ -88,54 +89,5 @@ public class GameManager implements IOnSceneTouchListener{
 
 	public void setEnemies(ArrayList<Enemy> enemies) {
 		this.WaveEnemies = enemies;
-	}
-	
-	//Esse método gerenciará o comportamento dos objetos ao se tocar na tela. 
-
-
-	@Override
-	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-		if(pScene == this.gameScene){
-			if(pSceneTouchEvent.getX() <= (this.gameCamera.getWidth()/2) - DX){
-					//Update dos atributos do objeto Player.
-				
-					if(this.player.getLastMoveByModifier() != null){
-						this.player.unregisterEntityModifier(this.player.getLastMoveByModifier());
-					}
-					this.player.setTargetX(pSceneTouchEvent.getX());
-					this.player.setTargetY(pSceneTouchEvent.getY());
-					
-				
-					//	Calcula o tempo de duração de cada movimento com base na velocidade configurada no Player.
-					//	Foi feita uma simplificação no cálculo da distância para evitar o uso de raiz quadrada.
-					//	Além disso, para evitar calculos quando o valor float é muito pequeno, foi utilizado uma duração 
-					//	fixa para quando as distâncias são muito curtas.
-					
-					float durationTime;
-					float deltaX = pSceneTouchEvent.getX()-this.player.getX() + DX;
-					float deltaY = pSceneTouchEvent.getY()-this.player.getY() + DY;
-					float absDistance = Math.abs(deltaX) + Math.abs(deltaY);
-					if(absDistance <= 0.5){
-						durationTime = 0.0001f;
-					}
-					else{
-						durationTime = (absDistance)/player.getSpeed();
-					}
-					
-					// Utiliza um MoveByModifier para alterar o caminho seguido pela nave.
-					MoveByModifier moveByModifier = new MoveByModifier(durationTime, deltaX, deltaY);
-					this.player.setLastMoveByModifier(moveByModifier);
-					this.player.registerEntityModifier(moveByModifier);
-					
-					
-					for(Enemy e:GameManager.getInstance().getEnemies()){
-						e.handleTouchEvent(pSceneTouchEvent);
-					}
-			}
-			else if(pSceneTouchEvent.isActionUp()){
-				this.player.shoot();
-			}
-		}
-		return false;
 	}
 }

@@ -20,8 +20,9 @@ import unb.cic.poo.game2d.*;
 
 /* Ainda existe o problema que as naves continuam a atirar depois de removidas. */
 
-
-
+// ===========================================================
+// Constructors
+// ===========================================================
 public class ChasingYEnemy extends Enemy{
 	private static final int COMMON_ENEMY_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
 	//private static final int COMMON_ENEMY_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
@@ -31,20 +32,30 @@ public class ChasingYEnemy extends Enemy{
 	private static final int COMMON_ENEMY_LIFE = 1;
 	private BulletType bulletType = new CommonBulletType();
 	private float timer;
-	private float posXfinal;
+	private float xFinal;
+	private float xInicial;
 	private float yInicial;
 	private IUpdateHandler shootHandler;
 	private MoveByModifier moveX;
 	private MoveByModifier lastMoveByModifier;
 	private ParallelEntityModifier parallelEntityModifier;
 	
-	public ChasingYEnemy(float pX, float pY, float posXfinal) {
+	/**
+	 * @param pX posicao inicial
+	 * @param pY posicao inicial
+	 * @param posXfinal posicao final 
+	 * 
+	 * @ O inimigo usa um MoveByModifier para caminhar para a posicao final -(pX-pXFinal)
+	 * 
+	 */
+	public ChasingYEnemy(float pX, float pY, float pXFinal) {
 		super(pX, pY, ResourceManager.shooterTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
+		this.xInicial = pX;
 		this.yInicial = pY;
-		this.posXfinal = posXfinal;		
+		this.xFinal = pXFinal;		
 		
 		this.setMovement();
 		this.shootHandler = new IUpdateHandler(){
@@ -68,21 +79,23 @@ public class ChasingYEnemy extends Enemy{
 		
 	}
 	
-
-	/* Método que posiciona a nave inimiga na posição X final. */
-	public void setMovement(){
-		float distance = GameManager.getInstance().getGameCamera().getWidth();
-		float durationTime = distance/this.speed;
-		
-		moveX = new MoveByModifier(durationTime, -280, 0);
-		
-		this.registerEntityModifier(moveX);
+	// ===========================================================
+	// Getter & Setter
+	// ===========================================================
+	public MoveByModifier getLastMoveByModifier() {
+		return lastMoveByModifier;
 	}
 
+	public void setLastMoveByModifier(MoveByModifier moveByModifier) {
+		this.lastMoveByModifier = moveByModifier;
+	}
+	
+	// ===========================================================
+	// Methods for/from SuperClass/Interfaces
+	// ===========================================================
 	@Override
 	public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
@@ -103,40 +116,53 @@ public class ChasingYEnemy extends Enemy{
 		GameManager.getInstance().getGameScene().detachChild(this);		
 	}
 
+	/* (non-Javadoc)
+	 * @see unb.cic.poo.game2d.SpaceshipAnimated#handleTouchEvent(org.andengine.input.touch.TouchEvent)
+	 * 
+	 * Muda a posicao y do inimigo ao mesmo tempo que entra na cena
+	 * baseado no toque da tela
+	 */
 	@Override
 	public void handleTouchEvent(TouchEvent pSceneTouchEvent) {
-		
-		this.unregisterEntityModifier(getLastMoveByModifier());
-
-		float deltaY = pSceneTouchEvent.getY()-this.getY();
-		float duration;
-		float absDistance = Math.abs(deltaY);
-		
-		if(absDistance <= 0.5){
-			duration = 0.0001f;
-		}
-		else{
-			duration = (absDistance)/ChasingYEnemy.DEFAULT_COMMON_VENEMY_SPEED;
-		}
-
-		MoveByModifier chaseY = new MoveByModifier(duration, 0, deltaY);
-		
-		if(moveX.isFinished()){
-			this.setLastMoveByModifier(chaseY);
-			this.registerEntityModifier(chaseY);
-		}
-		else{
-			this.unregisterEntityModifier(parallelEntityModifier);
-			parallelEntityModifier = new ParallelEntityModifier(moveX, chaseY);
-			this.registerEntityModifier(parallelEntityModifier);
+		if(pSceneTouchEvent.getX() <= (GameManager.getInstance().getGameCamera().getWidth()/2)){
+			this.unregisterEntityModifier(getLastMoveByModifier());
+	
+			float deltaY = pSceneTouchEvent.getY()-this.getY();
+			float duration;
+			float absDistance = Math.abs(deltaY);
+			
+			if(absDistance <= 0.5){
+				duration = 0.0001f;
+			}
+			else{
+				duration = (absDistance)/this.speed;
+			}
+	
+			MoveByModifier chaseY = new MoveByModifier(duration, 0, deltaY);
+			
+			if(moveX.isFinished()){
+				this.setLastMoveByModifier(chaseY);
+				this.registerEntityModifier(chaseY);
+			}
+			else{
+				this.unregisterEntityModifier(parallelEntityModifier);
+				parallelEntityModifier = new ParallelEntityModifier(moveX, chaseY);
+				this.registerEntityModifier(parallelEntityModifier);
+			}
 		}
 	}
-
-	public MoveByModifier getLastMoveByModifier() {
-		return lastMoveByModifier;
-	}
-
-	public void setLastMoveByModifier(MoveByModifier moveByModifier) {
-		this.lastMoveByModifier = moveByModifier;
+	
+	// ===========================================================
+	// Methods
+	// ===========================================================
+	
+	/* Metodo que posiciona a nave inimiga na posicao X final. */
+	public void setMovement(){
+		float distance = GameManager.getInstance().getGameCamera().getWidth();
+		float durationTime = distance/this.speed;
+		
+		moveX = new MoveByModifier(durationTime, -(this.xInicial-this.xFinal), 0);
+		
+		this.registerEntityModifier(moveX);
 	}
 }
