@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.Entity;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -15,6 +16,7 @@ import org.andengine.entity.sprite.TiledSprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.ui.activity.BaseGameActivity;
 
 import unb.cic.poo.game2d.enemies.Enemy;
 import unb.cic.poo.game2d.GameActivity;
@@ -113,11 +115,31 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     @Override
     public void disposeScene() {
     	if (stop == true) {
-	    	clearChildScene();
-	    	mPauseScene.detachSelf();
-	    	mPauseScene.dispose();
+    		((BaseGameActivity) activity).runOnUpdateThread(new Runnable() {
+    		    @Override
+    		    public void run() {
+    		    	clearChildScene();
+    		    	mPauseScene.detachSelf();
+    		    	mPauseScene.dispose();
+    		    }
+    		});
     	}
     	super.disposeScene();
+    }
+    
+    @Override
+    public void cleanEntities() {
+    	super.cleanEntities();
+    	for (Enemy entity: GameManager.getInstance().getEnemies()) {
+    		entity.clearEntityModifiers();
+    		entity.clearUpdateHandlers();
+    		entity.detachSelf();
+    		
+    		if (!entity.isDisposed()) {
+    			entity.dispose();
+    		}
+    	}
+    	// Ver detach das balas e dos itens, incluí-los em uma lista
     }
     
     //---------------------------------------------
