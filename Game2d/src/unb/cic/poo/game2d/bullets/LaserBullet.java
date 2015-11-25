@@ -33,6 +33,7 @@ public class LaserBullet extends Bullet{
 		this.damage = BULLET_DAMAGE;
 		this.enemyBullet = isEnemyBullet;
 		
+		//UpdateHandler que cuida do tempo de duracao do laser
 		this.laserHandler = new IUpdateHandler(){
 			public void onUpdate(float pSecondsElapsed){
 				totalElapsedSeconds += pSecondsElapsed;
@@ -60,6 +61,7 @@ public class LaserBullet extends Bullet{
 		this.unregisterUpdateHandler(updateHandler);
 	}
 
+	//laser eh um bullet estatico, por isso, a implementacao de setMovement eh vazia
 	@Override
 	public void setMovement(float pX, float pY, boolean isEnemyBullet) {
 	}

@@ -18,6 +18,7 @@ import unb.cic.poo.game2d.bullets.Bullet;
 import unb.cic.poo.game2d.bullets.BulletType;
 import unb.cic.poo.game2d.bullets.CommonBulletType;
 import unb.cic.poo.game2d.bullets.LaserBulletType;
+import unb.cic.poo.game2d.bullets.MachineGunBulletType;
 import unb.cic.poo.game2d.scenes.BaseScene;
 import unb.cic.poo.game2d.scenes.GameScene;
 import unb.cic.poo.game2d.scenes.SceneManager;
@@ -62,7 +63,7 @@ public class Player extends SpaceshipAnimated{
 		this.life = DEFAULT_PLAYER_LIFE;
 		
 		this.common = new CommonBulletType();
-		this.secondaryBulletType = new CommonBulletType();
+		this.secondaryBulletType = new MachineGunBulletType();
 		this.bulletType = this.common;
 
 	}
@@ -164,7 +165,7 @@ public class Player extends SpaceshipAnimated{
 			this.setLastMoveByModifier(movePlayer);
 			this.registerEntityModifier(movePlayer);
 		}
-		else if(pSceneTouchEvent.isActionUp()){
+		else if(pSceneTouchEvent.isActionDown() || pSceneTouchEvent.isActionMove()){
 			this.shoot();
 		}
 	}

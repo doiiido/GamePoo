@@ -14,6 +14,7 @@ public class DoubleBulletType extends BulletType{
 	public void setBullet(float pX, float pY, boolean isEnemy) {
 		if(!isEnemy)
 			SceneManager.getInstance().getCurrentScene().registerUpdateHandler(new CooldownHandler(this));
+		//instancia de duas CommonBullets, sendo uma delas posicionada em pY-20 e a outra em pY+20
 		CommonBullet bullet1 = new CommonBullet(pX, pY-20, isEnemy); 
 		GameManager.getInstance().getGameScene().attachChild(bullet1);
 		CommonBullet bullet2 = new CommonBullet(pX, pY+20, isEnemy);
