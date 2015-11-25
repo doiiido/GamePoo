@@ -26,7 +26,7 @@ public class LaserBullet extends Bullet{
 	private IUpdateHandler laserHandler;
 	
 	public LaserBullet(float pX, float pY, boolean isEnemyBullet) {
-		super(pX, pY-5*BULLET_HEIGHT, ResourceManager.laserBulletTextureRegion, 
+		super(pX, pY-5*BULLET_HEIGHT, (isEnemyBullet)? ResourceManager.enemyLaserBulletTextureRegion:ResourceManager.laserBulletTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		
 		this.animate(120);
@@ -62,7 +62,14 @@ public class LaserBullet extends Bullet{
 	}
 
 	@Override
-	public boolean checkEnemyHit() {
+	public boolean checkHit() {
+		
+		if(isEnemyBullet()){
+			if(this.collidesWith(GameManager.getInstance().getPlayer())){
+				return true;
+			}
+			return false;
+		}
 		
 		for(Enemy enemy : GameManager.getInstance().getEnemies()){
 			if(this.collidesWith(enemy)){
