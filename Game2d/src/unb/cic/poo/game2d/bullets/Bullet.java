@@ -1,10 +1,13 @@
 package unb.cic.poo.game2d.bullets;
 
+import java.util.ArrayList;
+
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.modifier.IEntityModifier.IEntityModifierListener;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import unb.cic.poo.game2d.enemies.*;
 
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ResourceManager;
@@ -19,6 +22,7 @@ public abstract class Bullet extends AnimatedSprite implements IEntityModifierLi
 	protected boolean alreadyHit = false;
 	protected IUpdateHandler updateHandler;
 	protected ResourceManager rs;
+	protected ArrayList<Enemy> enemiesHit = new ArrayList<Enemy>();
 
 	public Bullet(float pX, float pY, ITiledTextureRegion pTextureRegion,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
@@ -26,47 +30,41 @@ public abstract class Bullet extends AnimatedSprite implements IEntityModifierLi
 		this.movementFinished = false;
 		ResourceManager.mBullet.play();
 		
-		this.updateHandler = new IUpdateHandler() {
-			@Override
-			public void reset() {
-			}
-			
-			@Override
-			public void onUpdate(float pSecondsElapsed) {
-				GameManager.getInstance().getGameEngine().runOnUpdateThread(new Runnable() {			
-					@Override
-					public void run() {
-						if(checkEnemyHit()){
-							if(!alreadyHit){
-								alreadyHit = true;
-								if(!isEnemyBullet()){
-									OnEnemyHit(); //Sobrescrevendo esse método poderemos adicionar o comportamento da bala quando ela atingir um inimigo.
-													//(Explodir, aumentar score do player, etc).
-								}
-								else{
-									unregisterUpdateHandler(updateHandler);
-									GameManager.getInstance().getGameScene().unregisterUpdateHandler(updateHandler);
-									GameManager.getInstance().getPlayer().decrementLife(damage);
-									removeBullet();
-								}
-							}
-							
-						}
-						else if(movementFinished){
-							removeBullet();
-						}
-						
-					}
-				});
-			}
-		};
+		this.updateHandler = new BulletHandler(this);
 		//Verifica se atingiu inimigos a cada ciclo do game.
 		this.registerUpdateHandler(updateHandler);
 	}
 	
+	
+	public boolean checkHit(){
+		
+		if(isEnemyBullet()){
+			if(this.collidesWith(GameManager.getInstance().getPlayer())){
+				return true;
+			}
+			return false;
+		}
+		for(Enemy enemy : GameManager.getInstance().getEnemies()){
+			if(this.collidesWith(enemy)){
+				enemiesHit.add(enemy);
+			}
+		}
+		return !enemiesHit.isEmpty();
+	}
+	
 	//Getters e Setters
 	
-	public int getDano() {
+	public ArrayList<Enemy> getEnemiesHit() {
+		return enemiesHit;
+	}
+
+
+	public void setEnemiesHit(ArrayList<Enemy> enemiesHit) {
+		this.enemiesHit = enemiesHit;
+	}
+
+
+	public int getDamage() {
 		return damage;
 	}
 
@@ -94,8 +92,15 @@ public abstract class Bullet extends AnimatedSprite implements IEntityModifierLi
 	
 	public abstract void setMovement(float pX, float pY, boolean isEnemyBullet);
 	
-	public abstract boolean checkEnemyHit();
-	
-	public abstract void OnEnemyHit();
+	public void OnEnemyHit(Enemy enemy){
+		enemy.decrementLife(this.getDamage());
+	}
+
+
+	public void onPlayerHit() {
+		GameManager.getInstance().getPlayer().decrementLife(damage);
+		removeBullet();
+		this.unregisterUpdateHandler(updateHandler);
+	}
 
 }

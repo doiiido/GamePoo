@@ -62,22 +62,6 @@ public class LaserBullet extends Bullet{
 	}
 
 	@Override
-	public boolean checkEnemyHit() {
-		
-		for(Enemy enemy : GameManager.getInstance().getEnemies()){
-			if(this.collidesWith(enemy)){
-				enemy.decrementLife(this.damage);
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
-	public void OnEnemyHit() {
-	}
-
-	@Override
 	public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
 		// TODO Auto-generated method stub
 		

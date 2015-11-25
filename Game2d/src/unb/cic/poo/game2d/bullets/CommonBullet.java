@@ -46,26 +46,12 @@ public class CommonBullet extends Bullet{
 		this.registerEntityModifier(moveByModifier);
 	}
 	
-	public boolean checkEnemyHit(){
-		
-		if(isEnemyBullet()){
-			if(this.collidesWith(GameManager.getInstance().getPlayer())){
-				return true;
-			}
-			return false;
-		}
-		for(Enemy enemy : GameManager.getInstance().getEnemies()){
-			if(this.collidesWith(enemy)){
-				enemy.decrementLife(this.damage);
-				return true;
-			}
-		}
-		return false;
-	}
 
 	@Override
-	public void OnEnemyHit() {
-		GameManager.getInstance().getGameScene().detachChild(this);
+	public void OnEnemyHit(Enemy enemy) {
+		super.OnEnemyHit(enemy);
+		removeBullet();
+		this.unregisterUpdateHandler(updateHandler);
 	}
 
 	@Override

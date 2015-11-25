@@ -17,6 +17,7 @@ import android.content.ClipData.Item;
 import unb.cic.poo.game2d.EnemyHandler;
 import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.SpaceshipAnimated;
+import unb.cic.poo.game2d.bullets.Bullet;
 import unb.cic.poo.game2d.items.ItemGen;
 import unb.cic.poo.game2d.items.LaserBulletGen;
 import unb.cic.poo.game2d.items.LaserBulletItem;
@@ -44,7 +45,6 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 		super.decrementLife(decrement);
 		if(this.life <= 0){
 			this.kill();
-			ResourceManager.mXplosion.play();
 		}
 	}
 	
@@ -54,10 +54,11 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 				ItemDropped.getItem(this.getX(), this.getY()+(this.getHeight()/2)).drop();
 			}
 			else{
-				//código para selecionar item aleatório aqui.
+				//codigo para selecionar item aleatorio aqui.
 			}
 		}
 		createExplosion(this.getX(), this.getY(), this.getParent());
+		ResourceManager.mXplosion.play();
 		this.removeEnemy();
 		this.clearEntityModifiers();
 	}
