@@ -1,13 +1,14 @@
 package unb.cic.poo.game2d;
 
 import org.andengine.entity.sprite.AnimatedSprite;
+import org.andengine.input.touch.TouchEvent;
 
-//Essa clase servirá como base para o player e para os inimigos.
+//Essa clase servira como base para o player e para os inimigos.
 
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
-// Futuramente todas as naves ser�o animadas. Mantive a classe Spaceship igual, pois ainda estamos usando algumas est�ticas.
+// Futuramente todas as naves serao animadas. Mantive a classe Spaceship igual, pois ainda estamos usando algumas est�ticas.
 public abstract class SpaceshipAnimated extends AnimatedSprite{
 	protected int life;
 	protected int speed;
@@ -43,7 +44,14 @@ public abstract class SpaceshipAnimated extends AnimatedSprite{
 		this.life += increment;
 	}
 	
-	//O método de atirar deve ser sobrescrito nas subclasses, pois cada inimigo pode utilizar uma forma de atirar diferente.
+	//O metodo de atirar deve ser sobrescrito nas subclasses, pois cada inimigo pode utilizar uma forma de atirar diferente.
 	public abstract void shoot();
+
+	/**
+	 * @param pSceneTouchEvent
+	 * Recebe um touch event para atualizar atributos da entidade baseado no toque da tela
+	 */
+	public abstract void handleTouchEvent(TouchEvent pSceneTouchEvent);
+	
 
 }

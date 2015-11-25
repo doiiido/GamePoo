@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
+import org.andengine.entity.scene.IOnSceneTouchListener;
+import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -16,6 +18,7 @@ import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
+import android.util.Log;
 import unb.cic.poo.game2d.enemies.Enemy;
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
@@ -27,7 +30,7 @@ import unb.cic.poo.game2d.fases.Fase1;
 import unb.cic.poo.game2d.fases.FaseManager;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
-public class GameScene extends BaseScene implements IOnMenuItemClickListener{
+public class GameScene extends BaseScene implements IOnMenuItemClickListener, IOnSceneTouchListener{
 	//---------------------------------------------
     // SCENES AND MANAGERS
     //---------------------------------------------
@@ -88,18 +91,33 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
     	createBackground();
 		createHUD();
         createPauseScene();
-				
-		// Fazer com que a classe GameManager seja um listener da Scene do jogo.
-		this.setOnSceneTouchListener(GameManager.getInstance());
 		
 		// Configurando atributos de GameManager
 		GameManager.getInstance().setPlayer(new Player());
 		GameManager.getInstance().setEnemies(new ArrayList<Enemy>());
 		GameManager.getInstance().setGameScene(this);
 		
+		// Fazer com que a GameScene seja um listener para toques na tela
+		//this.setOnSceneTouchListener pois é pra setar o listener nesta scene
+		//argumento (this) porque eh a propria scene que tem o metodo da interface implementado (onSceneTouchEvent())
+		this.setOnSceneTouchListener(this);
+		
 		//Insere o Player na Scene.
 		this.attachChild(GameManager.getInstance().getPlayer()); entitiesList.add(GameManager.getInstance().getPlayer());
     }
+    
+	@Override
+	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
+		
+		//Chama o handle para o player
+		GameManager.getInstance().getPlayer().handleTouchEvent(pSceneTouchEvent);
+
+		//Chama o handle para os inimigos
+		for(Enemy enemy:GameManager.getInstance().getEnemies()){
+			enemy.handleTouchEvent(pSceneTouchEvent);
+		}
+		return false;
+	}
 
     @Override
     public SceneType getSceneType() {
@@ -354,5 +372,4 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener{
 	            return false;
 		}
 	}
-
 }
