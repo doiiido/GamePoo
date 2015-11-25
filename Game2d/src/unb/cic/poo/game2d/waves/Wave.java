@@ -32,12 +32,12 @@ public abstract class Wave {
 		}
 	}
 
-	/*Esse método é chamado antes de iniciar essa wave*/
+	/*Esse metodo eh chamado antes de iniciar essa wave*/
 	public void onWaveStart() {
 		
 	}
 
-	/*Esse método é chamado toda vez que uma wave é finalizada*/
+	/*Esse metodo eh chamado toda vez que uma wave eh finalizada*/
 	public void onWaveFinish() {
 		
 	}

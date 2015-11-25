@@ -40,8 +40,8 @@ import unb.cic.poo.game2d.fases.FaseManager;
 public class ResourceManager {
 	private static final ResourceManager INSTANCE = new ResourceManager();
 	  
-	// Todas as imagens animadas devem ser declaradas com Tiled, especificando quantas vers�es do sprite tem
-	// na textura especificada. Tamb�m tomar cuidado para elas estarem bem alinhadas.
+	// Todas as imagens animadas devem ser declaradas com Tiled, especificando quantas versoes do sprite tem
+	// na textura especificada. Tambem tomar cuidado para elas estarem bem alinhadas.
 	public ITextureRegion introTextureRegion;
 	BitmapTextureAtlas introTexture;
 	
@@ -323,7 +323,7 @@ public class ResourceManager {
 		/* PASTA JOGADOR*/
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/player/");
 		 	
-		// Ao carregar imagens, colocar pot�ncias de 2 maiores do que a resolu��o da mesma
+		// Ao carregar imagens, colocar potencias de 2 maiores do que a resolucao da mesma
 		// Evitar colocar imagens maiores que 1024
 		 		 	
 		 	

@@ -111,12 +111,12 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 	    
 	    setChildScene(settingsChildScene);
 	    
-	    /* Para determinar a posição, sendo N_ELEM o número de elementos que estão posicionados a direita deste: 
+	    /* Para determinar a posição, sendo N_ELEM o numero de elementos que estao posicionados a direita deste: 
 		SPRITE.setPosition((float) (camera.getWidth()/2 - posX - N_ELEM*(deltaX + backMenuItem.getWidth())),
 	    		camera.getWidth()/2 - backMenuItem.getHeight() + posY);
-    	- Se desejar levar o HUD à esquerda, aumentar o valor de posX
+    	- Se desejar levar o HUD a esquerda, aumentar o valor de posX
     	- Se desejar levar o HUD para baixo, aumentar o valor de posY
-    	- Se desejar aumentar a distância entre os elementos do HUD, aumentar o valor de deltaX*/
+    	- Se desejar aumentar a distancia entre os elementos do HUD, aumentar o valor de deltaX*/
 	    
 	    backMenuItem.setPosition((float) (camera.getWidth()/2 - posX - (deltaX + backMenuItem.getWidth())),
 	    		camera.getWidth()/2 - backMenuItem.getHeight() + posY);
@@ -143,14 +143,14 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 	
 	private void login(){
 		GameActivity act = SceneManager.getInstance().mActivity;
-		// Determina se o usuário é anônimo
+		// Determina se o usuario eh anonimo
 		if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {
 		// If user is anonymous, send the user to LoginSignupActivity.class
 			Intent intent = new Intent(act, LoginSignupActivity.class);
 			act.startActivity(intent);
 			act.finish();
 		} else {
-			// Se não é anônimo, resgata suas informações de Parse.com
+			// Se nao eh anonimo, resgata suas informacoes de Parse.com
 			ParseUser currentUser = ParseUser.getCurrentUser();
 			if (currentUser != null) {
 				Intent intent = new Intent(act, ScoreTableActivity.class);

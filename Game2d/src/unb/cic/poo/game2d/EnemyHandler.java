@@ -24,7 +24,7 @@ public class EnemyHandler implements IUpdateHandler {
 					//((GameScene) aux).gameOver(false);
 					GameManager.getInstance().getPlayer().decrementLife(Enemy.INFINITY);
 					// Erro aqui! Aparentemente por estar adicionando e retirando em threads diferentes.
-					// Uma op��o � colocar para decrementar a vida ao inv�s de dar gameOver direto, pois est�
+					// Uma opcao eh colocar para decrementar a vida ao inves de dar gameOver direto, pois esta
 					// funcionando por meio do Player
 				}
 			}

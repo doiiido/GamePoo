@@ -19,7 +19,7 @@ public class ShootHandler implements IUpdateHandler {
 		this.enemy = enemy;
 		stopShooting = false;
 	}
-	/* O inimigo irá atirar de 1 em 1 segundo. */
+	/* O inimigo ira atirar de 1 em 1 segundo. */
 	public void onUpdate(float pSecondsElapsed){
 				timer -= pSecondsElapsed;
 				if(timer <= 0){

@@ -14,9 +14,9 @@ import unb.cic.poo.game2d.enemies.ChasingYEnemy;
 import unb.cic.poo.game2d.enemies.Enemy;
 import unb.cic.poo.game2d.fases.FaseManager;
 
-//Essa classe será responsável por gerenciar os objetos do jogo. Usando o padrão de projeto Singleton, dessa forma,
+//Essa classe sera responsavel por gerenciar os objetos do jogo. Usando o padrao de projeto Singleton, dessa forma,
 //poderemos acessar os componentes do gerenciador em qualquer classe sem a necessidade de passarmos os objetos como 
-//referência
+//referencia
 
 public class GameManager {
 	private static GameManager gameManager;
