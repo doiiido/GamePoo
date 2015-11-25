@@ -9,6 +9,7 @@ import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.input.touch.TouchEvent;
 
+import unb.cic.poo.game2d.enemies.ChasingYEnemy;
 import unb.cic.poo.game2d.enemies.Enemy;
 import unb.cic.poo.game2d.fases.FaseManager;
 
@@ -91,6 +92,7 @@ public class GameManager implements IOnSceneTouchListener{
 	
 	//Esse método gerenciará o comportamento dos objetos ao se tocar na tela. 
 
+
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if(pScene == this.gameScene){
@@ -124,6 +126,11 @@ public class GameManager implements IOnSceneTouchListener{
 					MoveByModifier moveByModifier = new MoveByModifier(durationTime, deltaX, deltaY);
 					this.player.setLastMoveByModifier(moveByModifier);
 					this.player.registerEntityModifier(moveByModifier);
+					
+					
+					for(Enemy e:GameManager.getInstance().getEnemies()){
+						e.handleTouchEvent(pSceneTouchEvent);
+					}
 			}
 			else if(pSceneTouchEvent.isActionUp()){
 				this.player.shoot();
