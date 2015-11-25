@@ -55,29 +55,12 @@ public class LaserBullet extends Bullet{
 	@Override
 	public void removeBullet() {
 		GameManager.getInstance().getGameScene().detachChild(this);
+		this.unregisterUpdateHandler(laserHandler);
+		this.unregisterUpdateHandler(updateHandler);
 	}
 
 	@Override
 	public void setMovement(float pX, float pY, boolean isEnemyBullet) {
-	}
-
-	@Override
-	public boolean checkHit() {
-		
-		if(isEnemyBullet()){
-			if(this.collidesWith(GameManager.getInstance().getPlayer())){
-				return true;
-			}
-			return false;
-		}
-		
-		for(Enemy enemy : GameManager.getInstance().getEnemies()){
-			if(this.collidesWith(enemy)){
-				enemy.decrementLife(this.damage);
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@Override

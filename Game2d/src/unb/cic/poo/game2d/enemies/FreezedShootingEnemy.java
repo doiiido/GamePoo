@@ -8,6 +8,7 @@ import org.andengine.util.modifier.IModifier;
 import unb.cic.poo.game2d.*;
 import unb.cic.poo.game2d.bullets.BulletType;
 import unb.cic.poo.game2d.bullets.CommonBulletType;
+import unb.cic.poo.game2d.bullets.LaserBulletType;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 
@@ -32,7 +33,7 @@ public class FreezedShootingEnemy extends Enemy{
 		this.speed = DEFAULT_COMMON_ENEMY_SPEED;
 		this.posicaoFinalX = pFinalX;
 		this.posicaoInicialX = pX;
-		this.bulletType = new CommonBulletType();
+		this.bulletType = new LaserBulletType();
 		this.setMovement();
 		this.shootHandler = new ShootHandler(this);
 		this.registerUpdateHandler(this.shootHandler);

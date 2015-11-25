@@ -12,7 +12,8 @@ public class LaserBulletType extends BulletType{
 	
 	@Override
 	public void setBullet(float pX, float pY, boolean isEnemy) {
-		SceneManager.getInstance().getCurrentScene().registerUpdateHandler(new CooldownHandler(this));
+		if(!isEnemy)
+			SceneManager.getInstance().getCurrentScene().registerUpdateHandler(new CooldownHandler(this));
 		LaserBullet bullet = new LaserBullet(pX, pY, isEnemy);
 		GameManager.getInstance().getGameScene().attachChild(bullet);
 	}
