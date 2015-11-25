@@ -35,9 +35,7 @@ Questões a serem resolvidas (principalmente da parte da interface, mas com algum
 	- Verificar se o Padrão State pode auxiliar na mudança de estado/características da nave
 	- Planejar como as fases serão chamadas, para não haver uma classe para cada e também não
 	carregar tudo no início
-	- Conferir eventos não tratados do MediaPlayer
-	- Conferir disposes dos áudios
-	- Tem vez que dá crash depois de várias idas e vindas do menu
+	- Conferir eventos não tratados do MediaPlayer/ releases dos áudios
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 
