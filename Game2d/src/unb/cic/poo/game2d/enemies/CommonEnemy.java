@@ -2,6 +2,7 @@ package unb.cic.poo.game2d.enemies;
 
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.MoveByModifier;
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.modifier.IModifier;
 
 import unb.cic.poo.game2d.GameActivity;
@@ -53,5 +54,11 @@ public class CommonEnemy extends Enemy{
 	@Override
 	public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
 		this.movementFinished = true;
+	}
+
+	@Override
+	public void handleTouchEvent(TouchEvent pSceneTouchEvent) {
+		// TODO Auto-generated method stub
+		
 	}
 }

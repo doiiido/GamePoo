@@ -6,6 +6,7 @@ import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.MoveByModifier;
 import org.andengine.entity.modifier.ParallelEntityModifier;
 import org.andengine.entity.modifier.SequenceEntityModifier;
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.util.modifier.IModifier;
 
 import unb.cic.poo.game2d.bullets.BulletType;
@@ -104,6 +105,12 @@ public class VerticalMovementEnemy extends Enemy{
 		this.unregisterUpdateHandler(shootHandler);
 		GameManager.getInstance().getEnemies().remove(this);
 		GameManager.getInstance().getGameScene().detachChild(this);		
+	}
+
+	@Override
+	public void handleTouchEvent(TouchEvent pSceneTouchEvent) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

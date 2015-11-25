@@ -9,6 +9,7 @@ import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.util.modifier.BaseModifier;
 import org.andengine.util.modifier.IModifier;
 
 import android.util.Log;
@@ -35,6 +36,7 @@ public class ChasingYEnemy extends Enemy{
 	private IUpdateHandler shootHandler;
 	private MoveByModifier moveX;
 	private MoveByModifier lastMoveByModifier;
+	private ParallelEntityModifier parallelEntityModifier;
 	
 	public ChasingYEnemy(float pX, float pY, float posXfinal) {
 		super(pX, pY, ResourceManager.shooterTextureRegion, 
@@ -85,7 +87,7 @@ public class ChasingYEnemy extends Enemy{
 
 	@Override
 	public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
-
+		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -101,17 +103,32 @@ public class ChasingYEnemy extends Enemy{
 		GameManager.getInstance().getGameScene().detachChild(this);		
 	}
 
+	@Override
 	public void handleTouchEvent(TouchEvent pSceneTouchEvent) {
+		
+		this.unregisterEntityModifier(getLastMoveByModifier());
+
+		float deltaY = pSceneTouchEvent.getY()-this.getY();
+		float duration;
+		float absDistance = Math.abs(deltaY);
+		
+		if(absDistance <= 0.5){
+			duration = 0.0001f;
+		}
+		else{
+			duration = (absDistance)/ChasingYEnemy.DEFAULT_COMMON_VENEMY_SPEED;
+		}
+
+		MoveByModifier chaseY = new MoveByModifier(duration, 0, deltaY);
+		
 		if(moveX.isFinished()){
-			this.unregisterEntityModifier(getLastMoveByModifier());
-			
-			float deltaY = pSceneTouchEvent.getY()-this.getY();
-			float duration = deltaY/ChasingYEnemy.DEFAULT_COMMON_VENEMY_SPEED;
-			
-			MoveByModifier chaseY = new MoveByModifier(duration, 0, deltaY);
-			
 			this.setLastMoveByModifier(chaseY);
 			this.registerEntityModifier(chaseY);
+		}
+		else{
+			this.unregisterEntityModifier(parallelEntityModifier);
+			parallelEntityModifier = new ParallelEntityModifier(moveX, chaseY);
+			this.registerEntityModifier(parallelEntityModifier);
 		}
 	}
 
@@ -119,7 +136,7 @@ public class ChasingYEnemy extends Enemy{
 		return lastMoveByModifier;
 	}
 
-	public void setLastMoveByModifier(MoveByModifier lastMoveByModifier) {
-		this.lastMoveByModifier = lastMoveByModifier;
+	public void setLastMoveByModifier(MoveByModifier moveByModifier) {
+		this.lastMoveByModifier = moveByModifier;
 	}
 }

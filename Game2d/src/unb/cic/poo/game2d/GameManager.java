@@ -92,6 +92,7 @@ public class GameManager implements IOnSceneTouchListener{
 	
 	//Esse método gerenciará o comportamento dos objetos ao se tocar na tela. 
 
+
 	@Override
 	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
 		if(pScene == this.gameScene){
@@ -126,10 +127,9 @@ public class GameManager implements IOnSceneTouchListener{
 					this.player.setLastMoveByModifier(moveByModifier);
 					this.player.registerEntityModifier(moveByModifier);
 					
+					
 					for(Enemy e:GameManager.getInstance().getEnemies()){
-						if(e instanceof ChasingYEnemy){
-							((ChasingYEnemy) e).handleTouchEvent(pSceneTouchEvent);
-						}
+						e.handleTouchEvent(pSceneTouchEvent);
 					}
 			}
 			else if(pSceneTouchEvent.isActionUp()){
