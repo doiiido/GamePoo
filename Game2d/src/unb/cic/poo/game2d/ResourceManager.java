@@ -157,6 +157,7 @@ public class ResourceManager {
 	private static final int ENEMY_BULLET_COLUMN = 2, ENEMY_BULLET_ROW = 1;
 	private static final int LASER_BULLET_COLUMN = 1, LASER_BULLET_ROW = 4;
 	private static final int EXPLOSION_COLUMN = 4, EXPLOSION_ROW = 4;
+	private static final int FLAME_COLUMN = 15, FLAME_ROW = 2;
 	  
 	public static ResourceManager getInstance() {
 		return INSTANCE;
@@ -387,7 +388,7 @@ public class ResourceManager {
 		
 		flameTexture = new BitmapTextureAtlas(engine.getTextureManager(), 2048, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		flameTextureRegion = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(flameTexture, activity,"Flamethrwoer.png",0,0,BULLET_COLUMN,BULLET_ROW);
+				.createTiledFromAsset(flameTexture, activity,"Flamethrwoer.png",0,0,FLAME_COLUMN,FLAME_ROW);
 		flameTexture.load();
 			
 		/* PASTA BACKGROUNDS*/

@@ -17,6 +17,7 @@ import org.andengine.input.touch.TouchEvent;
 import unb.cic.poo.game2d.bullets.Bullet;
 import unb.cic.poo.game2d.bullets.BulletType;
 import unb.cic.poo.game2d.bullets.CommonBulletType;
+import unb.cic.poo.game2d.bullets.FlamethrowerBulletType;
 import unb.cic.poo.game2d.bullets.LaserBulletType;
 import unb.cic.poo.game2d.bullets.MachineGunBulletType;
 import unb.cic.poo.game2d.scenes.BaseScene;
@@ -50,6 +51,7 @@ public class Player extends SpaceshipAnimated{
 	private BulletType secondaryBulletType;
 	private int bullet = 0;
 	private IUpdateHandler cooldownManager;
+	private boolean screenBeingPressed;
 	
 	// ===========================================================
 	// Constructors
@@ -63,7 +65,7 @@ public class Player extends SpaceshipAnimated{
 		this.life = DEFAULT_PLAYER_LIFE;
 		
 		this.common = new CommonBulletType();
-		this.secondaryBulletType = new MachineGunBulletType();
+		this.secondaryBulletType = new FlamethrowerBulletType();
 		this.bulletType = this.common;
 
 	}
@@ -127,6 +129,10 @@ public class Player extends SpaceshipAnimated{
 	public void setLastMoveByModifier(MoveByModifier lastMoveByModifier) {
 		this.lastMoveByModifier = lastMoveByModifier;
 	}
+	
+	public boolean isScreenBeingPressed() {
+		return screenBeingPressed;
+	}
 
 	// ===========================================================
 	// Methods for/from SuperClass/Interfaces
@@ -167,7 +173,10 @@ public class Player extends SpaceshipAnimated{
 		}
 		else if(pSceneTouchEvent.isActionDown() || pSceneTouchEvent.isActionMove()){
 			this.shoot();
-		}
+			screenBeingPressed = true;
+		} else if(pSceneTouchEvent.isActionUp()){
+			screenBeingPressed = false;
+		} 			
 	}
 	
 	// ===========================================================
