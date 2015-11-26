@@ -67,7 +67,7 @@ public class Player extends SpaceshipAnimated{
 		this.life = DEFAULT_PLAYER_LIFE;
 		
 		this.common = new CommonBulletType();
-		this.secondaryBulletType = new MachineGunBulletType();
+		this.secondaryBulletType = new CommonBulletType();
 		this.bulletType = this.common;
 		
 		pressedShootHandler = new IUpdateHandler() {

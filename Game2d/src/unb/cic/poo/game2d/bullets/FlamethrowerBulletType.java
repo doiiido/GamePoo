@@ -9,7 +9,7 @@ public class FlamethrowerBulletType extends BulletType{
 	public FlamethrowerBulletType() {
 		this.cooldown = COOLDOWN_TIME;
 		this.onCooldown = false;
-		this.swt = ResourceManager.switchTextureRegion;
+		this.swt = ResourceManager.switchFlameTextureRegion;
 	}
 	
 	@Override

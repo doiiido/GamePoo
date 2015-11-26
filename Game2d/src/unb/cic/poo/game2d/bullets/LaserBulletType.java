@@ -9,7 +9,7 @@ public class LaserBulletType extends BulletType{
 	public LaserBulletType() {
 		this.cooldown = COOLDOWN_TIME;
 		this.onCooldown = false;
-		this.swt = ResourceManager.getInstance().switchTextureRegion;
+		this.swt = ResourceManager.getInstance().switchLaserTextureRegion;
 	}
 	
 	@Override

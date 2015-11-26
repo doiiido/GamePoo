@@ -19,6 +19,7 @@ public abstract class Item extends Sprite implements IEntityModifierListener{
 		setMovement(pX);
 		movementFinished = false;
 		this.registerUpdateHandler(new ItemHandler(this));
+		this.setY(this.getY()-(this.getHeight()/2));
 	}
 
 	private void setMovement(float pX) {

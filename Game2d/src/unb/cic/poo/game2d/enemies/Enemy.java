@@ -18,9 +18,12 @@ import unb.cic.poo.game2d.EnemyHandler;
 import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.SpaceshipAnimated;
 import unb.cic.poo.game2d.bullets.Bullet;
+import unb.cic.poo.game2d.items.DoubleBulletGen;
+import unb.cic.poo.game2d.items.FlameThrowerGen;
 import unb.cic.poo.game2d.items.ItemGen;
 import unb.cic.poo.game2d.items.LaserBulletGen;
 import unb.cic.poo.game2d.items.LaserBulletItem;
+import unb.cic.poo.game2d.items.MachineGunGen;
 import unb.cic.poo.game2d.scenes.GameScene;
 
 //Superclasse dos inimigos.
@@ -37,7 +40,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 		super(pX, pY, texture, pVertexBufferObjectManager);
 		movementFinished = false;
 		dropsItem = true;
-		ItemDropped = new LaserBulletGen();
+		ItemDropped = new MachineGunGen();
 		this.registerUpdateHandler(new EnemyHandler(this));
 	}
 	
