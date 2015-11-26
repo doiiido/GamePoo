@@ -26,12 +26,14 @@ public class LaserBullet extends Bullet{
 	private IUpdateHandler laserHandler;
 	
 	public LaserBullet(float pX, float pY, boolean isEnemyBullet) {
-		super(pX, pY-5*BULLET_HEIGHT, (isEnemyBullet)? ResourceManager.enemyLaserBulletTextureRegion:ResourceManager.laserBulletTextureRegion, 
+		super((isEnemyBullet)? pX-1280:pX, pY-5*BULLET_HEIGHT, (isEnemyBullet)? ResourceManager.enemyLaserBulletTextureRegion:ResourceManager.laserBulletTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		
 		this.animate(120);
 		this.damage = BULLET_DAMAGE;
+		this.enemyBullet = isEnemyBullet;
 		
+		//UpdateHandler que cuida do tempo de duracao do laser
 		this.laserHandler = new IUpdateHandler(){
 			public void onUpdate(float pSecondsElapsed){
 				totalElapsedSeconds += pSecondsElapsed;
@@ -55,29 +57,13 @@ public class LaserBullet extends Bullet{
 	@Override
 	public void removeBullet() {
 		GameManager.getInstance().getGameScene().detachChild(this);
+		this.unregisterUpdateHandler(laserHandler);
+		this.unregisterUpdateHandler(updateHandler);
 	}
 
+	//laser eh um bullet estatico, por isso, a implementacao de setMovement eh vazia
 	@Override
 	public void setMovement(float pX, float pY, boolean isEnemyBullet) {
-	}
-
-	@Override
-	public boolean checkHit() {
-		
-		if(isEnemyBullet()){
-			if(this.collidesWith(GameManager.getInstance().getPlayer())){
-				return true;
-			}
-			return false;
-		}
-		
-		for(Enemy enemy : GameManager.getInstance().getEnemies()){
-			if(this.collidesWith(enemy)){
-				enemy.decrementLife(this.damage);
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@Override

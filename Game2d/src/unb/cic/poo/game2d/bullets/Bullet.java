@@ -96,11 +96,8 @@ public abstract class Bullet extends AnimatedSprite implements IEntityModifierLi
 		enemy.decrementLife(this.getDamage());
 	}
 
-
 	public void onPlayerHit() {
 		GameManager.getInstance().getPlayer().decrementLife(damage);
-		removeBullet();
-		this.unregisterUpdateHandler(updateHandler);
 	}
 
 }

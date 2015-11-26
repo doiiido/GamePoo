@@ -51,8 +51,14 @@ public class CommonBullet extends Bullet{
 	public void OnEnemyHit(Enemy enemy) {
 		super.OnEnemyHit(enemy);
 		removeBullet();
-		this.unregisterUpdateHandler(updateHandler);
 	}
+	
+	@Override
+	public void onPlayerHit() {
+		super.onPlayerHit();
+		removeBullet();
+	}
+
 
 	@Override
 	public void onModifierStarted(IModifier<IEntity> pModifier, IEntity pItem) {
@@ -66,5 +72,6 @@ public class CommonBullet extends Bullet{
 	@Override
 	public void removeBullet() {
 		GameManager.getInstance().getGameScene().detachChild(this);
+		this.unregisterUpdateHandler(updateHandler);
 	}
 }
