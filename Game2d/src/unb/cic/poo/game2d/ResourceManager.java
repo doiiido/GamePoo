@@ -96,6 +96,8 @@ public class ResourceManager {
 	public static ITiledTextureRegion laserBulletTextureRegion;
 	BitmapTextureAtlas enemyLaserBulletTexture;
 	public static ITiledTextureRegion enemyLaserBulletTextureRegion;
+	BitmapTextureAtlas flameTexture;
+	public static ITiledTextureRegion flameTextureRegion;
 	
 	
 	/*Musica e sons*/
@@ -382,6 +384,11 @@ public class ResourceManager {
 		enemyLaserBulletTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(enemyLaserBulletTexture, activity,"enemy_laser.png", 0, 0, LASER_BULLET_COLUMN, LASER_BULLET_ROW);
 		enemyLaserBulletTexture.load();
+		
+		flameTexture = new BitmapTextureAtlas(engine.getTextureManager(), 2048, 512, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
+		flameTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(flameTexture, activity,"Flamethrwoer.png",0,0,BULLET_COLUMN,BULLET_ROW);
+		flameTexture.load();
 			
 		/* PASTA BACKGROUNDS*/
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/backgrounds/");
@@ -476,6 +483,7 @@ public class ResourceManager {
 		unloadEnemys();
 		bulletTexture.unload(); bulletTextureRegion = null;
 		laserBulletTexture.unload(); laserBulletTextureRegion = null;
+		flameTexture.unload(); flameTextureRegion = null;
 		backgroundTexture.unload(); backgroundTextureRegion = null;
 		unloadIcons();
 	}
