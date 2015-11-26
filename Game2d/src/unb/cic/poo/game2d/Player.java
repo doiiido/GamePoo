@@ -189,12 +189,7 @@ public class Player extends SpaceshipAnimated{
 			MoveByModifier movePlayer = new MoveByModifier(durationTime, deltaX, deltaY);
 			this.setLastMoveByModifier(movePlayer);
 			this.registerEntityModifier(movePlayer);
-			if(pSceneTouchEvent.isActionMove()){
-				if(pSceneTouchEvent.getMotionEvent().getRawX() >= (GameManager.getInstance().getGameCamera().getWidth()/2) - Player.DX){
-					this.unregisterUpdateHandler(pressedShootHandler);
-					screenBeingPressed = false;
-				}
-			}
+			
 		}
 		else if(pSceneTouchEvent.isActionDown()){
 			this.registerUpdateHandler(pressedShootHandler);
