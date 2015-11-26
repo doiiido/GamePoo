@@ -1,6 +1,7 @@
 package unb.cic.poo.game2d.bullets;
 
 import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 public class FlamethrowerBulletType extends BulletType{
@@ -8,6 +9,7 @@ public class FlamethrowerBulletType extends BulletType{
 	public FlamethrowerBulletType() {
 		this.cooldown = COOLDOWN_TIME;
 		this.onCooldown = false;
+		this.swt = ResourceManager.switchTextureRegion;
 	}
 	
 	@Override

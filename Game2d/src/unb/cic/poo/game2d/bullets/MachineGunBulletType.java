@@ -1,6 +1,7 @@
 package unb.cic.poo.game2d.bullets;
 
 import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 public class MachineGunBulletType extends BulletType{
@@ -10,6 +11,7 @@ public class MachineGunBulletType extends BulletType{
 	public MachineGunBulletType() {
 		this.cooldown = COOLDOWN_TIME;
 		this.onCooldown = false;
+		this.swt = ResourceManager.switchTextureRegion;
 	}
 	@Override
 	public void setBullet(float pX, float pY, boolean isEnemy) {
