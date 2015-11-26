@@ -5,7 +5,7 @@ import unb.cic.poo.game2d.scenes.SceneManager;
 //Classe responsavel por instanciar uma bala.
 
 public class CommonBulletType extends BulletType{
-	private static final float COOLDOWN_TIME = 0.15f;
+	private static final float COOLDOWN_TIME = 0.2f;
 	
 	public CommonBulletType() {
 		this.cooldown = COOLDOWN_TIME;

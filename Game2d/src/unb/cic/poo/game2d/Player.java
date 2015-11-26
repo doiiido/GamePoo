@@ -66,8 +66,24 @@ public class Player extends SpaceshipAnimated{
 		this.life = DEFAULT_PLAYER_LIFE;
 		
 		this.common = new CommonBulletType();
-		this.secondaryBulletType = new FlamethrowerBulletType();
+		this.secondaryBulletType = new MachineGunBulletType();
 		this.bulletType = this.common;
+		
+		pressedShootHandler = new IUpdateHandler() {
+			
+			@Override
+			public void reset() {
+				
+			}
+			
+			@Override
+			public void onUpdate(float pSecondsElapsed) {
+				shoot();
+				if(!screenBeingPressed){
+					screenBeingPressed = true;
+				}
+			}
+		};
 
 	}
 	
@@ -112,6 +128,7 @@ public class Player extends SpaceshipAnimated{
 	}
 
 	public void setSecondaryBulletType(BulletType secondaryBulletType) {
+		((GameScene)GameManager.getInstance().getGameScene()).setSwitcher(secondaryBulletType.getSwt());
 		this.secondaryBulletType = secondaryBulletType;
 	}
 
@@ -173,23 +190,7 @@ public class Player extends SpaceshipAnimated{
 			this.registerEntityModifier(movePlayer);
 		}
 		else if(pSceneTouchEvent.isActionDown()){
-			
-			pressedShootHandler = new IUpdateHandler() {
-				
-				@Override
-				public void reset() {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onUpdate(float pSecondsElapsed) {
-					shoot();
-				}
-			};
-			
 			this.registerUpdateHandler(pressedShootHandler);
-			screenBeingPressed = true;
 		} else if(pSceneTouchEvent.isActionUp()){
 			this.unregisterUpdateHandler(pressedShootHandler);
 			screenBeingPressed = false;

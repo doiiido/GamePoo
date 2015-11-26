@@ -47,12 +47,12 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
 	private Sprite backSprite;
 	private static Sprite lifebar;
 	private static Sprite lifebarmold;
-	private static TiledSprite switcher;
 	private static TiledSprite pause;
 	private static Sprite backgroundPause;
 	private SpriteMenuItem backMenu;
 	private SpriteMenuItem restartMenu;
 	private SpriteMenuItem menuMenu;
+	private TiledSprite switcher;
 	private Sprite end;
 	
 	//---------------------------------------------
@@ -304,7 +304,39 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
 		ResourceManager.mMusic.setVolume(1);
 	}
     
-    // Finalizacao do jogo
+    public TiledSprite getSwitcher() {
+		return switcher;
+	}
+
+	public void setSwitcher(ITiledTextureRegion switcherTexture) {
+		int indTemp = switcher.getCurrentTileIndex();
+		
+		this.detachChild(switcher); entitiesList.remove(switcher);
+		
+		switcher = new TiledSprite(GameActivity.CAMERA_WIDTH/3, 0f, switcherTexture,
+    			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager()) {
+			@Override
+			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+				if (pSceneTouchEvent.isActionDown()  && endGame == false) {
+					change = GameManager.getInstance().getPlayer().changeBullet();
+					if(change == 0){
+						switcher.setCurrentTileIndex(0);
+					} else {
+						switcher.setCurrentTileIndex(1);
+					}
+				}
+				return true;
+			}
+		};
+		switcher.setCurrentTileIndex(indTemp);
+		switcher.setWidth(varHeight*lifebarHeight); switcher.setHeight(varHeight*lifebarHeight);
+		switcher.setPosition((camera.getWidth()- switcher.getWidth()) - posX - (varHeight*lifebarHeight + deltaX), 
+    			(camera.getHeight() - switcher.getHeight()) - posY);
+		
+		this.attachChild(switcher); entitiesList.add(switcher);
+	}
+
+	// Finalizacao do jogo
     public void gameOver(boolean winner) {
     	this.setIgnoreUpdate(true);
     	disposeHUD();

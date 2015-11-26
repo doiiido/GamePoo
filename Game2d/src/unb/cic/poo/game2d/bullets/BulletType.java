@@ -7,6 +7,7 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 public abstract class BulletType {
 	protected float cooldown = 0.1f;
 	protected boolean onCooldown = false;
+	protected ITiledTextureRegion swt;
 	
 	public abstract void setBullet(float pX, float pY, boolean isEnemy);
 	
@@ -20,5 +21,9 @@ public abstract class BulletType {
 	
 	public void setOnCooldown(boolean onCooldown) {
 		this.onCooldown = onCooldown;
+	}
+
+	public ITiledTextureRegion getSwt() {
+		return swt;
 	}
 }
