@@ -51,7 +51,7 @@ public class Player extends SpaceshipAnimated{
 	private BulletType secondaryBulletType;
 	private int bullet = 0;
 	private IUpdateHandler cooldownManager;
-	private boolean screenBeingPressed;
+	private boolean screenBeingPressed = false;
 	private IUpdateHandler pressedShootHandler;
 	private int numberOfTouchs;
 	
@@ -193,7 +193,8 @@ public class Player extends SpaceshipAnimated{
 		}
 		else if(pSceneTouchEvent.isActionDown()){
 			this.registerUpdateHandler(pressedShootHandler);
-		} else if(pSceneTouchEvent.isActionUp()){
+		} 
+		else if(pSceneTouchEvent.isActionUp() || pSceneTouchEvent.isActionCancel() || pSceneTouchEvent.isActionOutside()){
 			this.unregisterUpdateHandler(pressedShootHandler);
 			screenBeingPressed = false;
 		}

@@ -82,6 +82,12 @@ public class ResourceManager {
 	/*Itens de drop*/	
 	BitmapTextureAtlas laserDropTexture;
 	public ITextureRegion laserDropTextureRegion;
+	BitmapTextureAtlas flameDropTexture;
+	public ITextureRegion flameDropTextureRegion;
+	BitmapTextureAtlas doubleDropTexture;
+	public ITextureRegion doubleDropTextureRegion;
+	BitmapTextureAtlas heavyDropTexture;
+	public ITextureRegion heavyDropTextureRegion;
 	
 	/*Explosion*/
 	BitmapTextureAtlas explosionTexture;
@@ -121,10 +127,19 @@ public class ResourceManager {
 	public static ITextureRegion lifeTextureRegion;
 	BitmapTextureAtlas lifemoldTexture;
 	public static ITextureRegion lifemoldTextureRegion;
-	BitmapTextureAtlas switchTexture;
-	public static ITiledTextureRegion switchTextureRegion;
 	BitmapTextureAtlas pauseTexture;
 	public static ITiledTextureRegion pauseTextureRegion;
+	
+	BitmapTextureAtlas switchTexture;
+	public static ITiledTextureRegion switchTextureRegion;
+	BitmapTextureAtlas switchDoubleTexture;
+	public static ITiledTextureRegion switchDoubleTextureRegion;
+	BitmapTextureAtlas switchFlameTexture;
+	public static ITiledTextureRegion switchFlameTextureRegion;
+	BitmapTextureAtlas switchHeavyTexture;
+	public static ITiledTextureRegion switchHeavyTextureRegion;
+	BitmapTextureAtlas switchLaserTexture;
+	public static ITiledTextureRegion switchLaserTextureRegion;
 	
 	/*Menu de Pausa*/
 	BuildableBitmapTextureAtlas stopTexture;
@@ -420,21 +435,63 @@ public class ResourceManager {
 				.createFromAsset(lifemoldTexture, activity,"lifebar_mold.png",0,0);
 		lifemoldTexture.load();
 			
-		switchTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512);
-		switchTextureRegion = BitmapTextureAtlasTextureRegionFactory
-				.createTiledFromAsset(switchTexture, activity,"switcher.png", 0, 0, SWITCH_COLUMN, SWITCH_ROW);
-		switchTexture.load();
-			
 		pauseTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512);
 		pauseTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(pauseTexture, activity,"play_pause.png", 0, 0, PAUSE_COLUMN, PAUSE_ROW);
 		pauseTexture.load();
 		
+		/*Drops*/
 		laserDropTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
 		laserDropTextureRegion = BitmapTextureAtlasTextureRegionFactory
 		    		.createFromAsset(laserDropTexture, activity, "laser_item.png",0,0);
 		laserDropTextureRegion.setTextureSize(90, 90);
 		laserDropTexture.load();
+		
+		flameDropTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
+		flameDropTextureRegion = BitmapTextureAtlasTextureRegionFactory
+		    		.createFromAsset(flameDropTexture, activity, "flame_item.png",0,0);
+		flameDropTextureRegion.setTextureSize(90, 90);
+		flameDropTexture.load();
+		
+		doubleDropTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
+		doubleDropTextureRegion = BitmapTextureAtlasTextureRegionFactory
+		    		.createFromAsset(doubleDropTexture, activity, "double_item.png",0,0);
+		doubleDropTextureRegion.setTextureSize(90, 90);
+		doubleDropTexture.load();
+		
+		heavyDropTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
+		heavyDropTextureRegion = BitmapTextureAtlasTextureRegionFactory
+		    		.createFromAsset(heavyDropTexture, activity, "heavy_item.png",0,0);
+		heavyDropTextureRegion.setTextureSize(90, 90);
+		heavyDropTexture.load();
+				
+		/*Switchers*/
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/icons/switch/");
+		
+		switchTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512);
+		switchTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(switchTexture, activity,"common_common.png", 0, 0, SWITCH_COLUMN, SWITCH_ROW);
+		switchTexture.load();
+		
+		switchDoubleTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512);
+		switchDoubleTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(switchDoubleTexture, activity,"common_double.png", 0, 0, SWITCH_COLUMN, SWITCH_ROW);
+		switchDoubleTexture.load();
+		
+		switchFlameTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512);
+		switchFlameTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(switchFlameTexture, activity,"common_flame.png", 0, 0, SWITCH_COLUMN, SWITCH_ROW);
+		switchFlameTexture.load();
+		
+		switchHeavyTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512);
+		switchHeavyTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(switchHeavyTexture, activity,"common_heavy.png", 0, 0, SWITCH_COLUMN, SWITCH_ROW);
+		switchHeavyTexture.load();
+		
+		switchLaserTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1024, 512);
+		switchLaserTextureRegion = BitmapTextureAtlasTextureRegionFactory
+				.createTiledFromAsset(switchLaserTexture, activity,"common_laser.png", 0, 0, SWITCH_COLUMN, SWITCH_ROW);
+		switchLaserTexture.load();
 	}
 	 
 	public synchronized void loadGamePause() {
@@ -474,9 +531,18 @@ public class ResourceManager {
 		winnerTexture.unload(); winnerTextureRegion = null;
 		lifeTexture.unload(); lifeTextureRegion = null;
 		lifemoldTexture.unload(); lifemoldTextureRegion = null;
-		switchTexture.unload(); switchTextureRegion = null;
 		pauseTexture.unload(); pauseTextureRegion = null;
+		
 		laserDropTexture.unload(); laserDropTextureRegion = null;
+		flameDropTexture.unload(); flameDropTextureRegion = null;
+		doubleDropTexture.unload(); doubleDropTextureRegion = null;
+		heavyDropTexture.unload(); heavyDropTextureRegion = null;
+		
+		switchTexture.unload(); switchTextureRegion = null;
+		switchDoubleTexture.unload(); switchDoubleTextureRegion = null;
+		switchFlameTexture.unload();  switchFlameTextureRegion = null;
+		switchHeavyTexture.unload();  switchHeavyTextureRegion = null;
+		switchLaserTexture.unload();  switchLaserTextureRegion = null;
 	}
 	 
 	public synchronized void unloadGameTextures() {
