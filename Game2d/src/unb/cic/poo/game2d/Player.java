@@ -51,7 +51,7 @@ public class Player extends SpaceshipAnimated{
 	private BulletType secondaryBulletType;
 	private int bullet = 0;
 	private IUpdateHandler cooldownManager;
-	private boolean screenBeingPressed;
+	private boolean screenBeingPressed = false;
 	private IUpdateHandler pressedShootHandler;
 	
 	// ===========================================================
@@ -66,7 +66,7 @@ public class Player extends SpaceshipAnimated{
 		this.life = DEFAULT_PLAYER_LIFE;
 		
 		this.common = new CommonBulletType();
-		this.secondaryBulletType = new FlamethrowerBulletType();
+		this.secondaryBulletType = new MachineGunBulletType();
 		this.bulletType = this.common;
 
 	}
@@ -185,12 +185,13 @@ public class Player extends SpaceshipAnimated{
 				@Override
 				public void onUpdate(float pSecondsElapsed) {
 					shoot();
+					if(!screenBeingPressed)
+						screenBeingPressed = true;
 				}
 			};
 			
 			this.registerUpdateHandler(pressedShootHandler);
-			screenBeingPressed = true;
-		} else if(pSceneTouchEvent.isActionUp()){
+		} else if(pSceneTouchEvent.isActionUp() || pSceneTouchEvent.isActionCancel() || pSceneTouchEvent.isActionOutside()){
 			this.unregisterUpdateHandler(pressedShootHandler);
 			screenBeingPressed = false;
 		} 			
