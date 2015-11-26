@@ -1,11 +1,12 @@
 package unb.cic.poo.game2d.bullets;
 
+import org.andengine.opengl.texture.region.ITiledTextureRegion;
+
 //Interface dos tipos de criadores de bala.
 
 public abstract class BulletType {
 	protected float cooldown = 0.1f;
 	protected boolean onCooldown = false;
-	
 	
 	public abstract void setBullet(float pX, float pY, boolean isEnemy);
 	

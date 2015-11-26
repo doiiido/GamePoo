@@ -52,6 +52,7 @@ public class Player extends SpaceshipAnimated{
 	private int bullet = 0;
 	private IUpdateHandler cooldownManager;
 	private boolean screenBeingPressed;
+	private IUpdateHandler pressedShootHandler;
 	
 	// ===========================================================
 	// Constructors
@@ -171,10 +172,26 @@ public class Player extends SpaceshipAnimated{
 			this.setLastMoveByModifier(movePlayer);
 			this.registerEntityModifier(movePlayer);
 		}
-		else if(pSceneTouchEvent.isActionDown() || pSceneTouchEvent.isActionMove()){
-			this.shoot();
+		else if(pSceneTouchEvent.isActionDown()){
+			
+			pressedShootHandler = new IUpdateHandler() {
+				
+				@Override
+				public void reset() {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onUpdate(float pSecondsElapsed) {
+					shoot();
+				}
+			};
+			
+			this.registerUpdateHandler(pressedShootHandler);
 			screenBeingPressed = true;
 		} else if(pSceneTouchEvent.isActionUp()){
+			this.unregisterUpdateHandler(pressedShootHandler);
 			screenBeingPressed = false;
 		} 			
 	}
