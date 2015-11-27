@@ -30,29 +30,34 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtpassword"
         android:inputType="textPassword" />
- 
+
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/password"
+        android:layout_alignBaseline="@+id/signup"
+        android:layout_alignBottom="@+id/signup"
+        android:layout_marginRight="24dp"
+        android:layout_toLeftOf="@+id/signup"
         android:text="@string/LoginBtn" />
- 
+
     <Button
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/login"
+        android:layout_alignBaseline="@+id/back"
+        android:layout_alignBottom="@+id/back"
+        android:layout_centerHorizontal="true"
         android:text="@string/SignupBtn" />
-    
+
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/signup"
+        android:layout_below="@+id/password"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@+id/signup"
         android:text="@string/BackBtn" />
  
 </RelativeLayout>

@@ -7,7 +7,6 @@ import org.andengine.engine.handler.timer.ITimerCallback;
 import org.andengine.engine.handler.timer.TimerHandler;
 import org.andengine.entity.scene.IOnSceneTouchListener;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.Entity;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -99,7 +98,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
 		GameManager.getInstance().setGameScene(this);
 		
 		// Fazer com que a GameScene seja um listener para toques na tela
-		//this.setOnSceneTouchListener pois é pra setar o listener nesta scene
+		//this.setOnSceneTouchListener pois eh pra setar o listener nesta scene
 		//argumento (this) porque eh a propria scene que tem o metodo da interface implementado (onSceneTouchEvent())
 		this.setOnSceneTouchListener(this);
 		
@@ -156,7 +155,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
     			entity.dispose();
     		}
     	}
-    	// Ver detach das balas e dos itens, incluí-los em uma lista
+    	// Ver detach das balas e dos itens, inclui-los em uma lista
     }
     
     //---------------------------------------------
@@ -199,13 +198,13 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
 
     private void createHUD() {
 		
-		/* Para determinar a posiï¿½ï¿½o, sendo N_ELEM o nï¿½mero de elementos que estï¿½o posicionados a direita deste: 
+		/* Para determinar a posicao, sendo N_ELEM o numero de elementos que estao posicionados a direita deste: 
 		SPRITE.setPosition((camera.getWidth()- SPRITE.getWidth()) - posX - N_ELEM*(varHeight*lifebarHeight + deltaX), 
     			(camera.getHeight() - SPRITE.getHeight()) - posY);
-    	- Se desejar levar o HUD ï¿½ esquerda, aumentar o valor de posX
+    	- Se desejar levar o HUD a esquerda, aumentar o valor de posX
     	- Se desejar levar o HUD para baixo, aumentar o valor de posY
-    	- Se desejar aumentar a distï¿½ncia entre os elementos do HUD, aumentar o valor de deltaX
-    	- Se desejar aumentar o tamanho dos botï¿½es do HUD, aumentar o valor de varHeight (segue como padrï¿½o o tamanho
+    	- Se desejar aumentar a distancia entre os elementos do HUD, aumentar o valor de deltaX
+    	- Se desejar aumentar o tamanho dos botoes do HUD, aumentar o valor de varHeight (segue como padrao o tamanho
     	da altura da barra de vida - 50)*/
     	
     	lifebarmold = new Sprite(GameActivity.CAMERA_WIDTH/3, 0f, ResourceManager.lifemoldTextureRegion,
