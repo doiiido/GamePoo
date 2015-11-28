@@ -6,12 +6,14 @@ Questões a serem resolvidas (principalmente da parte da interface, mas com algum
 		----- Interações com o usuário
 		----- Vídeos com o início do ataque, seguir storyline
 	- Ajustar Seletor de Fases
+		-- Cada estrela será determinada por missões específicas de cada fase
 	- Desenvolver o tutorial
 	- Terminar de implementar High-Score
 		-- Ranking dos scores
 	- Continuar o HUD, adicionando pontuação e outros power ups
 	- Salvar os dados do jogo
 	- Conferir eventos não tratados do MediaPlayer/ releases dos áudios
+	- Chamar áudios apenas não cenas que eles forem ser usados!
 	- Rever diposes ainda não tratados e os casos de crash
 	- Erro encontrado: quando segura o dedo indo do lado direito para o esquerdo, o tiro começa
 	a sair automaticamente

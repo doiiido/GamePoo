@@ -1,10 +1,7 @@
 package unb.cic.poo.game2d;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.andengine.audio.music.Music;
 import org.andengine.audio.music.MusicFactory;
@@ -12,7 +9,6 @@ import org.andengine.audio.sound.Sound;
 import org.andengine.audio.sound.SoundFactory;
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
-import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.ITexture;
@@ -33,32 +29,70 @@ import android.graphics.Color;
 
 import org.andengine.util.debug.Debug;
 
-import unb.cic.poo.game2d.fases.Fase;
-import unb.cic.poo.game2d.fases.FaseManager;
-
 
 public class ResourceManager {
+	//---------------------------------------------
+    // VARIABLES 
+    //---------------------------------------------
+	
 	private static final ResourceManager INSTANCE = new ResourceManager();
-	  
-	// Todas as imagens animadas devem ser declaradas com Tiled, especificando quantas versoes do sprite tem
-	// na textura especificada. Tambem tomar cuidado para elas estarem bem alinhadas.
+	public GameActivity activity;
+	public Engine engine;
+	public Camera camera = GameActivity.mCamera;
+	public VertexBufferObjectManager vbom;
+	
+	//---------------------------------------------
+    // FONTES 
+    //---------------------------------------------
+	
+	public Font font;
+	
+	//---------------------------------------------
+    // MUSICA E SONS
+    //---------------------------------------------
+	
+	public static Sound mSound;
+	public static Music mIntro;
+	public static Music Mmenu;
+	public static Sound mBullet;
+	public static Sound mXplosion;
+	public static Music mMusic;
+	
+	/* - Todas as imagens animadas devem ser declaradas com Tiled, especificando quantas versoes do sprite tem
+	 	 na textura especificada. Tambem tomar cuidado para elas estarem bem alinhadas.
+	   - Ao carregar imagens, colocar potencias de 2 maiores do que a resolucao da mesma.
+	   - Evitar colocar imagens maiores que 1024. */
+	
+	//---------------------------------------------
+    // INTRO
+    //---------------------------------------------
+	
 	public ITextureRegion introTextureRegion;
 	BitmapTextureAtlas introTexture;
 	
-	/*Menu Principal*/
+	//---------------------------------------------
+    // MENU PRINCIPAL
+    //---------------------------------------------
+	
 	public ITextureRegion menuBackgroundTextureRegion;
 	public ITextureRegion playTextureRegion;
 	public ITextureRegion optionsTextureRegion;
 	public ITextureRegion selectTextureRegion;
 	BuildableBitmapTextureAtlas menuTexture;
 	
-	/*Menu Configurações*/
+	//---------------------------------------------
+    // CONFIGURACOES
+    //---------------------------------------------
+	
 	BuildableBitmapTextureAtlas settingsTexture;
 	public TextureRegion settingsBackgroundTextureRegion;
 	public TextureRegion backMenuTextureRegion;
 	public TextureRegion scoreMenuTextureRegion;
 	
-	/*Menu de Seleção de fases*/
+	//---------------------------------------------
+    // SELETOR DE FASES
+    //---------------------------------------------
+	
 	BuildableBitmapTextureAtlas selectorTexture;
 	public TextureRegion selectorBackgroundTextureRegion;
 	public TextureRegion returnTextureRegion;
@@ -67,11 +101,17 @@ public class ResourceManager {
 	BitmapTextureAtlas starTexture;
 	public ITiledTextureRegion starTextureRegion;
 	
-	/*Player*/
+	//---------------------------------------------
+    // PLAYER 
+    //---------------------------------------------
+	
 	BitmapTextureAtlas playerTexture;
 	public static ITiledTextureRegion playerTextureRegion;
 	
-	/*Enemys*/
+	//---------------------------------------------
+    // ENEMIES 
+    //---------------------------------------------
+	
 	BitmapTextureAtlas walkerTexture;
 	public static ITiledTextureRegion walkerTextureRegion;
 	BitmapTextureAtlas shooterTexture;
@@ -79,7 +119,10 @@ public class ResourceManager {
 	BitmapTextureAtlas laserTexture;
 	public static ITiledTextureRegion laserTextureRegion;
 	
-	/*Itens de drop*/	
+	//---------------------------------------------
+    // ITENS (DROP)
+    //---------------------------------------------
+	
 	BitmapTextureAtlas laserDropTexture;
 	public ITextureRegion laserDropTextureRegion;
 	BitmapTextureAtlas flameDropTexture;
@@ -89,11 +132,17 @@ public class ResourceManager {
 	BitmapTextureAtlas heavyDropTexture;
 	public ITextureRegion heavyDropTextureRegion;
 	
-	/*Explosion*/
+	//---------------------------------------------
+    // EXPLOSAO
+    //---------------------------------------------
+
 	BitmapTextureAtlas explosionTexture;
 	public static ITiledTextureRegion explosionTextureRegion;
 	
-	/*Bullets*/
+	//---------------------------------------------
+    // BULLETS 
+    //---------------------------------------------
+	
 	BitmapTextureAtlas bulletTexture;
 	public static ITiledTextureRegion bulletTextureRegion;
 	BitmapTextureAtlas enemybulletTexture;
@@ -105,31 +154,32 @@ public class ResourceManager {
 	BitmapTextureAtlas flameTexture;
 	public static ITiledTextureRegion flameTextureRegion;
 	
+	//---------------------------------------------
+    // BACKGROUNDS 
+    //---------------------------------------------
 	
-	/*Musica e sons*/
-	public static Sound mSound;
-	public static Music mIntro;
-	public static Music Mmenu;
-	public static Sound mBullet;
-	public static Sound mXplosion;
-	public static Music mMusic;
-	
-	/*Backgrounds*/
 	BitmapTextureAtlas backgroundTexture;
 	public static ITextureRegion backgroundTextureRegion;
 	
-	/*Icons*/
+	//---------------------------------------------
+    // ICONES - GERAIS
+    //---------------------------------------------
+	
 	BitmapTextureAtlas gameoverTexture;
 	public ITextureRegion gameoverTextureRegion;
 	BitmapTextureAtlas winnerTexture;
 	public ITextureRegion winnerTextureRegion;
+	
+	//---------------------------------------------
+    // ICONES - HUD JOGO 
+    //---------------------------------------------
+	
 	BitmapTextureAtlas lifeTexture;
 	public static ITextureRegion lifeTextureRegion;
 	BitmapTextureAtlas lifemoldTexture;
 	public static ITextureRegion lifemoldTextureRegion;
 	BitmapTextureAtlas pauseTexture;
 	public static ITiledTextureRegion pauseTextureRegion;
-	
 	BitmapTextureAtlas switchTexture;
 	public static ITiledTextureRegion switchTextureRegion;
 	BitmapTextureAtlas switchDoubleTexture;
@@ -141,38 +191,35 @@ public class ResourceManager {
 	BitmapTextureAtlas switchLaserTexture;
 	public static ITiledTextureRegion switchLaserTextureRegion;
 	
-	/*Menu de Pausa*/
+	//---------------------------------------------
+    // MENU PAUSA 
+    //---------------------------------------------
+	
 	BuildableBitmapTextureAtlas stopTexture;
 	public TextureRegion stopBackgroundTextureRegion;
 	public TextureRegion backTextureRegion;
 	public ITextureRegion restartTextureRegion;
 	public ITextureRegion menuTextureRegion;
-	
-	/*Loading*/
-	BitmapTextureAtlas loadTexture;
-	public TextureRegion loadTextureRegion;
-	
-	/*Fonte*/
-	public Font font;
-	
-	/*common objects*/
-	public GameActivity activity;
-	public Engine engine;
-	public Camera camera = GameActivity.mCamera;
-	public VertexBufferObjectManager vbom;
 	  
-	/*Dimensoes das sprites animadas*/
+	//---------------------------------------------
+    // CONSTANTS - DIMENSOES SPRITES ANIMADAS 
+    //---------------------------------------------
+	
 	private static final int WALKER_COLUMN = 6, WALKER_ROW = 1;
 	private static final int SHOOTER_COLUMN = 9, SHOOTER_ROW = 1;
 	private static final int LASER_COLUMN = 5, LASER_ROW = 1;
 	private static final int PLAYER_COLUMN = 8, PLAYER_ROW = 1;
 	private static final int SWITCH_COLUMN = 2, SWITCH_ROW = 1;
 	private static final int PAUSE_COLUMN = 2, PAUSE_ROW = 1;
-	private static final  int BULLET_COLUMN = 2, BULLET_ROW = 1;
+	private static final int BULLET_COLUMN = 2, BULLET_ROW = 1;
 	private static final int ENEMY_BULLET_COLUMN = 2, ENEMY_BULLET_ROW = 1;
 	private static final int LASER_BULLET_COLUMN = 1, LASER_BULLET_ROW = 4;
 	private static final int EXPLOSION_COLUMN = 4, EXPLOSION_ROW = 4;
 	private static final int FLAME_COLUMN = 15, FLAME_ROW = 2;
+	
+	//---------------------------------------------
+    // CLASS LOGIC
+    //---------------------------------------------
 	  
 	public static ResourceManager getInstance() {
 		return INSTANCE;
@@ -182,6 +229,10 @@ public class ResourceManager {
 		this.activity = activity;
 		this.engine = activity.getEngine();
 	}
+	
+	//---------------------------------------------
+    // METHODS - FONTS
+    //---------------------------------------------
 	
 	public synchronized void loadFonts(){
 	  	FontFactory.setAssetBasePath("font/");
@@ -195,6 +246,49 @@ public class ResourceManager {
 	  	font.unload();
 	}
 	
+	//---------------------------------------------
+    // METHODS - SOUNDS/MUSIC
+    //---------------------------------------------
+	  
+	public void loadGameResource(Engine mEngine,Context mContext){
+	  
+		SoundFactory.setAssetBasePath("sfx/");
+		try{
+			mBullet = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(),mContext,"battleplane_lazer.ogg");
+		}catch(final IOException e){}
+	  
+		MusicFactory.setAssetBasePath("sfx/");
+		try{
+			mMusic = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext,"M-jogo.mp3");
+			mMusic.setLooping(true);
+		}catch(final IOException e){}
+	  
+		try{
+			Mmenu = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext, "M-menu.mp3");
+		}catch(final IOException e){}
+	  
+		try{
+			mIntro = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext, "oneup.wav");
+		}catch(final IOException e){}
+	  
+		try{
+			mXplosion = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(),mContext,"Explosion1.ogg");
+		}catch(final IOException e){}
+	}
+	
+	public void unloadGameResources(){ 
+		mSound.release();
+		mSound = null;
+		  
+		mMusic.stop();
+		mMusic.release();
+		mMusic = null;
+	}
+	
+	//---------------------------------------------
+    // METHODS - INTRO
+    //---------------------------------------------
+	
 	public synchronized void loadIntro() {
 	  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
 	  	introTexture = new BitmapTextureAtlas(activity.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
@@ -207,36 +301,11 @@ public class ResourceManager {
 	  	introTexture.unload();
 	  	introTextureRegion = null;
 	}
-	  
-	public void loadGameResource(Engine mEngine,Context mContext){
-	  
-	  SoundFactory.setAssetBasePath("sfx/");
-	  try{
-		  mBullet = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(),mContext,"battleplane_lazer.ogg");
-	  }catch(final IOException e){}
-	  
-	  MusicFactory.setAssetBasePath("sfx/");
-	  try{
-		  mMusic = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext,"M-jogo.mp3");
-		  mMusic.setLooping(true);
-	  }catch(final IOException e){}
-	  
-	  try{
-		  Mmenu = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext, "M-menu.mp3");
-	  }catch(final IOException e){
-		  
-	  }
-	  
-	  try{
-		  mIntro = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext, "oneup.wav");
-	  }catch(final IOException e){}
-	  
-	  try{
-		  mXplosion = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(),mContext,"Explosion1.ogg");
 	
-	  }catch(final IOException e){}
-	}
-	  
+	//---------------------------------------------
+    // METHODS - MENU 
+    //---------------------------------------------
+	
 	public synchronized void loadMenu() {
 	  	BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
 	  	menuTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
@@ -252,17 +321,8 @@ public class ResourceManager {
 	 	catch (final TextureAtlasBuilderException e) {
 	 	        Debug.e(e);
 	 	}
-	 }
-	 
-	public void unloadGameResources(){ 
-		mSound.release();
-		mSound = null;
-		  
-		mMusic.stop();
-		mMusic.release();
-		mMusic = null;
 	}
-	  
+	
 	public synchronized void unloadMenu() {
 		menuTexture.unload();
 		menuBackgroundTextureRegion = null;
@@ -271,7 +331,10 @@ public class ResourceManager {
 		selectTextureRegion = null;
 	}
 	
-	//Configurações
+	//---------------------------------------------
+    // METHODS - SETTINGS
+    //---------------------------------------------
+	
 	public synchronized void loadSettings() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/menu/");
 		settingsTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 2048, 1024, TextureOptions.BILINEAR);
@@ -295,7 +358,10 @@ public class ResourceManager {
 		scoreMenuTextureRegion = null;
 	 }
 	
-	//Seletor de Fases
+	//---------------------------------------------
+    // METHODS - SELECTOR  
+    //---------------------------------------------
+	
 	public synchronized void loadSelector() {
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/backgrounds/");
 		selectorTexture = new BuildableBitmapTextureAtlas(activity.getTextureManager(), 3000, 1024, TextureOptions.BILINEAR);
@@ -316,7 +382,6 @@ public class ResourceManager {
 				.createTiledFromAsset(starTexture, activity,"stars.png", 0, 0, STAR_COLUMN, STAR_ROW);
 		starTexture.load();
 						
-		
 		try {
 		    this.selectorTexture.build(new BlackPawnTextureAtlasBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(0, 0, 0));
 		 	this.selectorTexture.load();
@@ -331,23 +396,17 @@ public class ResourceManager {
 		selectorBackgroundTextureRegion = null;
 		returnTextureRegion = null;
 		planet.clear();
-		//planet = null;
 		starTexture.unload();
 		starTextureRegion = null;
-		
 	 }
+	
+	//---------------------------------------------
+    // METHODS - GAME
+    //---------------------------------------------
 	  
-	 // Classe para carregar as texturas da pasta asset
 	public synchronized void loadGameTextures(){
-		// Set our game assets folder in "assets/gfx/game/"
-		 
-		/* Ao declarar novas sprites, acoplar juntamente aos antigos aqui, devido ao caminho da pasta assets*/
 		/* PASTA JOGADOR*/
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/player/");
-		 	
-		// Ao carregar imagens, colocar potencias de 2 maiores do que a resolucao da mesma
-		// Evitar colocar imagens maiores que 1024
-		 		 	
 		 	
 		playerTexture = new BitmapTextureAtlas(engine.getTextureManager(), 1536, 124, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 		playerTextureRegion = BitmapTextureAtlasTextureRegionFactory
@@ -376,7 +435,6 @@ public class ResourceManager {
 		explosionTextureRegion = BitmapTextureAtlasTextureRegionFactory
 				.createTiledFromAsset(explosionTexture, activity,"explosion.png", 0, 0, EXPLOSION_COLUMN, EXPLOSION_ROW);
 		explosionTexture.load();
-			
 			
 		/* PASTA BALAS*/
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/bullets/");

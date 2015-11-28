@@ -18,9 +18,7 @@ import com.parse.ParseAnalytics;
 import com.facebook.FacebookSdk;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import unb.cic.poo.game2d.scenes.SceneManager;
-import unb.cic.poo.game2d.scenes.SelectorScene;
 
 
 public class GameActivity extends BaseGameActivity {

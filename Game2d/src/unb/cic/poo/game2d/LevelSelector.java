@@ -1,20 +1,16 @@
 package unb.cic.poo.game2d;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
-import org.andengine.engine.options.EngineOptions;
 import org.andengine.entity.Entity;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.Sprite;
-import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
-import org.andengine.opengl.font.Font;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
-import org.andengine.opengl.texture.region.TextureRegion;
 
 import unb.cic.poo.game2d.scenes.SceneManager;
-import android.service.wallpaper.WallpaperService.Engine;
 
 public class LevelSelector extends Entity{
 	/* Level selector layer properties */
@@ -27,15 +23,10 @@ public class LevelSelector extends Entity{
 
     private final Scene mScene;
     private final org.andengine.engine.Engine mEngine;
-    
-    /*
-     * The mChapter variable can allow each LevelSelector object to contain
-     * level tiles which begin levels in different chapters.
-     */
-    private final int mChapter;
 
-    /* Variable containing the current max level unlocked */
+    /* Variable containing the current max level and each level stars unlocked */
     private final int mMaxLevel;
+    private final ArrayList<Integer> mNumStars;
 
     /* Camera width and height are needed for the layout */
     private final int mCameraWidth;
@@ -67,14 +58,13 @@ public class LevelSelector extends Entity{
      * @param pEngine
      *            AndEngine's mEngine object.
      */
-    public LevelSelector(final int pMaxLevel, final int pChapter,
+    public LevelSelector(final int pMaxLevel, final ArrayList<Integer> pNumStars,
             final int pCameraWidth, final int pCameraHeight,
             final Scene pScene, final org.andengine.engine.Engine pEngine) {
-        /* Initialize member variables */
         this.mScene = pScene;
         this.mEngine = pEngine;
-        this.mChapter = pChapter;
         this.mMaxLevel = pMaxLevel;
+        this.mNumStars = pNumStars;
         this.mCameraWidth = pCameraWidth;
         this.mCameraHeight = pCameraHeight;
 
@@ -201,7 +191,7 @@ public class LevelSelector extends Entity{
         private final boolean mIsLocked;
         private final int mLevelNumber;
         private final ITiledTextureRegion mStar;
-        private final ITiledTextureRegion mTileStar;
+        private Sprite StarSprite;
 
         /*
          * Each level tile will be sized according to the constant
@@ -213,12 +203,13 @@ public class LevelSelector extends Entity{
             super(pX, pY, LevelSelector.this.TILE_DIMENSION,
                     LevelSelector.this.TILE_DIMENSION, pTextureRegion,
                     LevelSelector.this.mEngine.getVertexBufferObjectManager());
+        	//super(pX, pY, pTextureRegion, LevelSelector.this.mEngine.getVertexBufferObjectManager());
 
             /* Initialize the necessary variables for the LevelTile */
             this.mStar = pStar;
             this.mIsLocked = pIsLocked;
             this.mLevelNumber = pLevelNumber;
-            this.mTileStar = pStar;
+            this.attachStar();
             
         }
 
@@ -240,68 +231,38 @@ public class LevelSelector extends Entity{
          */
         public void attachStar() {
 
-            //String tileTextString = null;
-
-            /* If the tile's text is currently null... */
-            if (this.mTileStar == null) {
-
-                /*
-                 * Determine the tile's string based on whether it's locked or
-                 * not
-                 */
-                if (this.mIsLocked) {
-                    //tileTextString = "Locked";
-                    mStar.setCurrentTileIndex(0);
-                    
-                } else {
-                    //tileTextString = String.valueOf(this.mLevelNumber);
-                	mStar.setCurrentTileIndex(4);
-                	
-                }
-
-                /* Setup the text position to be placed in the center of the tile */
-                final float starPositionX = LevelSelector.this.TILE_DIMENSION * 0.5f;
-                final float starPositionY = starPositionX;
-
-                /* Create the tile's text in the center of the tile */
-                this.mTileStar.setTexturePosition(starPositionX, starPositionY);
-//                this.mTileStar = new Text( starPositionX,
-//                        starPositionY, this.mStar,
-//                        tileTextString, tileTextString.length(),
-//                        LevelSelector.this.mEngine
-//                                .getVertexBufferObjectManager());
-
-                /* Attach the Text to the LevelTile */
-                //this.attachChild(mStar);
+            /* Determine the tile's string based on whether it's locked or not*/
+            if (this.mIsLocked) {
+                mStar.setCurrentTileIndex(0);
+                
+            } else {
+            	mStar.setCurrentTileIndex(mNumStars.get(mLevelNumber-1));
+            	
             }
+
+            /* Setup the text position to be placed in the center-bottom of the tile */
+            final float starPositionX = LevelSelector.this.TILE_DIMENSION/6;
+            final float starPositionY = LevelSelector.this.TILE_DIMENSION - 15;
+          
+            /* Attach the mStar to the LevelTile */
+            StarSprite = new Sprite(0, 0, mStar, LevelSelector.this.mEngine.getVertexBufferObjectManager());
+            this.attachChild(StarSprite);
+            StarSprite.setPosition(starPositionX, starPositionY);
         }
 
         @Override
         public boolean onAreaTouched(TouchEvent pSceneTouchEvent,
                 float pTouchAreaLocalX, float pTouchAreaLocalY) {
 
-            /* If the LevelSelector is not hidden, proceed to execute the touch
-             * event */
+            /* If the LevelSelector is not hidden, proceed to execute the touch event */
             if (!LevelSelector.this.mHidden) {
 
                 /* If a level tile is initially pressed down on */
                 if (pSceneTouchEvent.isActionDown()) {
                     /* If this level tile is locked... */
-                    if (this.mIsLocked) {
-                        /* Tile Locked event... */
-//                        LevelSelector.this.mScene.getBackground().setColor(
-//                                org.andengine.util.color.Color.RED);
-                    } else {
-                        /* Tile unlocked event... This event would likely prompt
-                         * level loading but without getting too complicated we
-                         * will simply set the Scene's background color to green */
-//                        LevelSelector.this.mScene.getBackground().setColor(
-//                                org.andengine.util.color.Color.GREEN);
-
-                        /**Example level loading:*/
-                    	
+                    if (!this.mIsLocked) {
                         LevelSelector.this.hide();
-                        //SceneManager.loadLevel(this.mLevelNumber);
+                        //!!!!!!!!!!! Depois colocar para carregar cada fase específica 
                         SceneManager.getInstance().loadGameSceneFromSelector();
                     }
                     return true;
