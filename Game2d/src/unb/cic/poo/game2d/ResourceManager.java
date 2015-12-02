@@ -265,6 +265,7 @@ public class ResourceManager {
 	  
 		try{
 			Mmenu = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext, "M-menu.mp3");
+			Mmenu.setLooping(true);
 		}catch(final IOException e){}
 	  
 		try{

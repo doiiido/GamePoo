@@ -69,6 +69,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 	public void onEnemyKilled(){
 		createExplosion(this.getX(), this.getY(), this.getParent());
 		ResourceManager.mXplosion.play();
+		ResourceManager.mXplosion.setVolume((float) 0.5);
 	}
 	
 	private static void createExplosion(final float posX, final float posY,

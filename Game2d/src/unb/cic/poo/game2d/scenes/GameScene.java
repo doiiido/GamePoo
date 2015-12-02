@@ -299,6 +299,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
     	GameManager.getInstance().setFaseManager(faseManager);
     	faseManager.start();
     	
+    	/*criando a cena do jogo a musica inicia com o volume maximo*/
    	 	ResourceManager.mMusic.play();
 		ResourceManager.mMusic.setVolume(1);
 	}
@@ -343,12 +344,17 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
     	
     	if(!winner){
     		end = new Sprite(0, 0, resourceManager.gameoverTextureRegion, vbom);
+    		resourceManager.mMusic.pause();
+    		resourceManager.mMusic.seekTo(0);
     	}
     	else {
     		end = new Sprite(0, 0, resourceManager.winnerTextureRegion, vbom);
+    		resourceManager.mMusic.pause();
+    		resourceManager.mMusic.seekTo(0);
     	}
     	end.setPosition((camera.getWidth() - end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
     	this.attachChild(end); entitiesList.add(end);
+    	
     	
     	engine.registerUpdateHandler(new TimerHandler(3f, new ITimerCallback() {
             public void onTimePassed(final TimerHandler pTimerHandler) {
@@ -386,6 +392,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
     private void pausePressed(){
     	if(endGame == false){
 	    	/*O que acontece quando clica no botao de pause durante o jogo*/
+    		/*a musica pausa se o jogo nao for parado, e continua quando se aperta no botao de novo*/
 			if(stop == false){
 		    	stop = true;				
 				this.setIgnoreUpdate(true); 			
@@ -405,6 +412,9 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
 	@Override
 	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem,
 			float pMenuItemLocalX, float pMenuItemLocalY) {
+		/*se o botao de voltar ao jogo for clicado, a musica volta,
+		 * se o botao de reiniciar for cllicado,a musica volta para o 00:00
+		 * se o botao de voltar ao menu for clicado,a musica pausa e votla para 00:00*/
 		switch(pMenuItem.getID()) {
 	        case PAUSE_BACK:
 	        	stop = false;
@@ -418,7 +428,8 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
 	            return true;
 	        case PAUSE_MENU:
 	        	sceneManager.loadMenuScene();
-	        	ResourceManager.mMusic.seekTo(0);
+	        	resourceManager.mMusic.pause();
+	    		resourceManager.mMusic.seekTo(0);
 	            return true;
 	        default:
 	            return false;
