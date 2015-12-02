@@ -18,7 +18,7 @@ public class LevelSelector extends Entity{
     private final int ROWS = 2;
 
     /* Level selector tile properties */
-    private final int TILE_DIMENSION = 150;
+    private final int TILE_DIMENSION = 160;
     private final int TILE_PADDING = 60;
 
     private final Scene mScene;
@@ -35,6 +35,8 @@ public class LevelSelector extends Entity{
     /* Initial x/y coordinates used for tile positioning */
     private final float mInitialX;
     private final float mInitialY;
+    private final float deltaX = 80;
+    private final float deltaY = 380;
 
     /*
      * Variable which defines whether the LevelSelector is hidden or visible
@@ -74,11 +76,11 @@ public class LevelSelector extends Entity{
          * center of the Scene
          */
         final float halfLevelSelectorWidth = ((TILE_DIMENSION * COLUMNS) + TILE_PADDING    * (COLUMNS - 1)) * 0.5f; 
-        this.mInitialX = (this.mCameraWidth * 0.5f) - halfLevelSelectorWidth -80;
+        this.mInitialX = (this.mCameraWidth * 0.5f) - halfLevelSelectorWidth - deltaX;
         
         /* Same math as above applies to the Y coordinate */ 
         final float halfLevelSelectorHeight = ((TILE_DIMENSION * ROWS) + TILE_PADDING    * (ROWS - 1)) * 0.5f; 
-        this.mInitialY = (this.mCameraHeight * 0.5f) + halfLevelSelectorHeight - 300;
+        this.mInitialY = (this.mCameraHeight * 0.5f) + halfLevelSelectorHeight - deltaY;
 
     }
 
@@ -200,7 +202,7 @@ public class LevelSelector extends Entity{
         public LevelTile(float pX, float pY, boolean pIsLocked,
                 int pLevelNumber, ITextureRegion pTextureRegion, ITiledTextureRegion pStar) {
         	
-            super(pX, pY, LevelSelector.this.TILE_DIMENSION,
+            super(pX, pY, LevelSelector.this.TILE_DIMENSION+8,
                     LevelSelector.this.TILE_DIMENSION, pTextureRegion,
                     LevelSelector.this.mEngine.getVertexBufferObjectManager());
         	//super(pX, pY, pTextureRegion, LevelSelector.this.mEngine.getVertexBufferObjectManager());
@@ -241,13 +243,13 @@ public class LevelSelector extends Entity{
             }
 
             /* Setup the text position to be placed in the center-bottom of the tile */
-            final float starPositionX = LevelSelector.this.TILE_DIMENSION/6;
+            final float starPositionX = LevelSelector.this.TILE_DIMENSION/6+5;
             final float starPositionY = LevelSelector.this.TILE_DIMENSION - 15;
           
             /* Attach the mStar to the LevelTile */
             StarSprite = new Sprite(0, 0, mStar, LevelSelector.this.mEngine.getVertexBufferObjectManager());
             this.attachChild(StarSprite);
-            StarSprite.setPosition(starPositionX, starPositionY);
+            StarSprite.setPosition(starPositionX, starPositionY+15);
         }
 
         @Override
