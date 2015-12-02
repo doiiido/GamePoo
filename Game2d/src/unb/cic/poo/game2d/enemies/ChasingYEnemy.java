@@ -2,17 +2,11 @@ package unb.cic.poo.game2d.enemies;
 
 import org.andengine.engine.handler.IUpdateHandler;
 import org.andengine.entity.IEntity;
-import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.MoveByModifier;
 import org.andengine.entity.modifier.ParallelEntityModifier;
-import org.andengine.entity.modifier.SequenceEntityModifier;
-import org.andengine.entity.scene.IOnSceneTouchListener;
-import org.andengine.entity.scene.Scene;
 import org.andengine.input.touch.TouchEvent;
-import org.andengine.util.modifier.BaseModifier;
 import org.andengine.util.modifier.IModifier;
 
-import android.util.Log;
 import unb.cic.poo.game2d.bullets.BulletType;
 import unb.cic.poo.game2d.bullets.CommonBulletType;
 import unb.cic.poo.game2d.*;
@@ -24,7 +18,7 @@ import unb.cic.poo.game2d.*;
 // Constructors
 // ===========================================================
 public class ChasingYEnemy extends Enemy{
-	private static final int COMMON_ENEMY_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
+	//private static final int COMMON_ENEMY_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
 	//private static final int COMMON_ENEMY_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
 	
 	private static final int DEFAULT_COMMON_VENEMY_SPEED = 500;/* Velocidade vertical alterada. */
@@ -34,28 +28,29 @@ public class ChasingYEnemy extends Enemy{
 	private float timer;
 	private float xFinal;
 	private float xInicial;
-	private float yInicial;
+	private float mSpeed;
 	private IUpdateHandler shootHandler;
 	private MoveByModifier moveX;
 	private MoveByModifier lastMoveByModifier;
 	private ParallelEntityModifier parallelEntityModifier;
 	
 	/**
-	 * @param pX posicao inicial
-	 * @param pY posicao inicial
+	 * @param pX posicao x inicial
+	 * @param pY posicao y inicial
 	 * @param posXfinal posicao final 
+	 * @param speedY velocidade na direção y para seguir o player
 	 * 
 	 * @ O inimigo usa um MoveByModifier para caminhar para a posicao final -(pX-pXFinal)
 	 * 
 	 */
-	public ChasingYEnemy(float pX, float pY, float pXFinal) {
+	public ChasingYEnemy(float pX, float pY, float pXFinal, float speedY) {
 		super(pX, pY, ResourceManager.shooterTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
 		this.xInicial = pX;
-		this.yInicial = pY;
-		this.xFinal = pXFinal;		
+		this.xFinal = pXFinal;	
+		this.mSpeed = speedY;
 		
 		this.setMovement();
 		this.shootHandler = new IUpdateHandler(){
@@ -135,7 +130,7 @@ public class ChasingYEnemy extends Enemy{
 				duration = 0.0001f;
 			}
 			else{
-				duration = (absDistance)/this.speed;
+				duration = (absDistance)/mSpeed;
 			}
 	
 			MoveByModifier chaseY = new MoveByModifier(duration, 0, deltaY);
