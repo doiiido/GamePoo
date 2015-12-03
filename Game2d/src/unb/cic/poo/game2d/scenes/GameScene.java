@@ -344,6 +344,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
     	
     	if(!winner){
     		end = new Sprite(0, 0, resourceManager.gameoverTextureRegion, vbom);
+    		
     		resourceManager.mMusic.pause();
     		resourceManager.mMusic.seekTo(0);
     	}
