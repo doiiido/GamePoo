@@ -59,12 +59,16 @@ public class LoginSignupActivity extends Activity {
 					public void done(ParseUser user, ParseException e) {
 						if (user != null) {
 							// Se o usuário existe e é autenticado, envia ao ScoreTableActivity.class
+							HighScore.getInstance().setUser(user);
+							HighScore.getInstance().setScore(GameActivity.getScore());
+							HighScore.getInstance().setStage(GameActivity.getStage());
 							Intent intent = new Intent(LoginSignupActivity.this, ScoreTableActivity.class);
 							startActivity(intent);
 							Toast.makeText(getApplicationContext(), "Successfully Logged in.", Toast.LENGTH_LONG).show();
 							finish();
 						} else {
 							Toast.makeText(getApplicationContext(),	"No such user exist, please signup.", Toast.LENGTH_LONG).show();
+							e.printStackTrace();
 						}
 					}
 				});

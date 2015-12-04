@@ -10,6 +10,8 @@
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	
     <application
         android:name="unb.cic.poo.game2d.parse.ParseApplication"
@@ -32,6 +34,14 @@
         </activity>
         <activity android:name="unb.cic.poo.game2d.parse.ScoreTableActivity" >
         </activity>
+        <service android:name="com.parse.PushService" />
+ 		<receiver android:name="com.parse.ParsePushBroadcastReceiver" android:exported="false">
+	  		<intent-filter>
+	     		<action android:name="com.parse.push.intent.RECEIVE" />
+	    		<action android:name="com.parse.push.intent.OPEN" />
+	     		<action android:name="com.parse.push.intent.DELETE" />
+	   		</intent-filter>
+ 		</receiver>
     </application>
     
 </manifest>

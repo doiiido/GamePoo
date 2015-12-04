@@ -12,8 +12,9 @@ Questões a serem resolvidas (principalmente da parte da interface, mas com algum
 		-- Ranking dos scores
 	- Continuar o HUD, adicionando pontuação e outros power ups
 	- Salvar os dados do jogo
-	- Conferir eventos não tratados do MediaPlayer/ releases dos áudios
-	- Chamar áudios apenas não cenas que eles forem ser usados!
+	- Drop do Power-Up
+	- Explosão do Player
+	- Chamar áudios apenas não cenas que eles forem ser usados
 	- Rever diposes ainda não tratados e os casos de crash
 	- Erro encontrado: quando segura o dedo indo do lado direito para o esquerdo, o tiro começa
 	a sair automaticamente
@@ -36,8 +37,8 @@ Questões a serem resolvidas (principalmente da parte da interface, mas com algum
 	- Colocar a nave no início do jogo chegando pelo canto da tela
 	- Tornar o código mais flexível, utilizar injeção de dependência
 	- Verificar se o Padrão State pode auxiliar na mudança de estado/características da nave
-	- Planejar como as fases serão chamadas, para não haver uma classe para cada e também não
-	carregar tudo no início
+	- Planejar como as fases serão chamadas dentro da GameScene para não
+carregar tudo de uma vez
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 
