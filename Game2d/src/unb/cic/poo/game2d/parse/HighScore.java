@@ -6,9 +6,8 @@ import com.parse.ParseUser;
 
 @ParseClassName("HighScore")
 public class HighScore extends ParseObject {
-	private static HighScore highScore;
+	private static HighScore highScore = null;
 	// Essas strings servem para referenciar o objeto específico
-	private String tableTitle = "Title";
 	private String tableUser = "User";
 	private String tableScore = "Score";
 	private String tablePosition = "Position";
@@ -21,14 +20,6 @@ public class HighScore extends ParseObject {
 		}
 		return highScore;
 	}
-
-	public String getTitle() {
-        return getString(tableTitle);
-    }
- 
-    public void setTitle(String title) {
-        put(tableTitle, title);
-    }
  
     public ParseUser getUser() {
         return getParseUser(tableUser);
@@ -45,7 +36,7 @@ public class HighScore extends ParseObject {
  
     public void setScore(int score) {
         put(tableScore, score);
-        highScore.saveEventually();
+        highScore.saveInBackground();
     }
     
     public void incrementScore(int increm){
@@ -68,6 +59,6 @@ public class HighScore extends ParseObject {
  
     public void setStage(int stage) {
         put(tableStage, stage);
-        highScore.saveEventually();
+        highScore.saveInBackground();
     }
 }
