@@ -151,6 +151,7 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 	        	return true;
 	        default:
 	            return false;
+	            
 		}
 	}
 	

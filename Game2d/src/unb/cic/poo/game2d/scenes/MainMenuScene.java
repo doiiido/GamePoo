@@ -8,6 +8,7 @@ import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
+import org.andengine.ui.activity.BaseGameActivity;
 
 import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
@@ -70,7 +71,9 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	}
 	
 	public void onBackKeyPressed() {
-    	System.exit(0);
+		
+		System.exit(0);
+		
     }
 
 	@Override
