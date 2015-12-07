@@ -8,7 +8,7 @@ import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import unb.cic.poo.game2d.enemies.*;
-
+import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ResourceManager;
 
@@ -47,7 +47,7 @@ public abstract class Bullet extends AnimatedSprite implements IEntityModifierLi
 			return false;
 		}
 		for(Enemy enemy : GameManager.getInstance().getEnemies()){
-			if(this.collidesWith(enemy)){
+			if(this.collidesWith(enemy) && !(enemy.getX() < 0 || enemy.getY() < 0 || enemy.getX() > GameActivity.CAMERA_WIDTH || enemy.getY() > GameActivity.CAMERA_HEIGHT)){
 				enemiesHit.add(enemy);
 			}
 		}
