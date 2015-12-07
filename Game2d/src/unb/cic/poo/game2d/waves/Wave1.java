@@ -16,5 +16,6 @@ public class Wave1 extends Wave {
 		this.enemies.add(new CommonEnemy(GameActivity.CAMERA_WIDTH+200, (float) (GameActivity.CAMERA_HEIGHT*0.8)));
 		//this.enemies.add(new FreezedShootingEnemy(GameActivity.CAMERA_WIDTH+200,(float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.9f));
 		this.enemies.add(new CommonEnemy(GameActivity.CAMERA_WIDTH+200, (float) (GameActivity.CAMERA_HEIGHT*0.2)));
+		this.enemies.add(new ConstantXLaser(GameActivity.CAMERA_WIDTH + 300, (float) (GameActivity.CAMERA_HEIGHT * 0.9), (float) GameActivity.CAMERA_WIDTH*0.9f, ConstantXLaser.goUpOrDown.goUp));
 	}
 }
