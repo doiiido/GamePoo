@@ -1,6 +1,7 @@
 package unb.cic.poo.game2d.scenes;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.options.EngineOptions;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -37,8 +38,11 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
     // VARIABLES
     //---------------------------------------------
 	
+	private boolean toggle = true;
+	
 	private final int MENU_BACK = 0;
 	private final int MENU_SCORE = 1;
+	private final int MENU_MUTE = 2;
 	
 	private static final int posY = 85;
 	private static final int posX = 380;
@@ -101,10 +105,15 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 	    final IMenuItem backMenuItem = new ScaleMenuItemDecorator(backMenu, 1.2f, 1);
 	    scoreMenu = new SpriteMenuItem(MENU_SCORE, resourceManager.scoreMenuTextureRegion, vbom);
 	    final IMenuItem scoreMenuItem = new ScaleMenuItemDecorator(scoreMenu, 1.2f, 1);
+	    //TODO textureRegion para a imagem do Mute
+	   /* muteMenu = new SpriteMenuItem(MENU_MUTE,resourceManager,vbom);
+	   * final IMenuItem muteMenuItem = new ScaleMenuItemDecorator(muteMenu,1.2f,1);
+	    */
 	    
 	    settingsChildScene.addMenuItem(backMenuItem); entitiesList.add(backMenu);
 	    settingsChildScene.addMenuItem(scoreMenuItem); entitiesList.add(scoreMenu);
-
+	    //settingsChildScene.addMenuItem(muteMenuItem);entitiesList.add(muteMenu);
+	    
 	    settingsChildScene.setBackgroundEnabled(false);   
 	    
 	    settingsChildScene.setOnMenuItemClickListener(this);
@@ -122,7 +131,6 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 	    		camera.getWidth()/2 - backMenuItem.getHeight() + posY);
 	    scoreMenuItem.setPosition((float) (camera.getWidth()/2 - posX),
 	    		camera.getWidth()/2 - backMenuItem.getHeight() + posY);
-	    
 	}
 	
 	@Override
@@ -136,6 +144,8 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 	        	SceneManager.getInstance().disposeSettingsScene();
 	        	login();
 	            return true;
+	        case MENU_MUTE:
+	        //TODO toggle para setar o  mute
 	        default:
 	            return false;
 		}

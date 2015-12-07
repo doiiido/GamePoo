@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="10dip" >
  
     <TextView
@@ -15,7 +15,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtemail"
-        android:inputType="text" />
+        android:inputType="textEmailAddress" />
     
     <TextView
         android:id="@+id/txtusername"
@@ -44,21 +44,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtpassword"
         android:inputType="textPassword" />
- 
+
     <Button
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_below="@+id/password"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_toLeftOf="@+id/back"
         android:text="@string/SignupBtn" />
 
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/signup"
-        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@+id/signup"
+        android:layout_alignBottom="@+id/signup"
+        android:layout_alignRight="@+id/password"
+        android:layout_marginRight="175dp"
         android:text="@string/BackBtn" />
  
 </RelativeLayout>

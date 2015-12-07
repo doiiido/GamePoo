@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import unb.cic.poo.game2d.GameActivity;
 
 import com.example.game2d.R;
 import com.parse.LogInCallback;
@@ -29,7 +30,6 @@ public class SignUpActivity extends Activity {
 	EditText email;
 	EditText password;
 	EditText username;
-	private Boolean sign = false;
 	
 	//---------------------------------------------
     // CLASS LOGIC
@@ -73,32 +73,13 @@ public class SignUpActivity extends Activity {
 						public void done(ParseException e) {
 							if (e == null) {
 								HighScore.getInstance().setUser(user);
-								sign = true;
+								loginTask();
 							} else {
-								Toast.makeText(getApplicationContext(), "Sign Up Error.", Toast.LENGTH_LONG).show();
+								Toast.makeText(getApplicationContext(), "Sign Up Error. E-mail or username already taken.", Toast.LENGTH_LONG).show();
+								e.printStackTrace();
 							}
 						}
 					});
-					
-					if (sign == true){
-						// Envia informação para verificação no Parse
-						ParseUser.logInInBackground(usernametxt, passwordtxt, new LogInCallback() {
-							public void done(ParseUser user, ParseException e) {
-								if (user != null) {
-									// Se o usuário existe e é autenticado, envia ao ScoreTableActivity.class
-									Intent intent = new Intent(SignUpActivity.this, ScoreTableActivity.class);
-									startActivity(intent);
-									Toast.makeText(getApplicationContext(), "Successfully Logged in.", Toast.LENGTH_LONG).show();
-									finish();
-								} else {
-									Intent intent = new Intent(SignUpActivity.this, LoginSignupActivity.class);
-									startActivity(intent);
-									Toast.makeText(getApplicationContext(),	"Log In Error. Please create a new user or try again.", Toast.LENGTH_LONG).show();
-									finish();
-								}
-							}
-						});
-					}
 				}
 
 			}
@@ -120,6 +101,30 @@ public class SignUpActivity extends Activity {
 		Intent intent = new Intent(SignUpActivity.this, LoginSignupActivity.class);
 		startActivity(intent);
 		finish();
+	}
+	
+	public void loginTask(){
+		// Envia informação para verificação no Parse
+		ParseUser.logInInBackground(usernametxt, passwordtxt, new LogInCallback() {
+			public void done(ParseUser user, ParseException e) {
+				if (user != null) {
+					// Se o usuário existe e é autenticado, envia ao ScoreTableActivity.class
+					HighScore.getInstance().setUser(user);
+					HighScore.getInstance().setScore(GameActivity.getScore());
+					HighScore.getInstance().setStage(GameActivity.getStage());
+					Intent intent = new Intent(SignUpActivity.this, ScoreTableActivity.class);
+					startActivity(intent);
+					Toast.makeText(getApplicationContext(), "Successfully Logged in.", Toast.LENGTH_LONG).show();
+					finish();
+				} else {
+					Intent intent = new Intent(SignUpActivity.this, LoginSignupActivity.class);
+					startActivity(intent);
+					Toast.makeText(getApplicationContext(),	"Log In Error. Please create a new user or try again.", Toast.LENGTH_LONG).show();
+					finish();
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 }

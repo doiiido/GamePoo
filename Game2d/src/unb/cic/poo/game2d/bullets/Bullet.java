@@ -29,6 +29,8 @@ public abstract class Bullet extends AnimatedSprite implements IEntityModifierLi
 		super(pX, pY, pTextureRegion, pVertexBufferObjectManager);
 		this.movementFinished = false;
 		ResourceManager.mBullet.play();
+		ResourceManager.mBullet.setVolume((float)0.5);
+		
 		
 		this.updateHandler = new BulletHandler(this);
 		//Verifica se atingiu inimigos a cada ciclo do game.

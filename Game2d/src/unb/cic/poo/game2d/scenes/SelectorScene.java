@@ -1,7 +1,8 @@
 package unb.cic.poo.game2d.scenes;
 
+import java.util.ArrayList;
+
 import org.andengine.engine.camera.Camera;
-import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -31,9 +32,13 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 	private SpriteMenuItem backMenu;
 	
 	//---------------------------------------------
-    // VARIABLES
+    // CONSTANTS
     //---------------------------------------------
 	
+	private int maxUnlockedLevel; 
+	private static ArrayList<Integer> numStars = new ArrayList<Integer>();
+	private final int cameraWidth = GameActivity.CAMERA_WIDTH;
+	private final int cameraHeight = GameActivity.CAMERA_HEIGHT;
 	private final int MENU_BACK = 0;
 
 	//---------------------------------------------
@@ -51,21 +56,19 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 	@Override
 	public void createScene() {
 		createBackground();
-		createSelectorChildScene();	 
+		createSelectorChildScene();
 		
-		/* Define the level selector properties */ 
-		//Scene mScene = new SelectorScene();
-		final int maxUnlockedLevel = 1; 
-		final int levelSelectorChapter = 1;
-		final int cameraWidth = GameActivity.CAMERA_WIDTH;
-		final int cameraHeight = GameActivity.CAMERA_HEIGHT;
+		// Para teste
+		setMaxUnlockedLevel(1);
+		setNumStars(0,1);
 								
-		/* Create a new level selector */ 
-		LevelSelector levelSelector = new LevelSelector(maxUnlockedLevel, levelSelectorChapter, 
+		/* Cria um novo Level Selector */ 
+		LevelSelector levelSelector = new LevelSelector(maxUnlockedLevel, numStars, 
 				cameraWidth, cameraHeight, this , GameManager.getInstance().getGameEngine());
-		/* Generate the level tiles for the levelSelector object */ 
+		entitiesList.add(levelSelector);
+		/* Gera os tiles para o objeto do LevelSelector */ 
 		levelSelector.createTiles(ResourceManager.getInstance().planet, ResourceManager.getInstance().starTextureRegion);
-				/* Display the levelSelector object on the scene */ 
+		/* Mostra o LevelSelector na cena */ 
 		levelSelector.show();
 	}
 	
@@ -83,6 +86,30 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 		selectorChildScene.detachSelf();
         selectorChildScene.dispose();
         super.disposeScene();
+	}
+	
+	//---------------------------------------------
+    // GETTERS AND SETTERS
+    //---------------------------------------------
+	
+	public int getMaxUnlockedLevel() {
+		return maxUnlockedLevel;
+	}
+	
+	public void setMaxUnlockedLevel(int maxUnlockedLevel) {
+		this.maxUnlockedLevel = maxUnlockedLevel;
+	}
+
+	public static ArrayList<Integer> getNumStars() {
+		return numStars;
+	}
+	
+	public static void setAllNumStars(ArrayList<Integer> numStars) {
+		SelectorScene.numStars = numStars;
+	}
+	
+	public static void setNumStars(int index, int numStars) {
+		SelectorScene.numStars.add(index, numStars);
 	}
 	
 	//---------------------------------------------
@@ -108,21 +135,12 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 	    final IMenuItem backMenuItem = new ScaleMenuItemDecorator(backMenu, 1.2f, 1);
     
 	    selectorChildScene.addMenuItem(backMenuItem); entitiesList.add(backMenu);
-
 	    selectorChildScene.setBackgroundEnabled(false);   
-	    
 	    selectorChildScene.setOnMenuItemClickListener(this);
-	    
 	    setChildScene(selectorChildScene);
-	       
-	    backMenuItem.setPosition(camera.getWidth()/2, camera.getHeight()/2 + 380);
+	    resourceManager.Mmenu.pause();
 	    
-//	    final int pChapter = 1;
-//	    final int pCameraWidth = camera.getSurfaceWidth();
-//	    final int pCameraHeight = camera.getSurfaceHeight();
-	    
-	    //LevelSelector select = new LevelSelector(pMaxLevel, pChapter, pCameraWidth, pCameraHeight, pScene, pEngine);
-	    
+	    backMenuItem.setPosition(camera.getWidth()/2, camera.getHeight()/2 + 380);    
 	}
 	
 	@Override
@@ -131,11 +149,12 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 		switch(pMenuItem.getID()) {
 	        case MENU_BACK:
 	        	onBackKeyPressed();
+	        	resourceManager.Mmenu.seekTo(0);
 	        	return true;
 	        default:
 	            return false;
+	            
 		}
 	}
 	
-
 }

@@ -1,14 +1,32 @@
 Questões a serem resolvidas (principalmente da parte da interface, mas com algumas coisas da engine):
 
-	- Focar na elaboração do menu (usar símbolos ao invés de palavras, para facilitar o entendimento)
-		-- Iniciar/continuar
-		-- Fases (escolha - mapa)
+	- Descobrir como adicionar animações/vídeos
+		-- Desenvolver as animações referentes à história
+		----- Mensagens de aviso (warning e fase atual)
+		----- Interações com o usuário
+		----- Vídeos com o início do ataque, seguir storyline
+	- Ajustar Seletor de Fases
+		-- Cada estrela será determinada por missões específicas de cada fase
+	- Desenvolver o tutorial
+	- Terminar de implementar High-Score
+		-- Ranking dos scores
+	- Continuar o HUD, adicionando pontuação e outros power ups
+	- Salvar os dados do jogo
+	- Drop do Power-Up
+	- Explosão do Player
+	- Chamar áudios apenas não cenas que eles forem ser usados
+	- Rever diposes ainda não tratados e os casos de crash
+	- Erro encontrado: quando segura o dedo indo do lado direito para o esquerdo, o tiro começa
+	a sair automaticamente
+	- Vibrar nos momentos de explosão
+	- Elaboração do menu
 		-- Configurações
 		----- Volume (sons e música)
-		----- High-Score
 		----- Rever animações da história
 		----- Créditos
-	- Desenvolver o tutorial
+	- Criação do Player
+		-- Tipo RPG, opções para criação do personagem e da nave
+		-- Escolher o nome da personagem e modificar o título do jogo de acordo
 	- Implementar sprites no Game Resources
 		-- Adicionar outras sprites no background Parallax
 		-- Possíveis ajustes da explosão do inimigo
@@ -16,26 +34,11 @@ Questões a serem resolvidas (principalmente da parte da interface, mas com algum
 		dividir o inimigo em pequenos blocos) X outros efeitos
 	- Criar imagens e animações em pixel-arte
 	- Aprender a fazer transições entre cenas, a exemplo de fade out
-	- Descobrir como adicionar animações/vídeos
-		-- Desenvolver as animações referentes à história
-		----- Mensagens de aviso
-		----- Interações com o usuário
-		----- Vídeos com o início do ataque, seguir storyline
 	- Colocar a nave no início do jogo chegando pelo canto da tela
-	- Continuar o HUD, adicionando pontuação e outros power ups
-	- Implementar sistema de High-Score
-		-- Adicionar conexão ao facebook
-		----- Salvar as configurações do usuário, para não ter que fazer login todas as vezes
-		----- Ranking dos scores
-	- Salvar os dados do jogo
 	- Tornar o código mais flexível, utilizar injeção de dependência
-	- Criação do Player
-		-- Tipo RPG, opções para criação do personagem e da nave
-		-- Escolher o nome da personagem e modificar o título do jogo de acordo
 	- Verificar se o Padrão State pode auxiliar na mudança de estado/características da nave
-	- Planejar como as fases serão chamadas, para não haver uma classe para cada e também não
-	carregar tudo no início
-	- Conferir eventos não tratados do MediaPlayer/ releases dos áudios
+	- Planejar como as fases serão chamadas dentro da GameScene para não
+carregar tudo de uma vez
 
 Segue abaixo as ideias discutidas entre alguns integrantes que devem ser debatidas e/ou implementadas:
 

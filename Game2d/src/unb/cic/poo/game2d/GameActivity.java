@@ -18,9 +18,7 @@ import com.parse.ParseAnalytics;
 import com.facebook.FacebookSdk;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import unb.cic.poo.game2d.scenes.SceneManager;
-import unb.cic.poo.game2d.scenes.SelectorScene;
 
 
 public class GameActivity extends BaseGameActivity {
@@ -28,8 +26,10 @@ public class GameActivity extends BaseGameActivity {
 	public static final int CAMERA_WIDTH = 1280;
     public static final int CAMERA_HEIGHT = 720;
     public static Camera mCamera;
-        
+    
     private static boolean iniciado = false;
+    private static int score = 0;
+    private static int stage = 1;
 
 	private ResourceManager mResourceManager;
     private SceneManager mSceneManager;
@@ -43,6 +43,22 @@ public class GameActivity extends BaseGameActivity {
 
 	public static void setIniciado(boolean iniciado) {
 		GameActivity.iniciado = iniciado;
+	}
+	
+	public static int getScore(){
+		return score;
+	}
+	
+	public static void setScore(int newScore){
+		score = newScore;
+	}
+	
+	public static int getStage(){
+		return stage;
+	}
+	
+	public static void setStage(int newStage){
+		stage = newStage;
 	}
 	
 	@Override
@@ -130,26 +146,6 @@ public class GameActivity extends BaseGameActivity {
 	    if (this.mEngine != null)
 	        super.onResumeGame();
 	}
-	
-	/*@Override
-    public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
-            if(pKeyCode == KeyEvent.KEYCODE_MENU && pEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                    if(!this.mEngine.isRunning()) {
-                        this.mEngine.start();
-                    	
-                        //this.mMainScene.setChildScene(this.mPauseScene, false, true, true);
-                        //this.mEngine.stop();
-                    } 
-                    return true;
-            } else {
-                    return super.onKeyDown(pKeyCode, pEvent);
-            }
-    }
-	
-	public Engine getEngine(){
-		return this.mEngine;
-=======
-    }*/
 	
 	@Override
 	public void onBackPressed() {

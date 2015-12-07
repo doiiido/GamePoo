@@ -251,7 +251,6 @@ public class SceneManager {
                     createMenuScene();
                     break;
     			case LOAD_GAME_SELECTOR:
-    				ResourceManager.getInstance().mMusic.stop();
     				disposeSelectorScene();
     				createGameScene();
     				break;

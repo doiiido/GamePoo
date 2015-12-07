@@ -2,6 +2,7 @@ package unb.cic.poo.game2d.parse;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -16,9 +17,14 @@ public class ParseApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 	    //Adiciona o Banco de Dados para o High-Score
-	  	Parse.enableLocalDatastore(this);
-	  	Parse.initialize(this, APP_ID, CLIENT_ID);
-	  	ParseObject.registerSubclass(HighScore.class);
+		Parse.enableLocalDatastore(this);
+	  	try {
+	  		Parse.initialize(this, APP_ID, CLIENT_ID);
+		  	ParseObject.registerSubclass(HighScore.class);
+	        ParseInstallation.getCurrentInstallation().saveInBackground();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	  	
 	  	ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();

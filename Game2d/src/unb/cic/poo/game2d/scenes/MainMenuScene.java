@@ -8,6 +8,7 @@ import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.util.GLState;
+import org.andengine.ui.activity.BaseGameActivity;
 
 import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
@@ -46,6 +47,11 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	
 	public MainMenuScene() {
 		createScene();		
+		
+		/*Criando a cena do menu, o som eh inciado em 0:02,tirando a parte silenciosa da musica*/
+		ResourceManager.Mmenu.seekTo(2000);
+		ResourceManager.Mmenu.play();
+	    ResourceManager.Mmenu.setVolume(1);
 	}
 	
 	//---------------------------------------------
@@ -56,6 +62,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	public void createScene() {
 		createBackground();
 		createMenuChildScene();		
+		
 	}
 	
 	@Override
@@ -64,7 +71,9 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	}
 	
 	public void onBackKeyPressed() {
-    	System.exit(0);
+		
+		System.exit(0);
+		
     }
 
 	@Override
@@ -125,8 +134,7 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 	    selectMenuItem.setPosition(camera.getWidth()/2 - selectMenuItem.getWidth()/2 + dx - Delta,
 				camera.getWidth()/2 - selectMenuItem.getHeight() + dy);
 	    
-	    ResourceManager.Mmenu.play();
-	    ResourceManager.Mmenu.setVolume(1);
+	    
 	}
 
 	@Override
@@ -135,7 +143,8 @@ public class MainMenuScene extends BaseScene implements IOnMenuItemClickListener
 		switch(pMenuItem.getID()) {
 	        case MENU_PLAY:
 	        	SceneManager.getInstance().loadGameScene();
-	        	ResourceManager.Mmenu.stop();
+	        	ResourceManager.Mmenu.pause();
+	        	ResourceManager.Mmenu.seekTo(0);
 	            return true;
 	        case MENU_OPTIONS:
 	        	SceneManager.getInstance().createSettingsScene();
