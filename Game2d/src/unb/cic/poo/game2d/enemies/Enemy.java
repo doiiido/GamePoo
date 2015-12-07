@@ -40,7 +40,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 		super(pX, pY, texture, pVertexBufferObjectManager);
 		movementFinished = false;
 		dropsItem = true;
-		ItemDropped = new MachineGunGen();
+		ItemDropped = new FlameThrowerGen();
 		this.registerUpdateHandler(new EnemyHandler(this));
 	}
 	
@@ -75,7 +75,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 			final IEntity target) {
 
 		// Podemos tentar aplicar a ideia de despixelizacao, porem nao consegui dividir o sprite em pequenos pedacos
-		int mNumPart = 1; // numero de particulas/sprites que serïao repetidos
+		int mNumPart = 1; // numero de particulas/sprites que serï¿½ao repetidos
 		float mTimePart = (float) 0.5; // tempo que as particulas permanecerao na tela
 									   // 1.6 corresponde ao tempo da animacao aplicada
 
