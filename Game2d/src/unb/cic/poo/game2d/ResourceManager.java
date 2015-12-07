@@ -52,11 +52,13 @@ public class ResourceManager {
     //---------------------------------------------
 	
 	public static Sound mSound;
-	public static Music mIntro;
-	public static Music Mmenu;
+	public static Sound mWin;
+	public static Sound mLose;
 	public static Sound mBullet;
 	public static Sound mXplosion;
 	public static Music mMusic;
+	public static Music mIntro;
+	public static Music Mmenu;
 	
 	/* - Todas as imagens animadas devem ser declaradas com Tiled, especificando quantas versoes do sprite tem
 	 	 na textura especificada. Tambem tomar cuidado para elas estarem bem alinhadas.
@@ -256,7 +258,18 @@ public class ResourceManager {
 		try{
 			mBullet = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(),mContext,"battleplane_lazer.ogg");
 		}catch(final IOException e){}
+		
+		try{
+			mWin = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(),mContext, "win.mp3");
+			
+		}catch(final IOException e){}
 	  
+		try{
+			mLose = SoundFactory.createSoundFromAsset(mEngine.getSoundManager(),mContext, "lose.mp3");
+			
+		}catch(final IOException e){}
+	  
+		
 		MusicFactory.setAssetBasePath("sfx/");
 		try{
 			mMusic = MusicFactory.createMusicFromAsset(mEngine.getMusicManager(), mContext,"M-jogo.mp3");

@@ -347,11 +347,15 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
     		
     		resourceManager.mMusic.pause();
     		resourceManager.mMusic.seekTo(0);
+    		
+    		resourceManager.mLose.play();
     	}
     	else {
     		end = new Sprite(0, 0, resourceManager.winnerTextureRegion, vbom);
     		resourceManager.mMusic.pause();
     		resourceManager.mMusic.seekTo(0);
+    	
+    		resourceManager.mWin.play();
     	}
     	end.setPosition((camera.getWidth() - end.getWidth())/2, (camera.getHeight() - end.getHeight())/2);
     	this.attachChild(end); entitiesList.add(end);

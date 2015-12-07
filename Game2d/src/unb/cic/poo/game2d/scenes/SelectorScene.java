@@ -138,7 +138,8 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 	    selectorChildScene.setBackgroundEnabled(false);   
 	    selectorChildScene.setOnMenuItemClickListener(this);
 	    setChildScene(selectorChildScene);
-	       
+	    resourceManager.Mmenu.pause();
+	    
 	    backMenuItem.setPosition(camera.getWidth()/2, camera.getHeight()/2 + 380);    
 	}
 	
@@ -148,6 +149,7 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 		switch(pMenuItem.getID()) {
 	        case MENU_BACK:
 	        	onBackKeyPressed();
+	        	resourceManager.Mmenu.seekTo(0);
 	        	return true;
 	        default:
 	            return false;
