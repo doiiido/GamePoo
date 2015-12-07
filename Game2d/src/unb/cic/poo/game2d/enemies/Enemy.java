@@ -15,6 +15,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import android.content.ClipData.Item;
 import unb.cic.poo.game2d.EnemyHandler;
+import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.SpaceshipAnimated;
 import unb.cic.poo.game2d.bullets.Bullet;
@@ -46,8 +47,10 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 	
 	public void decrementLife(int decrement){
 		super.decrementLife(decrement);
-		if(this.life <= 0){
-			this.kill();
+		if(this.getX() > 0 || this.getY() > 0 || this.getX() < (GameActivity.CAMERA_WIDTH - 10) || this.getY() < (GameActivity.CAMERA_HEIGHT )){
+			if(this.life <= 0){
+				this.kill();
+			}
 		}
 	}
 	

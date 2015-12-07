@@ -47,7 +47,7 @@ public abstract class Bullet extends AnimatedSprite implements IEntityModifierLi
 			return false;
 		}
 		for(Enemy enemy : GameManager.getInstance().getEnemies()){
-			if(this.collidesWith(enemy) && !(enemy.getX() < 0 || enemy.getY() < 0 || enemy.getX() > GameActivity.CAMERA_WIDTH || enemy.getY() > GameActivity.CAMERA_HEIGHT)){
+			if(this.collidesWith(enemy)){
 				enemiesHit.add(enemy);
 			}
 		}
