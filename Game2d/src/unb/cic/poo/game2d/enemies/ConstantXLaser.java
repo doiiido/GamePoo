@@ -35,13 +35,20 @@ public class ConstantXLaser extends Enemy{
 	};
 	
 	private goUpOrDown movimento;
+	/**
+	 * 
+	 * @param pX deve estar dentro da Tela!
+	 * @param pY Caso o inimigo se movimente para cima, ele deve ser criado abaixo da tela, numa posição
+	 * 		maior do que GameActivity.CAMERA_HEIGHT. Caso ele se movimento para baixo, a posição Y inicial
+	 * 		deve ser menor que 0.
+	 * @param movimento Define pelo enum o tipo de movimento do inimigo: goUp ou goDown.
+	 */
 	
-	public ConstantXLaser(float pX, float pY, float pXfinal, ConstantXLaser.goUpOrDown movimento) {
+	public ConstantXLaser(float pX, float pY, ConstantXLaser.goUpOrDown movimento) {
 		super(pX, pY, ResourceManager.laserTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
-		this.posXfinal = pXfinal;
 		this.posXinicial = pX;
 		this.posYinicial = pY;
 		this.movimento = movimento;
@@ -52,8 +59,9 @@ public class ConstantXLaser extends Enemy{
 			
 			/* O inimigo atira de 1 em 1 segundo. */
 			public void onUpdate(float pSecondsElapsed){
-				timer -= pSecondsElapsed;
-				if(timer <= 0 && getX() == posXfinal && (getY() == 0 || getY() == GameActivity.CAMERA_HEIGHT)){
+				timer -= pSecondsElapsed;					
+						
+				if(timer <= 0){
 					shoot();
 					timer = 0.001f;
 				}
@@ -74,7 +82,7 @@ public class ConstantXLaser extends Enemy{
 		float distance = GameManager.getInstance().getGameCamera().getWidth();
 		float durationTime = distance/this.speed;
 		
-		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -(this.posXinicial-this.posXfinal), 0);
+		MoveByModifier moveByModifier;
 		MoveByModifier down = new MoveByModifier(durationTime*3, 0, GameActivity.CAMERA_HEIGHT - COMMON_ENEMY_HEIGHT);
 		MoveByModifier up = new MoveByModifier(durationTime*3, 0, -(GameActivity.CAMERA_HEIGHT - COMMON_ENEMY_HEIGHT));
 		
@@ -82,10 +90,12 @@ public class ConstantXLaser extends Enemy{
 		SequenceEntityModifier sequenceVertical;
 		
 		if(getMovimento().equals(ConstantXLaser.goUpOrDown.goUp)){
+			moveByModifier = new MoveByModifier(durationTime, 0, -(posYinicial - GameActivity.CAMERA_HEIGHT));
 			posicionar = new MoveByModifier(durationTime, 0, GameActivity.CAMERA_HEIGHT-this.posYinicial);
 			sequenceVertical = new SequenceEntityModifier(up, down);
 		}			
 		else{
+			moveByModifier = new MoveByModifier(durationTime, 0, -(posYinicial));
 			posicionar = new MoveByModifier(durationTime, 0, -this.posYinicial);
 			sequenceVertical = new SequenceEntityModifier(down, up);
 		}		
@@ -132,5 +142,5 @@ public class ConstantXLaser extends Enemy{
 	public goUpOrDown getMovimento(){
 		return movimento;
 	}
-
+	
 }
