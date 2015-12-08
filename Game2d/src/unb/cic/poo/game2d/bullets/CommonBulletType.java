@@ -10,6 +10,7 @@ public class CommonBulletType extends BulletType{
 	public CommonBulletType() {
 		this.cooldown = COOLDOWN_TIME;
 		this.onCooldown = false;
+		this.automatic = false;
 	}
 	
 	@Override

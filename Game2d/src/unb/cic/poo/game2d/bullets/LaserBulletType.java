@@ -18,6 +18,7 @@ public class LaserBulletType extends BulletType{
 		this.onCooldown = false;
 		this.nave = nave;
 		this.swt = ResourceManager.getInstance().switchLaserTextureRegion;
+		this.automatic = false;
 	}
 	
 	public LaserBulletType(SpaceshipAnimated nave, int angleOfTheLaser, float durationTime) {

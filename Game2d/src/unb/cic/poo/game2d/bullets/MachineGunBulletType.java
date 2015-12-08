@@ -14,6 +14,7 @@ public class MachineGunBulletType extends BulletType{
 		this.cooldown = COOLDOWN_TIME;
 		this.onCooldown = false;
 		this.swt = ResourceManager.switchHeavyTextureRegion;
+		this.automatic = true;
 	}
 	@Override
 	public void setBullet(float pX, float pY, boolean isEnemy) {

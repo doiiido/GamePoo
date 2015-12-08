@@ -13,6 +13,7 @@ public class DoubleBulletType extends BulletType{
 		this.cooldown = COOLDOWN_TIME;
 		this.onCooldown = false;
 		this.swt = ResourceManager.switchDoubleTextureRegion;
+		this.automatic = false;
 	}
 	@Override
 	public void setBullet(float pX, float pY, boolean isEnemy) {
