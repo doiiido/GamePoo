@@ -59,7 +59,7 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 		createSelectorChildScene();
 		
 		// Para teste
-		setMaxUnlockedLevel(1);
+		setMaxUnlockedLevel(2);
 		setNumStars(0,1);
 								
 		/* Cria um novo Level Selector */ 

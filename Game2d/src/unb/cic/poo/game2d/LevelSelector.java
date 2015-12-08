@@ -69,7 +69,6 @@ public class LevelSelector extends Entity{
         this.mNumStars = pNumStars;
         this.mCameraWidth = pCameraWidth;
         this.mCameraHeight = pCameraHeight;
-
         /*
          * Obtain the initial tile's X coordinate by subtracting half of the
          * entire level selector width including all tiles and padding from the
@@ -264,7 +263,7 @@ public class LevelSelector extends Entity{
                     /* If this level tile is locked... */
                     if (!this.mIsLocked) {
                         LevelSelector.this.hide();
-                        //!!!!!!!!!!! Depois colocar para carregar cada fase específica 
+                        //!!!!!!!!!!! Depois colocar para carregar cada fase especï¿½fica 
                         SceneManager.getInstance().loadGameSceneFromSelector();
                     }
                     return true;

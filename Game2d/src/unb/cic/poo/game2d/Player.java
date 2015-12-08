@@ -92,8 +92,7 @@ public class Player extends SpaceshipAnimated{
 	
 	public void shoot() {
 		if(!this.bulletType.isOnCooldown() && GameScene.getGameStop() == false){
-			this.bulletType.setBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
-			
+			this.bulletType.setBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);	
 		}
 	}
 

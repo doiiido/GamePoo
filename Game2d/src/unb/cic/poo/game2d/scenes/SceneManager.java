@@ -134,6 +134,7 @@ public class SceneManager {
     }
     
     private void disposeMenuScene() {
+    	menuScene.setIgnoreUpdate(true);
         ResourceManager.getInstance().unloadMenu();
         menuScene.disposeScene();
         menuScene = null;
@@ -169,6 +170,7 @@ public class SceneManager {
     }
     
     private void disposeGameScene() {
+    	gameScene.setIgnoreUpdate(true);
     	ResourceManager.getInstance().unloadGameTextures();
     	ResourceManager.getInstance().unloadGamePause();
         gameScene.disposeScene();
