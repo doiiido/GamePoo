@@ -263,6 +263,7 @@ public class LevelSelector extends Entity{
                     /* If this level tile is locked... */
                     if (!this.mIsLocked) {
                         LevelSelector.this.hide();
+                        GameManager.getInstance().getSaveHandler().setCurrentFase(this.mLevelNumber);
                         //!!!!!!!!!!! Depois colocar para carregar cada fase espec�fica 
                         SceneManager.getInstance().loadGameSceneFromSelector();
                     }

@@ -19,6 +19,11 @@ public class FaseManager implements IUpdateHandler{
 		currentFaseIndex = startingFase;
 		this.fases = fases;
 	}
+	
+	public FaseManager() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
 		if(fases.isEmpty()){

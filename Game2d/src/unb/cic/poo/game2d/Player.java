@@ -50,10 +50,8 @@ public class Player extends SpaceshipAnimated{
 	private BulletType common; 
 	private BulletType secondaryBulletType;
 	private int bullet = 0;
-	private IUpdateHandler cooldownManager;
 	private boolean screenBeingPressed = false;
 	private IUpdateHandler pressedShootHandler;
-	private int numberOfTouchs;
 	private PlayerStatistics statistics;
 	
 	// ===========================================================
@@ -98,6 +96,14 @@ public class Player extends SpaceshipAnimated{
 			statistics.incrementAmountShoot();
 			this.bulletType.setBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
 		}
+	}
+	
+	public void reInit(){
+		this.setX(0);
+		this.setY(GameActivity.CAMERA_HEIGHT/2);
+		this.statistics = new PlayerStatistics();
+		this.secondaryBulletType = new CommonBulletType();
+		this.bulletType = common;
 	}
 
 	// ===========================================================
