@@ -8,6 +8,7 @@ import org.andengine.util.modifier.IModifier;
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ResourceManager;
+import unb.cic.poo.game2d.items.ItemGen;
 
 //Inimigo Basico
 
@@ -24,6 +25,29 @@ public class CommonEnemy extends Enemy{
 		this.life = COMMON_ENEMY_LIFE;
 		this.setMovement(pX);
 	}
+	
+	
+	
+	public CommonEnemy(float pX, float pY, boolean dropsIten){
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), dropsIten);
+		
+		this.speed = DEFAULT_COMMON_ENEMY_SPEED;
+		this.life = COMMON_ENEMY_LIFE;
+		this.setMovement(pX);
+	}
+	
+	
+	public CommonEnemy(float pX, float pY, ItemGen itenDropped){
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), itenDropped);
+	
+		this.speed = DEFAULT_COMMON_ENEMY_SPEED;
+		this.life = COMMON_ENEMY_LIFE;
+		this.setMovement(pX);
+	}
+	
+	
 	
 	private void setMovement(float pX){
 		float distance = pX+this.getWidth();

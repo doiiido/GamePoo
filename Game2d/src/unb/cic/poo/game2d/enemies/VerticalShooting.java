@@ -5,24 +5,20 @@ import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.MoveByModifier;
 import org.andengine.entity.modifier.ParallelEntityModifier;
-import org.andengine.entity.modifier.PathModifier;
-import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.input.touch.TouchEvent;
-import org.andengine.opengl.texture.region.ITiledTextureRegion;
-import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.modifier.IModifier;
 
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ResourceManager;
-import unb.cic.poo.game2d.bullets.Bullet;
 import unb.cic.poo.game2d.bullets.BulletType;
-import unb.cic.poo.game2d.bullets.CommonBulletType;
 import unb.cic.poo.game2d.bullets.LaserBulletType;
+import unb.cic.poo.game2d.enemies.ConstantXLaser.goUpOrDown;
 import unb.cic.poo.game2d.items.ItemGen;
 
-public class VerticalMovementLaser extends Enemy{
+public class VerticalShooting extends Enemy{
+
 	private static final int COMMON_ENEMY_HEIGHT = GameActivity.CAMERA_HEIGHT/22; //32
 	//private static final int COMMON_ENEMY_WIDTH = GameActivity.CAMERA_WIDTH/40; //32
 	
@@ -31,20 +27,33 @@ public class VerticalMovementLaser extends Enemy{
 	private static final int COMMON_ENEMY_LIFE = 1;
 	private BulletType bulletType = new LaserBulletType(this);
 	private float timer;
-	private float posXfinal;
 	private float posXinicial;
-	private float yInicial;
+	private float posYinicial;
+	private float tamanhoMovimento;
 	private IUpdateHandler shootHandler;
 	
-	public VerticalMovementLaser(float pX, float pY, float posXfinal) {
+	private float rotacao;
+	
+	/**
+	 * 
+	 * @param pX deve estar dentro da Tela!
+	 * @param pY Caso o inimigo se movimente para cima, ele deve ser criado abaixo da tela, numa posição
+	 * 		maior do que GameActivity.CAMERA_HEIGHT. Caso ele se movimento para baixo, a posição Y inicial
+	 * 		deve ser menor que 0.
+	 * @param rotacao define a rotação do inimigo.
+	 */
+	
+	public VerticalShooting(float pX, float pY, float tamanhoMovimento, float rotacao) {
 		super(pX, pY, ResourceManager.laserTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
-		
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
 		this.posXinicial = pX;
-		this.yInicial = pY;
-		this.posXfinal = posXfinal;		
+		this.posYinicial = pY;
+		this.tamanhoMovimento = tamanhoMovimento;
+		this.rotacao = rotacao;
+		
+		this.setRotation(rotacao);
 		
 		this.setMovement();
 		
@@ -52,10 +61,11 @@ public class VerticalMovementLaser extends Enemy{
 			
 			/* O inimigo atira de 1 em 1 segundo. */
 			public void onUpdate(float pSecondsElapsed){
-				timer -= pSecondsElapsed;
+				timer -= pSecondsElapsed;					
+						
 				if(timer <= 0){
 					shoot();
-					timer = 0.5f;
+					timer = 1f;
 				}
 			}
 
@@ -70,15 +80,18 @@ public class VerticalMovementLaser extends Enemy{
 	}
 	
 	
-	public VerticalMovementLaser(float pX, float pY, float posXfinal, boolean dropsIten){
+	public VerticalShooting(float pX, float pY, float tamanhoMovimento, float rotacao, boolean dropsIten){ 
 		super(pX, pY, ResourceManager.laserTextureRegion, 
-			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), dropsIten);
+				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), dropsIten);
 		
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
 		this.posXinicial = pX;
-		this.yInicial = pY;
-		this.posXfinal = posXfinal;		
+		this.posYinicial = pY;
+		this.tamanhoMovimento = tamanhoMovimento;
+		this.rotacao = rotacao;
+		
+		this.setRotation(rotacao);
 		
 		this.setMovement();
 		
@@ -86,10 +99,11 @@ public class VerticalMovementLaser extends Enemy{
 			
 			/* O inimigo atira de 1 em 1 segundo. */
 			public void onUpdate(float pSecondsElapsed){
-				timer -= pSecondsElapsed;
+				timer -= pSecondsElapsed;					
+						
 				if(timer <= 0){
 					shoot();
-					timer = 0.5f;
+					timer = 1f;
 				}
 			}
 
@@ -100,41 +114,47 @@ public class VerticalMovementLaser extends Enemy{
 			}
 		};
 		this.registerUpdateHandler(shootHandler);
-	}
-	
-	
-	public VerticalMovementLaser(float pX, float pY, float posXfinal, ItemGen itenDropped){
-		super(pX, pY, ResourceManager.laserTextureRegion, 
-			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), itenDropped);
-	
-	this.life = COMMON_ENEMY_LIFE;
-	this.speed = DEFAULT_COMMON_VENEMY_SPEED;
-	this.posXinicial = pX;
-	this.yInicial = pY;
-	this.posXfinal = posXfinal;		
-	
-	this.setMovement();
-	
-	this.shootHandler = new IUpdateHandler(){
 		
-		/* O inimigo atira de 1 em 1 segundo. */
-		public void onUpdate(float pSecondsElapsed){
-			timer -= pSecondsElapsed;
-			if(timer <= 0){
-				shoot();
-				timer = 0.5f;
-			}
-		}
-
-		@Override
-		public void reset() {
-			// TODO Auto-generated method stub
-			
-		}
-	};
-	this.registerUpdateHandler(shootHandler);
+		
 	}
 	
+	public VerticalShooting(float pX, float pY, float tamanhoMovimento, float rotacao, ItemGen itenDropped ){ 
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), itenDropped);
+		
+		this.life = COMMON_ENEMY_LIFE;
+		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
+		this.posXinicial = pX;
+		this.posYinicial = pY;
+		this.tamanhoMovimento = tamanhoMovimento;
+		this.rotacao = rotacao;
+		
+		this.setRotation(rotacao);
+		
+		this.setMovement();
+		
+		this.shootHandler = new IUpdateHandler(){
+			
+			/* O inimigo atira de 1 em 1 segundo. */
+			public void onUpdate(float pSecondsElapsed){
+				timer -= pSecondsElapsed;					
+						
+				if(timer <= 0){
+					shoot();
+					timer = 1f;
+				}
+			}
+
+			@Override
+			public void reset() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		this.registerUpdateHandler(shootHandler);
+		
+		
+	}
 	
 	
 	
@@ -143,21 +163,19 @@ public class VerticalMovementLaser extends Enemy{
 		float distance = GameManager.getInstance().getGameCamera().getWidth();
 		float durationTime = distance/this.speed;
 		
-		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -(GameActivity.CAMERA_WIDTH-this.posXfinal), 0);
+		MoveByModifier moveByModifier = new MoveByModifier(durationTime, tamanhoMovimento - posXinicial, 0);
+		MoveByModifier right = new MoveByModifier(durationTime*3, tamanhoMovimento, 0);
+		MoveByModifier left = new MoveByModifier(durationTime*3, -tamanhoMovimento, 0);
 		
-		MoveByModifier firstUp = new MoveByModifier(durationTime, 0, -this.yInicial);
+		SequenceEntityModifier sequenceHorizontal = new SequenceEntityModifier(left, right);	
 		
-		MoveByModifier down = new MoveByModifier(durationTime, 0, GameActivity.CAMERA_HEIGHT - COMMON_ENEMY_HEIGHT);
-		MoveByModifier up = new MoveByModifier(durationTime, 0, -(GameActivity.CAMERA_HEIGHT - COMMON_ENEMY_HEIGHT));
-		SequenceEntityModifier sequenceVertical = new SequenceEntityModifier(down, up);
-		LoopEntityModifier loopVertical = new LoopEntityModifier(sequenceVertical);	
+		LoopEntityModifier loopHorizontal = new LoopEntityModifier(sequenceHorizontal);	
 		
 		
-		SequenceEntityModifier posicionaLoop = new SequenceEntityModifier(firstUp, loopVertical);		
+		SequenceEntityModifier posicionaLoop = new SequenceEntityModifier(moveByModifier, loopHorizontal);		
 		
-		ParallelEntityModifier parallelEntityModifier = new ParallelEntityModifier(moveByModifier, posicionaLoop);
 		
-		this.registerEntityModifier(parallelEntityModifier);
+		this.registerEntityModifier(posicionaLoop);
 	}
 
 	@Override
@@ -188,5 +206,6 @@ public class VerticalMovementLaser extends Enemy{
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }

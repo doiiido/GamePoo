@@ -11,6 +11,7 @@ import org.andengine.util.modifier.IModifier;
 
 import unb.cic.poo.game2d.bullets.BulletType;
 import unb.cic.poo.game2d.bullets.CommonBulletType;
+import unb.cic.poo.game2d.items.ItemGen;
 import unb.cic.poo.game2d.*;
 
 
@@ -34,6 +35,7 @@ public class VerticalMovementEnemy extends Enemy{
 	public VerticalMovementEnemy(float pX, float pY, float posXfinal) {
 		super(pX, pY, ResourceManager.shooterTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
+		
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
 		this.yInicial = pY;
@@ -61,6 +63,72 @@ public class VerticalMovementEnemy extends Enemy{
 		this.registerUpdateHandler(shootHandler);
 		
 	}
+	
+	
+	public VerticalMovementEnemy(float pX, float pY, float posXfinal, boolean dropsIten) {
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), dropsIten);
+		
+		this.life = COMMON_ENEMY_LIFE;
+		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
+		this.yInicial = pY;
+		this.posXfinal = posXfinal;		
+		
+		this.setMovement();
+		
+		this.shootHandler = new IUpdateHandler(){
+			
+			/* O inimigo atira de 1 em 1 segundo. */
+			public void onUpdate(float pSecondsElapsed){
+				timer -= pSecondsElapsed;
+				if(timer <= 0){
+					shoot();
+					timer = 0.5f;
+				}
+			}
+
+			@Override
+			public void reset() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		this.registerUpdateHandler(shootHandler);
+	}
+	
+	
+	public VerticalMovementEnemy(float pX, float pY, float posXfinal, ItemGen itenDropped) {
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), itenDropped);
+		
+		this.life = COMMON_ENEMY_LIFE;
+		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
+		this.yInicial = pY;
+		this.posXfinal = posXfinal;		
+		
+		this.setMovement();
+		
+		this.shootHandler = new IUpdateHandler(){
+			
+			/* O inimigo atira de 1 em 1 segundo. */
+			public void onUpdate(float pSecondsElapsed){
+				timer -= pSecondsElapsed;
+				if(timer <= 0){
+					shoot();
+					timer = 0.5f;
+				}
+			}
+
+			@Override
+			public void reset() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		this.registerUpdateHandler(shootHandler);
+	}
+	
+	
 	
 	/* Método que posiciona a nave inimiga na posição X final. */
 	public void setMovement(){

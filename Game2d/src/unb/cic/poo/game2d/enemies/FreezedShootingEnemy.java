@@ -10,6 +10,7 @@ import unb.cic.poo.game2d.bullets.BulletType;
 import unb.cic.poo.game2d.bullets.CommonBulletType;
 import unb.cic.poo.game2d.bullets.DoubleBulletType;
 import unb.cic.poo.game2d.bullets.LaserBulletType;
+import unb.cic.poo.game2d.items.ItemGen;
 import unb.cic.poo.game2d.scenes.SceneManager;
 
 
@@ -30,6 +31,7 @@ public class FreezedShootingEnemy extends Enemy{
 	public FreezedShootingEnemy(float pX, float pY, float pFinalX) {
 		super(pX, pY, ResourceManager.shooterTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
+		
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_ENEMY_SPEED;
 		this.posicaoFinalX = pFinalX;
@@ -39,6 +41,43 @@ public class FreezedShootingEnemy extends Enemy{
 		this.shootHandler = new ShootHandler(this);
 		this.registerUpdateHandler(this.shootHandler);
 	}
+	
+	
+	
+	
+	public FreezedShootingEnemy(float pX, float pY, float pFinalX, boolean dropsIten) {
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), dropsIten);
+		
+		this.life = COMMON_ENEMY_LIFE;
+		this.speed = DEFAULT_COMMON_ENEMY_SPEED;
+		this.posicaoFinalX = pFinalX;
+		this.posicaoInicialX = pX;
+		this.bulletType = new DoubleBulletType();
+		this.setMovement();
+		this.shootHandler = new ShootHandler(this);
+		this.registerUpdateHandler(this.shootHandler);
+	}
+	
+	
+	
+	
+	public FreezedShootingEnemy(float pX, float pY, float pFinalX, boolean dropsIten, ItemGen itenDropped){
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), itenDropped);
+		
+		this.life = COMMON_ENEMY_LIFE;
+		this.speed = DEFAULT_COMMON_ENEMY_SPEED;
+		this.posicaoFinalX = pFinalX;
+		this.posicaoInicialX = pX;
+		this.bulletType = new DoubleBulletType();
+		this.setMovement();
+		this.shootHandler = new ShootHandler(this);
+		this.registerUpdateHandler(this.shootHandler);
+	}
+	
+	
+	
 	
 	/* O inimigo se movimenta ate a posicao final em X definida no construtor.  */
 	private void setMovement() {

@@ -9,6 +9,7 @@ public abstract class BulletType {
 	protected int ammoQuantity = 1;
 	protected boolean onCooldown = false;
 	protected ITiledTextureRegion swt;
+	protected boolean automatic;
 	
 	public abstract void setBullet(float pX, float pY, boolean isEnemy);
 	
@@ -22,6 +23,10 @@ public abstract class BulletType {
 	
 	public boolean isOnCooldown() {
 		return onCooldown;
+	}
+	
+	public boolean isAutomatic() {
+		return automatic;
 	}
 	
 	public void setOnCooldown(boolean onCooldown) {

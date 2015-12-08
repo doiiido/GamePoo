@@ -9,6 +9,7 @@ import org.andengine.util.modifier.IModifier;
 
 import unb.cic.poo.game2d.bullets.BulletType;
 import unb.cic.poo.game2d.bullets.CommonBulletType;
+import unb.cic.poo.game2d.items.ItemGen;
 import unb.cic.poo.game2d.*;
 
 
@@ -38,7 +39,7 @@ public class ChasingYEnemy extends Enemy{
 	 * @param pX posicao x inicial
 	 * @param pY posicao y inicial
 	 * @param posXfinal posicao final 
-	 * @param speedY velocidade na direção y para seguir o player
+	 * @param speedY velocidade na direï¿½ï¿½o y para seguir o player
 	 * 
 	 * @ O inimigo usa um MoveByModifier para caminhar para a posicao final -(pX-pXFinal)
 	 * 
@@ -73,6 +74,78 @@ public class ChasingYEnemy extends Enemy{
 		this.registerUpdateHandler(shootHandler);
 		
 	}
+	
+	
+	public ChasingYEnemy(float pX, float pY, float pXFinal, float speedY, boolean dropsIten){
+		
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), dropsIten);
+		
+		this.life = COMMON_ENEMY_LIFE;
+		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
+		this.xInicial = pX;
+		this.xFinal = pXFinal;	
+		this.mSpeed = speedY;
+		
+		this.setMovement();
+		this.shootHandler = new IUpdateHandler(){
+			
+			/* O inimigo atira de 1 em 1 segundo. */
+			public void onUpdate(float pSecondsElapsed){
+				timer -= pSecondsElapsed;
+				if(timer <= 0){
+					shoot();
+					timer = 0.5f;
+				}
+			}
+
+			@Override
+			public void reset() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		this.registerUpdateHandler(shootHandler);
+	}
+
+	
+	
+	
+	
+	
+	public ChasingYEnemy(float pX, float pY, float pXFinal, float speedY, ItemGen itenDropped){
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), itenDropped);
+		
+		this.life = COMMON_ENEMY_LIFE;
+		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
+		this.xInicial = pX;
+		this.xFinal = pXFinal;	
+		this.mSpeed = speedY;
+		
+		this.setMovement();
+		this.shootHandler = new IUpdateHandler(){
+			
+			/* O inimigo atira de 1 em 1 segundo. */
+			public void onUpdate(float pSecondsElapsed){
+				timer -= pSecondsElapsed;
+				if(timer <= 0){
+					shoot();
+					timer = 0.5f;
+				}
+			}
+
+			@Override
+			public void reset() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		this.registerUpdateHandler(shootHandler);
+	}
+	
+	
+	
 	
 	// ===========================================================
 	// Getter & Setter

@@ -40,9 +40,22 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, texture, pVertexBufferObjectManager);
 		movementFinished = false;
-		dropsItem = true;
-		ItemDropped = new FlameThrowerGen();
 		this.registerUpdateHandler(new EnemyHandler(this));
+	}
+	
+	public Enemy(float pX, float pY, ITiledTextureRegion texture, VertexBufferObjectManager pVertexBufferObjectManager, boolean dropsIten){
+		super(pX, pY, texture, pVertexBufferObjectManager);
+		movementFinished = false;
+		dropsItem = true;
+		this.registerUpdateHandler(new EnemyHandler(this));		
+	}
+	
+	public Enemy(float pX, float pY, ITiledTextureRegion texture, VertexBufferObjectManager pVertexBufferObjectManager, ItemGen itemDropped){
+		super(pX, pY, texture, pVertexBufferObjectManager);
+		movementFinished = false;
+		dropsItem = true;
+		this.ItemDropped = itemDropped;
+		this.registerUpdateHandler(new EnemyHandler(this));		
 	}
 	
 	public void decrementLife(int decrement){

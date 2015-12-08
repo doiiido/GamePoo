@@ -16,6 +16,7 @@ public class FlamethrowerBulletType extends BulletType{
 		this.onCooldown = false;
 		this.nave = nave;
 		this.swt = ResourceManager.switchFlameTextureRegion;
+		this.automatic = true;
 	}
 	
 	@Override
