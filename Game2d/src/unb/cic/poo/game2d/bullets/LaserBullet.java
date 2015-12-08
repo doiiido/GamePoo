@@ -26,6 +26,7 @@ public class LaserBullet extends Bullet{
 	private float totalElapsedSeconds = 0f;
 	private IUpdateHandler laserHandler;
 	private SpaceshipAnimated nave;
+	private float durationTime_;
 	
 	public LaserBullet(SpaceshipAnimated nave, float pX, float pY, boolean isEnemyBullet) {
 		super((isEnemyBullet)? pX-1280:pX, pY-5*BULLET_HEIGHT, (isEnemyBullet)? ResourceManager.enemyLaserBulletTextureRegion:ResourceManager.laserBulletTextureRegion, 
@@ -58,9 +59,39 @@ public class LaserBullet extends Bullet{
 		this.registerUpdateHandler(laserHandler);
 	}
 	
-	public LaserBullet(SpaceshipAnimated nave, float pX, float pY, boolean isEnemyBullet, int angleOfTheLaser) {
-		this(nave, pX, pY, isEnemyBullet);
+	//sobrecarga de contrutor
+	public LaserBullet(SpaceshipAnimated nave, float pX, float pY, boolean isEnemyBullet, int angleOfTheLaser, float durationTime) {
+		super((isEnemyBullet)? pX-1280:pX, pY-5*BULLET_HEIGHT, (isEnemyBullet)? ResourceManager.enemyLaserBulletTextureRegion:ResourceManager.laserBulletTextureRegion, 
+				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
+		
+		this.animate(120);
+		this.damage = BULLET_DAMAGE;
+		this.nave = nave;
+		this.enemyBullet = isEnemyBullet;
+		this.durationTime_ = durationTime;
+		
 		this.setRotation(angleOfTheLaser);
+		
+		//UpdateHandler que cuida do tempo de duracao e do movimento do laser
+		this.laserHandler = new IUpdateHandler(){
+			public void onUpdate(float pSecondsElapsed){
+				totalElapsedSeconds += pSecondsElapsed;
+				GameManager.getInstance().getGameEngine().runOnUpdateThread(new Runnable() {			
+					@Override
+					public void run() {
+						if(totalElapsedSeconds > durationTime_){
+							removeBullet();
+						}
+						setMovement(enemyBullet);
+					}
+				});
+			}
+
+			@Override
+			public void reset() {
+			}
+		};
+		this.registerUpdateHandler(laserHandler);
 	}
 
 	@Override
