@@ -36,7 +36,6 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
     //---------------------------------------------
 	
 	MenuScene mPauseScene;
-	private FaseManager faseManager;
 	
 	//---------------------------------------------
     // ENTITIES
@@ -289,17 +288,8 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
     
     // Prepara as ondas de inimigo de cada fase
     public void setGameScene(){
-		// Cria os inimigos para teste
-		// Valores alinhados: dividir por 5, 2 e 1.25 // 2, 1.67 e 1.25 
-    	
-   	 	LinkedList<Fase> fases = new LinkedList<Fase>();
-   	 	fases.add(new Fase1());
-   	 	fases.add(new Fase1());
-    	faseManager = new FaseManager(fases);
     	GameManager.getInstance().reset();
-    	GameManager.getInstance().setFaseManager(faseManager);
-    	faseManager.start();
-    	
+    	GameManager.getInstance().getFaseManager().start();    	
     	/*criando a cena do jogo a musica inicia com o volume maximo*/
    	 	ResourceManager.mMusic.play();
 		ResourceManager.mMusic.setVolume(1);

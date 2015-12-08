@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import org.andengine.engine.handler.IUpdateHandler;
 
+import unb.cic.poo.game2d.FasesGetter;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.scenes.BaseScene;
 import unb.cic.poo.game2d.scenes.GameScene;
@@ -21,7 +22,9 @@ public class FaseManager implements IUpdateHandler{
 	}
 	
 	public FaseManager() {
-		// TODO Auto-generated constructor stub
+		startingFase = GameManager.getInstance().getSaveHandler().getCurrentFase();
+		currentFaseIndex = startingFase;
+		fases = new FasesGetter().getFases();
 	}
 	
 	@Override
