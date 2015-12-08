@@ -109,7 +109,11 @@ public class LaserBullet extends Bullet{
 		if(!isEnemyBullet){
 			this.setPosition(nave.getX() + nave.getWidth() , nave.getY() + (nave.getHeight()/2) - 5*BULLET_HEIGHT);
 		} else{
-			this.setPosition(nave.getX() - 1280 , nave.getY() + (nave.getHeight()/2) - 5*BULLET_HEIGHT);
+			try{
+				this.setPosition(nave.getX() - 1280 , nave.getY() + (nave.getHeight()/2) - 5*BULLET_HEIGHT);
+			}catch(Exception e){
+				removeBullet();
+			}
 		}
 	}
 
