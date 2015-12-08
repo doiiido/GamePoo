@@ -191,6 +191,7 @@ public class Player extends SpaceshipAnimated{
 			
 		}
 		else if(pSceneTouchEvent.isActionDown()){
+			this.unregisterUpdateHandler(pressedShootHandler);
 			this.registerUpdateHandler(pressedShootHandler);
 		} 
 		else if(pSceneTouchEvent.isActionUp() || pSceneTouchEvent.isActionCancel() || pSceneTouchEvent.isActionOutside()){

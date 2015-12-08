@@ -220,6 +220,7 @@ public class SceneManager {
     public void createSelectorScene() {
     	ResourceManager.getInstance().loadSelector();
     	selectorScene = new SelectorScene();
+    	((SelectorScene) selectorScene).initScene();
         SceneManager.getInstance().setScene(selectorScene);
     	disposeMenuScene();
     }

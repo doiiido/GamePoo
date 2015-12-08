@@ -73,7 +73,6 @@ public class GameManager {
 	private GameManager(){
 		saveHandler = new SaveHandler();
 		saveHandler.init(ResourceManager.getInstance().activity);
-		saveHandler.getUnlockedFases();
 	}
 
 	//Esse método será usado para obter o único objeto que será instanciado da classe GameManager.

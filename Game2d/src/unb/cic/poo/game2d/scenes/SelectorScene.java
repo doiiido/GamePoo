@@ -59,9 +59,11 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 		createSelectorChildScene();
 		
 		// Para teste
-		setMaxUnlockedLevel(2);
+		maxUnlockedLevel = GameManager.getInstance().getSaveHandler().getUnlockedFases();
 		setNumStars(0,1);
-								
+	}
+	
+	public void initScene(){
 		/* Cria um novo Level Selector */ 
 		LevelSelector levelSelector = new LevelSelector(maxUnlockedLevel, numStars, 
 				cameraWidth, cameraHeight, this , GameManager.getInstance().getGameEngine());

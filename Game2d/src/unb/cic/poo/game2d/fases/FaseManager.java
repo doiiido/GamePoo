@@ -20,6 +20,7 @@ public class FaseManager implements IUpdateHandler{
 	@Override
 	public void onUpdate(float pSecondsElapsed) {
 		if(fases.isEmpty()){
+			GameManager.getInstance().getSaveHandler().setUnlockedFases(GameManager.getInstance().getSaveHandler().getCurrentFase()-1);
 			GameManager.getInstance().getSaveHandler().setCurrentFase(1);
 			BaseScene aux = SceneManager.gameScene;
 			((GameScene) aux).gameOver(true);
