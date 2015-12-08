@@ -67,7 +67,7 @@ public class Player extends SpaceshipAnimated{
 		this.life = DEFAULT_PLAYER_LIFE;
 		
 		this.common = new CommonBulletType();
-		this.secondaryBulletType = new CommonBulletType();
+		this.secondaryBulletType = new FlamethrowerBulletType(this);
 		this.bulletType = this.common;
 		
 		pressedShootHandler = new IUpdateHandler() {
@@ -92,7 +92,7 @@ public class Player extends SpaceshipAnimated{
 	
 	public void shoot() {
 		if(!this.bulletType.isOnCooldown() && GameScene.getGameStop() == false){
-			this.bulletType.setBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);	
+			this.bulletType.setBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
 		}
 	}
 

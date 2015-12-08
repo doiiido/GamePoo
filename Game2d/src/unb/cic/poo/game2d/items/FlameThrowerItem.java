@@ -15,7 +15,7 @@ public class FlameThrowerItem extends Item {
 
 	@Override
 	public void doEffect() {
-		GameManager.getInstance().getPlayer().setSecondaryBulletType(new FlamethrowerBulletType());
+		GameManager.getInstance().getPlayer().setSecondaryBulletType(new FlamethrowerBulletType(GameManager.getInstance().getPlayer()));
 		GameManager.getInstance().getPlayer().changeBullet();
 		GameManager.getInstance().getPlayer().changeBullet();
 		

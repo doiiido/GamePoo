@@ -6,6 +6,7 @@ import org.andengine.opengl.texture.region.ITiledTextureRegion;
 
 public abstract class BulletType {
 	protected float cooldown = 0.1f;
+	protected int ammoQuantity = 1;
 	protected boolean onCooldown = false;
 	protected ITiledTextureRegion swt;
 	
@@ -13,6 +14,10 @@ public abstract class BulletType {
 	
 	public float getCooldownTime() {
 		return cooldown;
+	}
+	
+	public int getAmmoQuantity() {
+		return ammoQuantity;
 	}
 	
 	public boolean isOnCooldown() {

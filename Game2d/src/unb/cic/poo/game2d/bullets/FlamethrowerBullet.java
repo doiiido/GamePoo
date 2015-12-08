@@ -7,16 +7,18 @@ import org.andengine.util.modifier.IModifier;
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ResourceManager;
+import unb.cic.poo.game2d.SpaceshipAnimated;
 
 public class FlamethrowerBullet extends Bullet{
 	public static final int BULLET_SPEED = 0;
 	public static final int BULLET_DAMAGE = 1;
 	private float totalElapsedSeconds = 0f;
+	private SpaceshipAnimated nave;
 	private IUpdateHandler flameHandler;
 	private long[] mFrame1EndsInNanoseconds = {50, 50, 50, 50, 50, 50, 50, 50};
 	private long[] mFrame2EndsInNanoseconds = {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};
 	
-	public FlamethrowerBullet(float pX, float pY, boolean isEnemyBullet) {
+	public FlamethrowerBullet(SpaceshipAnimated nave, float pX, float pY, boolean isEnemyBullet) {
 		super(pX+220, pY-80, ResourceManager.flameTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 	
@@ -28,10 +30,11 @@ public class FlamethrowerBullet extends Bullet{
 		this.setRotation(90);
 		this.setScale(3);
 			
+		this.nave = nave;
 		this.damage = BULLET_DAMAGE;
 		this.enemyBullet = isEnemyBullet;
 		
-		//UpdateHandler que cuida do tempo de duracao do laser
+		//UpdateHandler que cuida do tempo de duracao e do movimento do flamethrower
 		this.flameHandler = new IUpdateHandler(){
 			public void onUpdate(float pSecondsElapsed){
 				totalElapsedSeconds += pSecondsElapsed;
@@ -41,6 +44,7 @@ public class FlamethrowerBullet extends Bullet{
 						if(totalElapsedSeconds > 0.3f){
 							removeBullet();
 						}
+						setMovement(enemyBullet);
 					}
 				});
 			}
@@ -61,6 +65,10 @@ public class FlamethrowerBullet extends Bullet{
 	
 	@Override
 	public void setMovement(float pX, float pY, boolean isEnemyBullet) {
+	}
+	
+	public void setMovement(boolean isEnemyBullet) {
+		this.setPosition(nave.getX() + nave.getWidth() + 220, nave.getY() + (nave.getHeight()/2) - 80);
 	}
 
 	@Override

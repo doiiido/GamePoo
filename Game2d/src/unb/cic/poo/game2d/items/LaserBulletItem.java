@@ -14,7 +14,7 @@ public class LaserBulletItem extends Item {
 
 	@Override
 	public void doEffect() {
-		GameManager.getInstance().getPlayer().setSecondaryBulletType(new LaserBulletType());
+		GameManager.getInstance().getPlayer().setSecondaryBulletType(new LaserBulletType(GameManager.getInstance().getPlayer()));
 		GameManager.getInstance().getPlayer().changeBullet();
 		GameManager.getInstance().getPlayer().changeBullet();
 	}
