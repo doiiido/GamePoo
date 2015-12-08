@@ -30,6 +30,7 @@ public class ConstantXLaser extends Enemy{
 	private float posYinicial;
 	private float posXfinal;
 	private IUpdateHandler shootHandler;
+	private float velocidade;
 	
 	public enum goUpOrDown{
 		goUp, goDown;
@@ -45,7 +46,7 @@ public class ConstantXLaser extends Enemy{
 	 * @param movimento Define pelo enum o tipo de movimento do inimigo: goUp ou goDown.
 	 */
 	
-	public ConstantXLaser(float pX, float pY, ConstantXLaser.goUpOrDown movimento) {
+	public ConstantXLaser(float pX, float pY, ConstantXLaser.goUpOrDown movimento, float velocidade) {
 		super(pX, pY, ResourceManager.laserTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		
@@ -54,6 +55,7 @@ public class ConstantXLaser extends Enemy{
 		this.posXinicial = pX;
 		this.posYinicial = pY;
 		this.movimento = movimento;
+		this.velocidade = velocidade;
 		
 		this.setMovement();
 		
@@ -82,7 +84,7 @@ public class ConstantXLaser extends Enemy{
 	
 	
 	
-	public ConstantXLaser(float pX, float pY, ConstantXLaser.goUpOrDown movimento, boolean dropsIten){
+	public ConstantXLaser(float pX, float pY, ConstantXLaser.goUpOrDown movimento, float velocidade, boolean dropsIten){
 		super(pX, pY, ResourceManager.laserTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), dropsIten);
 		
@@ -91,6 +93,7 @@ public class ConstantXLaser extends Enemy{
 		this.posXinicial = pX;
 		this.posYinicial = pY;
 		this.movimento = movimento;
+		this.velocidade = velocidade;
 		
 		this.setMovement();
 		
@@ -117,7 +120,7 @@ public class ConstantXLaser extends Enemy{
 	
 	
 	
-	public ConstantXLaser(float pX, float pY, ConstantXLaser.goUpOrDown movimento, ItemGen itenDropped){
+	public ConstantXLaser(float pX, float pY, ConstantXLaser.goUpOrDown movimento, float velocidade, ItemGen itenDropped){
 		super(pX, pY, ResourceManager.laserTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), itenDropped);
 		
@@ -126,6 +129,7 @@ public class ConstantXLaser extends Enemy{
 		this.posXinicial = pX;
 		this.posYinicial = pY;
 		this.movimento = movimento;
+		this.velocidade = velocidade;
 		
 		this.setMovement();
 		
@@ -159,8 +163,8 @@ public class ConstantXLaser extends Enemy{
 		float durationTime = distance/this.speed;
 		
 		MoveByModifier moveByModifier;
-		MoveByModifier down = new MoveByModifier(durationTime*3, 0, GameActivity.CAMERA_HEIGHT - COMMON_ENEMY_HEIGHT);
-		MoveByModifier up = new MoveByModifier(durationTime*3, 0, -(GameActivity.CAMERA_HEIGHT - COMMON_ENEMY_HEIGHT));
+		MoveByModifier down = new MoveByModifier(durationTime*1/velocidade, 0, GameActivity.CAMERA_HEIGHT - COMMON_ENEMY_HEIGHT);
+		MoveByModifier up = new MoveByModifier(durationTime*1/velocidade, 0, -(GameActivity.CAMERA_HEIGHT - COMMON_ENEMY_HEIGHT));
 		
 		MoveByModifier posicionar;
 		SequenceEntityModifier sequenceVertical;

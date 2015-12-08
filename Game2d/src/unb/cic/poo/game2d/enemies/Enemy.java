@@ -35,8 +35,13 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 	protected boolean dropsItem;
 	protected ItemGen ItemDropped;
 	protected int scoreObtained;
+	protected boolean isDead;
 	
 	public static final int INFINITY = 2000000;
+	
+	public boolean getIsDead(){
+		return this.isDead;
+	}
 	
 	public Enemy(float pX, float pY, ITiledTextureRegion texture,
 			VertexBufferObjectManager pVertexBufferObjectManager) {
@@ -71,6 +76,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 	}
 	
 	public void kill(){
+		this.isDead = true;
 		if(this.dropsItem){
 			if(this.ItemDropped != null){
 				ItemDropped.getItem(this.getX(), this.getY()+(this.getHeight()/2)).drop();
