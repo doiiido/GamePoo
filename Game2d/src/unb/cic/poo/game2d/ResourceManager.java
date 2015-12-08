@@ -133,6 +133,8 @@ public class ResourceManager {
 	public ITextureRegion doubleDropTextureRegion;
 	BitmapTextureAtlas heavyDropTexture;
 	public ITextureRegion heavyDropTextureRegion;
+	BitmapTextureAtlas lifeDropTexture;
+	public ITextureRegion lifeDropTextureRegion;
 	
 	//---------------------------------------------
     // EXPLOSAO
@@ -536,6 +538,12 @@ public class ResourceManager {
 		    		.createFromAsset(heavyDropTexture, activity, "heavy_item.png",0,0);
 		heavyDropTextureRegion.setTextureSize(90, 90);
 		heavyDropTexture.load();
+		
+		lifeDropTexture = new BitmapTextureAtlas(engine.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
+		lifeDropTextureRegion = BitmapTextureAtlasTextureRegionFactory
+		    		.createFromAsset(lifeDropTexture, activity, "life_item.png",0,0);
+		lifeDropTextureRegion.setTextureSize(90, 90);
+		lifeDropTexture.load();
 				
 		/*Switchers*/
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/icons/switch/");
@@ -609,6 +617,7 @@ public class ResourceManager {
 		flameDropTexture.unload(); flameDropTextureRegion = null;
 		doubleDropTexture.unload(); doubleDropTextureRegion = null;
 		heavyDropTexture.unload(); heavyDropTextureRegion = null;
+		lifeDropTexture.unload(); lifeDropTextureRegion = null;
 		
 		switchTexture.unload(); switchTextureRegion = null;
 		switchDoubleTexture.unload(); switchDoubleTextureRegion = null;
