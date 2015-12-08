@@ -16,6 +16,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import android.content.ClipData.Item;
 import unb.cic.poo.game2d.EnemyHandler;
 import unb.cic.poo.game2d.GameActivity;
+import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.ResourceManager;
 import unb.cic.poo.game2d.SpaceshipAnimated;
 import unb.cic.poo.game2d.bullets.Bullet;
@@ -33,6 +34,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 	public boolean movementFinished;
 	protected boolean dropsItem;
 	protected ItemGen ItemDropped;
+	protected int scoreObtained;
 	
 	public static final int INFINITY = 2000000;
 	
@@ -41,6 +43,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 		super(pX, pY, texture, pVertexBufferObjectManager);
 		movementFinished = false;
 		this.registerUpdateHandler(new EnemyHandler(this));
+		this.scoreObtained = 200;
 	}
 	
 	public Enemy(float pX, float pY, ITiledTextureRegion texture, VertexBufferObjectManager pVertexBufferObjectManager, boolean dropsIten){
@@ -86,6 +89,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 		createExplosion(this.getX(), this.getY(), this.getParent());
 		ResourceManager.mXplosion.play();
 		ResourceManager.mXplosion.setVolume((float) 0.5);
+		GameManager.getInstance().getFaseManager().getCurrentFase().incrementFaseScore(this.scoreObtained);
 	}
 	
 	private static void createExplosion(final float posX, final float posY,

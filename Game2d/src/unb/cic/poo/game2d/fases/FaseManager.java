@@ -12,9 +12,11 @@ import unb.cic.poo.game2d.scenes.SceneManager;
 public class FaseManager implements IUpdateHandler{
 	private LinkedList<Fase> fases;
 	private int startingFase;
+	private int currentFaseIndex;
 	
 	public FaseManager(LinkedList<Fase> fases){
 		startingFase = GameManager.getInstance().getSaveHandler().getCurrentFase();
+		currentFaseIndex = startingFase;
 		this.fases = fases;
 	}
 	@Override
@@ -36,8 +38,10 @@ public class FaseManager implements IUpdateHandler{
 	}
 
 	private Fase nextFase() {
+		GameManager.getInstance().getSaveHandler().setFaseScore(currentFaseIndex - 1, getCurrentFase().getFaseScore());
 		GameManager.getInstance().getSaveHandler().nextFase();
 		fases.pop().onFaseFinished();
+		currentFaseIndex++;
 		return fases.isEmpty() ? null : fases.getFirst();
 	}
 
@@ -47,7 +51,7 @@ public class FaseManager implements IUpdateHandler{
 		
 	}
 
-	private Fase getCurrentFase() {
+	public Fase getCurrentFase() {
 		return fases.isEmpty() ? null : fases.getFirst();
 	}
 	

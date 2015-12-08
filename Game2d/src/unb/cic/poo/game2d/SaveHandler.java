@@ -8,11 +8,13 @@ public class SaveHandler {
 	
 	private static final String UNLOCKED_FASES_KEY = "unlockedFasesKey";
 	private static final String CURRENT_FASE_KEY = "currentFaseKey";
-	private static final String MAX_SCORE = "maxScoreKey";
+	private static final String MAX_STORY_SCORE = "maxStoryScoreKey";
+	private static final String[] FASES_SCORE = {"fase1Key", "fase2Key", "fase3Key", "fase4Key"};
 	
 	private int unlockedFases;
 	private int currentFase;
-	private int maxScore;
+	private int maxStoryScore;
+	private int fasesScore[]; 
 	
 	private SharedPreferences mSettings;
 	private SharedPreferences.Editor mEditor;
@@ -25,7 +27,11 @@ public class SaveHandler {
 			
 			unlockedFases = mSettings.getInt(UNLOCKED_FASES_KEY, 1);
 			currentFase = mSettings.getInt(CURRENT_FASE_KEY, 1);
-			maxScore = mSettings.getInt(MAX_SCORE, 0);
+			maxStoryScore = mSettings.getInt(MAX_STORY_SCORE, 0);
+			fasesScore = new int[FASES_SCORE.length];
+			for(int i = 0; i < FASES_SCORE.length; i++){
+				fasesScore[i] = mSettings.getInt(FASES_SCORE[i], 0);
+			}
 		}
 	}
 	
@@ -67,12 +73,12 @@ public class SaveHandler {
 		mEditor.commit();
 	}
 	
-	public synchronized int getMaxScore() {
-		return maxScore;
+	public synchronized int getStoryMaxScore() {
+		return maxStoryScore;
 	}
-	public synchronized void setMaxScore(int maxScore) {
-		this.maxScore = maxScore;
-		mEditor.putInt(MAX_SCORE, this.maxScore);
+	public synchronized void setStoryMaxScore(int maxScore) {
+		this.maxStoryScore = maxScore;
+		mEditor.putInt(MAX_STORY_SCORE, this.maxStoryScore);
 	}
 	
 	public synchronized SharedPreferences getmSettings() {
@@ -82,12 +88,36 @@ public class SaveHandler {
 	public synchronized void setmSettings(SharedPreferences mSettings) {
 		this.mSettings = mSettings;
 	}
-
 	public synchronized SharedPreferences.Editor getmEditor() {
 		return mEditor;
 	}
 
 	public synchronized void setmEditor(SharedPreferences.Editor mEditor) {
 		this.mEditor = mEditor;
+	}
+
+	public int[] getFasesScore() {
+		return fasesScore;
+	}
+
+	public void setFasesScore(int fasesScore[]) {
+		this.fasesScore = fasesScore;
+	}
+	
+	public synchronized void setFaseScore(int faseIndex, int score){
+		this.fasesScore[faseIndex] += score;
+		
+		mEditor.putInt(FASES_SCORE[faseIndex], fasesScore[faseIndex]);
+		mEditor.commit();
+		
+		int totalScore = 0;
+		
+		for(int i = 0; i < fasesScore.length;i++){
+			totalScore = fasesScore[i];
+		}
+		
+		if(totalScore > this.maxStoryScore){
+			this.setStoryMaxScore(totalScore);
+		}
 	}
 }

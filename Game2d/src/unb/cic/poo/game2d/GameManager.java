@@ -61,6 +61,8 @@ public class GameManager {
 	private FaseManager faseManager;
 	private SaveHandler saveHandler;
 	GameActivity activity;
+	private int storyScore;
+	private int faseScore;
 	
 	public FaseManager getFaseManager() {
 		return faseManager;
@@ -135,5 +137,32 @@ public class GameManager {
 
 	public void setSaveHandler(SaveHandler saveHandler) {
 		this.saveHandler = saveHandler;
+	}
+
+	public int getStoryScore() {
+		return storyScore;
+	}
+
+	public void setStoryScore(int storyScore) {
+		this.storyScore = storyScore;
+	}
+	
+	public void incrementStoryScore(int score){
+		this.storyScore += score;
+		if(saveHandler.getStoryMaxScore() < this.storyScore){
+			
+		}
+	}
+
+	public int getFaseScore() {
+		return faseScore;
+	}
+
+	public void setFaseScore(int faseScore) {
+		this.faseScore = faseScore;
+	}
+	
+	public void incrementFaseScore(int score){
+		this.faseScore += score;
 	}
 }

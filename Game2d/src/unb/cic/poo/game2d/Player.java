@@ -54,6 +54,7 @@ public class Player extends SpaceshipAnimated{
 	private boolean screenBeingPressed = false;
 	private IUpdateHandler pressedShootHandler;
 	private int numberOfTouchs;
+	private PlayerStatistics statistics;
 	
 	// ===========================================================
 	// Constructors
@@ -65,7 +66,7 @@ public class Player extends SpaceshipAnimated{
 				,GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		this.speed = DEFAULT_PLAYER_SPEED;
 		this.life = DEFAULT_PLAYER_LIFE;
-		
+		this.statistics = new PlayerStatistics();
 		this.common = new CommonBulletType();
 		this.secondaryBulletType = new CommonBulletType();
 		this.bulletType = this.common;
@@ -94,6 +95,7 @@ public class Player extends SpaceshipAnimated{
 	
 	public void shoot() {
 		if(!this.bulletType.isOnCooldown() && GameScene.getGameStop() == false){
+			statistics.incrementAmountShoot();
 			this.bulletType.setBullet(this.getX()+this.getWidth(), this.getY()+(this.getHeight()/2), false);
 		}
 	}
@@ -208,6 +210,8 @@ public class Player extends SpaceshipAnimated{
 	// ===========================================================
 	public void decrementLife(int decrement) {
 		super.decrementLife(decrement);
+		statistics.incrementDamageTaken(decrement);
+		
 		this.lifewidth -= this.lifescale;
 		GameScene.setLifeBar(lifewidth);
 		
@@ -227,5 +231,13 @@ public class Player extends SpaceshipAnimated{
 			bullet = 0;
 		}
 		return bullet;
+	}
+
+	public PlayerStatistics getStatistics() {
+		return statistics;
+	}
+
+	public void setStatistics(PlayerStatistics statistics) {
+		this.statistics = statistics;
 	}
 }

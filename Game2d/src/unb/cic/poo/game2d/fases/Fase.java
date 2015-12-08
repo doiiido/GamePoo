@@ -3,12 +3,14 @@ package unb.cic.poo.game2d.fases;
 import java.util.LinkedList;
 
 import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.PlayerStatistics;
 import unb.cic.poo.game2d.waves.Wave;
 
 public class Fase{
 	protected LinkedList<Wave> waves;
 	protected boolean faseFinished;
 	protected FaseHandler handler;
+	protected int faseScore;
 	
 	public Fase(){
 		this.waves = new LinkedList<Wave>();
@@ -53,11 +55,23 @@ public class Fase{
 	/*Esse método é chamado toda vez que a fase é finalizada.*/
 	public void onFaseFinished() {
 		
-		
 	}
 
 	/*Esse método é chamado antes de uma fase iniciar.*/
 	public void onFaseStart() {
 		
+	}
+
+	public int getFaseScore() {
+		PlayerStatistics statistics = GameManager.getInstance().getPlayer().getStatistics();
+		return faseScore-(10*statistics.getAmountShoot() + 15*statistics.getDamageTaken());
+	}
+
+	public void setFaseScore(int faseScore) {
+		this.faseScore = faseScore;
+	}
+	
+	public void incrementFaseScore(int score){
+		this.faseScore += score;
 	}
 }
