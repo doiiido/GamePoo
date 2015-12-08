@@ -36,7 +36,7 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
     //---------------------------------------------
 	
 	private int maxUnlockedLevel; 
-	private static ArrayList<Integer> numStars = new ArrayList<Integer>();
+	private static int numStars;
 	private final int cameraWidth = GameActivity.CAMERA_WIDTH;
 	private final int cameraHeight = GameActivity.CAMERA_HEIGHT;
 	private final int MENU_BACK = 0;
@@ -60,7 +60,7 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 		
 		// Para teste
 		maxUnlockedLevel = GameManager.getInstance().getSaveHandler().getUnlockedFases();
-		setNumStars(0,1);
+		setNumStars(4);
 	}
 	
 	public void initScene(){
@@ -102,17 +102,23 @@ public class SelectorScene extends BaseScene implements IOnMenuItemClickListener
 		this.maxUnlockedLevel = maxUnlockedLevel;
 	}
 
-	public static ArrayList<Integer> getNumStars() {
+	public static int getNumStars() {
 		return numStars;
 	}
 	
-	public static void setAllNumStars(ArrayList<Integer> numStars) {
+	public static void setNumStars(int numStars) {
 		SelectorScene.numStars = numStars;
+		/*Esse método define quantas estrelas o jogador desbloqueou
+		 * baseado em algum critério.
+		 * MUITO CUIDADO ao manipular esses valores, pois os índices no sprite
+		 * das estrelas vão de 0 até 4 representando:
+    	 * numStars = 0 -> cadeado
+    	 * numStars = 1 -> 0 estrelas
+    	 * ...
+    	 * numStars = 4 -> 3 estrelas (máximo)
+    	 */
 	}
 	
-	public static void setNumStars(int index, int numStars) {
-		SelectorScene.numStars.add(index, numStars);
-	}
 	
 	//---------------------------------------------
     // METHODS

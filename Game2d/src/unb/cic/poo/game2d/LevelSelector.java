@@ -26,7 +26,7 @@ public class LevelSelector extends Entity{
 
     /* Variable containing the current max level and each level stars unlocked */
     private final int mMaxLevel;
-    private final ArrayList<Integer> mNumStars;
+    private final int mNumStars;
 
     /* Camera width and height are needed for the layout */
     private final int mCameraWidth;
@@ -60,7 +60,7 @@ public class LevelSelector extends Entity{
      * @param pEngine
      *            AndEngine's mEngine object.
      */
-    public LevelSelector(final int pMaxLevel, final ArrayList<Integer> pNumStars,
+    public LevelSelector(final int pMaxLevel, int pNumStars,
             final int pCameraWidth, final int pCameraHeight,
             final Scene pScene, final org.andengine.engine.Engine pEngine) {
         this.mScene = pScene;
@@ -189,8 +189,8 @@ public class LevelSelector extends Entity{
          * The LevelTile should keep track of level number and lock status. Feel
          * free to add additional data within level tiles
          */
-        private final boolean mIsLocked;
-        private final int mLevelNumber;
+        private boolean mIsLocked;
+        private int mLevelNumber;
         private final ITiledTextureRegion mStar;
         private Sprite StarSprite;
 
@@ -237,7 +237,7 @@ public class LevelSelector extends Entity{
                 mStar.setCurrentTileIndex(0);
                 
             } else {
-            	mStar.setCurrentTileIndex(mNumStars.get(mLevelNumber-1));
+            	mStar.setCurrentTileIndex(mNumStars);
             	
             }
 
