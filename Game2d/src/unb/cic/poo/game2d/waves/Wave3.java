@@ -14,10 +14,10 @@ public class Wave3 extends Wave{
 		super();
 		this.enemies = new ArrayList<Enemy>();
 		this.enemies.add(new ChasingYEnemy(GameActivity.CAMERA_WIDTH+50, (float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.9f, GameManager.getInstance().getPlayer().getSpeed()*0.2f));
-		this.enemies.add(new ChasingYEnemy(GameActivity.CAMERA_WIDTH+50, (float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.9f, GameManager.getInstance().getPlayer().getSpeed()*0.18f));
-		this.enemies.add(new ChasingYEnemy(GameActivity.CAMERA_WIDTH+50, (float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.9f, GameManager.getInstance().getPlayer().getSpeed()*0.16f));
-		this.enemies.add(new ChasingYEnemy(GameActivity.CAMERA_WIDTH+50, (float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.9f, GameManager.getInstance().getPlayer().getSpeed()*0.14f));
-		this.enemies.add(new ChasingYEnemy(GameActivity.CAMERA_WIDTH+50, (float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.9f, GameManager.getInstance().getPlayer().getSpeed()*0.12f));
+		this.enemies.add(new ChasingYEnemy(GameActivity.CAMERA_WIDTH+50, (float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.8f, GameManager.getInstance().getPlayer().getSpeed()*0.18f));
+		this.enemies.add(new ChasingYEnemy(GameActivity.CAMERA_WIDTH+50, (float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.7f, GameManager.getInstance().getPlayer().getSpeed()*0.16f));
+		this.enemies.add(new ChasingYEnemy(GameActivity.CAMERA_WIDTH+50, (float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.6f, GameManager.getInstance().getPlayer().getSpeed()*0.14f));
+		this.enemies.add(new ChasingYEnemy(GameActivity.CAMERA_WIDTH+50, (float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.5f, GameManager.getInstance().getPlayer().getSpeed()*0.12f));
 	}
 	
 
