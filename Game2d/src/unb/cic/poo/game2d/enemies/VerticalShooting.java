@@ -63,7 +63,7 @@ public class VerticalShooting extends Enemy{
 			public void onUpdate(float pSecondsElapsed){
 				timer -= pSecondsElapsed;					
 						
-				if(timer <= 0){
+				if(timer <= 0 && getX() <= GameActivity.CAMERA_WIDTH){
 					shoot();
 					timer = 1f;
 				}
