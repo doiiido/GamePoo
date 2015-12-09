@@ -47,7 +47,7 @@ public abstract class Enemy extends SpaceshipAnimated implements IEntityModifier
 			VertexBufferObjectManager pVertexBufferObjectManager) {
 		super(pX, pY, texture, pVertexBufferObjectManager);
 		movementFinished = false;
-		this.registerUpdateHandler(new EnemyHandler(this));
+		GameManager.getInstance().getGameScene().registerUpdateHandler(new EnemyHandler(this));
 		this.scoreObtained = 200;
 	}
 	

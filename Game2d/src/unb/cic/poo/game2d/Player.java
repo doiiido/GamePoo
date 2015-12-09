@@ -53,6 +53,7 @@ public class Player extends SpaceshipAnimated{
 	private boolean screenBeingPressed = false;
 	private IUpdateHandler pressedShootHandler;
 	private PlayerStatistics statistics;
+	private boolean isDead;
 	
 	// ===========================================================
 	// Constructors
@@ -246,5 +247,15 @@ public class Player extends SpaceshipAnimated{
 
 	public void setStatistics(PlayerStatistics statistics) {
 		this.statistics = statistics;
+	}
+
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return isDead;
+	}
+
+	public void setIsDead(boolean b) {
+		this.isDead = b;
+		
 	}
 }

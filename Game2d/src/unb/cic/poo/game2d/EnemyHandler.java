@@ -17,14 +17,20 @@ public class EnemyHandler implements IUpdateHandler {
 			@Override
 			public void run() {
 				if(enemy.movementFinished){
+					finish();
 					enemy.removeEnemy();
 				}
-				else if(GameManager.getInstance().getEnemies().contains(enemy) && enemy.collidesWith(GameManager.getInstance().getPlayer())){
+				else if(!GameManager.getInstance().getPlayer().isDead() && GameManager.getInstance().getEnemies().contains(enemy) && enemy.collidesWith(GameManager.getInstance().getPlayer())){
+					GameManager.getInstance().getPlayer().setIsDead(true);
 					GameManager.getInstance().getPlayer().decrementLife(Enemy.INFINITY);
 				}
 			}
 		});
 
+	}
+	
+	public void finish(){
+		GameManager.getInstance().getGameScene().unregisterUpdateHandler(this);
 	}
 
 	@Override
