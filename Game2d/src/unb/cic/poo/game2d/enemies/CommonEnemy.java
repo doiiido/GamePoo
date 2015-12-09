@@ -29,7 +29,7 @@ public class CommonEnemy extends Enemy{
 	
 	
 	public CommonEnemy(float pX, float pY, boolean dropsIten){
-		super(pX, pY, ResourceManager.laserTextureRegion, 
+		super(pX, pY, ResourceManager.walkerTextureRegion, 
 			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), dropsIten);
 		
 		this.speed = DEFAULT_COMMON_ENEMY_SPEED;
@@ -39,7 +39,7 @@ public class CommonEnemy extends Enemy{
 	
 	
 	public CommonEnemy(float pX, float pY, ItemGen itenDropped){
-		super(pX, pY, ResourceManager.laserTextureRegion, 
+		super(pX, pY, ResourceManager.walkerTextureRegion, 
 			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), itenDropped);
 	
 		this.speed = DEFAULT_COMMON_ENEMY_SPEED;

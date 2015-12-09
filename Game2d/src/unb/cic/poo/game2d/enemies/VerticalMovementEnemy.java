@@ -29,6 +29,7 @@ public class VerticalMovementEnemy extends Enemy{
 	private BulletType bulletType = new CommonBulletType();
 	private float timer;
 	private float posXfinal;
+	private float posXinicial;
 	private float yInicial;
 	private IUpdateHandler shootHandler;
 	
@@ -39,7 +40,8 @@ public class VerticalMovementEnemy extends Enemy{
 		this.life = COMMON_ENEMY_LIFE;
 		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
 		this.yInicial = pY;
-		this.posXfinal = posXfinal;		
+		this.posXfinal = posXfinal;
+		this.posXinicial = pX;
 		
 		this.setMovement();
 		
@@ -135,7 +137,7 @@ public class VerticalMovementEnemy extends Enemy{
 		float distance = GameManager.getInstance().getGameCamera().getWidth();
 		float durationTime = distance/this.speed;
 		
-		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -(GameActivity.CAMERA_WIDTH-this.posXfinal), 0);
+		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -(this.posXinicial-this.posXfinal), 0);
 		
 		MoveByModifier firstUp = new MoveByModifier(durationTime, 0, -this.yInicial);
 		
