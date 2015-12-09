@@ -115,7 +115,7 @@ public class VerticalMovementEnemy extends Enemy{
 			/* O inimigo atira de 1 em 1 segundo. */
 			public void onUpdate(float pSecondsElapsed){
 				timer -= pSecondsElapsed;
-				if(timer <= 0){
+				if(timer <= 0 && getX() <= GameActivity.CAMERA_WIDTH){
 					shoot();
 					timer = 0.5f;
 				}
