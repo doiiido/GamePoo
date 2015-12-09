@@ -73,6 +73,9 @@ public class SignUpActivity extends Activity {
 					user.signUpInBackground(new SignUpCallback() {
 						public void done(ParseException e) {
 							if (e == null) {
+								HighScore.getInstance().setUser(user);
+								HighScore.getInstance().setScore(GameManager.getInstance().getSaveHandler().getStoryMaxScore());//GameActivity.getScore());
+								HighScore.getInstance().setStage(GameManager.getInstance().getSaveHandler().getUnlockedFases());//GameActivity.getStage());
 								loginTask();
 								signed = true;
 							} else {
@@ -110,9 +113,6 @@ public class SignUpActivity extends Activity {
 			public void done(ParseUser user, ParseException e) {
 				if (user != null) {
 					// Se o usuário existe e é autenticado, envia ao ScoreTableActivity.class
-					HighScore.getInstance().setUser(user);
-					HighScore.getInstance().setScore(GameManager.getInstance().getSaveHandler().getStoryMaxScore());//GameActivity.getScore());
-					HighScore.getInstance().setStage(GameManager.getInstance().getSaveHandler().getUnlockedFases());//GameActivity.getStage());
 					Intent intent = new Intent(SignUpActivity.this, UpdateActivity.class);
 					startActivity(intent);
 					Toast.makeText(getApplicationContext(), "Successfully Logged in.", Toast.LENGTH_LONG).show();
