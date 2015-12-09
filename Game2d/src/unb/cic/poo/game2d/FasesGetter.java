@@ -2,8 +2,8 @@ package unb.cic.poo.game2d;
 
 import java.util.LinkedList;
 
-import unb.cic.poo.game2d.fases.Fase;
-import unb.cic.poo.game2d.fases.Fase1;
+import unb.cic.poo.game2d.fases.*;
+
 
 public class FasesGetter {
 	private LinkedList<Fase> fases;
