@@ -60,13 +60,13 @@ public class LaserBullet extends Bullet{
 	}
 	
 	//sobrecarga de contrutor
-	public LaserBullet(SpaceshipAnimated nave, float pX, float pY, boolean isEnemyBullet, int angleOfTheLaser, float durationTime) {
+	public LaserBullet(SpaceshipAnimated nave_, float pX, float pY, boolean isEnemyBullet, int angleOfTheLaser, float durationTime) {
 		super((isEnemyBullet)? pX-1280:pX, pY-5*BULLET_HEIGHT, (isEnemyBullet)? ResourceManager.enemyLaserBulletTextureRegion:ResourceManager.laserBulletTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		
 		this.animate(120);
 		this.damage = BULLET_DAMAGE;
-		this.nave = nave;
+		this.nave = nave_;
 		this.enemyBullet = isEnemyBullet;
 		this.durationTime_ = durationTime;
 		
@@ -79,10 +79,12 @@ public class LaserBullet extends Bullet{
 				GameManager.getInstance().getGameEngine().runOnUpdateThread(new Runnable() {			
 					@Override
 					public void run() {
-						if(totalElapsedSeconds > durationTime_){
+						if(totalElapsedSeconds > durationTime_ || (enemyBullet && ((Enemy)nave).getIsDead())){
 							removeBullet();
 						}
-						setMovement(enemyBullet);
+						else{
+							setMovement(enemyBullet);
+						}
 					}
 				});
 			}

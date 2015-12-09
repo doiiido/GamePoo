@@ -25,7 +25,7 @@ public class VerticalShooting extends Enemy{
 	private static final int DEFAULT_COMMON_VENEMY_SPEED = 500;/* Velocidade vertical alterada. */
 	
 	private static final int COMMON_ENEMY_LIFE = 1;
-	private BulletType bulletType = new LaserBulletType(this);
+	private BulletType bulletType = new LaserBulletType(this, 0, 0.3f);
 	private float timer;
 	private float posXinicial;
 	private float posYinicial;

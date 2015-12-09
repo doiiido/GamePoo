@@ -31,6 +31,7 @@ public class ConstantXLaser extends Enemy{
 	private float posXfinal;
 	private IUpdateHandler shootHandler;
 	private float velocidade;
+	private boolean shot;
 	
 	public enum goUpOrDown{
 		goUp, goDown;
@@ -56,6 +57,7 @@ public class ConstantXLaser extends Enemy{
 		this.posYinicial = pY;
 		this.movimento = movimento;
 		this.velocidade = velocidade;
+		this.shot = false;
 		
 		this.setMovement();
 		

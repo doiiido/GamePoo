@@ -66,7 +66,7 @@ public class Player extends SpaceshipAnimated{
 		this.life = DEFAULT_PLAYER_LIFE;
 		this.statistics = new PlayerStatistics();
 		this.common = new CommonBulletType();
-		this.secondaryBulletType = new CommonBulletType();
+		this.secondaryBulletType = new LaserBulletType(this);
 		this.bulletType = this.common;
 		
 		pressedShootHandler = new IUpdateHandler() {
@@ -102,7 +102,8 @@ public class Player extends SpaceshipAnimated{
 		this.setX(0);
 		this.setY(GameActivity.CAMERA_HEIGHT/2);
 		this.statistics = new PlayerStatistics();
-		this.secondaryBulletType = new CommonBulletType();
+		this.secondaryBulletType = new LaserBulletType(this);//new CommonBulletType();
+		
 		this.bulletType = common;
 	}
 
