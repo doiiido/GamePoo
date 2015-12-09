@@ -26,7 +26,8 @@ public class BulletHandler implements IUpdateHandler {
 															//(Explodir, aumentar score do player, etc).
 							}
 						}
-						else{
+						else if(!GameManager.getInstance().getPlayer().isDead()){
+							
 							bullet.onPlayerHit();
 						}
 					}

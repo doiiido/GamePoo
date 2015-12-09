@@ -14,6 +14,7 @@ import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.scene.menu.item.decorator.ScaleMenuItemDecorator;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.sprite.TiledSprite;
+import org.andengine.entity.text.Text;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
@@ -52,6 +53,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
 	private SpriteMenuItem menuMenu;
 	private TiledSprite switcher;
 	private Sprite end;
+	private Text transition;
 	
 	//---------------------------------------------
     // CONSTANTS
@@ -403,6 +405,18 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
 				ResourceManager.mMusic.resume();
 			}
     	}
+    }
+    
+    public void showTransition(String text) {
+    	resourceManager.font.load();
+    	transition = new Text(camera.getWidth(), camera.getHeight(), resourceManager.font, text, vbom);
+    	transition.setPosition((camera.getWidth()/2)+transition.getWidth()/2, camera.getHeight()*3/4);
+		attachChild(transition); entitiesList.add(transition);
+	}
+    
+    public void hideTransition(){
+    	resourceManager.font.unload();
+    	detachChild(transition);entitiesList.remove(transition);
     }
 
 	@Override

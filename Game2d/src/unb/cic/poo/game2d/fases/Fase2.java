@@ -1,5 +1,7 @@
 package unb.cic.poo.game2d.fases;
 
+import unb.cic.poo.game2d.GameManager;
+import unb.cic.poo.game2d.scenes.GameScene;
 import unb.cic.poo.game2d.waves.Fase2.*;
 
 public class Fase2 extends Fase{	
@@ -11,4 +13,9 @@ public class Fase2 extends Fase{
 		this.waves.add(new Wave4());
 		this.waves.add(new Wave5());
 	}	
+	
+	@Override
+	public void onFaseStart() {
+		((GameScene)GameManager.getInstance().getGameScene()).showTransition("Fase 2");
+	}
 }

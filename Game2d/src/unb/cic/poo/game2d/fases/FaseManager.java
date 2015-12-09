@@ -69,7 +69,7 @@ public class FaseManager implements IUpdateHandler{
 			fases.pop();
 			i++;
 		}
-		fases.getFirst().start();
+		fases.getFirst().onFaseStart();
 		GameManager.getInstance().getGameScene().registerUpdateHandler(this);
 	}
 	
