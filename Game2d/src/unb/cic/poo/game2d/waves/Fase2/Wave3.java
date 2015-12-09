@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.enemies.*;
+import unb.cic.poo.game2d.items.*;
 import unb.cic.poo.game2d.waves.Wave;
 
 public class Wave3 extends Wave{

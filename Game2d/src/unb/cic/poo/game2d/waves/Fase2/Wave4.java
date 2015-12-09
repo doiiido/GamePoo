@@ -7,6 +7,10 @@ import unb.cic.poo.game2d.enemies.CommonEnemy;
 import unb.cic.poo.game2d.enemies.ConstantXLaser;
 import unb.cic.poo.game2d.enemies.Enemy;
 import unb.cic.poo.game2d.enemies.VerticalMovementLaser;
+import unb.cic.poo.game2d.items.DoubleBulletGen;
+import unb.cic.poo.game2d.items.LaserBulletGen;
+import unb.cic.poo.game2d.items.LifeItemGen;
+import unb.cic.poo.game2d.items.MachineGunGen;
 import unb.cic.poo.game2d.waves.Wave;
 
 public class Wave4 extends Wave{
@@ -189,7 +193,7 @@ public class Wave4 extends Wave{
 		
 		
 		//Quarta linha baixo
-		this.enemies.add(new CommonEnemy((float)(GameActivity.CAMERA_WIDTH+espacoEntreLinhas+espacoInicial+220), (float) (GameActivity.CAMERA_HEIGHT*separacao)));
+		this.enemies.add(new CommonEnemy((float)(GameActivity.CAMERA_WIDTH+espacoEntreLinhas+espacoInicial+220), (float) (GameActivity.CAMERA_HEIGHT*separacao), new LaserBulletGen()));
 		aumentaSeparacao();
 		this.enemies.add(new CommonEnemy((float)(GameActivity.CAMERA_WIDTH+espacoEntreLinhas+espacoInicial+220f), (float) (GameActivity.CAMERA_HEIGHT*separacao)));
 		aumentaSeparacao();
@@ -207,7 +211,7 @@ public class Wave4 extends Wave{
 		aumentaSeparacao();
 		this.enemies.add(new CommonEnemy((float)(GameActivity.CAMERA_WIDTH+espacoEntreLinhas+espacoInicial+220f), (float) (GameActivity.CAMERA_HEIGHT*separacao)));
 		aumentaSeparacao();
-		this.enemies.add(new CommonEnemy((float)(GameActivity.CAMERA_WIDTH+espacoEntreLinhas+espacoInicial+220f), (float) (GameActivity.CAMERA_HEIGHT*separacao)));
+		this.enemies.add(new CommonEnemy((float)(GameActivity.CAMERA_WIDTH+espacoEntreLinhas+espacoInicial+220f), (float) (GameActivity.CAMERA_HEIGHT*separacao), new DoubleBulletGen()));
 		aumentaSeparacao();
 		
 		resetSeparacao();
