@@ -216,7 +216,7 @@ public class Wave4 extends Wave{
 		
 		resetSeparacao();
 		
-		this.enemies.add(new ConstantXLaser(GameActivity.CAMERA_WIDTH*0.4f, -100f, ConstantXLaser.goUpOrDown.goDown, 1/3f, new LifeItemGen()));
+		this.enemies.add(new ConstantXLaser(GameActivity.CAMERA_WIDTH*0.4f, -100f, ConstantXLaser.goUpOrDown.goDown, 1/3f));
 		this.enemies.add(new VerticalMovementLaser(GameActivity.CAMERA_WIDTH+200f, GameActivity.CAMERA_HEIGHT*0.9f, GameActivity.CAMERA_WIDTH*0.8f, 1.2f));
 		
 	}
