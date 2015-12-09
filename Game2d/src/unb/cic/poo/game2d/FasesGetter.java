@@ -11,7 +11,7 @@ public class FasesGetter {
 	public LinkedList<Fase> getFases(){
 		fases = new LinkedList<Fase>();
 		fases.add(new Fase1());
-		fases.add(new Fase1());
+		fases.add(new Fase2());
 		
 		return fases;
 	}
