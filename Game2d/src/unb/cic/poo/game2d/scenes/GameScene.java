@@ -410,7 +410,7 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
     public void showTransition(String text) {
     	resourceManager.font.load();
     	transition = new Text(camera.getWidth(), camera.getHeight(), resourceManager.font, text, vbom);
-    	transition.setPosition((camera.getWidth()/2)+transition.getWidth()/2, camera.getHeight()*3/4);
+    	transition.setPosition((camera.getWidth()/2)-transition.getWidth()/2, (camera.getHeight()/2)-(transition.getWidth()/2));
 		attachChild(transition); entitiesList.add(transition);
 	}
     

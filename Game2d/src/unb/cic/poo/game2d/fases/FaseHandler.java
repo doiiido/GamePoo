@@ -21,7 +21,7 @@ public class FaseHandler implements IUpdateHandler {
 	public void onUpdate(float pSecondsElapsed) {
 		if(fase.waves.isEmpty()){
 			GameManager.getInstance().getGameScene().unregisterUpdateHandler(this);
-			fase.setFaseFinished(true);
+			fase.onFaseFinished();
 		}
 		else if(fase.getCurrentWave().waveFinished()){
 			Wave wave = fase.nextWave();

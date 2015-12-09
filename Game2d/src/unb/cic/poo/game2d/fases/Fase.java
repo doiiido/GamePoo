@@ -55,6 +55,7 @@ public class Fase{
 	/*Esse método é chamado toda vez que a fase é finalizada.*/
 	public void onFaseFinished() {
 		
+		setFaseFinished(true);
 	}
 
 	/*Esse método é chamado antes de uma fase iniciar.*/
