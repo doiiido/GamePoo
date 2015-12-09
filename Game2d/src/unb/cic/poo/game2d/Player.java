@@ -223,6 +223,7 @@ public class Player extends SpaceshipAnimated{
 		GameScene.setLifeBar(lifewidth);
 		
 		if(this.life <= 0){
+			this.isDead = true;
 			BaseScene aux = SceneManager.gameScene;
 			((GameScene) aux).gameOver(false);
 		}
