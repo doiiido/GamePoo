@@ -39,7 +39,7 @@ public class FaseManager implements IUpdateHandler{
 			Fase fase = nextFase();
 			if(fase != null){
 				fase.onFaseStart();
-				fase.start();
+				//fase.start();
 			}
 		}
 		
@@ -48,7 +48,7 @@ public class FaseManager implements IUpdateHandler{
 	private Fase nextFase() {
 		GameManager.getInstance().getSaveHandler().setFaseScore(currentFaseIndex - 1, getCurrentFase().getFaseScore());
 		GameManager.getInstance().getSaveHandler().nextFase();
-		fases.pop().onFaseFinished();
+		this.fases.pop();
 		currentFaseIndex++;
 		return fases.isEmpty() ? null : fases.getFirst();
 	}
