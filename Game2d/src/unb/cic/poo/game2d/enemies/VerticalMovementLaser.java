@@ -146,8 +146,9 @@ public class VerticalMovementLaser extends Enemy{
 	public void setMovement(){
 		float distance = GameManager.getInstance().getGameCamera().getWidth();
 		float durationTime = distance/this.speed;
+		float durationTimeX = (this.posXinicial-this.posXfinal)/this.speed;
 		
-		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -(this.posXinicial-this.posXfinal), 0);
+		MoveByModifier moveByModifier = new MoveByModifier(durationTimeX, -(this.posXinicial-this.posXfinal), 0);
 		
 		MoveByModifier firstUp = new MoveByModifier(durationTime, 0, -this.yInicial);
 		
