@@ -173,12 +173,12 @@ public class ConstantXLaser extends Enemy{
 		
 		if(getMovimento().equals(ConstantXLaser.goUpOrDown.goUp)){
 			moveByModifier = new MoveByModifier(durationTime*1/velocidade, 0, -(posYinicial - GameActivity.CAMERA_HEIGHT));
-			posicionar = new MoveByModifier(durationTime*1/velocidade, 0, GameActivity.CAMERA_HEIGHT-this.posYinicial);
+			posicionar = new MoveByModifier(durationTime*2, 0, GameActivity.CAMERA_HEIGHT-this.posYinicial);
 			sequenceVertical = new SequenceEntityModifier(up, down);
 		}			
 		else{
 			moveByModifier = new MoveByModifier(durationTime*1/velocidade, 0, -(posYinicial));
-			posicionar = new MoveByModifier(durationTime*1/velocidade, 0, -this.posYinicial);
+			posicionar = new MoveByModifier(durationTime*2, 0, -this.posYinicial);
 			sequenceVertical = new SequenceEntityModifier(down, up);
 		}		
 		

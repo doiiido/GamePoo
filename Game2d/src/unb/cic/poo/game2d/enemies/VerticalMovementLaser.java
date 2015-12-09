@@ -29,7 +29,7 @@ public class VerticalMovementLaser extends Enemy{
 	private static final int DEFAULT_COMMON_VENEMY_SPEED = 500;/* Velocidade vertical alterada. */
 	
 	private static final int COMMON_ENEMY_LIFE = 1;
-	private BulletType bulletType = new LaserBulletType(this);
+	private BulletType bulletType = new LaserBulletType(this, 0, 0.3f);
 	private float timer;
 	private float posXfinal;
 	private float posXinicial;
@@ -143,7 +143,7 @@ public class VerticalMovementLaser extends Enemy{
 		float distance = GameManager.getInstance().getGameCamera().getWidth();
 		float durationTime = distance/this.speed;
 		
-		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -(GameActivity.CAMERA_WIDTH-this.posXfinal), 0);
+		MoveByModifier moveByModifier = new MoveByModifier(durationTime, -(this.posXinicial-this.posXfinal), 0);
 		
 		MoveByModifier firstUp = new MoveByModifier(durationTime, 0, -this.yInicial);
 		
