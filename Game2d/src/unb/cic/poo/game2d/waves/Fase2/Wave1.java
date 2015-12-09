@@ -13,10 +13,10 @@ public class Wave1 extends Wave{
 		super();
 		this.enemies = new ArrayList<Enemy>();
 		
-		enemies.add(new VerticalMovementEnemy(GameActivity.CAMERA_WIDTH+50f, (float)GameActivity.CAMERA_HEIGHT*0.3f, (float)GameActivity.CAMERA_WIDTH*0.3f));
-		enemies.add(new VerticalMovementEnemy(GameActivity.CAMERA_WIDTH+50f, (float)GameActivity.CAMERA_HEIGHT*0.5f, (float)GameActivity.CAMERA_WIDTH*0.5f));
-		enemies.add(new VerticalMovementEnemy(GameActivity.CAMERA_WIDTH+50f, (float)GameActivity.CAMERA_HEIGHT*0.7f, (float)GameActivity.CAMERA_WIDTH*0.7f));
-		enemies.add(new VerticalMovementEnemy(GameActivity.CAMERA_WIDTH+50f, (float)GameActivity.CAMERA_HEIGHT*0.9f, (float)GameActivity.CAMERA_WIDTH*0.9f));
+		enemies.add(new VerticalMovementEnemy(GameActivity.CAMERA_WIDTH+400, (float)GameActivity.CAMERA_HEIGHT*0.3f, (float)GameActivity.CAMERA_WIDTH*0.3f));
+		enemies.add(new VerticalMovementEnemy(GameActivity.CAMERA_WIDTH+400, (float)GameActivity.CAMERA_HEIGHT*0.5f, (float)GameActivity.CAMERA_WIDTH*0.5f));
+		enemies.add(new VerticalMovementEnemy(GameActivity.CAMERA_WIDTH+400, (float)GameActivity.CAMERA_HEIGHT*0.7f, (float)GameActivity.CAMERA_WIDTH*0.7f));
+		enemies.add(new VerticalMovementEnemy(GameActivity.CAMERA_WIDTH+400, (float)GameActivity.CAMERA_HEIGHT*0.9f, (float)GameActivity.CAMERA_WIDTH*0.9f));
 		
 	}
 
