@@ -7,10 +7,10 @@ import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.waves.Wave;
 
-public class Wave3 extends Wave{
+public class WavePerseguicao extends Wave{
 	
 	/*Wave de ChasingEnemy*/
-	public Wave3(){
+	public WavePerseguicao(){
 		super();
 		this.enemies = new ArrayList<Enemy>();
 		this.enemies.add(new ChasingYEnemy(GameActivity.CAMERA_WIDTH+50, (float) (GameActivity.CAMERA_HEIGHT*0.2), GameActivity.CAMERA_WIDTH*0.9f, GameManager.getInstance().getPlayer().getSpeed()*0.2f));
