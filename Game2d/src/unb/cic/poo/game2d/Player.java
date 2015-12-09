@@ -103,8 +103,7 @@ public class Player extends SpaceshipAnimated{
 		this.setX(0);
 		this.setY(GameActivity.CAMERA_HEIGHT/2);
 		this.statistics = new PlayerStatistics();
-		this.secondaryBulletType = new LaserBulletType(this);//new CommonBulletType();
-		
+		this.secondaryBulletType = new CommonBulletType();
 		this.bulletType = common;
 	}
 

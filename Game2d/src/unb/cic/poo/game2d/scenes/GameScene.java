@@ -445,4 +445,12 @@ public class GameScene extends BaseScene implements IOnMenuItemClickListener, IO
 	            return false;
 		}
 	}
+
+	public ParallaxApplication getParallaxLayer() {
+		return parallaxLayer;
+	}
+
+	public void setParallaxLayer(ParallaxApplication parallaxLayer) {
+		this.parallaxLayer = parallaxLayer;
+	}
 }

@@ -164,6 +164,8 @@ public class ResourceManager {
 	
 	BitmapTextureAtlas backgroundTexture;
 	public static ITextureRegion backgroundTextureRegion;
+	BitmapTextureAtlas Fase2Texture;
+	public static ITextureRegion Fase2TextureRegion;
 	
 	//---------------------------------------------
     // ICONES - GERAIS
@@ -486,6 +488,11 @@ public class ResourceManager {
 	    backgroundTextureRegion = BitmapTextureAtlasTextureRegionFactory
 	    		   .createFromAsset(backgroundTexture, activity, "background.png",0,0);
 	    backgroundTexture.load();
+	    
+	    Fase2Texture = new BitmapTextureAtlas(engine.getTextureManager(), 2048, 512, TextureOptions.BILINEAR);
+	    Fase2TextureRegion = BitmapTextureAtlasTextureRegionFactory
+	    		   .createFromAsset(Fase2Texture, activity, "Fase2.png",0,0);
+	    Fase2Texture.load();
 	
 	    /* PASTA ICONS*/
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/icons/");
@@ -633,6 +640,7 @@ public class ResourceManager {
 		laserBulletTexture.unload(); laserBulletTextureRegion = null;
 		flameTexture.unload(); flameTextureRegion = null;
 		backgroundTexture.unload(); backgroundTextureRegion = null;
+		Fase2Texture.unload();Fase2TextureRegion = null;
 		unloadIcons();
 	}
 }

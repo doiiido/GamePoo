@@ -11,7 +11,12 @@ public class Fase1 extends Fase{
 	public Fase1(){
 		this.waves.add(new WaveInicial());
 		this.waves.add(new Wave2());
-		
+		this.waves.add(new Wave3());
+		this.waves.add(new Wave4());
+		this.waves.add(new Wave5());
+		this.waves.add(new Wave6());
+		this.waves.add(new Wave7());
+		this.waves.add(new Wave8());
 	}	
 	
 	@Override
@@ -28,6 +33,7 @@ public class Fase1 extends Fase{
 	        }
 	    }));
 	}
+	
 	public void onFaseFinished() {
 		((GameScene)GameManager.getInstance().getGameScene()).showTransition("Bom Trabalho!");
 		GameManager.getInstance().getGameScene().registerUpdateHandler(new TimerHandler(3f, new ITimerCallback()
