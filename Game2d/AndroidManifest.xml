@@ -32,6 +32,8 @@
         </activity>
         <activity android:name="unb.cic.poo.game2d.parse.SignUpActivity" >
         </activity>
+        <activity android:name="unb.cic.poo.game2d.parse.UpdateActivity" >
+        </activity>
         <activity android:name="unb.cic.poo.game2d.parse.ScoreTableActivity" >
         </activity>
         <service android:name="com.parse.PushService" />

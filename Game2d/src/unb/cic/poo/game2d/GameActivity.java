@@ -28,8 +28,6 @@ public class GameActivity extends BaseGameActivity {
     public static Camera mCamera;
     
     private static boolean iniciado = false;
-    private static int score = 0;
-    private static int stage = 1;
 
 	private ResourceManager mResourceManager;
     private SceneManager mSceneManager;
@@ -43,22 +41,6 @@ public class GameActivity extends BaseGameActivity {
 
 	public static void setIniciado(boolean iniciado) {
 		GameActivity.iniciado = iniciado;
-	}
-	
-	public static int getScore(){
-		return score;
-	}
-	
-	public static void setScore(int newScore){
-		score = newScore;
-	}
-	
-	public static int getStage(){
-		return stage;
-	}
-	
-	public static void setStage(int newStage){
-		stage = newStage;
 	}
 	
 	@Override

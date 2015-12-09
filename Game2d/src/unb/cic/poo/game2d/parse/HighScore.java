@@ -10,7 +10,7 @@ public class HighScore extends ParseObject {
 	// Essas strings servem para referenciar o objeto específico
 	private String tableUser = "User";
 	private String tableScore = "Score";
-	private String tablePosition = "Position";
+	//private String tablePosition = "Position";
 	private String tableStage = "Stage";
 	
 	public static HighScore getInstance() {
@@ -27,7 +27,6 @@ public class HighScore extends ParseObject {
  
     public void setUser(ParseUser user) {
         put(tableUser, user);
-        highScore.saveInBackground();
     }
  
     public int getScore() {
@@ -36,7 +35,6 @@ public class HighScore extends ParseObject {
  
     public void setScore(int score) {
         put(tableScore, score);
-        highScore.saveInBackground();
     }
     
     public void incrementScore(int increm){
@@ -45,13 +43,13 @@ public class HighScore extends ParseObject {
     	highScore.saveEventually(); // Quando houver conexão salva, mas não há callback
     }
     
-    public int getPosition() {
+    /*public int getPosition() {
         return getInt(tablePosition);
     }
  
     public void setPosition(int position) {
         put(tablePosition, position);
-    }
+    }*/
     
     public int getStage() {
         return getInt(tableStage);
@@ -59,6 +57,5 @@ public class HighScore extends ParseObject {
  
     public void setStage(int stage) {
         put(tableStage, stage);
-        highScore.saveInBackground();
     }
 }

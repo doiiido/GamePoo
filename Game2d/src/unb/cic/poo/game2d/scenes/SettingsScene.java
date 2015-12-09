@@ -1,7 +1,6 @@
 package unb.cic.poo.game2d.scenes;
 
 import org.andengine.engine.camera.Camera;
-import org.andengine.engine.options.EngineOptions;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
@@ -16,7 +15,7 @@ import com.parse.ParseUser;
 import android.content.Intent;
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.parse.LoginSignupActivity;
-import unb.cic.poo.game2d.parse.ScoreTableActivity;
+import unb.cic.poo.game2d.parse.UpdateActivity;
 import unb.cic.poo.game2d.scenes.SceneManager.SceneType;
 
 public class SettingsScene extends BaseScene implements IOnMenuItemClickListener{
@@ -163,7 +162,7 @@ public class SettingsScene extends BaseScene implements IOnMenuItemClickListener
 			// Se nao eh anonimo, resgata suas informacoes de Parse.com
 			ParseUser currentUser = ParseUser.getCurrentUser();
 			if (currentUser != null) {
-				Intent intent = new Intent(act, ScoreTableActivity.class);
+				Intent intent = new Intent(act, UpdateActivity.class);
 				act.startActivity(intent);
 				act.finish();
 			} else {

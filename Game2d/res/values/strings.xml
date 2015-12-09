@@ -11,6 +11,8 @@
     <string name="BackBtn">Back</string>
     <string name="LogoutBtn">Log Out</string>
     <string name="Email">Email</string>
-    <string name="Welcome">Welcome!</string>
+    <string name="User">User</string>
+    <string name="Score">Score</string>
+    <string name="Stage">Stage</string>
 
 </resources>

@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import unb.cic.poo.game2d.GameActivity;
+import unb.cic.poo.game2d.GameManager;
 
 import com.example.game2d.R;
 import com.parse.LogInCallback;
@@ -30,6 +30,7 @@ public class SignUpActivity extends Activity {
 	EditText email;
 	EditText password;
 	EditText username;
+	private static boolean signed = false; 
 	
 	//---------------------------------------------
     // CLASS LOGIC
@@ -72,8 +73,8 @@ public class SignUpActivity extends Activity {
 					user.signUpInBackground(new SignUpCallback() {
 						public void done(ParseException e) {
 							if (e == null) {
-								HighScore.getInstance().setUser(user);
 								loginTask();
+								signed = true;
 							} else {
 								Toast.makeText(getApplicationContext(), "Sign Up Error. E-mail or username already taken.", Toast.LENGTH_LONG).show();
 								e.printStackTrace();
@@ -110,9 +111,9 @@ public class SignUpActivity extends Activity {
 				if (user != null) {
 					// Se o usuário existe e é autenticado, envia ao ScoreTableActivity.class
 					HighScore.getInstance().setUser(user);
-					HighScore.getInstance().setScore(GameActivity.getScore());
-					HighScore.getInstance().setStage(GameActivity.getStage());
-					Intent intent = new Intent(SignUpActivity.this, ScoreTableActivity.class);
+					HighScore.getInstance().setScore(GameManager.getInstance().getSaveHandler().getStoryMaxScore());//GameActivity.getScore());
+					HighScore.getInstance().setStage(GameManager.getInstance().getSaveHandler().getUnlockedFases());//GameActivity.getStage());
+					Intent intent = new Intent(SignUpActivity.this, UpdateActivity.class);
 					startActivity(intent);
 					Toast.makeText(getApplicationContext(), "Successfully Logged in.", Toast.LENGTH_LONG).show();
 					finish();
@@ -125,6 +126,10 @@ public class SignUpActivity extends Activity {
 				}
 			}
 		});
+	}
+	
+	public static boolean getSigned(){
+		return signed;
 	}
 	
 }
