@@ -1,4 +1,4 @@
-package unb.cic.poo.game2d.waves;
+package unb.cic.poo.game2d.waves.fase1;
 
 import java.util.ArrayList;
 
