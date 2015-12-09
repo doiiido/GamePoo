@@ -10,6 +10,10 @@ public class Fase1 extends Fase{
 		this.waves.add(new Wave2());
 		this.waves.add(new Wave3());
 		this.waves.add(new Wave4());
+		this.waves.add(new Wave5());
+		this.waves.add(new Wave6());
+		this.waves.add(new Wave7());
+		this.waves.add(new Wave8());
 	}	
 	
 	@Override
