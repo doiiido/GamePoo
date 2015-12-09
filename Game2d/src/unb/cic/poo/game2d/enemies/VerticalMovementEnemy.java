@@ -31,9 +31,10 @@ public class VerticalMovementEnemy extends Enemy{
 	private float posXfinal;
 	private float posXinicial;
 	private float yInicial;
+	private float timerShoot;
 	private IUpdateHandler shootHandler;
 	
-	public VerticalMovementEnemy(float pX, float pY, float posXfinal) {
+	public VerticalMovementEnemy(float pX, float pY, float posXfinal, float tShoot) {
 		super(pX, pY, ResourceManager.shooterTextureRegion, 
 				GameManager.getInstance().getGameEngine().getVertexBufferObjectManager());
 		
@@ -42,71 +43,7 @@ public class VerticalMovementEnemy extends Enemy{
 		this.yInicial = pY;
 		this.posXfinal = posXfinal;
 		this.posXinicial = pX;
-		
-		this.setMovement();
-		
-		this.shootHandler = new IUpdateHandler(){
-			
-			/* O inimigo atira de 1 em 1 segundo. */
-			public void onUpdate(float pSecondsElapsed){
-				timer -= pSecondsElapsed;
-				if(timer <= 0){
-					shoot();
-					timer = 0.5f;
-				}
-			}
-
-			@Override
-			public void reset() {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		this.registerUpdateHandler(shootHandler);
-		
-	}
-	
-	
-	public VerticalMovementEnemy(float pX, float pY, float posXfinal, boolean dropsIten) {
-		super(pX, pY, ResourceManager.laserTextureRegion, 
-			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), dropsIten);
-		
-		this.life = COMMON_ENEMY_LIFE;
-		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
-		this.yInicial = pY;
-		this.posXfinal = posXfinal;		
-		
-		this.setMovement();
-		
-		this.shootHandler = new IUpdateHandler(){
-			
-			/* O inimigo atira de 1 em 1 segundo. */
-			public void onUpdate(float pSecondsElapsed){
-				timer -= pSecondsElapsed;
-				if(timer <= 0){
-					shoot();
-					timer = 0.5f;
-				}
-			}
-
-			@Override
-			public void reset() {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		this.registerUpdateHandler(shootHandler);
-	}
-	
-	
-	public VerticalMovementEnemy(float pX, float pY, float posXfinal, ItemGen itenDropped) {
-		super(pX, pY, ResourceManager.laserTextureRegion, 
-			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), itenDropped);
-		
-		this.life = COMMON_ENEMY_LIFE;
-		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
-		this.yInicial = pY;
-		this.posXfinal = posXfinal;		
+		this.timerShoot = tShoot;
 		
 		this.setMovement();
 		
@@ -117,7 +54,74 @@ public class VerticalMovementEnemy extends Enemy{
 				timer -= pSecondsElapsed;
 				if(timer <= 0 && getX() <= GameActivity.CAMERA_WIDTH){
 					shoot();
-					timer = 0.5f;
+					timer = timerShoot;
+				}
+			}
+
+			@Override
+			public void reset() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		this.registerUpdateHandler(shootHandler);
+		
+	}
+	
+	
+	public VerticalMovementEnemy(float pX, float pY, float posXfinal, float tShoot, boolean dropsIten) {
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), dropsIten);
+		
+		this.life = COMMON_ENEMY_LIFE;
+		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
+		this.yInicial = pY;
+		this.posXfinal = posXfinal;
+		this.timerShoot = tShoot;
+		
+		this.setMovement();
+		
+		this.shootHandler = new IUpdateHandler(){
+			
+			/* O inimigo atira de 1 em 1 segundo. */
+			public void onUpdate(float pSecondsElapsed){
+				timer -= pSecondsElapsed;
+				if(timer <= 0 && getX() <= GameActivity.CAMERA_WIDTH){
+					shoot();
+					timer = timerShoot;
+				}
+			}
+
+			@Override
+			public void reset() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		this.registerUpdateHandler(shootHandler);
+	}
+	
+	
+	public VerticalMovementEnemy(float pX, float pY, float posXfinal, float tShoot, ItemGen itenDropped) {
+		super(pX, pY, ResourceManager.laserTextureRegion, 
+			GameManager.getInstance().getGameEngine().getVertexBufferObjectManager(), itenDropped);
+		
+		this.life = COMMON_ENEMY_LIFE;
+		this.speed = DEFAULT_COMMON_VENEMY_SPEED;
+		this.yInicial = pY;
+		this.posXfinal = posXfinal;
+		this.timerShoot = tShoot;
+		
+		this.setMovement();
+		
+		this.shootHandler = new IUpdateHandler(){
+			
+			/* O inimigo atira de 1 em 1 segundo. */
+			public void onUpdate(float pSecondsElapsed){
+				timer -= pSecondsElapsed;
+				if(timer <= 0 && getX() <= GameActivity.CAMERA_WIDTH){
+					shoot();
+					timer = timerShoot;
 				}
 			}
 
