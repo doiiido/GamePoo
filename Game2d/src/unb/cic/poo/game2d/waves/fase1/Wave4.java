@@ -27,7 +27,7 @@ public class Wave4 extends Wave{
 		this.enemies.add(new CommonEnemy(GameActivity.CAMERA_WIDTH+500, (float) (GameActivity.CAMERA_HEIGHT*0.5)));
 		this.enemies.add(new CommonEnemy(GameActivity.CAMERA_WIDTH+500, (float) (GameActivity.CAMERA_HEIGHT*0.9)));
 		this.enemies.add(new VerticalShooting(GameActivity.CAMERA_WIDTH+700, (float) (GameActivity.CAMERA_HEIGHT*0.8),GameActivity.CAMERA_WIDTH, 0));
-		this.enemies.add(new VerticalMovementLaser(GameActivity.CAMERA_WIDTH+700, (float) (GameActivity.CAMERA_HEIGHT*0.6), GameActivity.CAMERA_WIDTH*0.9f));
+		this.enemies.add(new VerticalMovementLaser(GameActivity.CAMERA_WIDTH+700, (float) (GameActivity.CAMERA_HEIGHT*0.6), GameActivity.CAMERA_WIDTH*0.9f, 2f));
 		this.enemies.add(new VerticalShooting(GameActivity.CAMERA_WIDTH+700, (float) (GameActivity.CAMERA_HEIGHT*0.2),GameActivity.CAMERA_WIDTH, 0));
 	}
 }
