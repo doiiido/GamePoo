@@ -230,6 +230,19 @@ public class Player extends SpaceshipAnimated{
 		
 	}
 	
+	public void incrementLife(int increment) {
+		super.incrementLife(increment);
+		statistics.incrementDamageTaken(increment);
+		
+		this.lifewidth += this.lifescale;
+		GameScene.setLifeBar(lifewidth);
+		
+		if(this.life > 10){
+			this.life = 10;
+		}
+		
+	}
+	
 	public int changeBullet(){
 		if(bullet == 0) {
 			this.bulletType = this.secondaryBulletType;

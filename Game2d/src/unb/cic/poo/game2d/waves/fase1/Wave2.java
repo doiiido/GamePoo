@@ -3,6 +3,7 @@ package unb.cic.poo.game2d.waves.fase1;
 import java.util.ArrayList;
 
 import unb.cic.poo.game2d.enemies.*;
+import unb.cic.poo.game2d.items.LifeItemGen;
 import unb.cic.poo.game2d.GameActivity;
 import unb.cic.poo.game2d.GameManager;
 import unb.cic.poo.game2d.waves.Wave;
@@ -18,7 +19,7 @@ public class Wave2 extends Wave {
 		this.enemies.add(new CommonEnemy(GameActivity.CAMERA_WIDTH, (float) (GameActivity.CAMERA_HEIGHT*0.4)));
 		this.enemies.add(new CommonEnemy(GameActivity.CAMERA_WIDTH, (float) (GameActivity.CAMERA_HEIGHT*0.6)));
 		this.enemies.add(new VerticalMovementEnemy(GameActivity.CAMERA_WIDTH+400, (float) (GameActivity.CAMERA_HEIGHT*0.5), GameActivity.CAMERA_WIDTH*0.9f, 2f));
-		this.enemies.add(new VerticalShooting(GameActivity.CAMERA_WIDTH+400, (GameActivity.CAMERA_HEIGHT*0.8f), GameActivity.CAMERA_WIDTH, 0));
+		this.enemies.add(new VerticalShooting(GameActivity.CAMERA_WIDTH+400, (GameActivity.CAMERA_HEIGHT*0.8f), GameActivity.CAMERA_WIDTH, 0, new LifeItemGen()));
 		this.enemies.add(new VerticalShooting(GameActivity.CAMERA_WIDTH+400, (GameActivity.CAMERA_HEIGHT*0.2f), GameActivity.CAMERA_WIDTH, 0));
 	}
 }

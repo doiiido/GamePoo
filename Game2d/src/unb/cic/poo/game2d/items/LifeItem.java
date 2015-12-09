@@ -13,7 +13,7 @@ public class LifeItem extends Item {
 	
 	@Override
 	public void doEffect() {
-		GameManager.getInstance().getPlayer().decrementLife(-3);
+		GameManager.getInstance().getPlayer().incrementLife(3);
 	}
 
 }
